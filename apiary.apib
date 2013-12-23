@@ -60,7 +60,7 @@ Common response codes:
 <li>201 Created: Resource created. URI of the created Resource is returned in the Location headder and the "url" element in the response body.
 <li>204 No Content: Pre-validation completed with no action. This response is sent when a POST is called with "mode=prevalidate-only) on a resource that does not have a pre-validation routine.
 <li>400 Bad Request: Request is not valid (e.g. missing required paramterer, invalid values, etc).
-<li>409 Conflict: Pre-validation failed becoase a resource with an identical key (which may be a composite key combining several parameters) already exists. Response body will include a link to the URI of the existing resource.
+<li>409 Conflict: Pre-validation failed because a resource with an identical key (which may be a composite key combining several parameters) already exists. Response body will include a link to the URI of the existing resource.
 <li>422 Unprocessable Entity: Pre-validation failed due to a failed semantic test. The response body includes details on the failure(s).
 <li>Some POST response codes are only sentfor certain values of the "mode" URL parameter, as noted below:
 <ul>
