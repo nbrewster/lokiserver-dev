@@ -1605,6 +1605,7 @@ PUT /loki/routes/{+id}
 { "request" :
     { "type": "object",
           "properties": {
+            "destinationDn": { "disallow": "any" },
             "routingLabelId": { "type": "string" }
           }
     },
