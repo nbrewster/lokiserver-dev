@@ -347,7 +347,7 @@ GET /number-translations{?sourceDn,attributes,callProcessingElement1Id,callProce
 }
 
 
-Update a number translation.
+Update a number translation. All fields are optional.
 PUT /number-translations/{+id}
 > Content-Type: application/json
 {
@@ -369,6 +369,9 @@ PUT /number-translations/{+id}
     }
 }
 < 204
+< Transaction-Id: 1380080943120
++++++
+< 404
 < Transaction-Id: 1380080943120
 
 
@@ -646,6 +649,53 @@ GET /subscribers{?subscriberDn,owningCarrierId}
     "detail" : "Request validation failed: params.subscriberDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
 }
 
+
+Update a subscriber. All fields are optional.
+PUT /subscribers/{+id}
+> Content-Type: application/json
+{
+    "extensions" : {
+        "sonusPsx" : {
+            "businessGroupId" : null,
+            "interLataCarrierId" : "5000",
+            "intraLataCarrierId" : "5000",
+            "intlCarrierId" : "5000",
+            "assignedCarrierId" : null,
+            "presentationFlag" : 0,
+            "prfdPacketServiceProfileId" : null,
+            "optionType" : 0,
+            "testSubscriber" : 0,
+            "billingPlanId" : "EXAMPLE_PLAN",
+            "localCarrierId" : "5000",
+            "authcodeScriptId" : "EXAMPLE_SCRIPT",
+            "elementAttributes" : 0,
+            "classOfServiceId" : "EXAMPLE_COS",
+            "pseudoCarrierId" : null,
+            "infoDigitId" : null,
+            "scpBusinessServiceGroup" : 0,
+            "authcodeGroupId" : null,
+            "pinDigits" : null,
+            "svcList1" : 0,
+            "svcList2" : 0,
+            "exceptionProfileId" : "EXAMPLE_PROFILE",
+            "isDestination" : 1,
+            "defaultCpc" : null,
+            "homeMobileNetwork" : 0,
+            "origEntityRoutingProfileId" : "EXAMPLE_RTGPROFILE",
+            "callingArea" : "555_EXAMPLE",
+            "businessUnitId" : null,
+            "deviceProfileId" : null,
+            "memberStatus" : -1
+        }
+    }
+}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 404
+< Transaction-Id: 1380080943120
+
+
 Delete a subscriber.
 DELETE /subscribers/{+id}
 < 204
@@ -837,6 +887,35 @@ GET /destinations{?destinationDn}
     "detail" : "Request validation failed: params.destinationDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
 }
 
+
+Update a destination. All fields are optional.
+PUT /destinations/{+id}
+> Content-Type: application/json
+{
+    "extensions" : {
+        "sonusPsx" : {
+            "destSvcScriptId" : null,
+            "customScriptId" : null,
+            "elementAttributes" : 0,
+            "prfdPacketServiceProfileId" : null,
+            "routingLabelId" : "EXAMPLE_RTNG_LBL",
+            "isSubscriber" : 1,
+            "portedType" : 0,
+            "lnpTransitionFlag" : 0,
+            "homeGateway" : "EXAMPLE_GW",
+            "exceptionProfileId" : null,
+            "businessGroupId" : null,
+            "businessUnitId" : null
+        }
+    }
+}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 404
+< Transaction-Id: 1380080943120
+
+
 Delete a destination.
 DELETE /destinations/{+id}
 < 204
@@ -980,10 +1059,10 @@ This request supports two modes. In both cases:
 no support for wildcards or partial values).
 * A "null" value can be searched for by explicitly including the parameter with no value,
 e.g. "...&callProcessingElement1Id=".
-* If no match is found, the response will be 404 Not Founr
+* If no match is found, the response will be 404 Not Found
 * When one or more matches or found, they will be included in the embedded array _embedded."ls:routes"[].
 
-To retrieve a single route resource given all elements of the key, include **all** of the following
+To retrieve a single route resource given all elements of the key, include **all** of (and only) the following
 parameters in the request (even if some have null values):
 
 * destinationDn
@@ -1087,7 +1166,6 @@ GET /routes{?...}
                         }
                     }
                 }
-
             ]
         }
 }
@@ -1103,6 +1181,24 @@ GET /routes{?...}
     "summary" : "Input validation failure",
     "detail" : "Request validation failed: params.destinationDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
 }
+
+
+Update a route. All fields are optional.
+PUT /routes/{+id}
+> Content-Type: application/json
+{
+    "extensions" : {
+        "sonusPsx" : {
+	        "routingLabelId" : "EXAMPLE_RTNG_LBL"
+        }
+    }
+}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 404
+< Transaction-Id: 1380080943120
+
 
 Delete a route.
 DELETE /routes/{+id}
