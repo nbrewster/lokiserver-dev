@@ -974,91 +974,48 @@ Query Routes. Responses will include (at a minimum) they fields comprising the u
 
 ##URI Query Parameters
 
-<table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Mode</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>destinationDn</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>callProcessingElement1Id
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>callProcessingElement2Id
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>callProcessingElement3Id
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>callProcessingElement4Id
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>callProcessingElementType
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>routingType
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>partitionId
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>calltype
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>transmissionMedium
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>userCallType
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>digitType
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>timeRangeProfileId
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>callParamFilterProfileId
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-        <tr>
-			<td>domainName
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
-            <td>Equal To</td>
-        </tr>
-    </tbody>
-</table>
-GET /routes{?callProcessingElement1Id,callProcessingElement2Id,...}
+This request supports two modes. In both cases:
+
+* Each parameter is expected to be complete (the match is an "equals" match, with
+no support for wildcards or partial values).
+* A "null" value can be searched for by explicitly including the parameter with no value,
+e.g. "...&callProcessingElement1Id=".
+* If no match is found, the response will be 404 Not Founr
+* When one or more matches or found, they will be included in the embedded array _embedded."ls:routes"[].
+
+To retrieve a single route resource given all elements of the key, include **all** of the following
+parameters in the request (even if some have null values):
+
+* callProcessingElement1Id
+* callProcessingElement2Id
+* callProcessingElement3Id
+* callProcessingElement4Id
+* callProcessingElementType
+* routingType
+* destinationNationalId
+* destinationCountryId
+* partitionId
+* calltype
+* transmissionMedium
+* userCallType
+* digitType
+* timeRangeProfileId
+* callParamFilterProfileId
+* domainName
+
+To retrieve all matching route resources for various search criteria, include one or more of the following
+parameters in the request:
+
+* destinationDn
+* partitionId
+* callProcessingElement1Id
+* callProcessingElement2Id
+* callProcessingElement3Id
+* callProcessingElement4Id
+* routingLabelId
+* callParamFilterProfileId
+* domainName
+GET /routes{?...}
 < 200
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
@@ -1103,7 +1060,35 @@ GET /routes{?callProcessingElement1Id,callProcessingElement2Id,...}
     	                    "routingLabelId" : "EXAMPLE_RTNG_LBL"
                         }
                     }
+                },
+                {
+                    "_links" : {
+                        "self" : {
+                            "href" : "http://lokiserver.apiary.io/loki/routes/1%3A4%3A%3A%3A%3A0%3A3%3A2005553001%3A1%3ANOTHER_PARTITION%3A0%3A0%3A0%3A2147483647%3AALL%3A%3A%3AANOTHER_RTNG_LBL"
+                        }
+                    },
+                    "destinationDn" : "+1-2005553001",
+                    "extensions" : {
+                        "sonusPsx" : {
+    	                    "callProcessingElement1Id" : 4,
+        	                "callProcessingElement2Id" : null,
+    	                    "callProcessingElement3Id" : null,
+    	                    "callProcessingElement4Id" : null,
+    	                    "callProcessingElementType" : 0,
+    	                    "routingType" : 3,
+    	                    "partitionId" : "ANOTHER_PARTITION",
+        	                "calltype" : 0,
+    	                    "transmissionMedium" : "0",
+    	                    "userCallType" : 0,
+    	                    "digitType" : 2147483647,
+    	                    "timeRangeProfileId" : "ALL",
+    	                    "callParamFilterProfileId" : null,
+        	                "domainName" : null,
+    	                    "routingLabelId" : "ANOTHER_RTNG_LBL"
+                        }
+                    }
                 }
+
             ]
         }
 }
