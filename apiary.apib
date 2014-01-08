@@ -1577,6 +1577,18 @@ POST /loki/subscribers
     { }
 }
 
+PUT /loki/subscribers
+{ "request" :
+    { "type": "object",
+          "properties": {
+                "extensions" : {}
+            },
+        "additionalProperties" : false
+    },
+  "response" :
+    { }
+}
+
 POST /loki/destinations
 { "request" :
     { "type": "object",
