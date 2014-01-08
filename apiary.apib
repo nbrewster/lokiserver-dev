@@ -1557,10 +1557,11 @@ POST /loki/number-translations
 PUT /loki/number-translations/{+id}
 { "request" :
     { "type": "object",
-          "properties": {
-            "sourceDn": { "disallow": "any" },
-            "translatedDn": { "type": "string", "maxLength" : 48 }
-          }
+        "properties" : {
+                "translatedDn" : {},
+                "extensions" : {}
+            },
+            "additionalProperties" : false
     },
     "response" : { }
 }
