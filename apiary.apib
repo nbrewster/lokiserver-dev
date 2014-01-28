@@ -1544,6 +1544,126 @@ POST /customers/{customerId}/sites/{siteId}/voip-users
     "detail" : "Request validation failed: phoneNumber does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
 }
 
+***IGNORE ME, WORK IN PROGRESS**
+GET /loki/voip-users/{userId}/call-processing-policies
+< 200
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/voip-users/4155551212%20example.com/call-processing-policies"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "_embedded": {
+        "ls:broadworks-users": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "ttp://lokiserver.apiary.io/loki/voip-users/4155551212%20example.com"
+                    }
+                },
+                "userId": "4155551212@example.com"
+            }
+        ]
+    },
+    "extensions": {
+        "broadworks": {
+            "callingLineId": {
+                "useUserCLIDSetting": "false",
+                "clidPolicy": "Use DN",
+                "emergencyClidPolicy": "Use DN",
+                "allowAlternateNumbersForRedirectingIdentity": "true",
+                "useGroupName": "false",
+                "allowConfigurableCLIDForRedirectingIdentity": "true",
+                "blockCallingNameForExternalCalls": "false"
+            },
+            "media": {
+                "useUserMediaSetting": "false",
+                "mediaPolicySelection": "No Restrictions",
+                "supportedMediaSetName": "tbd_example"
+            },
+            "callLimits": {
+                "useUserCallLimitsSetting": "false",
+                "useMaxSimultaneousCalls": "false",
+                "maxSimultaneousCalls": "10",
+                "useMaxSimultaneousVideoCalls": "false",
+                "maxSimultaneousVideoCalls": "5",
+                "useMaxCallTimeForAnsweredCalls": "false",
+                "maxCallTimeForAnsweredCallsMinutes": "600",
+                "useMaxCallTimeForUnansweredCalls": "false",
+                "maxCallTimeForUnansweredCallsMinutes": "2",
+                "useMaxConcurrentRedirectedCalls": "false",
+                "maxConcurrentRedirectedCalls": "3",
+                "useMaxFindMeFollowMeDepth": "false",
+                "maxFindMeFollowMeDepth": "3",
+                "maxRedirectionDepth": "10",
+                "useMaxConcurrentFindMeFollowMeInvocations": "false",
+                "maxConcurrentFindMeFollowMeInvocations": "3"
+            },
+            "incomingCallerId": {
+                "useUserDCLIDSetting": "false",
+                "enableDialableCallerID": "false"
+            }
+        }
+    }
+}
+
+
+***IGNORE ME, WORK IN PROGRESS**
+PUT /loki/voip-users/{userId}/call-processing-policies
+{
+    "extensions": {
+        "broadworks": {
+            "callingLineId": {
+                "useUserCLIDSetting": "false",
+                "clidPolicy": "Use DN",
+                "emergencyClidPolicy": "Use DN",
+                "allowAlternateNumbersForRedirectingIdentity": "true",
+                "useGroupName": "false",
+                "allowConfigurableCLIDForRedirectingIdentity": "true",
+                "blockCallingNameForExternalCalls": "false"
+            },
+            "media": {
+                "useUserMediaSetting": "false",
+                "mediaPolicySelection": "No Restrictions",
+                "supportedMediaSetName": "tbd_example"
+            },
+            "callLimits": {
+                "useUserCallLimitsSetting": "false",
+                "useMaxSimultaneousCalls": "false",
+                "maxSimultaneousCalls": "10",
+                "useMaxSimultaneousVideoCalls": "false",
+                "maxSimultaneousVideoCalls": "5",
+                "useMaxCallTimeForAnsweredCalls": "false",
+                "maxCallTimeForAnsweredCallsMinutes": "600",
+                "useMaxCallTimeForUnansweredCalls": "false",
+                "maxCallTimeForUnansweredCallsMinutes": "2",
+                "useMaxConcurrentRedirectedCalls": "false",
+                "maxConcurrentRedirectedCalls": "3",
+                "useMaxFindMeFollowMeDepth": "false",
+                "maxFindMeFollowMeDepth": "3",
+                "maxRedirectionDepth": "10",
+                "useMaxConcurrentFindMeFollowMeInvocations": "false",
+                "maxConcurrentFindMeFollowMeInvocations": "3"
+            },
+            "incomingCallerId": {
+                "useUserDCLIDSetting": "false",
+                "enableDialableCallerID": "false"
+            }
+        }
+    }
+}
+< 204
+< Transaction-Id: 1380080943120
+
 
 -- JSON Schema Validations --
 
