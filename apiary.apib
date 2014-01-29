@@ -1622,6 +1622,58 @@ GET /loki/voip-users/{userId}/call-processing-policies
 PUT /loki/voip-users/{userId}/call-processing-policies
 {
     "extensions": {
+        "broadworks-experimental" : {
+            "Calling Line ID" : {
+                "Calling Line Id Policy Selection" : "Service Provider/Enterprise",
+                "Use group name for Calling Line Identity" : {
+                    "enable" : false,
+                    "Allow Department Name Override" : false
+                },
+                "Non-Emergency Calls Calling Line Identity" : "configurable CLID",
+                "Emergency Calls Calling Line Identity" : "user phone number",
+                "Allow Alternate Numbers for Redirecting Identity" : true,
+                "Allow Configurable CLID for Redirecting Identity" : true,
+                "Block Calling Name for External Calls" : false
+            },
+            "Media" : {
+                "Media Policy Selection" : "Service Provider/Enterprise",
+                "Policy" : "Use Supported Media",
+                "Media Set Name" : "Example"
+            },
+            "Call Limits" : {
+                "Call Limits Policy Selection" : "Service Provider/Enterprise",
+                "Maximum Number of Concurrent Calls" : {
+                    "enable" : true,
+                    "limit" : 5
+                },
+                "Maximum Number of Concurrent Video Calls" : {
+                    "enable" : true,
+                    "limit" : 5
+                },
+                "Maximum Duration for Answered Calls" : {
+                    "enable" : true,
+                    "limit" : 1440
+                },
+                "Enable Maximum Duration for Unanswered Calls" : {
+                    "enable" : false,
+                    "limit" : 2
+                },
+                "Maximum Number of Concurrent Redirected Calls" : {
+                    "enable" : true,
+                    "limit" : 5
+                },
+                "Maximum Number of Concurrent Find Me/Follow Me Invocations" : {
+                    "enable" : true,
+                    "limit" : 2
+                },
+                "Maximum Find Me/Follow Me Depth" : {
+                    "enable" : true,
+                    "limit" : 2
+                },
+                "Maximum Redirection Depth" : 5
+            },
+            "Translation and Routing" : "etc...."
+        }
         "broadworks": {
             "callingLineId": {
                 "useUserCLIDSetting": "false",
@@ -1639,6 +1691,16 @@ PUT /loki/voip-users/{userId}/call-processing-policies
             },
             "callLimits": {
                 "useUserCallLimitsSetting": "false",
+                "simultaneousCalls" : {
+                    "audio" : {
+                        "restrict" : false,
+                        "max" : 10
+                    },
+                    "video" : {
+                        "restrict" : false,
+                        "max" : 5
+                    }
+                },
                 "useMaxSimultaneousCalls": "false",
                 "maxSimultaneousCalls": "10",
                 "useMaxSimultaneousVideoCalls": "false",
