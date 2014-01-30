@@ -1624,20 +1624,20 @@ PUT /loki/voip-users/{userId}/call-processing-policies
     "extensions": {
         "broadworks-experimental" : {
             "Calling Line ID" : {
-                "Calling Line Id Policy Selection" : "Service Provider/Enterprise",
+                "Calling Line Id Policy Selection" : "Group",
                 "Use group name for Calling Line Identity" : {
                     "enable" : false,
                     "Allow Department Name Override" : false
                 },
-                "Non-Emergency Calls Calling Line Identity" : "configurable CLID",
-                "Emergency Calls Calling Line Identity" : "user phone number",
+                "Non-Emergency Calls Calling Line Identity" : "Use Configurable CLID",
+                "Emergency Calls Calling Line Identity" : "Use user phone number",
                 "Allow Alternate Numbers for Redirecting Identity" : true,
                 "Allow Configurable CLID for Redirecting Identity" : true,
                 "Block Calling Name for External Calls" : false
             },
             "Media" : {
-                "Media Policy Selection" : "Service Provider/Enterprise",
-                "Policy" : "Use Supported Media",
+                "Media Policy Selection" : "Group",
+                "Policy" : "No Restrictions",
                 "Media Set Name" : "Example"
             },
             "Call Limits" : {
@@ -1672,7 +1672,10 @@ PUT /loki/voip-users/{userId}/call-processing-policies
                 },
                 "Maximum Redirection Depth" : 5
             },
-            "Translation and Routing" : "etc...."
+            "Incoming Caller ID" : {
+                "Dialable Caller ID Policy Selection" : "Group",
+                "Dialable Caller ID Enable" : false
+            }
         }
         "broadworks": {
             "callingLineId": {
