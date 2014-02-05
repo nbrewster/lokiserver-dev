@@ -1445,7 +1445,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     </tbody>
 </table>
 
-POST /customers/{customerId}/sites/{siteId}/voip-users
+POST /customers/{+customerId}/sites/{+siteId}/voip-users
 > Content-Type: application/json
 {
     "userId" : "2005553001@example.com",
@@ -1558,7 +1558,7 @@ Fetch a BroadWorks User's Call Processing Policies settings.
 Refer to BroadWorks documentation for specifics of the properties under extensions.broadworks.
 
 In addition to the standard error codes, this will return 404 Not Found if the user does not exist in BroadWorks.
-GET /voip-users/{userId}/call-processing-policies
+GET /voip-users/{+userId}/call-processing-policies
 < 200
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
@@ -1635,7 +1635,7 @@ Refer to BroadWorks documentation for specifics of the properties under extensio
 In addition to the standard error codes, this will return 404 Not Found if the user does not exist in BroadWorks.
 
 ** TBD - json-schema, indicating that extensions.broadworks is an object and is optional
-PUT /voip-users/{userId}/call-processing-policies
+PUT /voip-users/{+userId}/call-processing-policies
 {
     "extensions": {
         "broadworks": {
@@ -1757,7 +1757,7 @@ POST /loki/routes
     { }
 }
 
-PUT /loki/voip-users/{userId}/call-processing-policies
+PUT /loki/voip-users/{+userId}/call-processing-policies
 {
     "request" : {
         "type": "object",
