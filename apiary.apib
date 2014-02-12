@@ -1536,12 +1536,12 @@ POST /customers/{+customerId}/sites/{+siteId}/voip-users
 }
 +++++
 < 500
-< Content-Type: application/json
 < Transaction-Id: 1380080943120
+< Content-Type: application/json
 {
-    "errorCode" : "**tbd",
-    "summary" : "**tbd Internal Error",
-    "detail" : "[detail here]"
+    "errorCode" : "INTERNAL_ERROR,
+    "summary" : "Internal error creating voip-user",
+    "detail" : "The server encountered an error creating the resource. Please contact your administrator for assistance."
 }
 +++++
 < 400
