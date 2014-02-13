@@ -1429,9 +1429,6 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>The set of services to assign to the new VoIP User.<br />
             Also specifies (optionally) any pre-configuration settings for these services and/or any
             services assigned via service packs (see servicePacks property).<br />
-            <i>Note, any value in services."Third-Party Voice Mail Support".noAnswerNumberOfRings will
-            be overridden by services."Call Forwarding No Answer".numberOfRings if present, as they both affect the
-            same setting on the user in BroadWorks.</i>
             <b>update for remaining service parameters</b>
             </td>
         </tr>
@@ -1440,6 +1437,22 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td style="text-align: center; font-weight:bold">&#x2717</td>
             <td></td>
             <td>Set to null to override automatic Charge Number allocation and force the Charge Number phone number to be empty
+            </td>
+        </tr>
+        <tr>
+            <td>services.'Call Forwarding No Answer'.numberOfRings</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>Set to 0 for "None".<br />
+            <i>Note that this value will override services.'Third-Party Voice Mail Support'.noAnswerNumberOfRings if both are present.</i>
+            </td>
+        </tr>
+        <tr>
+            <td>services.'Third-Party Voice Mail Support'.noAnswerNumberOfRings</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>Set to 0 for "None".<br />
+            <i>Note that this value will be overridden by services.'Call Forwarding No Answer'.numberOfRings if both are present.</i>
             </td>
         </tr>
     </tbody>
