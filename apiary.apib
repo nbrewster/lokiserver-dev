@@ -16,7 +16,7 @@ Below is (work in progress) documentation describing the the Loki 3.0 API.
 At this time, the application/hal+json content type is supported in request and response bodies.
 [TODO: add references / explanations of HAL]
 
-**Note: all referencese to <code>lokiserver.apiary.io</code> are for example purposes only. In a deployed Loki Server
+**Note: all references to <code>lokiserver.apiary.io</code> are for example purposes only. In a deployed Loki Server
 these will be references to the Loki REST API host.**
 
 **TBD: add HAL notes. Note (at least initially) in the response bodies, _links.self.href matches
@@ -399,8 +399,12 @@ Keys:
 Extension Keys:
 
 * owningCarrierId
+--
 
-##Supported URL Parameters
+
+Create a new Subscriber.
+
+##URL Query Parameters
 
 <table border=1>
     <thead>
@@ -418,9 +422,6 @@ Extension Keys:
         </tr>
     </tbody>
 </table>
---
-
-Create a new Subscriber.
 POST /subscribers
 > Content-Type: application/json
 {
@@ -464,8 +465,6 @@ POST /subscribers
 < 201
 < Location: http://lokiserver.apiary.io/loki/subscribers/1%3A2005553001%3A1%3A16
 < Transaction-Id: 1380080943120
-+++++
-< 200
 +++++
 < 409
 < Content-Type: application/hal+json
