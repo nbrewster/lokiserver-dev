@@ -1502,10 +1502,24 @@ POST /customers/{+customerId}/sites/{+siteId}/voip-users
     }
 }
 < 201
-< Location: http://loki3.apiary.io/loki/customers/exampleCom/sites/exampleComNorth/voip-users/2%3A2005553001%40example.com
+< Location: http://loki3.apiary.io/loki/voip-users/2005553001%40example.com
 < Transaction-Id: 1380080943120
-< Content-Type: application/json
+< Content-Type: application/hal+json
 {
+    "_links" : {
+        "self" : {
+            "href" : "http://lokiserver.apiary.io/loki/voip-users/2005553001%40example.com"
+        }
+    },
+    "curies" : [
+        {
+            "name" : "ls",
+            "href" : "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated" : true
+        }
+    ],
+    "customerId" : "Example Com",
+    "siteId" : "Example Com - North",
     "phoneNumber" : "+1-2005553001",
     "extension" : "3001",
     "CLID" : "+1-2005553001",
