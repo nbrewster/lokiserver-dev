@@ -1573,6 +1573,8 @@ Fetch a BroadWorks User's Call Processing Policies settings.
 Refer to BroadWorks documentation for specifics of the properties under extensions.broadworks.
 
 In addition to the standard error codes, this will return 404 Not Found if the user does not exist in BroadWorks.
+
+**NOT IMPLEMENTED**
 GET /voip-users/{+userId}/call-processing-policies
 < 200
 < Content-Type: application/hal+json
@@ -1650,7 +1652,10 @@ Refer to BroadWorks documentation for specifics of the properties under extensio
 In addition to the standard error codes, this will return 404 Not Found if the user does not exist in BroadWorks.
 
 ** TBD - json-schema, indicating that extensions.broadworks is an object and is optional
+
+**NOT IMPLEMENTED**
 PUT /voip-users/{+userId}/call-processing-policies
+> Content-Type: application/json
 {
     "extensions": {
         "broadworks": {
