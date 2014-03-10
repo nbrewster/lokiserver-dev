@@ -1575,14 +1575,14 @@ Refer to BroadWorks documentation for specifics of the properties under extensio
 In addition to the standard error codes, this will return 404 Not Found if the user does not exist in BroadWorks.
 
 **NOT IMPLEMENTED**
-GET /voip-users/{+userId}/call-processing-policies
+GET /voip-users/{+userId}/call-processing-policy
 < 200
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
 {
     "_links": {
         "self": {
-            "href": "http://lokiserver.apiary.io/loki/voip-users/4155551212%20example.com/call-processing-policies"
+            "href": "http://lokiserver.apiary.io/loki/voip-users/4155551212%20example.com/call-processing-policy"
         }
     },
     "curies": [
@@ -1654,7 +1654,7 @@ In addition to the standard error codes, this will return 404 Not Found if the u
 ** TBD - json-schema, indicating that extensions.broadworks is an object and is optional
 
 **NOT IMPLEMENTED**
-PUT /voip-users/{+userId}/call-processing-policies
+PUT /voip-users/{+userId}/call-processing-policy
 > Content-Type: application/json
 {
     "extensions": {
@@ -1777,7 +1777,7 @@ POST /loki/routes
     { }
 }
 
-PUT /loki/voip-users/{+userId}/call-processing-policies
+PUT /loki/voip-users/{+userId}/call-processing-policy
 {
     "request" : {
         "type": "object",
