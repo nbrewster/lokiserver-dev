@@ -1453,7 +1453,7 @@ POST /customers/{+customerId}/sites/{+siteId}/voip-users
     "phoneNumber" : "+1-2005553001",
     "tnRoutine" : "auto",
     "CLID" : "+1-2005553001",
-    "extension" : "3001",
+    "extension" : 3001,
     "lastName" : "Smith",
     "firstName" : "John",
     "callingLineIdLastName" : "Smith",
@@ -1520,7 +1520,7 @@ POST /customers/{+customerId}/sites/{+siteId}/voip-users
     "customerId" : "Example Com",
     "siteId" : "Example Com - North",
     "phoneNumber" : "+1-2005553001",
-    "extension" : "3001",
+    "extension" : 3001,
     "CLID" : "+1-2005553001",
     "userId" : "2005553001@example.com",
     "portalPassword" : "s8F!9ggo",
@@ -1537,8 +1537,28 @@ POST /customers/{+customerId}/sites/{+siteId}/voip-users
             "username" : "2005553001@sip.example.com",
             "password" : "230A4u$#%f"
         },
-        "etc" : "additional service configuration detail will be present as appropriate"
-    }
+        "Charge Number" : {
+            "phoneNumber" : "+1-2005554321",
+            "useChargeNumberForEnhancedTranslations" : false,
+            "sendChargeNumberToNetwork" : true
+        },
+        "Third-Party Voice Mail Support" : {
+            "isActive" : true,
+            "busyRedirectToVoiceMail" : true,
+            "noAnswerRedirectToVoiceMail" : true,
+            "noAnswerNumberOfRings" : 4,
+            "alwaysRedirectToVoiceMail" : false,
+            "outOfPrimaryZoneRedirectToVoiceMail" : false
+        },
+        "Call Forwarding No Answer" : {
+            "isActive" : true,
+            "forwardToPhoneNumber" : "+1-2005553101",
+            "numberOfRings" : 4
+        },
+        "Call Forwarding Not Reachable" : {
+            "isActive" : true,
+            "forwardToPhoneNumber" : "+1-2005553101"
+        }    }
 }
 +++++
 < 424
