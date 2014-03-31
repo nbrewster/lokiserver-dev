@@ -1797,6 +1797,168 @@ POST /loki/routes
     { }
 }
 
+POST /loki/customers/{+customerId}/sites/{+siteId}/voip-users
+{
+    "request": {
+        "type": "object",
+        "properties": {
+            "userId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 161
+            },
+            "phoneNumber": {
+                "$ref": "/bwksDnSchema"
+            },
+            "tnRoutine": {
+                "enum": ["undefined", null, "", "port-no-temp", "auto", "no-number"]
+            },
+            "extension": {
+                "type": ["string", "null"],
+                "minLength": 2,
+                "maxLength": 20,
+                "pattern": "^[0-9]+$"
+            },
+            "CLID": {
+                "$ref": "/bwksDnSchema"
+            },
+            "lastName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30
+            },
+            "firstName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30
+            },
+            "callingLineIdLastName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30,
+                "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+            },
+            "callingLineIdFirstName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30,
+                "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+            },
+            "email": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "format": "email"
+            },
+            "timeZone": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 127
+            },
+            "language": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+            },
+            "sharedDeviceName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+            },
+            "trunkGroupName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30
+            },
+            "servicePacks": {
+                "type": "object",
+                "description": "Service Packs that will be assigned to User",
+                "properties": {
+                    "base": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 80
+                    },
+                    "add-on": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 80
+                        }
+                    }
+                }
+            },
+            "services": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "Authentication": {
+                        "type": "object",
+                        "properties": { }
+                    },
+                    "Charge Number": {
+                        "type": "object",
+                        "properties": {
+                            "phoneNumber": {
+                                "extends": [
+                                    {
+                                        "$ref": "/bwksDnSchema"
+                                    },
+                                    {
+                                        "type": ["string", "null"]
+                                    }
+                                ]
+                            },
+                            "useChargeNumberForEnhancedTranslations": {
+                                "type": "boolean"
+                            },
+                            "sendChargeNumberToNetwork": {
+                                "type": "boolean"
+                            }
+                        }
+                    },
+                    "Third-Party Voice Mail Support": {
+                        "type": "object",
+                        "properties": { }
+                    },
+                    "Call Forwarding No Answer": {
+                        "type": "object",
+                        "properties": { }
+                    },
+                    "Call Forwarding Not Reachable": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "isActive": {
+                                "type": "boolean",
+                                "required": false
+                            },
+                            "forwardToPhoneNumber": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 161,
+                                "required": false
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "definitions": {
+            "bwksDnSchema": {
+                "type": "string",
+                "description": "A formatted TN.",
+                "pattern": "^\\+[0-9]+-[0-9]+$",
+                "minLength": 1,
+                "maxLength": 23,
+                "required": false
+            }
+        }
+    },
+    "response": { }
+}
+
 PUT /loki/voip-users/{+userId}/call-processing-policy
 {
     "request" : {
