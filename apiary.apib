@@ -1238,25 +1238,6 @@ Create a new VoIP User.
     </tbody>
 </table>
 
-##URI Template Variables
-
-<table border=1>
-    <thead>
-    <th>Variable</th>
-    <th>Description</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>customerId</td>
-            <td>ID of the Customer in which the new VoIP User is to be created. In BroadWorks this the serviceProviderId of the Enterprise or Service Provider.</td>
-        </tr>
-        <tr>
-            <td>siteId</td>
-            <td>ID of the Site in which the new VoIP User is to be created. In BroadWorks this the groupId of the Group.</td>
-        </tr>
-    </tbody>
-</table>
-
 ##Properties
 
 Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
@@ -1269,6 +1250,22 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <th>Description</th>
     </thead>
     <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>ID of the Customer in which the new VoIP User is to be created.
+            In a default configuration (where a VoIP User is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>ID of the Site in which the new VoIP User is to be created.
+            In a default configuration (where a VoIP User is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.groupId is populated.</td>
+        </tr>
         <tr>
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">&#x2717</td>
@@ -1443,10 +1440,41 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <i>Note that this value will be overridden by services.'Call Forwarding No Answer'.numberOfRings if both are present.</i>
             </td>
         </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>Optional section for network-element-specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions. broadworks</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>Optional section for BroadWorks-specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions. broadworks. serviceProviderId</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>ID of the BroadWorks service provider or enterprse in which the underlying BroadWorks user is to be created.
+            In a default configuration (where a VoIP User is composed of BroadWorks entities only),
+            this property can be used instead of customerId (eliminating the need to know the server-generated customerId
+            prior to placing this request).</td>
+        </tr>
+        <tr>
+            <td>extensions. broadworks. groupId</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>ID of the BroadWorks group in which the underlying BroadWorks user is to be created.
+            In a default configuration (where a VoIP User is composed of BroadWorks entities only),
+            this property can be used instead of siteId (eliminating the need to know the server-generated siteId
+            prior to placing this request).</td>
+        </tr>
+
     </tbody>
 </table>
 
-POST /customers/{+customerId}/sites/{+siteId}/voip-users
+POST /users
 > Content-Type: application/json
 {
     "userId" : "2005553001@example.com",
@@ -1501,13 +1529,13 @@ POST /customers/{+customerId}/sites/{+siteId}/voip-users
     }
 }
 < 201
-< Location: http://loki3.apiary.io/loki/voip-users/2005553001%40example.com
+< Location: http://loki3.apiary.io/loki/users/2005553001%40example.com
 < Transaction-Id: 1380080943120
 < Content-Type: application/hal+json
 {
     "_links" : {
         "self" : {
-            "href" : "http://lokiserver.apiary.io/loki/voip-users/2005553001%40example.com"
+            "href" : "http://lokiserver.apiary.io/loki/users/2005553001%40example.com"
         }
     },
     "curies" : [
@@ -1595,14 +1623,14 @@ Refer to BroadWorks documentation for specifics of the properties under extensio
 In addition to the standard error codes, this will return 404 Not Found if the user does not exist in BroadWorks.
 
 **NOT IMPLEMENTED**
-GET /voip-users/{+userId}/call-processing-policy
+GET /users/{+userId}/call-processing-policy
 < 200
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
 {
     "_links": {
         "self": {
-            "href": "http://lokiserver.apiary.io/loki/voip-users/4155551212%20example.com/call-processing-policy"
+            "href": "http://lokiserver.apiary.io/loki/users/4155551212%20example.com/call-processing-policy"
         }
     },
     "curies": [
@@ -1613,11 +1641,11 @@ GET /voip-users/{+userId}/call-processing-policy
         }
     ],
     "_embedded": {
-        "ls:voip-users": [
+        "ls:users": [
             {
                 "_links": {
                     "self": {
-                        "href": "http://lokiserver.apiary.io/loki/voip-users/4155551212%20example.com"
+                        "href": "http://lokiserver.apiary.io/loki/users/4155551212%20example.com"
                     }
                 },
                 "userId": "4155551212@example.com"
@@ -1674,7 +1702,7 @@ In addition to the standard error codes, this will return 404 Not Found if the u
 ** TBD - json-schema, indicating that extensions.broadworks is an object and is optional
 
 **NOT IMPLEMENTED**
-PUT /voip-users/{+userId}/call-processing-policy
+PUT /users/{+userId}/call-processing-policy
 > Content-Type: application/json
 {
     "extensions": {
@@ -1797,7 +1825,7 @@ POST /loki/routes
     { }
 }
 
-POST /loki/customers/{+customerId}/sites/{+siteId}/voip-users
+POST /loki/users
 {
     "request": {
         "type": "object",
@@ -1811,7 +1839,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/voip-users
                 "$ref": "/bwksDnSchema"
             },
             "tnRoutine": {
-                "enum": ["undefined", null, "", "port-no-temp", "auto", "no-number"]
+                "enum": [null, "", "port-no-temp", "auto", "no-number"]
             },
             "extension": {
                 "type": ["string", "null"],
@@ -1959,7 +1987,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/voip-users
     "response": { }
 }
 
-PUT /loki/voip-users/{+userId}/call-processing-policy
+PUT /loki/users/{+userId}/call-processing-policy
 {
     "request" : {
         "type": "object",
