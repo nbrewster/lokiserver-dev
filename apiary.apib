@@ -1254,7 +1254,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">&#x2717</td>
             <td></td>
-            <td>ID of the Customer in which the new VoIP User is to be created.
+            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP User is to be created.
             In a default configuration (where a VoIP User is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
         </tr>
@@ -1262,7 +1262,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">&#x2717</td>
             <td></td>
-            <td>ID of the Site in which the new VoIP User is to be created.
+            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP User is to be created.
             In a default configuration (where a VoIP User is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
         </tr>
@@ -1477,6 +1477,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
 POST /users
 > Content-Type: application/json
 {
+    "customerId" : "a-server-generated-ID",
+    "siteId" : "another-server-generated-ID",
     "userId" : "2005553001@example.com",
     "phoneNumber" : "+1-2005553001",
     "tnRoutine" : "auto",
@@ -1525,6 +1527,12 @@ POST /users
         "Call Forwarding Not Reachable" : {
             "isActive" : true,
             "forwardToPhoneNumber" : "+1-2005553101"
+        }
+    },
+    "extensions" : {
+        "broadworks" : {
+            "serviceProviderId" : "Example Com",
+            "groupId" : "Example Com - North"
         }
     }
 }
