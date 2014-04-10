@@ -1651,6 +1651,15 @@ POST /users
     "externalErrorDetail" : "[Warning 4250] 1 phone number(s) not added.  Verify that the number(s) are not already assigned."
 }
 +++++
+< 404
+< Content-Type: application/json
+{
+    "errorCode" : "NOT_FOUND",
+    "externalErrorCode" : "4152",
+    "externalErrorSummary" : "[Error 4152] Group not found: LeoNVB:LeoExample",
+    "externalErrorDetail" : "[Error 4152] Group not found: LeoNVB:LeoExample"
+}
++++++
 < 500
 < Transaction-Id: 1380080943120
 < Content-Type: application/json
