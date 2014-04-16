@@ -1470,33 +1470,245 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>services</td>
             <td style="text-align: center; font-weight:bold">&#x2717</td>
             <td></td>
-            <td>The set of services to assign to the new VoIP User.<br />
-            Also specifies (optionally) any pre-configuration settings for these services and/or any
-            services assigned via service packs (see servicePacks property).<br />
-            <b>update for remaining service parameters</b>
+            <td>The set of services to assign to the new VoIP User, and optionally the pre-configuration settings for the services.<br />
+            Each child property must be an object whose name is a valid user service name on the network element (currently
+            supporting BroadWorks user services). These objects may be empty, or may optionally contain properties with configuration
+            settings for the service. The supported configuration settings for each service are detailed later in this table.<br />
+            All services in services.* will be assigned to the user a la carte.<br />
+            If there are global default settings (defined in the configuration) for any assigned service, these will be applied.
+            Any service settings provided in the request will override these global default settings.
             </td>
         </tr>
         <tr>
-            <td>services.'Charge Number'.phoneNumber</td>
+            <td>services.'Authentication'.*</td>
             <td style="text-align: center; font-weight:bold">&#x2717</td>
             <td></td>
-            <td>Set to null to override automatic Charge Number allocation and force the Charge Number phone number to be empty
+            <td>Configuration settings for the Authentication user service. The table below describes the supported settings.
+            <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
+            <table border=1>
+            <thead>
+                <th>Property</th>
+                <th>Required?</th>
+                <th>Default</th>
+                <th>Notes</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>username</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>Username portion of userId</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>password</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>(see notes)</td>
+                <td>If omitted, the password will be auto-generated based on the rules configured in the server.</td>
+            </tr>
+            <tbody>
+            </table>
             </td>
         </tr>
         <tr>
-            <td>services.'Call Forwarding No Answer'.numberOfRings</td>
+            <td>services.'Charge Number'.*</td>
             <td style="text-align: center; font-weight:bold">&#x2717</td>
             <td></td>
-            <td>Set to 0 for "None".<br />
-            <i>Note that this value will override services.'Third-Party Voice Mail Support'.noAnswerNumberOfRings if both are present.</i>
+            <td>Configuration settings for the Charge Number user service. The table below describes the supported settings.
+            <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
+            <table border=1>
+            <thead>
+                <th>Property</th>
+                <th>Required?</th>
+                <th>Default</th>
+                <th>Notes</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>phoneNumber</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td><i>(see notes)</i></td>
+                <td>When omitted, the Charge Number TN will be assigned according to the following rules:
+                <ol>
+                <li>If the user has a phone number, this will be used.
+                <li>Otherwise, if the Site has a Calling Line ID phone number, this will be used.
+                <li>Otherwise, the Charge Number TN will be left empty.
+                </ol>
+                <br />
+                Set to null to override automatic Charge Number TN allocation and force the Charge Number phone number to be empty.</td>
+            </tr>
+            <tr>
+                <td>tnRoutine</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td><i>empty</i></td>
+                <td>See notes for tnRoutine, above.</td>
+            </tr>
+            <tr>
+                <td>useChargeNumberForEnhancedTranslations</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>false</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>sendChargeNumberToNetwork</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>true</td>
+                <td></td>
+            </tr>
+            <tbody>
+            </table>
             </td>
         </tr>
         <tr>
-            <td>services.'Third-Party Voice Mail Support'.noAnswerNumberOfRings</td>
+            <td>services.'Call Forwarding No Answer'.*</td>
             <td style="text-align: center; font-weight:bold">&#x2717</td>
             <td></td>
-            <td>Set to 0 for "None".<br />
+            <td>Configuration settings for the Call Forwarding No Answer user service. The table below describes the supported settings.
+            <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>            
+            <table border=1>
+            <thead>
+                <th>Property</th>
+                <th>Required?</th>
+                <th>Default</th>
+                <th>Notes</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>isActive</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>true</td>
+                <td>When true, forwardToPhoneNumber is required.</td>
+            </tr>
+            <tr>
+                <td>forwardToPhoneNumber</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>null</td>
+                <td>Set to null when an empty value is desired.</td>
+            </tr>
+            <tr>
+                <td>numberOfRings</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>4</td>
+                <td>Set to 0 for "None".<br />
+                <i>Note that this value will override services.'Third-Party Voice Mail Support'.noAnswerNumberOfRings if both are present.</td>
+            </tr>
+            <tbody>
+            </table>
+            </td>
+        </tr>
+        <tr>
+            <td>services.'Call Forwarding Not Reachable'.*</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>Configuration settings for the Call Forwarding Not Reachable user service. The table below describes the supported settings.
+            <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
+            <table border=1>
+            <thead>
+                <th>Property</th>
+                <th>Required?</th>
+                <th>Default</th>
+                <th>Notes</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>isActive</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>true</td>
+                <td>When true, forwardToPhoneNumber is required.</td>
+            </tr>
+            <tr>
+                <td>forwardToPhoneNumber</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>null</td>
+                <td>Set to null when an empty value is desired.</td>
+            </tr>
+            <tbody>
+            </table>
+            </td>
+        </tr>
+        <tr>
+            <td>services.'Third-Party Voice Mail Support'.*</td>
+            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td></td>
+            <td>Configuration settings for the Third-Party Voice Mail Support user service. The table below describes the supported settings.
+            <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
+            <table border=1>
+            <thead>
+                <th>Property</th>
+                <th>Required?</th>
+                <th>Default</th>
+                <th>Notes</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>isActive</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>true</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>busyRedirectToVoiceMail</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>true    </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>noAnswerRedirectToVoiceMail</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>true</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>serverSelection</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>'Group Mail Server'</td>
+                <td>Allowed values: {'Group Mail Server'|'User Specific Mail Server'}</td>
+            </tr>
+            <tr>
+                <td>userServer</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>null</td>
+                <td>Set to null when an empty value is desired.</td>
+            </tr>
+            <tr>
+                <td>mailboxIdType</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>'User Or Group Phone Number'</td>
+                <td>Allowed values: {'User Or Group Phone Number'|'URL'}</td>
+            </tr>
+            <tr>
+                <td>other</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>tbd</td>
+                <td>tbd</td>
+            </tr>
+            <tr>
+                <td>noAnswerNumberOfRings</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>3</td>
+                <td>Set to 0 for "None".<br />
             <i>Note that this value will be overridden by services.'Call Forwarding No Answer'.numberOfRings if both are present.</i>
+            </td>
+            </tr>
+            <tr>
+                <td>mailboxURL</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>null</td>
+                <td>Set to null when an empty value is desired.</td>
+            </tr>
+            <tr>
+                <td>alwaysRedirectToVoiceMail</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>false</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>outOfPrimaryZoneRedirectToVoiceMail</td>
+                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td>false</td>
+                <td></td>
+            </tr>
+            <tbody>
+            </table>
             </td>
         </tr>
         <tr>
