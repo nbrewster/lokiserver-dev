@@ -8,6 +8,8 @@ See also [GA documentation](http://docs.lokiserver.apiary.io/) and [branch (pre-
 
 **UNRELEASED** (development edition) Documentation for the Loki Server REST API.
 
+(test)
+
 Below is (work in progress) documentation describing the the Loki 3.0 API.
 
 #General
@@ -246,43 +248,43 @@ representation.]
     <tbody>
         <tr>
             <td>sourceDn</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>core</td>
             <td>Equal To</td>
         </tr>
         <tr>
             <td>attributes</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>extension</td>
             <td>Equal To</td>
         </tr>
         <tr>
             <td>callProcessingElement1Id</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>extension</td>
             <td>Equal To</td>
         </tr>
         <tr>
             <td>callProcessingElement2Id</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>extension</td>
             <td>Equal To</td>
         </tr>
         <tr>
             <td>callProcessingElement3Id</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>extension</td>
             <td>Equal To</td>
         </tr>
         <tr>
             <td>callProcessingElement4Id</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>extension</td>
             <td>Equal To</td>
         </tr>
         <tr>
             <td>callProcessingElementType</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>extension</td>
             <td>Equal To</td>
         </tr>
@@ -561,12 +563,12 @@ Query Subscribers. Responses will include (at a minimum) they fields comprising 
     <tbody>
         <tr>
             <td>subscriberDn</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>Equal To</td>
         </tr>
         <tr>
             <td>owningCarrierId</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>Equal To</td>
         </tr>
     </tbody>
@@ -836,7 +838,7 @@ Query Destinations. Responses will include (at a minimum) they fields comprising
     <tbody>
         <tr>
             <td>destinationDn</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>Equal To</td>
         </tr>
     </tbody>
@@ -1281,7 +1283,7 @@ Create a new VoIP User.
     <tbody>
         <tr>
             <td>mode</td>
-            <td style="text-align: center; font-weight:bold">&#x2713;</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
             <td>prevalidate-and-create</td>
             <td>Controls execution mode as described in **ref general documentation.<br />
             Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
@@ -1305,7 +1307,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <tbody>
         <tr>
             <td>customerId</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP User is to be created.
             In a default configuration (where a VoIP User is composed of BroadWorks entities only),
@@ -1313,7 +1315,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>siteId</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Loki Server siteId (server-generated) of the Site in which the new VoIP User is to be created.
             In a default configuration (where a VoIP User is composed of BroadWorks entities only),
@@ -1321,7 +1323,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>userId</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>(varies)</td>
             <td>Full UserID, including @domain. Will be constructed as [phoneNumber]@[Site default domain] if not provided.<br />
             Note that in BroadWorks, if the domain matches the BroadWorks system default domain, the BroadWorks
@@ -1338,40 +1340,40 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>tnRoutine</td>
-            <td style="text-align: center; font-weight:bold">&#x2717;</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Phone Number (TN) assignment routine.<br />
             Supported values and impact on other required properties:
             <table border=1>
             <thead>
                 <th>tnRoutine</th>
-                <th>phoneNumber required?</th>
-                <th>extension required?</th>
+                <th>phoneNumber yes</th>
+                <th>extension yes</th>
                 <th>Description</th>
             </thead>
             <tbody>
             <tr>
                 <td><b>port-no-temp</b></td>
                 <td style="text-align: center; font-weight:bold">&#x2713</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>TN does not exist in the system, and will be assigned automatically at both the Customer and Site levels.</td>
             </tr>
             <tr>
                 <td><b>auto</b></td>
                 <td style="text-align: center; font-weight:bold">&#x2713</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>TN may or may not already exist in the system, and will be assigned automatically only as needed.</td>
             </tr>
             <tr>
                 <td></td>
                 <td style="text-align: center; font-weight:bold">&#x2713</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>(default when tnRoutine is empty or omitted)<br />
                 TN must already be available for use; no assignment will be performed.</td>
             </tr>
             <tr>
                 <td><b>no-number</b></td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td style="text-align: center; font-weight:bold">&#x2713</td>
                 <td>User will have no TN (extension-only user); phoneNumber must <i>not</i> be present.</td>
             </tr>
@@ -1388,7 +1390,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>CLID</td>
-            <td style="text-align: center; font-weight:bold">&#x2717;</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>(varies)</td>
             <td>Calling Line ID Phone Number.<br />Must match phoneNumber or be otherwise available for assignment as a CLID TN.<br />
             Must be E.164 formatted, e.g. +1-2005553001 (the dash is required, after the country code).<br />
@@ -1396,37 +1398,37 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>lastName</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>(varies)</td>
             <td>Last Name. If omitted, will be autopopulated with the 4th through the last digits of phoneNumber, after stripping the country code.</td>
         </tr>
         <tr>
             <td>firstName</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>(varies)</td>
             <td>First Name. If omitted, will be autopopulated with the1st 3 digits of phoneNumber, after stripping the country code.</td>
         </tr>
         <tr>
             <td>callingLineIdLastName</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>(varies)</td>
             <td>Calling Line ID Last Name. If omitted, will be autopopulated with lastName, with disallowed characters (percent, plus, backslash, double-quote, and extended ASCII characters (>= ASCII 128)) stripped as needed).</td>
         </tr>
         <tr>
             <td>callingLineIdFirstName</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>(varies)</td>
             <td>Calling Line ID First Name. If omitted, will be autopopulated with firstName, with disallowed characters (percent, plus, backslash, double-quote, and extended ASCII characters (>= ASCII 128)) stripped as needed).</td>
         </tr>
         <tr>
             <td>email</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>E-Mail address</td>
         </tr>
         <tr>
             <td>timeZone</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>Site's time zone</td>
             <td>Time Zone expressed as a Zone Name from the
             <a href="https://www.iana.org/time-zones">IANA Time Zone Database</a>, e.g. "America/New_York".<br />
@@ -1434,7 +1436,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>language</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>Network element's default time zone</td>
             <td>Language<br />
             If omitted, the network element's default language (e.g. the BroadWorks system language) will be use=d.</td>
@@ -1455,20 +1457,20 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>servicePacks</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>List of names of service packs to be assigned to the new VoIP User.<br />
             <b>update for base / add-on</b></td>
         </tr>
         <tr>
             <td style="font-style:italic">role</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td style="font-style:italic">Not Implemented (reserved for future use). This property will be ignored if present in a request.</td>
         </tr>
         <tr>
             <td>services</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>The set of services to assign to the new VoIP User, and optionally the pre-configuration settings for the services.<br />
             Each child property must be an object whose name is a valid user service name on the network element (currently
@@ -1481,7 +1483,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>services.'Authentication'.*</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Configuration settings for the Authentication user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
@@ -1495,13 +1497,13 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <tbody>
             <tr>
                 <td>username</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>Username portion of userId</td>
                 <td></td>
             </tr>
             <tr>
                 <td>password</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>(see notes)</td>
                 <td>If omitted, the password will be auto-generated based on the rules configured in the server.</td>
             </tr>
@@ -1511,7 +1513,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>services.'Charge Number'.*</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Configuration settings for the Charge Number user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
@@ -1525,7 +1527,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <tbody>
             <tr>
                 <td>phoneNumber</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td><i>(see notes)</i></td>
                 <td>When omitted, the Charge Number TN will be assigned according to the following rules:
                 <ol>
@@ -1538,19 +1540,19 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             </tr>
             <tr>
                 <td>tnRoutine</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td><i>empty</i></td>
                 <td>See notes for tnRoutine, above.</td>
             </tr>
             <tr>
                 <td>useChargeNumberForEnhancedTranslations</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>false</td>
                 <td></td>
             </tr>
             <tr>
                 <td>sendChargeNumberToNetwork</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>true</td>
                 <td></td>
             </tr>
@@ -1560,7 +1562,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>services.'Call Forwarding No Answer'.*</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Configuration settings for the Call Forwarding No Answer user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>            
@@ -1574,19 +1576,19 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <tbody>
             <tr>
                 <td>isActive</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>true</td>
                 <td>When true, forwardToPhoneNumber is required.</td>
             </tr>
             <tr>
                 <td>forwardToPhoneNumber</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>null</td>
                 <td>Set to null when an empty value is desired.</td>
             </tr>
             <tr>
                 <td>numberOfRings</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>4</td>
                 <td>Set to 0 for "None".<br />
                 <i>Note that this value will override services.'Third-Party Voice Mail Support'.noAnswerNumberOfRings if both are present.</td>
@@ -1597,7 +1599,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>services.'Call Forwarding Not Reachable'.*</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Configuration settings for the Call Forwarding Not Reachable user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
@@ -1611,13 +1613,13 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <tbody>
             <tr>
                 <td>isActive</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>true</td>
                 <td>When true, forwardToPhoneNumber is required.</td>
             </tr>
             <tr>
                 <td>forwardToPhoneNumber</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>null</td>
                 <td>Set to null when an empty value is desired.</td>
             </tr>
@@ -1627,7 +1629,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>services.'Third-Party Voice Mail Support'.*</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Configuration settings for the Third-Party Voice Mail Support user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
@@ -1641,49 +1643,49 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <tbody>
             <tr>
                 <td>isActive</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>true</td>
                 <td></td>
             </tr>
             <tr>
                 <td>busyRedirectToVoiceMail</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>true    </td>
                 <td></td>
             </tr>
             <tr>
                 <td>noAnswerRedirectToVoiceMail</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>true</td>
                 <td></td>
             </tr>
             <tr>
                 <td>serverSelection</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>'Group Mail Server'</td>
                 <td>Allowed values: {'Group Mail Server'|'User Specific Mail Server'}</td>
             </tr>
             <tr>
                 <td>userServer</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>null</td>
                 <td>Set to null when an empty value is desired.</td>
             </tr>
             <tr>
                 <td>mailboxIdType</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>'User Or Group Phone Number'</td>
                 <td>Allowed values: {'User Or Group Phone Number'|'URL'}</td>
             </tr>
             <tr>
                 <td>other</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>tbd</td>
                 <td>tbd</td>
             </tr>
             <tr>
                 <td>noAnswerNumberOfRings</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>3</td>
                 <td>Set to 0 for "None".<br />
             <i>Note that this value will be overridden by services.'Call Forwarding No Answer'.numberOfRings if both are present.</i>
@@ -1691,19 +1693,19 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             </tr>
             <tr>
                 <td>mailboxURL</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>null</td>
                 <td>Set to null when an empty value is desired.</td>
             </tr>
             <tr>
                 <td>alwaysRedirectToVoiceMail</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>false</td>
                 <td></td>
             </tr>
             <tr>
                 <td>outOfPrimaryZoneRedirectToVoiceMail</td>
-                <td style="text-align: center; font-weight:bold">&#x2717</td>
+                <td style="text-align: center; font-weight:bold">no</td>
                 <td>false</td>
                 <td></td>
             </tr>
@@ -1713,19 +1715,19 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>extensions</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Optional section for network-element-specific properties</td>
         </tr>
         <tr>
             <td>extensions. broadworks</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Optional section for BroadWorks-specific properties</td>
         </tr>
         <tr>
             <td>extensions. broadworks. serviceProviderId</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>ID of the BroadWorks service provider or enterprse in which the underlying BroadWorks user is to be created.
             In a default configuration (where a VoIP User is composed of BroadWorks entities only),
@@ -1734,7 +1736,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>extensions. broadworks. groupId</td>
-            <td style="text-align: center; font-weight:bold">&#x2717</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>ID of the BroadWorks group in which the underlying BroadWorks user is to be created.
             In a default configuration (where a VoIP User is composed of BroadWorks entities only),
