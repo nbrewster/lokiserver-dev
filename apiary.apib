@@ -1345,26 +1345,26 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <table border=1>
             <thead>
                 <th>tnRoutine</th>
-                <th>phoneNumber Required?</th>
-                <th>extension Required?</th>
+                <th>phoneNumber yes</th>
+                <th>extension yes</th>
                 <th>Description</th>
             </thead>
             <tbody>
             <tr>
                 <td><b>port-no-temp</b></td>
-                <td style="text-align: center; font-weight:bold">yes</td>
+                <td style="text-align: center; font-weight:bold">&#x2713</td>
                 <td style="text-align: center; font-weight:bold">no</td>
                 <td>TN does not exist in the system, and will be assigned automatically at both the Customer and Site levels.</td>
             </tr>
             <tr>
                 <td><b>auto</b></td>
-                <td style="text-align: center; font-weight:bold">yes</td>
+                <td style="text-align: center; font-weight:bold">&#x2713</td>
                 <td style="text-align: center; font-weight:bold">no</td>
                 <td>TN may or may not already exist in the system, and will be assigned automatically only as needed.</td>
             </tr>
             <tr>
                 <td></td>
-                <td style="text-align: center; font-weight:bold">yes</td>
+                <td style="text-align: center; font-weight:bold">&#x2713</td>
                 <td style="text-align: center; font-weight:bold">no</td>
                 <td>(default when tnRoutine is empty or omitted)<br />
                 TN must already be available for use; no assignment will be performed.</td>
@@ -1372,7 +1372,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <tr>
                 <td><b>no-number</b></td>
                 <td style="text-align: center; font-weight:bold">no</td>
-                <td style="text-align: center; font-weight:bold">yes</td>
+                <td style="text-align: center; font-weight:bold">&#x2713</td>
                 <td>User will have no TN (extension-only user); phoneNumber must <i>not</i> be present.</td>
             </tr>
             <tbody>
@@ -2124,165 +2124,568 @@ POST /loki/routes
 
 POST /loki/users
 {
-    "request": {
-        "type": "object",
-        "properties": {
-            "userId": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 161
-            },
-            "phoneNumber": {
-                "$ref": "/bwksDnSchema"
-            },
-            "tnRoutine": {
-                "enum": [null, "", "port-no-temp", "auto", "no-number"]
-            },
-            "extension": {
-                "type": ["string", "null"],
-                "minLength": 2,
-                "maxLength": 20,
-                "pattern": "^[0-9]+$"
-            },
-            "CLID": {
-                "$ref": "/bwksDnSchema"
-            },
-            "lastName": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 30
-            },
-            "firstName": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 30
-            },
-            "callingLineIdLastName": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 30,
-                "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-            },
-            "callingLineIdFirstName": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 30,
-                "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-            },
-            "email": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 80,
-                "format": "email"
-            },
-            "timeZone": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 127
-            },
-            "language": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 40
-            },
-            "sharedDeviceName": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 40
-            },
-            "trunkGroupName": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 30
-            },
-            "servicePacks": {
-                "type": "object",
-                "description": "Service Packs that will be assigned to User",
-                "properties": {
-                    "base": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 80
-                    },
-                    "add-on": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 80
-                        }
-                    }
-                }
-            },
-            "services": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "Authentication": {
-                        "type": "object",
-                        "properties": { }
-                    },
-                    "Charge Number": {
-                        "type": "object",
-                        "properties": {
-                            "phoneNumber": {
-                                "extends": [
-                                    {
-                                        "$ref": "/bwksDnSchema"
-                                    },
-                                    {
-                                        "type": ["string", "null"]
-                                    }
-                                ]
-                            },
-                            "useChargeNumberForEnhancedTranslations": {
-                                "type": "boolean"
-                            },
-                            "sendChargeNumberToNetwork": {
-                                "type": "boolean"
-                            }
-                        }
-                    },
-                    "Third-Party Voice Mail Support": {
-                        "type": "object",
-                        "properties": { }
-                    },
-                    "Call Forwarding No Answer": {
-                        "type": "object",
-                        "properties": { }
-                    },
-                    "Call Forwarding Not Reachable": {
-                        "type": "object",
-                        "additionalProperties": false,
-                        "properties": {
-                            "isActive": {
-                                "type": "boolean",
-                                "required": false
-                            },
-                            "forwardToPhoneNumber": {
-                                "type": "string",
-                                "minLength": 1,
-                                "maxLength": 161,
-                                "required": false
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "definitions": {
-            "bwksDnSchema": {
-                "type": "string",
-                "description": "A formatted TN.",
-                "pattern": "^\\+[0-9]+-[0-9]+$",
-                "minLength": 1,
-                "maxLength": 23,
-                "required": false
-            }
-        }
-    },
-    "response": { }
+	"request": {
+		"id": "voipUsersBody",
+		"type": "object",
+		"title": "Post schema, body",
+		"properties": {
+			"customerId": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 30
+			},
+			"siteId": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 30
+			},
+			"userId": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 161
+			},
+			"phoneNumber": {
+				"$ref": "/bwksDnSchema"
+			},
+			"tnRoutine": {
+				"$ref": "/tnRoutine"
+			},
+			"extension": {
+				"type": [
+					"string",
+					"null"
+				],
+				"minLength": 2,
+				"maxLength": 20,
+				"pattern": "^[0-9]+$"
+			},
+			"CLID": {
+				"$ref": "/bwksDnSchema"
+			},
+			"lastName": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 30
+			},
+			"firstName": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 30
+			},
+			"callingLineIdLastName": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 30,
+				"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+			},
+			"callingLineIdFirstName": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 30,
+				"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+			},
+			"email": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 80,
+				"format": "email"
+			},
+			"timeZone": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 127
+			},
+			"language": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 40
+			},
+			"sharedDeviceName": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 40
+			},
+			"trunkGroupName": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 30
+			},
+			"servicePacks": {
+				"type": "object",
+				"description": "Service Packs that will be assigned to User",
+				"properties": {
+					"base": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 80
+					},
+					"add-on": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 80
+						}
+					}
+				}
+			},
+			"services": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"Authentication": {
+						"type": "object",
+						"properties": {
+							"username": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 80
+							},
+							"password": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 60
+							}
+						}
+					},
+					"Charge Number": {
+						"type": "object",
+						"properties": {
+							"phoneNumber": {
+								"extends": [
+									{
+										"$ref": "/bwksDnSchema"
+									},
+									{
+										"type": [
+											"string",
+											"null"
+										]
+									}
+								]
+							},
+							"useChargeNumberForEnhancedTranslations": {
+								"type": "boolean"
+							},
+							"sendChargeNumberToNetwork": {
+								"type": "boolean"
+							},
+							"tnRoutine": {
+								"$ref": "/tnRoutine"
+							}
+						}
+					},
+					"Third-Party Voice Mail Support": {
+						"type": "object",
+						"properties": {
+							"isActive": {
+								"type": "boolean"
+							},
+							"busyRedirectToVoiceMail": {
+								"type": "boolean"
+							},
+							"noAnswerRedirectToVoiceMail": {
+								"type": "boolean"
+							},
+							"noAnswerNumberOfRings": {
+								"$ref": "/numberOfRings"
+							},
+							"alwaysRedirectToVoiceMail": {
+								"type": "boolean"
+							},
+							"outOfPrimaryZoneRedirectToVoiceMail": {
+								"type": "boolean"
+							},
+							"serverSelection": {
+								"enum": [
+									"Group Mail Server",
+									"User Specific Mail Server"
+								]
+							},
+							"userServer": {
+								"$ref": "/outgoingDnOrSipUri"
+							},
+							"mailboxIdType": {
+								"enum": [
+									"User Or Group Phone Number",
+									"URL"
+								]
+							},
+							"mailboxURL": {
+								"extends": [
+									{
+										"$ref": "/bwksSipUri"
+									},
+									{
+										"type": [
+											"string",
+											"null"
+										]
+									}
+								]
+							}
+						}
+					},
+					"Call Forwarding No Answer": {
+						"type": "object",
+						"properties": {
+							"isActive": {
+								"type": "boolean"
+							},
+							"forwardToPhoneNumber": {
+								"$ref": "/outgoingDnOrSipUri"
+							},
+							"numberOfRings": {
+								"$ref": "/numberOfRings"
+							}
+						}
+					},
+					"Call Forwarding Not Reachable": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"isActive": {
+								"type": "boolean",
+								"required": false
+							},
+							"forwardToPhoneNumber": {
+								"$ref": "/outgoingDnOrSipUri"
+							}
+						}
+					}
+				}
+			},
+			"extensions": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"broadworks": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"serviceProviderId": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 30
+							},
+							"groupId": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 30
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"voipUsersBodySchema": {
+			"id": "voipUsersBody",
+			"type": "object",
+			"title": "Post schema, body",
+			"properties": {
+				"customerId": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 30
+				},
+				"siteId": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 30
+				},
+				"userId": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 161
+				},
+				"phoneNumber": {
+					"$ref": "/bwksDnSchema"
+				},
+				"tnRoutine": {
+					"$ref": "/tnRoutine"
+				},
+				"extension": {
+					"type": [
+						"string",
+						"null"
+					],
+					"minLength": 2,
+					"maxLength": 20,
+					"pattern": "^[0-9]+$"
+				},
+				"CLID": {
+					"$ref": "/bwksDnSchema"
+				},
+				"lastName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 30
+				},
+				"firstName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 30
+				},
+				"callingLineIdLastName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 30,
+					"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+				},
+				"callingLineIdFirstName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 30,
+					"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+				},
+				"email": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 80,
+					"format": "email"
+				},
+				"timeZone": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 127
+				},
+				"language": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 40
+				},
+				"sharedDeviceName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 40
+				},
+				"trunkGroupName": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 30
+				},
+				"servicePacks": {
+					"type": "object",
+					"description": "Service Packs that will be assigned to User",
+					"properties": {
+						"base": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 80
+						},
+						"add-on": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 80
+							}
+						}
+					}
+				},
+				"services": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"Authentication": {
+							"type": "object",
+							"properties": {
+								"username": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 80
+								},
+								"password": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 60
+								}
+							}
+						},
+						"Charge Number": {
+							"type": "object",
+							"properties": {
+								"phoneNumber": {
+									"extends": [
+										{
+											"$ref": "/bwksDnSchema"
+										},
+										{
+											"type": [
+												"string",
+												"null"
+											]
+										}
+									]
+								},
+								"useChargeNumberForEnhancedTranslations": {
+									"type": "boolean"
+								},
+								"sendChargeNumberToNetwork": {
+									"type": "boolean"
+								},
+								"tnRoutine": {
+									"$ref": "/tnRoutine"
+								}
+							}
+						},
+						"Third-Party Voice Mail Support": {
+							"type": "object",
+							"properties": {
+								"isActive": {
+									"type": "boolean"
+								},
+								"busyRedirectToVoiceMail": {
+									"type": "boolean"
+								},
+								"noAnswerRedirectToVoiceMail": {
+									"type": "boolean"
+								},
+								"noAnswerNumberOfRings": {
+									"$ref": "/numberOfRings"
+								},
+								"alwaysRedirectToVoiceMail": {
+									"type": "boolean"
+								},
+								"outOfPrimaryZoneRedirectToVoiceMail": {
+									"type": "boolean"
+								},
+								"serverSelection": {
+									"enum": [
+										"Group Mail Server",
+										"User Specific Mail Server"
+									]
+								},
+								"userServer": {
+									"$ref": "/outgoingDnOrSipUri"
+								},
+								"mailboxIdType": {
+									"enum": [
+										"User Or Group Phone Number",
+										"URL"
+									]
+								},
+								"mailboxURL": {
+									"extends": [
+										{
+											"$ref": "/bwksSipUri"
+										},
+										{
+											"type": [
+												"string",
+												"null"
+											]
+										}
+									]
+								}
+							}
+						},
+						"Call Forwarding No Answer": {
+							"type": "object",
+							"properties": {
+								"isActive": {
+									"type": "boolean"
+								},
+								"forwardToPhoneNumber": {
+									"$ref": "/outgoingDnOrSipUri"
+								},
+								"numberOfRings": {
+									"$ref": "/numberOfRings"
+								}
+							}
+						},
+						"Call Forwarding Not Reachable": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"isActive": {
+									"type": "boolean",
+									"required": false
+								},
+								"forwardToPhoneNumber": {
+									"$ref": "/outgoingDnOrSipUri"
+								}
+							}
+						}
+					}
+				},
+				"extensions": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"broadworks": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"serviceProviderId": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 30
+								},
+								"groupId": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 30
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"bwksDnSchema": {
+			"type": "string",
+			"description": "A formatted TN.",
+			"pattern": "^\\+[0-9]+-[0-9]+$",
+			"minLength": 1,
+			"maxLength": 23,
+			"required": false
+		},
+		"bwksNonFormattedDnSchema": {
+			"type": "string",
+			"description": "A non-E.164 formatted TN.",
+			"pattern": "^[0-9-]+$",
+			"minLength": 1,
+			"maxLength": 23,
+			"required": false
+		},
+		"bwksSipUri": {
+			"type": "string",
+			"description": "SIP URI",
+			"pattern": "^[+]?[a-zA-Z0-9-_.!~*'()]+@[a-zA-Z0-9.-]+$",
+			"minLength": 1,
+			"maxLength": 161,
+			"required": false
+		},
+		"outgoingDnOrSipUri": {
+			"anyOf": [
+				{
+					"extends": [
+						{
+							"$ref": "/bwksDnSchema"
+						},
+						{
+							"type": [
+								"string",
+								"null"
+							]
+						}
+					]
+				},
+				{
+					"$ref": "/bwksNonFormattedDnSchema"
+				},
+				{
+					"$ref": "/bwksSipUri"
+				}
+			]
+		}
+	},
+	"response": {}
 }
+
 
 PUT /loki/users/{+userId}/call-processing-policy
 {
