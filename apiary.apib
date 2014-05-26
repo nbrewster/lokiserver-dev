@@ -1382,8 +1382,10 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>extension</td>
             <td style="text-align: center">(varies)</td>
             <td>(varies)</td>
-            <td>Extension. Will be autopopulated if omitted.<b>**TBD logic</b><br />
-            Set to an empty value or <code>null</code> to create a VoIP User with no extension.<br />
+            <td>Extension. Will be autopopulated if omitted, taking digits off the end of the phone number. The number of
+            digits used is equal to the group's default extension length as configured in BroadWorks.<br />
+            Set to <code>null</code> to create a VoIP User with no extension (note that some Loki Server systems may be configured
+            to disallow empty extensions).<br />
             A value is required for certain TN routines; see documentation for tnRoutine for details.<br /></td>
         </tr>
         <tr>
