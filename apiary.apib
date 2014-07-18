@@ -1472,13 +1472,16 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>services</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
-            <td>The set of services to assign to the new VoIP User, and optionally the pre-configuration settings for the services.<br />
-            Each child property must be an object whose name is a valid user service name on the network element (currently
-            supporting BroadWorks user services). These objects may be empty, or may optionally contain properties with configuration
-            settings for the service. The supported configuration settings for each service are detailed later in this table.<br />
-            All services in services.* will be assigned to the user a la carte.<br />
-            If there are global default settings (defined in the configuration) for any assigned service, these will be applied.
-            Any service settings provided in the request will override these global default settings.
+	        <td>The set of services to assign to the new VoIP User, with optional pre-configuration
+	        settings for some services.<br />
+	        Each service name must match a valid (assignable) user service on the network element. Each
+	        service will be assigned to the user a la carte.  If there are global default settings (defined
+	        in the configuration) for any assigned service, these will be applied.<br />
+        	If the service supports configuration, configuration settings can be provided, and these will
+        	override any globally configured defaults for that service. The services that support
+        	configuration, and the supported settings for each, are detailed later in this table.<br />
+	        To assign a service without doing any configuration, set the value to an empty object, e.g.
+	        <code>"services" : { "Remote Office" : { } }</code>.<br />
             </td>
         </tr>
         <tr>
@@ -1875,7 +1878,8 @@ POST /users{?mode}
         "Call Forwarding Not Reachable" : {
             "isActive" : true,
             "forwardToPhoneNumber" : "+1-2005553101"
-        }
+        },
+        "Remote Office" : { }
     }
 }
 +++++
