@@ -1251,6 +1251,103 @@ DELETE /routes/{+id}
 
 
 --
+Sites
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* customerId
+* siteId
+
+Extension Keys:
+
+* (none)
+--
+
+Retrieve the set of Sites matching a specific BroadWorks serviceProviderId and groupId.
+In the default server configuration this will return at most a single Site.
+Can be used to resolve the Loki Server customerId/siteId of a Site when only the
+BroadWorks IDs are known.
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>extensions.broadworks.serviceProviderId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Corresponds to the serviceProviderId of the service provider (or enterprise) in BroadWorks.
+            </td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks.groupId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Corresponds to the groupId of the group in BroadWorks.
+            </td>
+        </tr>
+    </tbody>
+</table>
+GET /sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
+< 200
+{
+    "_links": {
+        "self": {
+            "href": "http://localhost:8340/loki/customers/ExampleCom/sites/ExampleCom"
+        }
+    },
+    "customerId": "ExampleCom",
+    "siteId": "ExampleCom",
+    "defaultDomain": "example.com",
+    "userLimit": 25,
+    "userCount": 2,
+    "siteName": "ExampleCom",
+    "callingLineIdName": "ExampleCom",
+    "callingLineIdPhoneNumber": "+12025555003",
+    "callingLineIdDisplayPhoneNumber": "2025555003",
+    "timeZone": "US/Eastern",
+    "locationDialingCode": "1",
+    "contact": {
+        "name": "bob jones",
+        "number": "2028887777",
+        "email": "bjones@jones.com"
+    },
+    "address": {
+        "addressLine1": "415 Sixth Ave",
+        "addressLine2": "Suite 102",
+        "city": "North Seventh",
+        "stateOrProvince": "Alabama",
+        "zipOrPostalCode": "50415",
+        "country": "USA"
+    },
+    "extensions": {
+        "broadworks": {
+            "serviceProviderId": "ExampleCom",
+            "groupId": "ExampleCom"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://localhost:8340/loki/rels/{rel}",
+            "templated": true
+        }
+    ]
+}
+
+
+--
 VoIP Users
 ##Collection
 
@@ -1291,7 +1388,7 @@ Create a new VoIP User.
     </tbody>
 </table>
 
-##Properties
+##Request Properties
 
 Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
 
