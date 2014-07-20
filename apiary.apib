@@ -1301,6 +1301,8 @@ BroadWorks IDs are known.
 </table>
 GET /sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
 < 200
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
 {
     "_links": {
         "self": {
@@ -2150,6 +2152,453 @@ PUT /users/{+userId}/call-processing-policy
 < 204
 < Transaction-Id: 1380080943120
 
+
+--
+VoIP Trunk Groups
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* customerId
+* siteId
+* trunkGroupName
+
+Extension Keys:
+
+* (none)
+--
+
+Create a new VoIP TrunkGroup.
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mode</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>prevalidate-and-create</td>
+            <td>Controls execution mode as described in **ref general documentation.<br />
+            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
+            <b>NOTE: at this time only "create-only" is allowed.</b>
+            </td>
+        </tr>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Trunk Group is to be created.
+            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
+            </td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Trunk Group is to be created.
+            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+<tr><td>trunkGroupName</td><td>yes</td><td></td><td>Trunk Group Name</td></tr>
+<tr><td>accessDevice</td><td>no</td><td></td><td>Details of the Trunk Group’s device. Properties:
+            <table border=1>
+            <thead>
+                <th>Property</th>
+                <th>Required?</th>
+                <th>Default</th>
+                <th>Description</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>deviceManagementRoutine</td>
+                <td>no</td>
+                <td>"existing"</td>
+                <td>Allowed values: {"create", "existing"}. Use "create" to cause a new device to be created.
+		Use "existing" if the specified device already exists.</td>
+            </tr>
+            <tr>
+                <td>level</td>
+                <td>no</td>
+                <td>"existing"</td>
+                <td>Device level. Allowed values: {"Site"}.</td>
+            </tr>
+            <tr>
+                <td>deviceType</td>
+                <td>no</td>
+                <td>"existing"</td>
+                <td>Device type.
+		Required when deviceManagementRoutine is “create”.
+		Required to be a valid Device Type defined in the BroadWorks system (not validated).</td>
+            </tr>
+            <tr>
+                <td>deviceName</td>
+                <td>yes</td>
+                <td>n/a</td>
+                <td>Device name</td>
+            </tr>
+            <tr>
+                <td>hostname</td>
+                <td>no</td>
+                <td>n/a</td>
+                <td>Device IP address or hostname</td>
+            </tr>
+</table>
+</td></tr>
+<tr><td>pilotUser</td><td>yes</td><td></td><td>Required to contain the properties of a POST /loki/users request, with the following notes conditions:
+a) sharedDeviceName is not supported, and will be ignored,
+b) trunkGroupName is required must match the main trunkGroupName in the request (the VoIP Trunk Group’s name).
+</td></tr>
+<tr><td>department</td><td>no</td><td></td><td>Department name (only Site-level departments are supported, initially).</td></tr>
+<tr><td>capacityManagement</td><td>yes</td><td></td><td>Capacity Management settings</td></tr>
+<tr><td>capacityManagement. maxActiveCalls</td><td>yes</td><td></td><td>Maximum Active Calls settings</td></tr>
+<tr><td>capacityManagement. maxActiveCalls. total</td><td>yes</td><td></td><td>Maximum Active Calls / Total Calls</td></tr>
+<tr><td>capacityManagement. maxActiveCalls. incoming</td><td>no</td><td></td><td>Maximum Active Calls / Incoming Calls</td></tr>
+<tr><td>capacityManagement. maxActiveCalls. outgoing</td><td>no</td><td></td><td>Maximum Active Calls / Outgoing Calls</td></tr>
+<tr><td>capacityManagement. burstingMaxActiveCalls</td><td>no</td><td></td><td>Bursting Maximum Active Calls settings</td></tr>
+<tr><td>capacityManagement. burstingMaxActiveCalls. enabled</td><td>no</td><td></td><td>Bursting Capacity on/off</td></tr>
+<tr><td>capacityManagement. burstingMaxActiveCalls. total</td><td>(see notes)</td><td></td><td>Bursting Maximum Active Calls / Total Calls. Required if “capacityManagement. burstingMaxActiveCalls. enabled” is true.</td></tr>
+<tr><td>capacityManagement. burstingMaxActiveCalls. incoming</td><td>no</td><td></td><td>Bursting Maximum Active Calls / Incoming Calls</td></tr>
+<tr><td>capacityManagement. burstingMaxActiveCalls. outgoing</td><td>no</td><td></td><td>Bursting Maximum Active Calls / Outgoing Calls</td></tr>
+<tr><td>capacityManagement. incomingCapacityExceeded</td><td>no</td><td></td><td>Incoming Capacity Exceeded settings</td></tr>
+<tr><td>capacityManagement. incomingCapacityExceeded. action</td><td>no</td><td></td><td>Incoming Capacity Exceeded Action – one of {'Forward'|'Reroute'}</td></tr>
+<tr><td>capacityManagement. incomingCapacityExceeded. forwardAddress</td><td>no</td><td></td><td>Forward to Phone Number / SIP-URI.
+Must be a valid phone number or SIP URI.
+Required if “capacityManagement. incomingCapacityExceeded. action” is “Forward”.
+</td></tr>
+<tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup</td><td>no</td><td></td><td>Details of target VoIP Trunk Group.
+Required if “capacityManagement. incomingCapacityExceeded. action” is “Reroute”.</td></tr>
+<tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. siteId</td><td>no</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group.
+Required if “capacityManagement. incomingCapacityExceeded. action” is “Reroute”.</td></tr>
+<tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. trunkGroupName</td><td>no</td><td></td><td>Name of the reroute target VoIP Trunk Group.
+Required if “capacityManagement. incomingCapacityExceeded. action” is “Reroute”.</td></tr>
+<tr><td>capacityManagement. incomingCapacityExceeded. initialCalls</td><td>yes</td><td></td><td>Capacity Exceeded Initial Value</td></tr>
+<tr><td>capacityManagement. incomingCapacityExceeded. offsetCalls</td><td>yes</td><td></td><td>Capacity Exceeded Offset Value</td></tr>
+<tr><td>unreachableDestination</td><td>yes</td><td></td><td>Unreachable Destination settings</td></tr>
+<tr><td>unreachableDestination. timeout</td><td>yes</td><td></td><td>Unreachable Destination Timeout (seconds)</td></tr>
+<tr><td>unreachableDestination. action</td><td>yes</td><td></td><td>Unreachable Destination Action – one of {'Forward'|'Reroute'}</td></tr>
+<tr><td>unreachableDestination. forwardAddress</td><td>yes</td><td></td><td>Forward to Phone Number / SIP-URI.
+Must be a valid phone number or SIP URI.
+Required if “unreachableDestination. action” is “Forward”.
+</td></tr>
+<tr><td>unreachableDestination. rerouteTrunkGroup</td><td>yes</td><td></td><td>Details of target VoIP Trunk Group.
+Required if “unreachableDestination. action” is “Reroute”.</td></tr>
+<tr><td>unreachableDestination. rerouteTrunkGroup. siteId</td><td>yes</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group.
+Required if “unreachableDestination. action” is “Reroute”.</td></tr>
+<tr><td>unreachableDestination. rerouteTrunkGroup. trunkGroupName</td><td>yes</td><td></td><td>Name of the reroute target VoIP Trunk Group.
+Required if “unreachableDestination. action” is “Reroute”.</td></tr>
+<tr><td>authentication</td><td>yes</td><td></td><td>SIP authentication settings</td></tr>
+<tr><td>authentication. enabled</td><td>yes</td><td></td><td>Enable Authentication</td></tr>
+<tr><td>authentication. username</td><td>no</td><td></td><td>Authentication User Name. Required if “authentication. enabled” is true.</td></tr>
+<tr><td>authentication. password</td><td>no</td><td></td><td>Authentication password. Required if “authentication. enabled” is true.</td></tr>
+<tr><td>hostedUsers</td><td>no</td><td></td><td>Not implemented – will be ignored if present in request.</td></tr>
+<tr><td>identity</td><td>yes</td><td></td><td>Identity settings</td></tr>
+<tr><td>identity. trunkGroupIdentity</td><td>yes</td><td></td><td>Trunk Group Identity settings</td></tr>
+<tr><td>identity. trunkGroupIdentity. identity</td><td>yes</td><td></td><td>Trunk Group Identity, including @domain. Required to be a valid SIP URI.</td></tr>
+<tr><td>identity. trunkGroupIdentity. allowTerminationToTrunkGroupIdentity</td><td>yes</td><td></td><td>Allow calls directly to trunk group with Trunk Identity</td></tr>
+<tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentity</td><td>yes</td><td></td><td>Include Trunk Identity for Calls to Trunk Group</td></tr>
+<tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentityForNetworkCalls</td><td>yes</td><td></td><td>Include Trunk Identity for Calls from Trunk Group</td></tr>
+<tr><td>identity. otgDtgIdentity</td><td>yes</td><td></td><td>OTG/DTG Identity settings</td></tr>
+<tr><td>identity. otgDtgIdentity. identity</td><td>yes</td><td></td><td>OTG/DTG Identity</td></tr>
+<tr><td>identity. otgDtgIdentity. allowTerminationToDtgIdentity</td><td>yes</td><td></td><td>Allow calls directly to trunk group with DTG Identity</td></tr>
+<tr><td>identity. otgDtgIdentity. includeDtgIdentity</td><td>yes</td><td></td><td>Include DTG Identity for Calls to Trunk Group</td></tr>
+<tr><td>identity. otgDtgIdentity. includeOtgIdentityForNetworkCalls</td><td>yes</td><td></td><td>Include OTG Identity for Calls from Trunk Group</td></tr>
+<tr><td>identity. enableNetworkAddressIdentity</td><td>yes</td><td></td><td>Enable Network Address Identity</td></tr>
+<tr><td>allowUnscreenedCalls</td><td>yes</td><td></td><td>Allow Unscreened Calls</td></tr>
+<tr><td>allowUnscreenedEmergencyCalls</td><td>yes</td><td></td><td>Allow Unscreened Emergency Calls</td></tr>
+<tr><td>pilotUserCallingLineIdentityPolicy</td><td>yes</td><td></td><td>Pilot User Calling Line Asserted Identity Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
+<tr><td>pilotUserChargeNumberPolicy</td><td>yes</td><td></td><td>Pilot User Charge Number Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
+<tr><td>callForwardingAlways</td><td>no</td><td></td><td>Call Forwarding Always settings</td></tr>
+<tr><td>callForwardingAlways. action</td><td>no</td><td></td><td>Call Forwarding Always Action – one of {'Forward'|'Reroute'}</td></tr>
+<tr><td>callForwardingAlways. forwardAddress</td><td>no</td><td></td><td>Forward to Phone Number / SIP-URI.
+Must be a valid phone number or SIP URI.
+Required if “callForwardingAlways. action” is “Forward”.
+</td></tr>
+<tr><td>callForwardingAlways. rerouteTrunkGroup</td><td>no</td><td></td><td>Details of target VoIP Trunk Group. Required if “callForwardingAlways. action” is “Reroute”.</td></tr>
+<tr><td>callForwardingAlways. rerouteTrunkGroup. siteId</td><td>no</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group. Required if “callForwardingAlways. action” is “Reroute”.</td></tr>
+<tr><td>callForwardingAlways. rerouteTrunkGroup. trunkGroupName</td><td>no</td><td></td><td>Name of the reroute target VoIP Trunk Group. Required if “callForwardingAlways. action” is “Reroute”.</td></tr>
+<tr><td>peeringDomain</td><td>yes</td><td></td><td>Peering Domain settings</td></tr>
+<tr><td>peeringDomain. domainName</td><td>no</td><td></td><td>Peering Domain</td></tr>
+<tr><td>peeringDomain. routeToPeeringDomain</td><td>yes</td><td></td><td>Route To Peering Domain</td></tr>
+<tr><td>trunkGroupPrefix</td><td>no</td><td></td><td>Trunk Group Prefix settings</td></tr>
+<tr><td>trunkGroupPrefix. enabled</td><td>no</td><td></td><td>Enable Trunk Group Prefix. Required when trunkGroupPrefix is present.</td></tr>
+<tr><td>trunkGroupPrefix. prefix</td><td>no</td><td></td><td>Trunk Group Prefix. Required when “trunkGroupPrefix. enabled” is true.</td></tr>
+<tr><td>advancedReroute</td><td>yes</td><td></td><td>Stateful Trunk Group Rerouting settings</td></tr>
+<tr><td>advancedReroute. enabled</td><td>yes</td><td></td><td>Enable Stateful Trunk Group Rerouting</td></tr>
+<tr><td>advancedReroute. sendContinuousOptionsMessage</td><td>yes</td><td></td><td>Send Continuous Options Message</td></tr>
+<tr><td>advancedReroute. continuousOptionsSendingInterval</td><td>yes</td><td></td><td>Send Continuous Options Message Every (seconds)</td></tr>
+<tr><td>advancedReroute. failureOptionsSendingInterval</td><td>yes</td><td></td><td>Send Failure Options Message Every (seconds)</td></tr>
+<tr><td>advancedReroute. failureThresholdCounter</td><td>yes</td><td></td><td>Failure Threshold Counter</td></tr>
+<tr><td>advancedReroute. successThresholdCounter</td><td>yes</td><td></td><td>Success Threshold Counter</td></tr>
+<tr><td>advancedReroute. inviteFailureThresholdCounter</td><td>yes</td><td></td><td>Invite Failure Threshold Counter</td></tr>
+<tr><td>advancedReroute. inviteFailureThresholdWindow</td><td>yes</td><td></td><td>Invite Failure Threshold Window</td></tr>
+<tr><td>pilotUserCallingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>Pilot User Calling Line Asserted Identity Policy settings</td></tr>
+<tr><td>pilotUserCallingLineAssertedIdentityPolicy. useTrunkGroupCallingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>If true, use Trunk Group’s Pilot User Calling Line Asserted Identity Policy. Otherwise, use the Customer’s policy.</td></tr>
+<tr><td>pilotUserCallingLineAssertedIdentityPolicy.  callingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>Use this Trunk Group Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'}</td></tr>
+    </tbody>
+</table>
+POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
+{
+        "trunkGroupName": "ExampleCom Trunk 3001",
+        "department": "Sales",
+        "accessDevice": {
+            "deviceManagementRoutine": "create",
+            "level": "Site",
+            "deviceType": "AudioCodes MP-102",
+            "deviceName": "ExampleCom_AD3001",
+            "hostname": "192.168.0.2"
+        },
+        "capacityManagement": {
+            "maxActiveCalls": {
+                "total": 10,
+                "incoming": 4,
+                "outgoing": 3
+            },
+            "burstingMaxActiveCalls": {
+                "enabled": false,
+                "total": 12,
+                "incoming": 7,
+                "outgoing": 9
+            },
+            "incomingCapacityExceeded": {
+                "action": "Forward",
+                "forwardAddress": "3015551212",
+                "rerouteTrunkGroup": {
+                    "siteId": "ExampleCom",
+                    "trunkGroupName": "ExampleCom Trunk 1212"
+                },
+                "initialCalls": 2,
+                "offsetCalls": 3
+            }
+        },
+        "unreachableDestination": {
+            "timeout": 10,
+            "action": "Reroute",
+            "forwardAddress": "3015551212",
+            "rerouteTrunkGroup": {
+                "siteId": "ExampleCom",
+                "trunkGroupName": "ExampleCom Trunk 1212"
+            }
+        },
+        "authentication": {
+            "enabled": true,
+            "username": "2405553001@example.com",
+            "password": "230A4u$#%f"
+        },
+        "identity": {
+            "trunkGroupIdentity": {
+                "identity": "2405553001@example.com",
+                "allowTerminationToTrunkGroupIdentity": false,
+                "includeTrunkGroupIdentity": false,
+                "includeTrunkGroupIdentityForNetworkCalls": false
+            },
+            "otgDtgIdentity": {
+                "identity": "2405553001",
+                "allowTerminationToDtgIdentity": false,
+                "includeDtgIdentity": false,
+                "includeOtgIdentityForNetworkCalls": false
+            },
+            "enableNetworkAddressIdentity": false
+        },
+        "allowUnscreenedCalls": true,
+        "allowUnscreenedEmergencyCalls": false,
+        "pilotUserCallingLineIdentityPolicy": "No Calls",
+        "pilotUserChargeNumberPolicy": "No Calls",
+        "callForwardingAlways": {
+            "action": "Forward",
+            "forwardAddress": "3015551212",
+            "rerouteTrunkGroup": {
+                "siteId": "ExampleCom",
+                "trunkGroupName": "ExampleCom Trunk 1212"
+            }
+        },
+        "peeringDomain": {
+            "domainName": "example.com",
+            "routeToPeeringDomain": false
+        },
+        "trunkGroupPrefix": {
+            "enabled": false,
+            "prefix": "1234"
+        },
+        "advancedReroute": {
+            "enabled": false,
+            "sendContinuousOptionsMessage": false,
+            "continuousOptionsSendingInterval": 30,
+            "failureOptionsSendingInterval": 10,
+            "failureThresholdCounter": 1,
+            "successThresholdCounter": 1,
+            "inviteFailureThresholdCounter": 1,
+            "inviteFailureThresholdWindow": 30
+        },
+        "pilotUserCallingLineAssertedIdentityPolicy": {
+            "useTrunkGroupCallingLineAssertedIdentityPolicy": false,
+            "callingLineAssertedIdentityPolicy": "Unscreened Originating Calls"
+        },
+        "pilotUser": {
+            "userId": "2405553001@example.com",
+            "phoneNumber": "+1-2405553001",
+            "tnRoutine": "auto",
+            "CLID": "+1-2405553001",
+            "extension": "3001",
+            "lastName": "Smith",
+            "firstName": "John",
+            "callingLineIdLastName": "Smith",
+            "callingLineIdFirstName": "John",
+            "email": "jsmith@example.com",
+            "timeZone": "America/New_York",
+            "language": "English",
+            "servicePacks": {
+                "base": "Standard",
+                "add-on": [
+                    "Executive"
+                ]
+            },
+            "role": "Executive",
+            "services": {
+                "Authentication": {
+                    "username": "2405553001@example.com",
+                    "password": "230A4u$#%f"
+                },
+                "Charge Number": {
+                    "phoneNumber": "+1-2405553001",
+                    "tnRoutine": "",
+                    "useChargeNumberForEnhancedTranslations": false,
+                    "sendChargeNumberToNetwork": true
+                },
+                "Third-Party Voice Mail Support": {
+                    "isActive": true,
+                    "busyRedirectToVoiceMail": true,
+                    "noAnswerRedirectToVoiceMail": true,
+                    "serverSelection": "User Specific Mail Server",
+                    "userServer": "3015557000",
+                    "noAnswerNumberOfRings": 4,
+                    "alwaysRedirectToVoiceMail": false,
+                    "outOfPrimaryZoneRedirectToVoiceMail": false
+                },
+                "Call Forwarding No Answer": {
+                    "isActive": true,
+                    "forwardToPhoneNumber": "+1-2405553101",
+                    "numberOfRings": 4
+                },
+                "Call Forwarding Not Reachable": {
+                    "isActive": true,
+                    "forwardToPhoneNumber": "+1-2405553101"
+                }
+            }
+        }
+}
+< 201
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+< Location: http://localhost:8340/loki/customers/ExampleCom/sites/ExampleCom/trunk-groups/ExampleCom%20Trunk%203001
+{
+        "_links": {
+            "self": {
+                "href": "http://localhost:8340/loki/customers/ExampleCom/sites/ExampleCom/trunk-groups/ExampleCom%20Trunk%203001"
+            }
+        },
+        "_embedded": {
+            "ls:pilot-users": [
+                {
+                    "_links": {
+                        "self": {
+                            "href": "http://localhost:8340/loki/users/2405553001%40example.com"
+                        }
+                    },
+                    "phoneNumber": "+1-2405553001",
+                    "extension": "3001",
+                    "CLID": "+1-2405553001",
+                    "email": "jsmith@example.com",
+                    "userId": "2405553001@example.com",
+                    "portalPassword": "DkztwCAp",
+                    "firstName": "John",
+                    "lastName": "Smith",
+                    "callingLineIdLastName": "Smith",
+                    "callingLineIdFirstName": "John",
+                    "language": "English",
+                    "timeZone": "America/New_York",
+                    "trunkGroupName": "ExampleCom Trunk 3001",
+                    "services": {
+                        "Authentication": {
+                            "username": "2405553001@example.com",
+                            "password": "230A4u$#%f"
+                        },
+                        "Charge Number": {
+                            "phoneNumber": "+1-2405553001",
+                            "tnRoutine": "",
+                            "useChargeNumberForEnhancedTranslations": false,
+                            "sendChargeNumberToNetwork": true
+                        },
+                        "Third-Party Voice Mail Support": {
+                            "isActive": true,
+                            "busyRedirectToVoiceMail": true,
+                            "noAnswerRedirectToVoiceMail": true,
+                            "serverSelection": "User Specific Mail Server",
+                            "userServer": "3012297000",
+                            "noAnswerNumberOfRings": 4,
+                            "alwaysRedirectToVoiceMail": false,
+                            "outOfPrimaryZoneRedirectToVoiceMail": false,
+                            "mailboxIdType": "User Or Group Phone Number",
+                            "mailboxURL": null
+                        },
+                        "Call Forwarding No Answer": {
+                            "isActive": true,
+                            "forwardToPhoneNumber": "+1-2405553101",
+                            "numberOfRings": 4
+                        },
+                        "Call Forwarding Not Reachable": {
+                            "isActive": true,
+                            "forwardToPhoneNumber": "+1-2405553101"
+                        }
+                    },
+                    "customerId": "ExampleCom",
+                    "siteId": "ExampleCom",
+                    "curies": [
+                        {
+                            "name": "ls",
+                            "href": "http://localhost:8340/loki/rels/{rel}",
+                            "templated": true
+                        }
+                    ]
+                }
+            ]
+        },
+        "customerId": "ExampleCom",
+        "siteId": "ExampleCom",
+        "trunkGroupName": "ExampleCom Trunk 3001",
+        "curies": [
+            {
+                "name": "ls",
+                "href": "http://localhost:8340/loki/rels/{rel}",
+                "templated": true
+            }
+        ]
+}
+    
 
 -- JSON Schema Validations --
 
