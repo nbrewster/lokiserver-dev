@@ -2224,14 +2224,14 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <th>Description</th>
     </thead>
     <tbody>
-<tr><td>trunkGroupName</td><td>yes</td><td></td><td>Trunk Group Name</td></tr>
-<tr><td>accessDevice</td><td>no</td><td></td><td>Details of the Trunk Group’s device. Properties:
-            <table border=1>
+    <tr><td>trunkGroupName</td><td>yes</td><td></td><td>Trunk Group Name</td></tr>
+    <tr><td>accessDevice</td><td>yes</td><td></td><td>Details of the Trunk Group's device. Properties:
+        <table border=1>
             <thead>
-                <th>Property</th>
-                <th>Required?</th>
-                <th>Default</th>
-                <th>Description</th>
+            <th>Property</th>
+            <th>Required?</th>
+            <th>Default</th>
+            <th>Description</th>
             </thead>
             <tbody>
             <tr>
@@ -2239,27 +2239,27 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 <td>no</td>
                 <td>"existing"</td>
                 <td>Allowed values: {"create", "existing"}. Use "create" to cause a new device to be created.
-		Use "existing" if the specified device already exists.</td>
+                    Use "existing" if the specified device already exists.</td>
             </tr>
             <tr>
                 <td>level</td>
-                <td>no</td>
-                <td>"existing"</td>
-                <td>Device level. Required when accessDevice is present. Allowed values: {"Site"}.</td>
+                <td>yes</td>
+                <td>n/a</td>
+                <td>Device level. Allowed values: {"Site"}.</td>
             </tr>
             <tr>
                 <td>deviceType</td>
                 <td>no</td>
-                <td>"existing"</td>
+                <td>n/a</td>
                 <td>Device type.
-		Required when deviceManagementRoutine is “create”.
-		Required to be a valid Device Type defined in the BroadWorks system (not validated).</td>
+                    Required when deviceManagementRoutine is "create".
+                    Required to be a valid Device Type defined in the BroadWorks system (not validated).</td>
             </tr>
             <tr>
                 <td>deviceName</td>
-                <td>(see notes))</td>
+                <td>yes</td>
                 <td>n/a</td>
-                <td>Device name. Required when accessDevice is present.</td>
+                <td>Device name.</td>
             </tr>
             <tr>
                 <td>hostname</td>
@@ -2267,98 +2267,98 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 <td>n/a</td>
                 <td>Device IP address or hostname</td>
             </tr>
-</table>
-</td></tr>
-<tr><td>pilotUser</td><td>yes</td><td></td><td>Required to contain the properties of a POST /loki/users request, with the following notes conditions:
-a) sharedDeviceName is not supported, and will be ignored,
-b) trunkGroupName is required must match the main trunkGroupName in the request (the VoIP Trunk Group’s name).
-</td></tr>
-<tr><td>department</td><td>no</td><td></td><td>Department name (only Site-level departments are supported, initially).</td></tr>
-<tr><td>capacityManagement</td><td>yes</td><td></td><td>Capacity Management settings</td></tr>
-<tr><td>capacityManagement. maxActiveCalls</td><td>yes</td><td></td><td>Maximum Active Calls settings</td></tr>
-<tr><td>capacityManagement. maxActiveCalls. total</td><td>yes</td><td></td><td>Maximum Active Calls / Total Calls</td></tr>
-<tr><td>capacityManagement. maxActiveCalls. incoming</td><td>no</td><td></td><td>Maximum Active Calls / Incoming Calls</td></tr>
-<tr><td>capacityManagement. maxActiveCalls. outgoing</td><td>no</td><td></td><td>Maximum Active Calls / Outgoing Calls</td></tr>
-<tr><td>capacityManagement. burstingMaxActiveCalls</td><td>no</td><td></td><td>Bursting Maximum Active Calls settings</td></tr>
-<tr><td>capacityManagement. burstingMaxActiveCalls. enabled</td><td>no</td><td></td><td>Bursting Capacity on/off</td></tr>
-<tr><td>capacityManagement. burstingMaxActiveCalls. total</td><td>(see notes)</td><td></td><td>Bursting Maximum Active Calls / Total Calls. Required if “capacityManagement. burstingMaxActiveCalls. enabled” is true.</td></tr>
-<tr><td>capacityManagement. burstingMaxActiveCalls. incoming</td><td>no</td><td></td><td>Bursting Maximum Active Calls / Incoming Calls</td></tr>
-<tr><td>capacityManagement. burstingMaxActiveCalls. outgoing</td><td>no</td><td></td><td>Bursting Maximum Active Calls / Outgoing Calls</td></tr>
-<tr><td>capacityManagement. incomingCapacityExceeded</td><td>no</td><td></td><td>Incoming Capacity Exceeded settings</td></tr>
-<tr><td>capacityManagement. incomingCapacityExceeded. action</td><td>no</td><td></td><td>Incoming Capacity Exceeded Action – one of {'Forward'|'Reroute'}</td></tr>
-<tr><td>capacityManagement. incomingCapacityExceeded. forwardAddress</td><td>(see notes)</td><td></td><td>Forward to Phone Number / SIP-URI.
-Must be a valid phone number or SIP URI.
-Required if “capacityManagement. incomingCapacityExceeded. action” is “Forward”.
-</td></tr>
-<tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup</td><td>(see notes)</td><td></td><td>Details of target VoIP Trunk Group.
-Required if “capacityManagement. incomingCapacityExceeded. action” is “Reroute”.</td></tr>
-<tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group.
-Required if “capacityManagement. incomingCapacityExceeded. action” is “Reroute”.</td></tr>
-<tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td></td><td>Name of the reroute target VoIP Trunk Group.
-Required if “capacityManagement. incomingCapacityExceeded. action” is “Reroute”.</td></tr>
-<tr><td>capacityManagement. incomingCapacityExceeded. initialCalls</td><td>yes</td><td></td><td>Capacity Exceeded Initial Value</td></tr>
-<tr><td>capacityManagement. incomingCapacityExceeded. offsetCalls</td><td>yes</td><td></td><td>Capacity Exceeded Offset Value</td></tr>
-<tr><td>unreachableDestination</td><td>yes</td><td></td><td>Unreachable Destination settings</td></tr>
-<tr><td>unreachableDestination. timeout</td><td>yes</td><td></td><td>Unreachable Destination Timeout (seconds)</td></tr>
-<tr><td>unreachableDestination. action</td><td>no</td><td></td><td>Unreachable Destination Action – one of {'Forward'|'Reroute'}</td></tr>
-<tr><td>unreachableDestination. forwardAddress</td><td>(see notes)</td><td></td><td>Forward to Phone Number / SIP-URI.
-Must be a valid phone number or SIP URI.
-Required if “unreachableDestination. action” is “Forward”.
-</td></tr>
-<tr><td>unreachableDestination. rerouteTrunkGroup</td><td>(see notes)</td><td></td><td>Details of target VoIP Trunk Group.
-Required if “unreachableDestination. action” is “Reroute”.</td></tr>
-<tr><td>unreachableDestination. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group.
-Required if “unreachableDestination. action” is “Reroute”.</td></tr>
-<tr><td>unreachableDestination. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td></td><td>Name of the reroute target VoIP Trunk Group.
-Required if “unreachableDestination. action” is “Reroute”.</td></tr>
-<tr><td>authentication</td><td>yes</td><td></td><td>SIP authentication settings</td></tr>
-<tr><td>authentication. enabled</td><td>yes</td><td></td><td>Enable Authentication</td></tr>
-<tr><td>authentication. username</td><td>(see notes)</td><td></td><td>Authentication User Name. Required if “authentication. enabled” is true.</td></tr>
-<tr><td>authentication. password</td><td>(see notes)</td><td></td><td>Authentication password. Required if “authentication. enabled” is true.</td></tr>
-<tr><td>hostedUsers</td><td>no</td><td></td><td>Not implemented – will be ignored if present in request.</td></tr>
-<tr><td>identity</td><td>yes</td><td></td><td>Identity settings</td></tr>
-<tr><td>identity. trunkGroupIdentity</td><td>yes</td><td></td><td>Trunk Group Identity settings</td></tr>
-<tr><td>identity. trunkGroupIdentity. identity</td><td>yes</td><td></td><td>Trunk Group Identity, including @domain. Required to be a valid SIP URI.</td></tr>
-<tr><td>identity. trunkGroupIdentity. allowTerminationToTrunkGroupIdentity</td><td>yes</td><td></td><td>Allow calls directly to trunk group with Trunk Identity</td></tr>
-<tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentity</td><td>yes</td><td></td><td>Include Trunk Identity for Calls to Trunk Group</td></tr>
-<tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentityForNetworkCalls</td><td>yes</td><td></td><td>Include Trunk Identity for Calls from Trunk Group</td></tr>
-<tr><td>identity. otgDtgIdentity</td><td>yes</td><td></td><td>OTG/DTG Identity settings</td></tr>
-<tr><td>identity. otgDtgIdentity. identity</td><td>yes</td><td></td><td>OTG/DTG Identity</td></tr>
-<tr><td>identity. otgDtgIdentity. allowTerminationToDtgIdentity</td><td>yes</td><td></td><td>Allow calls directly to trunk group with DTG Identity</td></tr>
-<tr><td>identity. otgDtgIdentity. includeDtgIdentity</td><td>yes</td><td></td><td>Include DTG Identity for Calls to Trunk Group</td></tr>
-<tr><td>identity. otgDtgIdentity. includeOtgIdentityForNetworkCalls</td><td>yes</td><td></td><td>Include OTG Identity for Calls from Trunk Group</td></tr>
-<tr><td>identity. enableNetworkAddressIdentity</td><td>yes</td><td></td><td>Enable Network Address Identity</td></tr>
-<tr><td>allowUnscreenedCalls</td><td>yes</td><td></td><td>Allow Unscreened Calls</td></tr>
-<tr><td>allowUnscreenedEmergencyCalls</td><td>yes</td><td></td><td>Allow Unscreened Emergency Calls</td></tr>
-<tr><td>pilotUserCallingLineIdentityPolicy</td><td>yes</td><td></td><td>Pilot User Calling Line Asserted Identity Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
-<tr><td>pilotUserChargeNumberPolicy</td><td>yes</td><td></td><td>Pilot User Charge Number Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
-<tr><td>callForwardingAlways</td><td>no</td><td></td><td>Call Forwarding Always settings</td></tr>
-<tr><td>callForwardingAlways. action</td><td>no</td><td></td><td>Call Forwarding Always Action – one of {'Forward'|'Reroute'}</td></tr>
-<tr><td>callForwardingAlways. forwardAddress</td><td>(see notes)</td><td></td><td>Forward to Phone Number / SIP-URI.
-Must be a valid phone number or SIP URI.
-Required if “callForwardingAlways. action” is “Forward”.
-</td></tr>
-<tr><td>callForwardingAlways. rerouteTrunkGroup</td><td>(see notes)</td><td></td><td>Details of target VoIP Trunk Group. Required if “callForwardingAlways. action” is “Reroute”.</td></tr>
-<tr><td>callForwardingAlways. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group. Required if “callForwardingAlways. action” is “Reroute”.</td></tr>
-<tr><td>callForwardingAlways. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td></td><td>Name of the reroute target VoIP Trunk Group. Required if “callForwardingAlways. action” is “Reroute”.</td></tr>
-<tr><td>peeringDomain</td><td>yes</td><td></td><td>Peering Domain settings</td></tr>
-<tr><td>peeringDomain. domainName</td><td>no</td><td></td><td>Peering Domain</td></tr>
-<tr><td>peeringDomain. routeToPeeringDomain</td><td>yes</td><td></td><td>Route To Peering Domain</td></tr>
-<tr><td>trunkGroupPrefix</td><td>no</td><td></td><td>Trunk Group Prefix settings</td></tr>
-<tr><td>trunkGroupPrefix. enabled</td><td>(see notes)</td><td></td><td>Enable Trunk Group Prefix. Required when trunkGroupPrefix is present.</td></tr>
-<tr><td>trunkGroupPrefix. prefix</td><td>(see notes)</td><td></td><td>Trunk Group Prefix. Required when “trunkGroupPrefix. enabled” is true.</td></tr>
-<tr><td>advancedReroute</td><td>yes</td><td></td><td>Stateful Trunk Group Rerouting settings</td></tr>
-<tr><td>advancedReroute. enabled</td><td>yes</td><td></td><td>Enable Stateful Trunk Group Rerouting</td></tr>
-<tr><td>advancedReroute. sendContinuousOptionsMessage</td><td>yes</td><td></td><td>Send Continuous Options Message</td></tr>
-<tr><td>advancedReroute. continuousOptionsSendingInterval</td><td>yes</td><td></td><td>Send Continuous Options Message Every (seconds)</td></tr>
-<tr><td>advancedReroute. failureOptionsSendingInterval</td><td>yes</td><td></td><td>Send Failure Options Message Every (seconds)</td></tr>
-<tr><td>advancedReroute. failureThresholdCounter</td><td>yes</td><td></td><td>Failure Threshold Counter</td></tr>
-<tr><td>advancedReroute. successThresholdCounter</td><td>yes</td><td></td><td>Success Threshold Counter</td></tr>
-<tr><td>advancedReroute. inviteFailureThresholdCounter</td><td>yes</td><td></td><td>Invite Failure Threshold Counter</td></tr>
-<tr><td>advancedReroute. inviteFailureThresholdWindow</td><td>yes</td><td></td><td>Invite Failure Threshold Window</td></tr>
-<tr><td>pilotUserCallingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>Pilot User Calling Line Asserted Identity Policy settings</td></tr>
-<tr><td>pilotUserCallingLineAssertedIdentityPolicy. useTrunkGroupCallingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>If true, use Trunk Group’s Pilot User Calling Line Asserted Identity Policy. Otherwise, use the Customer’s policy.</td></tr>
-<tr><td>pilotUserCallingLineAssertedIdentityPolicy.  callingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>Use this Trunk Group Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'}</td></tr>
+        </table>
+    </td></tr>
+    <tr><td>pilotUser</td><td>yes</td><td></td><td>Required to contain the properties of a POST /loki/users request, with the following notes conditions:
+        a) sharedDeviceName is not supported, and will be ignored,
+        b) trunkGroupName is required must match the main trunkGroupName in the request (the VoIP Trunk Group's name).
+    </td></tr>
+    <tr><td>department</td><td>no</td><td></td><td>Department name (only Site-level departments are supported, initially).</td></tr>
+    <tr><td>capacityManagement</td><td>yes</td><td></td><td>Capacity Management settings</td></tr>
+    <tr><td>capacityManagement. maxActiveCalls</td><td>yes</td><td></td><td>Maximum Active Calls settings</td></tr>
+    <tr><td>capacityManagement. maxActiveCalls. total</td><td>yes</td><td></td><td>Maximum Active Calls / Total Calls</td></tr>
+    <tr><td>capacityManagement. maxActiveCalls. incoming</td><td>no</td><td></td><td>Maximum Active Calls / Incoming Calls</td></tr>
+    <tr><td>capacityManagement. maxActiveCalls. outgoing</td><td>no</td><td></td><td>Maximum Active Calls / Outgoing Calls</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls</td><td>yes</td><td></td><td>Bursting Maximum Active Calls settings</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls. enabled</td><td>yes</td><td></td><td>Bursting Capacity on/off</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls. total</td><td>(see notes)</td><td></td><td>Bursting Maximum Active Calls / Total Calls. Required if "capacityManagement. burstingMaxActiveCalls. enabled" is true.</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls. incoming</td><td>no</td><td></td><td>Bursting Maximum Active Calls / Incoming Calls</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls. outgoing</td><td>no</td><td></td><td>Bursting Maximum Active Calls / Outgoing Calls</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded</td><td>yes</td><td></td><td>Incoming Capacity Exceeded settings</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. action</td><td>no</td><td></td><td>Incoming Capacity Exceeded Action – one of {'Forward'|'Reroute'}</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. forwardAddress</td><td>(see notes)</td><td></td><td>Forward to Phone Number / SIP-URI.
+        Must be a valid phone number or SIP URI.
+        Required if "capacityManagement. incomingCapacityExceeded. action" is "Forward".
+    </td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup</td><td>(see notes)</td><td></td><td>Details of target VoIP Trunk Group.
+        Required if "capacityManagement. incomingCapacityExceeded. action" is "Reroute".</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group.
+        Required if "capacityManagement. incomingCapacityExceeded. action" is "Reroute".</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td></td><td>Name of the reroute target VoIP Trunk Group.
+        Required if "capacityManagement. incomingCapacityExceeded. action" is "Reroute".</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. initialCalls</td><td>yes</td><td></td><td>Capacity Exceeded Initial Value</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. offsetCalls</td><td>yes</td><td></td><td>Capacity Exceeded Offset Value</td></tr>
+    <tr><td>unreachableDestination</td><td>yes</td><td></td><td>Unreachable Destination settings</td></tr>
+    <tr><td>unreachableDestination. timeout</td><td>yes</td><td></td><td>Unreachable Destination Timeout (seconds)</td></tr>
+    <tr><td>unreachableDestination. action</td><td>no</td><td></td><td>Unreachable Destination Action – one of {'Forward'|'Reroute'}</td></tr>
+    <tr><td>unreachableDestination. forwardAddress</td><td>(see notes)</td><td></td><td>Forward to Phone Number / SIP-URI.
+        Must be a valid phone number or SIP URI.
+        Required if "unreachableDestination. action" is "Forward".
+    </td></tr>
+    <tr><td>unreachableDestination. rerouteTrunkGroup</td><td>(see notes)</td><td></td><td>Details of target VoIP Trunk Group.
+        Required if "unreachableDestination. action" is "Reroute".</td></tr>
+    <tr><td>unreachableDestination. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group.
+        Required if "unreachableDestination. action" is "Reroute".</td></tr>
+    <tr><td>unreachableDestination. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td></td><td>Name of the reroute target VoIP Trunk Group.
+        Required if "unreachableDestination. action" is "Reroute".</td></tr>
+    <tr><td>authentication</td><td>yes</td><td></td><td>SIP authentication settings</td></tr>
+    <tr><td>authentication. enabled</td><td>yes</td><td></td><td>Enable Authentication</td></tr>
+    <tr><td>authentication. username</td><td>(see notes)</td><td></td><td>Authentication User Name. Required if "authentication. enabled" is true.</td></tr>
+    <tr><td>authentication. password</td><td>(see notes)</td><td></td><td>Authentication password. Required if "authentication. enabled" is true.</td></tr>
+    <tr><td>hostedUsers</td><td>no</td><td></td><td>Not implemented – will be ignored if present in request.</td></tr>
+    <tr><td>identity</td><td>yes</td><td></td><td>Identity settings</td></tr>
+    <tr><td>identity. trunkGroupIdentity</td><td>yes</td><td></td><td>Trunk Group Identity settings</td></tr>
+    <tr><td>identity. trunkGroupIdentity. identity</td><td>no</td><td></td><td>Trunk Group Identity, including @domain. Required to be a valid SIP URI.</td></tr>
+    <tr><td>identity. trunkGroupIdentity. allowTerminationToTrunkGroupIdentity</td><td>yes</td><td></td><td>Allow calls directly to trunk group with Trunk Identity</td></tr>
+    <tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentity</td><td>yes</td><td></td><td>Include Trunk Identity for Calls to Trunk Group</td></tr>
+    <tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentityForNetworkCalls</td><td>yes</td><td></td><td>Include Trunk Identity for Calls from Trunk Group</td></tr>
+    <tr><td>identity. otgDtgIdentity</td><td>yes</td><td></td><td>OTG/DTG Identity settings</td></tr>
+    <tr><td>identity. otgDtgIdentity. identity</td><td>no</td><td></td><td>OTG/DTG Identity</td></tr>
+    <tr><td>identity. otgDtgIdentity. allowTerminationToDtgIdentity</td><td>yes</td><td></td><td>Allow calls directly to trunk group with DTG Identity</td></tr>
+    <tr><td>identity. otgDtgIdentity. includeDtgIdentity</td><td>yes</td><td></td><td>Include DTG Identity for Calls to Trunk Group</td></tr>
+    <tr><td>identity. otgDtgIdentity. includeOtgIdentityForNetworkCalls</td><td>yes</td><td></td><td>Include OTG Identity for Calls from Trunk Group</td></tr>
+    <tr><td>identity. enableNetworkAddressIdentity</td><td>yes</td><td></td><td>Enable Network Address Identity</td></tr>
+    <tr><td>allowUnscreenedCalls</td><td>yes</td><td></td><td>Allow Unscreened Calls</td></tr>
+    <tr><td>allowUnscreenedEmergencyCalls</td><td>yes</td><td></td><td>Allow Unscreened Emergency Calls</td></tr>
+    <tr><td>pilotUserCallingLineIdentityPolicy</td><td>yes</td><td></td><td>Pilot User Calling Line Asserted Identity Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
+    <tr><td>pilotUserChargeNumberPolicy</td><td>yes</td><td></td><td>Pilot User Charge Number Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
+    <tr><td>callForwardingAlways</td><td>no</td><td></td><td>Call Forwarding Always settings</td></tr>
+    <tr><td>callForwardingAlways. action</td><td>no</td><td></td><td>Call Forwarding Always Action – one of {'Forward'|'Reroute'}</td></tr>
+    <tr><td>callForwardingAlways. forwardAddress</td><td>(see notes)</td><td></td><td>Forward to Phone Number / SIP-URI.
+        Must be a valid phone number or SIP URI.
+        Required if "callForwardingAlways. action" is "Forward".
+    </td></tr>
+    <tr><td>callForwardingAlways. rerouteTrunkGroup</td><td>(see notes)</td><td></td><td>Details of target VoIP Trunk Group. Required if "callForwardingAlways. action" is "Reroute".</td></tr>
+    <tr><td>callForwardingAlways. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group. Required if "callForwardingAlways. action" is "Reroute".</td></tr>
+    <tr><td>callForwardingAlways. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td></td><td>Name of the reroute target VoIP Trunk Group. Required if "callForwardingAlways. action" is "Reroute".</td></tr>
+    <tr><td>peeringDomain</td><td>yes</td><td></td><td>Peering Domain settings</td></tr>
+    <tr><td>peeringDomain. domainName</td><td>no</td><td></td><td>Peering Domain</td></tr>
+    <tr><td>peeringDomain. routeToPeeringDomain</td><td>yes</td><td></td><td>Route To Peering Domain</td></tr>
+    <tr><td>trunkGroupPrefix</td><td>yes</td><td></td><td>Trunk Group Prefix settings</td></tr>
+    <tr><td>trunkGroupPrefix. enabled</td><td>yes</td><td></td><td>Enable Trunk Group Prefix.</td></tr>
+    <tr><td>trunkGroupPrefix. prefix</td><td>(see notes)</td><td></td><td>Trunk Group Prefix. Required when "trunkGroupPrefix. enabled" is true.</td></tr>
+    <tr><td>advancedReroute</td><td>yes</td><td></td><td>Stateful Trunk Group Rerouting settings</td></tr>
+    <tr><td>advancedReroute. enabled</td><td>yes</td><td></td><td>Enable Stateful Trunk Group Rerouting</td></tr>
+    <tr><td>advancedReroute. sendContinuousOptionsMessage</td><td>yes</td><td></td><td>Send Continuous Options Message</td></tr>
+    <tr><td>advancedReroute. continuousOptionsSendingInterval</td><td>yes</td><td></td><td>Send Continuous Options Message Every (seconds)</td></tr>
+    <tr><td>advancedReroute. failureOptionsSendingInterval</td><td>yes</td><td></td><td>Send Failure Options Message Every (seconds)</td></tr>
+    <tr><td>advancedReroute. failureThresholdCounter</td><td>yes</td><td></td><td>Failure Threshold Counter</td></tr>
+    <tr><td>advancedReroute. successThresholdCounter</td><td>yes</td><td></td><td>Success Threshold Counter</td></tr>
+    <tr><td>advancedReroute. inviteFailureThresholdCounter</td><td>yes</td><td></td><td>Invite Failure Threshold Counter</td></tr>
+    <tr><td>advancedReroute. inviteFailureThresholdWindow</td><td>yes</td><td></td><td>Invite Failure Threshold Window</td></tr>
+    <tr><td>pilotUserCallingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>Pilot User Calling Line Asserted Identity Policy settings</td></tr>
+    <tr><td>pilotUserCallingLineAssertedIdentityPolicy. useTrunkGroupCallingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>If true, use Trunk Group's Pilot User Calling Line Asserted Identity Policy. Otherwise, use the Customer's policy.</td></tr>
+    <tr><td>pilotUserCallingLineAssertedIdentityPolicy.  callingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>Use this Trunk Group Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'}</td></tr>
     </tbody>
 </table>
 POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
