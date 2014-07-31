@@ -1368,6 +1368,8 @@ Extension Keys:
 
 Create a new VoIP User.
 
+Rollback-enabled: No
+
 ##URI Query Parameters
 
 <table border=1>
@@ -2173,6 +2175,11 @@ Extension Keys:
 --
 
 Create a new VoIP TrunkGroup.
+
+Rollback-enabled: No; the rollback is dependent on VoIP User Add rollback, which is not implemented.
+If the trunk group add fails before the pilot user is created, the changes will be rolled back. Otherwise, no changes
+will be rolled back.
+
 
 ##URI Query Parameters
 
