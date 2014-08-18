@@ -2276,9 +2276,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             </tr>
         </table>
     </td></tr>
-    <tr><td>pilotUser</td><td>yes</td><td></td><td>Required to contain the properties of a POST /loki/users request, with the following notes conditions:
-        a) sharedDeviceName is not supported, and will be ignored,
-        b) trunkGroupName is required must match the main trunkGroupName in the request (the VoIP Trunk Group's name).
+    <tr><td>pilotUser</td><td>yes</td><td></td><td>Required to contain the properties of a POST /loki/users request with the exception of the following properties: accessDevice, trunkGroup and userType which are disallowed in this request.
     </td></tr>
     <tr><td>department</td><td>no</td><td></td><td>Department name (only Site-level departments are supported, initially).</td></tr>
     <tr><td>capacityManagement</td><td>yes</td><td></td><td>Capacity Management settings</td></tr>
@@ -2548,7 +2546,6 @@ POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                 "callingLineIdFirstName": "John",
                 "language": "English",
                 "timeZone": "America/New_York",
-                "trunkGroupName": "ExampleCom Trunk 3001",
                 "services": {
                     "Authentication": {
                         "username": "2405553001@example.com",
