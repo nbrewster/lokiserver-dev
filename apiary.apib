@@ -1682,7 +1682,9 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 <td>password</td>
                 <td style="text-align: center; font-weight:bold">no</td>
                 <td>(see notes)</td>
-                <td>If omitted, the password will be auto-generated based on the rules configured in the server.</td>
+                <td>If omitted, the password will be auto-generated based on the sipPassword rules configured in the server.<br />
+                If present, the password will be validated against the sipPassword rules configured in the server.
+                </td>
             </tr>
             <tbody>
             </table>
@@ -2394,7 +2396,9 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <tr><td>authentication</td><td>yes</td><td></td><td>SIP authentication settings</td></tr>
     <tr><td>authentication. enabled</td><td>yes</td><td></td><td>Enable Authentication</td></tr>
     <tr><td>authentication. username</td><td>(see notes)</td><td></td><td>Authentication User Name. Required if "authentication. enabled" is true.</td></tr>
-    <tr><td>authentication. password</td><td>(see notes)</td><td></td><td>Authentication password. Required if "authentication. enabled" is true.</td></tr>
+    <tr><td>authentication. password</td><td>(see notes)</td><td></td><td>Authentication password. Required if "authentication. enabled" is true.<br />
+    If present, the password will be validated against the sipPassword rules configured in the server.
+    </td></tr>
     <tr><td>hostedUsers</td><td>no</td><td></td><td>Not implemented – will be ignored if present in request.</td></tr>
     <tr><td>identity</td><td>yes</td><td></td><td>Identity settings</td></tr>
     <tr><td>identity. trunkGroupIdentity</td><td>yes</td><td></td><td>Trunk Group Identity settings</td></tr>
