@@ -1429,6 +1429,94 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             @domain.</td>
         </tr>
         <tr>
+            <td>userType</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td></td>
+            <td>Identifies the user type, which is one of “trunking”, “businessLine”, “centrex”, “systemDevice”, “noDevice”.<br />
+            Initially only “trunking” and “businessLine” are supported, and other values will result in an 501 NOT_IMPLEMENTED error.</td>
+        </tr>
+        <tr>
+            <td>accessDevice</td>
+            <td style="text-align: center;">(varies)</td>
+            <td></td>
+            <td>Required when userType is “businessLine” (ignored otherwise).
+                <table border=1>
+                <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Notes</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>name</td>
+                    <td style="text-align: center; font-weight:bold">yes</td>
+                    <td></td>
+                    <td>When userType is “businessLine”, this must contain the name of an existing Site-level device (group-level device in BroadWorks).</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td style="text-align: center; font-weight:bold">no</td>
+                    <td></td>
+                    <td>Ignored.</td>
+                </tr>
+                <tr>
+                    <td>model</td>
+                    <td style="text-align: center; font-weight:bold">no</td>
+                    <td></td>
+                    <td>Ignored.</td>
+                </tr>
+                <tr>
+                    <td>macAddress</td>
+                    <td style="text-align: center; font-weight:bold">no</td>
+                    <td></td>
+                    <td>Ignored.</td>
+                </tr>
+                <tr>
+                    <td>linePort</td>
+                    <td style="text-align: center; font-weight:bold">no</td>
+                    <td></td>
+                    <td>Ignored.</td>
+                </tr>
+                <tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>trunkGroup</td>
+            <td style="text-align: center">no</td>
+            <td></td>
+            <td>Ignored when userType is not “trunking”.<br />
+                Note that if this entire object is omitted, the user will be created as a trunking user with no assigned trunk group. For the underlying BroadWorks user,
+                omitting this property corresponds to selecting device choice “Trunking” but leaving the Trunking settings blank or “None”, on the User > Profile > Addresses page in the CommPortal.<br />
+                Note that at this time, the Loki Server does not manage the “Alternate Trunk Identity” or “Enterprise Trunk” settings in the “Trunking” section of that page.
+                <table border=1>
+                <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Notes</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>name</td>
+                    <td style="text-align: center; font-weight:bold">no</td>
+                    <td></td>
+                    <td>If present, must contain the name of an existing VoIP Trunk Group in the Site (trunk group in the BroadWorks group).<br />
+                        If omitted (when userType is “trunking”), the trunking user will be created with no assigned trunk group. For the underlying BroadWorks user,
+                        omitting this property corresponds to selecting device choice “Trunking” but leaving the Trunking / Trunk Group set to “None”, on the User > Profile > Addresses page in the CommPortal.</td>
+                </tr>
+                <tr>
+                    <td>linePort</td>
+                    <td style="text-align: center; font-weight:bold">no</td>
+                    <td></td>
+                    <td>Ignored.</td>
+                </tr>
+                <tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
             <td>phoneNumber</td>
             <td style="text-align: center">(varies)</td>
             <td></td>
@@ -1540,20 +1628,6 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>Network element's default time zone</td>
             <td>Language<br />
             If omitted, the network element's default language (e.g. the BroadWorks system language) will be use=d.</td>
-        </tr>
-        <tr>
-            <td>sharedDeviceName</td>
-            <td style="text-align: center">(varies)</td>
-            <td></td>
-            <td>Device Name of an <i>existing</i> Site-level Device - for Business Line VoIP User Add.<br />
-            Either sharedDeviceName or trunkGroupName must be present with a non-null value, but not both.</td>
-        </tr>
-        <tr>
-            <td>trunkGroupName</td>
-            <td style="text-align: center">(varies)</td>
-            <td></td>
-            <td>Name of an <i>existing</i> Trunk Group in the Site, to add a VoIP User to a Trunk Group.<br />
-            Either sharedDeviceName or trunkGroupName must be present with a non-null value, but not both.</td>
         </tr>
         <tr>
             <td>servicePacks</td>
@@ -1867,8 +1941,12 @@ POST /users{?mode}
     "email" : "jsmith@example.com",
     "timeZone" : "America/New_York",
     "language" : "English",
-    "sharedDeviceName" : "exampleComIad001",
-    "trunkGroupName" : "myTrunkGroup",
+    "accessDevice": {
+        "name": "exampleComIad001"
+    },
+    "trunkGroup": {
+        "name": "myTrunkGroup"
+    },
     "servicePacks" : {
         "base" : "Standard",
         "add-on" : [
@@ -1947,8 +2025,6 @@ POST /users{?mode}
     "callingLineIdFirstName" : "John",
     "timeZone" : "America/New_York",
     "language" : "English",
-    "sharedDeviceName" : "exampleComIad001",
-    "trunkGroupName" : "myTrunkGroup",
     "services" : {
         "Authentication" : {
             "username" : "2005553001@sip.example.com",
