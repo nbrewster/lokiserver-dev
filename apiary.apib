@@ -3054,6 +3054,36 @@ POST /loki/routes
     { }
 }
 
+GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
+{
+	"request": {
+		"get": {
+			"query": {
+				"id": "extensionsBroadworks",
+				"type": "object",
+				"additionalProperties": false,
+				"title": "Get schema, query params",
+				"description": "Validates extensions.broadworks query parameters",
+				"properties": {
+					"extensions.broadworks.serviceProviderId": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 30,
+						"required": true
+					},
+					"extensions.broadworks.groupId": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 30,
+						"required": true
+					}
+				}
+			}
+		}
+	},
+	"response": {}
+}
+
 POST /loki/users{?mode}
 {
 	"request": {
