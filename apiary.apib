@@ -3081,7 +3081,7 @@ POST /loki/users
 						"$ref": "/bwksDnSchema"
 					},
 					"tnRoutine": {
-						"$ref": "/tnRoutine"
+						"$ref": "/tnRoutineWithNoNumber"
 					},
 					"extension": {
 						"type": [
@@ -3133,18 +3133,58 @@ POST /loki/users
 						"minLength": 1,
 						"maxLength": 40
 					},
-					"sharedDeviceName": {
-						"type": "string",
-						"minLength": 1,
-						"maxLength": 40
-					},
-					"trunkGroupName": {
-						"type": "string",
-						"minLength": 1,
-						"maxLength": 30
-					},
 					"role": {
 						"type": "any"
+					},
+					"userType": {
+						"enum": [
+							"trunking",
+							"businessLine",
+							"centrex",
+							"systemDevice",
+							"noDevice"
+						],
+						"required": true
+					},
+					"accessDevice": {
+						"type": "object",
+						"additionalProperties": false,
+						"description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
+						"properties": {
+							"name": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 40,
+								"required": true
+							},
+							"type": {
+								"type": "any"
+							},
+							"model": {
+								"type": "any"
+							},
+							"macAddress": {
+								"type": "any"
+							},
+							"linePort": {
+								"type": "any"
+							}
+						}
+					},
+					"trunkGroup": {
+						"type": "object",
+						"additionalProperties": false,
+						"description": "Details of the user's trunk group(s), for Trunking users.",
+						"properties": {
+							"name": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 30
+							},
+							"linePort": {
+								"type": "any"
+							}
+						}
 					},
 					"servicePacks": {
 						"type": "object",
