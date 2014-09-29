@@ -1926,12 +1926,39 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     </tbody>
 </table>
 
+###User Type
+The the accessDevice and trunkGroup values vary depending on the type of user being added (userType). See examples (excerpts from a request body) below.
+#### Business Line User Add
+    ...
+    "userType" : "businessLine",
+    "accessDevice": {
+        "name": "exampleComIad001"
+    },
+    ...
+#### Trunking User Add
+    ...
+    "userType" : "trunking",
+    "trunkGroup": {
+        "name": "exampleTrunk"
+    },
+    ...
+#### Trunking User Add with no assigned Trunk Group
+    ...
+    "userType" : "trunking",
+    "trunkGroup": { },
+    ...
+#### Trunking User Add with no assigned Trunk Group (Alternative)
+    ...
+    "userType" : "trunking",
+    ...
+
 POST /users{?mode}
 > Content-Type: application/json
 {
     "customerId" : "a-server-generated-ID",
     "siteId" : "another-server-generated-ID",
     "userId" : "2005553001@example.com",
+    "userType" : "businessLine",
     "phoneNumber" : "+1-2005553001",
     "tnRoutine" : "auto",
     "CLID" : "+1-2005553001",
@@ -1945,9 +1972,6 @@ POST /users{?mode}
     "language" : "English",
     "accessDevice": {
         "name": "exampleComIad001"
-    },
-    "trunkGroup": {
-        "name": "myTrunkGroup"
     },
     "servicePacks" : {
         "base" : "Standard",
