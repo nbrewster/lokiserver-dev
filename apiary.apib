@@ -1349,6 +1349,199 @@ GET /sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupI
 
 
 --
+Site Phone Numbers
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* customerId
+* siteId
+* phoneNumber
+
+Extension Keys:
+
+* (none)
+--
+
+Activate phone number(s) in a Site. The corresponding phone numbers in the underlying BroadWorks group will be set to "activated".
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID of the Site containing the phone numbers(s) to be activated.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>phoneNumbers</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>An array containing the phone numbers and/or phone number ranges to be activated.</td>
+        </tr>
+        <tr>
+            <td>phoneNumbers[]</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The array entry for an individual phone number consists of a single phone number.<br />
+            The array entry for a phone number range consists of an object. For ranges, the end value is required to be higher than the start value,
+            and both are required to have the same country code.
+            See below for additional details of this object's properties.<br />
+            Note that the E.164 format accepted in the Loki REST API consists of a leading “+”, followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
+        </tr>
+        <tr>
+            <td>phoneNumbers[].start</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The first phone number in a range (inclusive). Required when activating a range.</td>
+        </tr>
+        <tr>
+            <td>phoneNumbers[].end</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The last phone number in a range (inclusive). Required when activating a range.</td>
+        </tr>
+    </tbody>
+</table>
+
+A request may contain any combination of individual phone numbers and phone number ranges (in any order), as seen in the example.
+POST /sites/{+siteId}/phone-numbers/activate
+> Content-Type: application/json
+{
+    "phoneNumbers" : [
+        "+1-5553070900", 
+        "+1-5553070910",
+        {
+            "start" : "+1-5553071000",
+            "end" : "+1-5553071009"
+        },
+        "+1-5553070876",
+        {
+            "start" : "+1-5553072000",
+            "end" : "+1-5553072003"
+        }
+    ]
+}
+< 204
+< Transaction-Id: 1380080943120
+
+
+Dectivate phone number(s) in a Site. The corresponding phone numbers in the underlying BroadWorks group will be set to "not activated".
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID of the Site containing the phone numbers(s) to be deactivated.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>phoneNumbers</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>An array containing the phone numbers and/or phone number ranges to be deactivated.</td>
+        </tr>
+        <tr>
+            <td>phoneNumbers[]</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The array entry for an individual phone number consists of a single phone number.<br />
+            The array entry for a phone number range consists of an object. For ranges, the end value is required to be higher than the start value,
+            and both are required to have the same country code.
+            See below for additional details of this object's properties.<br />
+            Note that the E.164 format accepted in the Loki REST API consists of a leading “+”, followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
+        </tr>
+        <tr>
+            <td>phoneNumbers[].start</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The first phone number in a range (inclusive). Required when deactivating a range.</td>
+        </tr>
+        <tr>
+            <td>phoneNumbers[].end</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The last phone number in a range (inclusive). Required when deactivating a range.</td>
+        </tr>
+    </tbody>
+</table>
+
+A request may contain any combination of individual phone numbers and phone number ranges (in any order), as seen in the example.
+POST /sites/{+siteId}/phone-numbers/deactivate
+> Content-Type: application/json
+{
+    "phoneNumbers" : [
+        "+1-5553070900", 
+        "+1-5553070910",
+        {
+            "start" : "+1-5553071000",
+            "end" : "+1-5553071009"
+        },
+        "+1-5553070876",
+        {
+            "start" : "+1-5553072000",
+            "end" : "+1-5553072003"
+        }
+    ]
+}
+< 204
+< Transaction-Id: 1380080943120
+
+
+--
 VoIP Users
 ##Collection
 
