@@ -4188,3 +4188,107 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 	},
 	"response": {}
 }
+
+POST /loki/sites/{+siteId}/phone-numbers/activate
+{
+	"request": {
+		"post": {
+			"body": {
+				"id": "voipTNActivationBody",
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"title": "Post schema, body",
+				"properties": {
+					"phoneNumbers": {
+						"type": "array",
+						"items": {
+							"anyOf": [
+								{
+									"id": "E.164 DN",
+									"$ref": "/bwksDnSchema"
+								},
+								{
+									"id": "TN Range",
+									"type": "object",
+									"additionalProperties": false,
+									"properties": {
+										"start": {
+											"$ref": "/bwksDnSchema"
+										},
+										"end": {
+											"$ref": "/bwksDnSchema"
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"bwksDnSchema": {
+			"type": "string",
+			"description": "A formatted TN.",
+			"pattern": "^\\+\\d+-\\d+$",
+			"minLength": 1,
+			"maxLength": 23,
+			"required": false
+		}
+	},
+	"response": {}
+}
+
+POST /loki/sites/{+siteId}/phone-numbers/deactivate
+{
+	"request": {
+		"post": {
+			"body": {
+				"id": "voipTNActivationBody",
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"title": "Post schema, body",
+				"properties": {
+					"phoneNumbers": {
+						"type": "array",
+						"items": {
+							"anyOf": [
+								{
+									"id": "E.164 DN",
+									"$ref": "/bwksDnSchema"
+								},
+								{
+									"id": "TN Range",
+									"type": "object",
+									"additionalProperties": false,
+									"properties": {
+										"start": {
+											"$ref": "/bwksDnSchema"
+										},
+										"end": {
+											"$ref": "/bwksDnSchema"
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"bwksDnSchema": {
+			"type": "string",
+			"description": "A formatted TN.",
+			"pattern": "^\\+\\d+-\\d+$",
+			"minLength": 1,
+			"maxLength": 23,
+			"required": false
+		}
+	},
+	"response": {}
+}
