@@ -6,9 +6,7 @@ HOST: http://private-6de4-lokidev.apiary.io/loki
 # This documentation is for the public API, pre-release (dev) version
 See also [GA documentation](http://docs.lokiserver.apiary.io/) and [branch (pre-release) documentation](http://docs.lokiserverbranch.apiary.io).
 
-**UNRELEASED** (development edition) Documentation for the Loki Server REST API.
-
-Below is (work in progress) documentation describing the the Loki 3.0 API.
+**UNRELEASED** (development edition) Documentation for the Loki Provisioning LWS-REST API.
 
 #General
 
@@ -16,13 +14,13 @@ At this time, the application/hal+json content type is supported in request and 
 [TODO: add references / explanations of HAL]
 
 **Note: all references to <code>lokiserver.apiary.io</code> are for example purposes only. In a deployed Loki Server
-these will be references to the Loki REST API host.**
+these will be references to the LWS-REST API host.**
 
 **TBD: add HAL notes. Note (at least initially) in the response bodies, _links.self.href matches
 the URI submitted by the client, including any query parameters.**
 
 ## URI Templates
-Refer to https://tools.ietf.org/html/rfc6570 for details on URI Templates. Not that Loki REST
+Refer to https://tools.ietf.org/html/rfc6570 for details on URI Templates. Not that LWS-REST
 uses reserved characters (i.e. ":") in some URI Template variables, thus the request templates
 use the "{+id}" format - see additional detail at https://tools.ietf.org/html/rfc6570#section-3.2.3.
 
@@ -129,8 +127,8 @@ Extension Keys:
 Refer to the **Sonus Insight API Programmer Guide** for descriptions, data types, defaults, and allowed values for
 request and response properties under <code>extensions.sonusPsx</code>. Note:
 
-* If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the Loki REST JSON responses.
-* If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the Loki REST JSON responses.
+* If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the LWS-REST JSON responses.
+* If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the LWS-REST JSON responses.
 --
 
 Create a new Number Translation.
@@ -416,8 +414,8 @@ Extension Keys:
 Refer to the **Sonus Insight API Programmer Guide** for descriptions, data types, defaults, and allowed values for
 request and response properties under <code>extensions.sonusPsx</code>. Note:
 
-* If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the Loki REST JSON responses.
-* If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the Loki REST JSON responses.
+* If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the LWS-REST JSON responses.
+* If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the LWS-REST JSON responses.
 --
 
 
@@ -730,8 +728,8 @@ Extension Keys:
 Refer to the **Sonus Insight API Programmer Guide** for descriptions, data types, defaults, and allowed values for
 request and response properties under <code>extensions.sonusPsx</code>. Note:
 
-* If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the Loki REST JSON responses.
-* If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the Loki REST JSON responses.
+* If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the LWS-REST JSON responses.
+* If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the LWS-REST JSON responses.
 --
 
 Create a new Destination.
@@ -976,8 +974,8 @@ Extension Keys:
 Refer to the **Sonus Insight API Programmer Guide** for descriptions, data types, defaults, and allowed values for
 request and response properties under <code>extensions.sonusPsx</code>. Note:
 
-* If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the Loki REST JSON responses.
-* If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the Loki REST JSON responses.
+* If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the LWS-REST JSON responses.
+* If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the LWS-REST JSON responses.
 --
 
 Create a new Route.
@@ -1552,7 +1550,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             The array entry for a phone number range consists of an object. For ranges, the end value is required to be higher than the start value,
             and both are required to have the same country code.
             See below for additional details of this object's properties.<br />
-            Note that the E.164 format accepted in the Loki REST API consists of a leading “+”, followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
+            Note that the E.164 format accepted in the LWS-REST API consists of a leading “+”, followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
         </tr>
         <tr>
             <td>phoneNumbers[].start</td>
@@ -1639,7 +1637,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             The array entry for a phone number range consists of an object. For ranges, the end value is required to be higher than the start value,
             and both are required to have the same country code.
             See below for additional details of this object's properties.<br />
-            Note that the E.164 format accepted in the Loki REST API consists of a leading “+”, followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
+            Note that the E.164 format accepted in the LWS-REST API consists of a leading “+”, followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
         </tr>
         <tr>
             <td>phoneNumbers[].start</td>
@@ -3434,32 +3432,32 @@ CHANGELOG
 
 #2.39
 
-Changes for S1783 42012: Loki REST: Site Device creation and TN Assign to a Site (parent):
+Changes for S1783 42012: LWS-REST: Site Device creation and TN Assign to a Site (parent):
 
 * Added POST /loki/customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
 * Added POST /loki/customers/{+customerId}/sites/{+siteId}/devices{?mode}
 
 #1.8
 
-Changes for S1896 Loki REST: BroadWorks Trunk Group Add (excludes Genband support):
+Changes for S1896 LWS-REST: BroadWorks Trunk Group Add (excludes Genband support):
 
 * Added GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
 * Added POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 
 #1.7 / 1.7.1
-Changes for S2052 Loki REST: VoIP User Add validation enhancements:
+Changes for S2052 LWS-REST: VoIP User Add validation enhancements:
 
 * Update POST /loki/users to return 422 for invalid attempt to set empty extension
 * Update POST /loki/users to add missing input validation for properties under services.*
 
-Changes for S2051 Loki REST: Further improvements to error handling consistency:
+Changes for S2051 LWS-REST: Further improvements to error handling consistency:
 
-* Updated handling of unexpected errors to follow Loki REST 500 error response format (errorCode, summary, detail)
+* Updated handling of unexpected errors to follow LWS-REST 500 error response format (errorCode, summary, detail)
 
-Changes for S2094 Loki REST: Not possible to assign CFA (and other services) using userAdd REST call
+Changes for S2094 LWS-REST: Not possible to assign CFA (and other services) using userAdd REST call
 
 * Clarified that any BroadWorks service can be assigned alacarte, even if it doesn't support configuration
-* Update examples to show assignment of any BroadWorks service on a user, even if Loki REST doesn't support pre-configuring its settings
+* Update examples to show assignment of any BroadWorks service on a user, even if LWS-REST doesn't support pre-configuring its settings
 
 General:
 
