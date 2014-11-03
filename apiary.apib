@@ -1305,7 +1305,7 @@ GET /sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupI
 {
     "_links": {
         "self": {
-            "href": "http://localhost:8340/loki/customers/ExampleCom/sites/ExampleCom"
+            "href": "http://lokiserver.apiary.io/loki/customers/ExampleCom/sites/ExampleCom"
         }
     },
     "customerId": "ExampleCom",
@@ -1341,7 +1341,7 @@ GET /sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupI
     "curies": [
         {
             "name": "ls",
-            "href": "http://localhost:8340/loki/rels/{rel}",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
             "templated": true
         }
     ]
@@ -1383,9 +1383,9 @@ Assigns a TN to a Site based on the specified TN management routine.
             <td>mode</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a (not optional)</td>
-            <td>Controls execution mode as described in **ref general documentation.<br />
+            <td>Controls execution mode.<br />
             Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
-            <b>NOTE: at this time only "create-only" is allowed.</b>
+            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
             </td>
         </tr>
         <tr>
@@ -1712,9 +1712,9 @@ Rollback-enabled: No
             <td>mode</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>prevalidate-and-create</td>
-            <td>Controls execution mode as described in **ref general documentation.<br />
+            <td>Controls execution mode.<br />
             Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
-            <b>NOTE: at this time only "create-only" is allowed.</b>
+            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
             </td>
         </tr>
     </tbody>
@@ -1959,11 +1959,17 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             If omitted, the network element's default language (e.g. the BroadWorks system language) will be use=d.</td>
         </tr>
         <tr>
-            <td>servicePacks</td>
+            <td>servicePacks.add-on</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
-            <td>List of names of service packs to be assigned to the new VoIP User.<br />
-            <b>update for base / add-on</b></td>
+            <td>The name of the base service pack to be assigned to the user.</b></td>
+        </tr>
+        <tr>
+            <td>servicePacks.add-on</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td></td>
+            <td>List of names of additional service packs to be assigned to the new VoIP User.
+            </td>
         </tr>
         <tr>
             <td style="font-style:italic">role</td>
@@ -2351,7 +2357,7 @@ POST /users{?mode}
     }
 }
 < 201
-< Location: http://loki3.apiary.io/loki/users/2005553001%40example.com
+< Location: http://lokiserver.apiary.io/loki/users/2005553001%40example.com
 < Transaction-Id: 1380080943120
 < Content-Type: application/hal+json
 {
@@ -2586,7 +2592,393 @@ PUT /users/{+userId}/call-processing-policy
 
 
 --
-VoIP Trunk Groups
+VoIP Site Devices
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* customerId
+* siteId
+* deviceId
+
+Extension Keys:
+
+* (none)
+--
+
+Create a new VoIP Site Device.
+
+Rollback-enabled: No; If the VoIP Site Device add fails then there is nothing to rollback.
+
+## URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Site Device is to be created.
+            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
+            </td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Site Device is to be created.
+            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mode</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>prevalidate-and-create</td>
+            <td>Controls execution mode.<br />
+            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
+            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
+            </td>
+       </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>deviceName</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td></td>
+            <td>Suggested name for the new device. In the default configuration, this will be used as the device name for the underlying BroadWorks device.</td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td></td>
+            <td>Device Type – a valid Device Type in BroadWorks.</td>
+        </tr>
+        <tr>
+            <td>protocol</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>Protocol – a valid device protocol on BroadWorks, e.g. SIP 2.0</td>
+        </tr>
+         <tr>
+            <td>hostname</td>
+            <td style="text-align: center;">varies</td>
+            <td></td>
+            <td>IP address or hostname. Required if port is present.</td>
+        </tr>
+         <tr>
+            <td>port</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>TCP/IP Port number.</td>
+        </tr>
+        <tr>
+            <td>outboundProxyServerNetAddress</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>Outbound proxy server IP address or hostname.</td>
+        </tr>
+        <tr>
+            <td>stunServerNetAddress</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>STUN server IP address or hostname.</td>
+        </tr>
+        <tr>
+            <td>macAddress</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>MAC Address. Must be a valid MAC address.</td>
+        </tr>
+        <tr>
+            <td>serialNumber</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>Serial number.</td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>Description of device.</td>
+        </tr>
+        <tr>
+            <td>physicalLocation</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>Physical geographic location of the device, used in conjunction with the Physical Location user service.</td>
+        </tr>
+        <tr>
+            <td>transportProtocol</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>Transport protocol. One of {'UDP'|'TCP'|'Unspecified'}.</td>
+        </tr>
+        <tr>
+            <td>deviceCredentials</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>
+                Container for access device credentials information.<br />
+                Details of the device credentials properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>enabled</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>n/a</td>
+                            <td>Enable access device credentials.</td>
+                        </tr>
+                        <tr>
+                            <td>username</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>n/a</td>
+                            <td>Access device userId.</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>n/a</td>
+                            <td>Access device password. Will be validated against device access password complexity rules.</td>
+                        </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>sacGroupName</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>
+                <b>Not Implemented</b><br />
+                Loki Server ID of an existing Site-level Session Admission Control group to which the new device should be added.
+            </td>
+        </tr>
+        <tr>
+            <td>customTags</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>
+                <b>Not Implemented</b><br />
+                A set of custom tags (with values) to be added to the new device.
+            </td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>
+                <b>Not Implemented</b><br />
+                Container for network-element specific properties.
+            </td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>
+                <b>Not Implemented</b><br />
+                Container for BroadWorks-specific properties.
+            </td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks.mobilityManager</td>
+            <td style="text-align: center;">no</td>
+            <td></td>
+            <td>
+                <b>Not Implemented</b><br />
+                Container for BroadWorks Mobility Manager propreties. Properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>provisioningURL</td>
+                            <td style="text-align: center;">varies</td>
+                            <td>n/a</td>
+                            <td>Required if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true..</td>
+                        </tr>
+                        <tr>
+                            <td>provisioningUserName</td>
+                            <td style="text-align: center;">varies</td>
+                            <td>n/a</td>
+                            <td>Required if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true..</td>
+                        </tr>
+                        <tr>
+                            <td>provisioningPassword</td>
+                            <td style="text-align: center;">varies</td>
+                            <td>n/a</td>
+                            <td>Required if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true.</td>
+                        </tr>
+                        <tr>
+                            <td>defaultOriginatingServiceKey</td>
+                            <td style="text-align: center;">varies</td>
+                            <td>n/a</td>
+                            <td>Not valid if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true.</td>
+                        </tr>
+                        <tr>
+                            <td>defaultTerminatingServiceKey</td>
+                            <td style="text-align: center;">varies</td>
+                            <td>n/a</td>
+                            <td>Not valid if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true.</td>
+                        </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Response Properties - 201 Created
+
+Besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td>A Loki Server ID (server-generated) of the existing Customer.</td>
+       </tr>
+       <tr>
+            <td>siteId</td>
+            <td>A Loki Server ID (server-generated) of the existing Site.</td>
+       </tr>
+       <tr>
+            <td>deviceId</td>
+            <td>
+                A Loki Server ID (server-generated) of the created Site Device. The format of this is subject to change. <br />
+                It is not guaranteed to match what is given as input ("deviceName") and also it is not guaranteed to match the created BroadWorks Device Name.
+            </td>
+       </tr>
+       <tr>
+            <td>extensions.broadworks.serviceProviderId</td>
+            <td>The ID of the BroadWorks Service Provider/ Enterprise in which the device was created.<td>
+       </tr>
+       <tr>
+            <td>extensions.broadworks.groupId</td>
+            <td>The ID of the BroadWorks Group in which the device was created.</td>
+       </tr>
+        <tr>
+            <td>extensions.broadworks.deviceName</td>
+            <td>The BroadWorks Device Name if the created device.</td>
+       </tr>
+    </tbody>
+</table>
+
+POST /customers/{+customerId}/sites/{+siteId}/devices/{?mode}
+{
+    "deviceName": "Example Com AD3001",
+    "type": "Adtran TA908",
+    "protocol": "SIP 2.0",
+    "hostname": "10.0.0.5",
+    "port": 8080,
+    "outboundProxyServerNetAddress": "proxy1.example.com",
+    "stunServerNetAddress": "192.168.100.100",
+    "macAddress": "AABBCC112233",
+    "serialNumber": "A101-263",
+    "description": "Device for Trunk 3001",
+    "physicalLocation": "202 Main Street Nowhere, FR",
+    "transportProtocol": "TCP",
+    "deviceCredentials": {
+        "enabled": true,
+        "username": "4165551212",
+        "password": "4D0fj$&zJ"
+    },
+    "sacGroupName": "Primary",
+    "customTags": {
+        "logo": "http://images.example.com/logo.png",
+        "ntpServer": "tick.example.com"
+    },
+    "extensions" : {
+        "broadworks" : {
+            "mobilityManager" : {
+                "provisioningURL" : "http://provisioning.example.com",
+                "provisioningUserName" : "ExampleCom_1234",
+                "provisioningPassword" : "2394SfaE",
+                "defaultOriginatingServiceKey" : 42,
+                "defaultTerminatingServiceKey" : 767
+            }
+        }
+    }
+}
+< 201
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+< Location: http://lokiserver.apiary.io/loki/customers/ExampleCom/sites/ExampleCom/devices/ExampleCom%20Trunk%203001
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/ExampleCom/sites/ExampleCom/devices/Example%20Com%20AD3001"
+        }
+    },
+    "customerId": "ExampleCom",
+    "siteId": "ExampleCom",
+    "deviceId": "IP New Device",
+    "extensions": {
+        "broadworks": {
+            "deviceName": "IP New Device",
+            "serviceProviderId": "ExampleCom",
+            "groupId": "ExampleCom"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://localhost/loki/rels/{rel}",
+            "templated": true
+        }
+    ]
+}
+
+
+--
+VoIP Site Trunk Groups
 ##Collection
 
 Supported network elements:
@@ -2625,9 +3017,9 @@ will be rolled back.
             <td>mode</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>prevalidate-and-create</td>
-            <td>Controls execution mode as described in **ref general documentation.<br />
+            <td>Controls execution mode.<br />
             Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
-            <b>NOTE: at this time only "create-only" is allowed.</b>
+            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
             </td>
         </tr>
         <tr>
@@ -2951,11 +3343,11 @@ POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 < 201
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
-< Location: http://localhost:8340/loki/customers/ExampleCom/sites/ExampleCom/trunk-groups/ExampleCom%20Trunk%203001
+< Location: http://lokiserver.apiary.io/loki/customers/ExampleCom/sites/ExampleCom/trunk-groups/ExampleCom%20Trunk%203001
 {
     "_links": {
         "self": {
-            "href": "http://localhost:8340/loki/customers/ExampleCom/sites/ExampleCom/trunk-groups/ExampleCom%20Trunk%203001"
+            "href": "http://lokiserver.apiary.io/loki/customers/ExampleCom/sites/ExampleCom/trunk-groups/ExampleCom%20Trunk%203001"
         }
     },
     "_embedded": {
@@ -2963,7 +3355,7 @@ POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
             {
                 "_links": {
                     "self": {
-                        "href": "http://localhost:8340/loki/users/2405553001%40example.com"
+                        "href": "http://lokiserver.apiary.io/loki/users/2405553001%40example.com"
                     }
                 },
                 "phoneNumber": "+1-2405553001",
@@ -3016,7 +3408,7 @@ POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                 "curies": [
                     {
                         "name": "ls",
-                        "href": "http://localhost:8340/loki/rels/{rel}",
+                        "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
                         "templated": true
                     }
                 ]
@@ -3029,397 +3421,12 @@ POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
     "curies": [
         {
             "name": "ls",
-            "href": "http://localhost:8340/loki/rels/{rel}",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
             "templated": true
         }
     ]
 }
 
---
-VoIP Site Devices
-##Collection
-
-Supported network elements:
-
-* BroadWorks Application Server
-
-Keys:
-
-* customerId
-* siteId
-* deviceId
-
-Extension Keys:
-
-* (none)
---
-
-Create a new VoIP Site Device.
-
-Rollback-enabled: No; If the VoIP Site Device add fails then there is nothing to rollback.
-
-## URI Template Parameters
-
-<table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>customerId</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Site Device is to be created.
-            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
-            </td>
-        </tr>
-        <tr>
-            <td>siteId</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Site Device is to be created.
-            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-##URI Query Parameters
-
-<table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>mode</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td>prevalidate-and-create</td>
-            <td>Controls execution mode as described in **ref general documentation.<br />
-            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
-            <b>NOTE: at this time only "create-only" is allowed.</b>
-            </td>
-       </tr>
-    </tbody>
-</table>
-
-##Request Properties
-
-Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
-
-<table border=1>
-    <thead>
-    <th>Property</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>deviceName</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td></td>
-            <td>Suggested name for the new device. In the default configuration, this will be used as the device name for the underlying BroadWorks device.</td>
-        </tr>
-        <tr>
-            <td>type</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td></td>
-            <td>Device Type – a valid Device Type in BroadWorks.</td>
-        </tr>
-        <tr>
-            <td>protocol</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>Protocol – a valid device protocol on BroadWorks, e.g. SIP 2.0</td>
-        </tr>
-         <tr>
-            <td>hostname</td>
-            <td style="text-align: center;">varies</td>
-            <td></td>
-            <td>IP address or hostname. Required if port is present.</td>
-        </tr>
-         <tr>
-            <td>port</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>TCP/IP Port number.</td>
-        </tr>
-        <tr>
-            <td>outboundProxyServerNetAddress</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>Outbound proxy server IP address or hostname.</td>
-        </tr>
-        <tr>
-            <td>stunServerNetAddress</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>STUN server IP address or hostname.</td>
-        </tr>
-        <tr>
-            <td>macAddress</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>MAC Address. Must be a valid MAC address.</td>
-        </tr>
-        <tr>
-            <td>serialNumber</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>Serial number.</td>
-        </tr>
-        <tr>
-            <td>description</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>Description of device.</td>
-        </tr>
-        <tr>
-            <td>physicalLocation</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>Physical geographic location of the device, used in conjunction with the Physical Location user service.</td>
-        </tr>
-        <tr>
-            <td>transportProtocol</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>Transport protocol. One of {'UDP'|'TCP'|'Unspecified'}.</td>
-        </tr>
-        <tr>
-            <td>deviceCredentials</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>
-                Container for access device credentials information.<br />
-                Details of the device credentials properties:
-                <table border=1>
-                    <thead>
-                    <th>Property</th>
-                    <th>Required?</th>
-                    <th>Default</th>
-                    <th>Description</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>enabled</td>
-                            <td style="text-align: center; font-weight:bold">yes</td>
-                            <td>n/a</td>
-                            <td>Enable access device credentials.</td>
-                        </tr>
-                        <tr>
-                            <td>username</td>
-                            <td style="text-align: center; font-weight:bold">yes</td>
-                            <td>n/a</td>
-                            <td>Access device userId.</td>
-                        </tr>
-                        <tr>
-                            <td>password</td>
-                            <td style="text-align: center; font-weight:bold">yes</td>
-                            <td>n/a</td>
-                            <td>Access device password. Will be validated against device access password complexity rules.</td>
-                        </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>sacGroupName</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>
-                <b>Not Implemented</b> - including this will result in a 501 Not Implemented response.<br />
-                Loki Server ID of an existing Site-level Session Admission Control group to which the new device should be added.
-            </td>
-        </tr>
-        <tr>
-            <td>customTags</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>
-                <b>Not Implemented</b> - including this will result in a 501 Not Implemented response.<br />
-                A set of custom tags (with values) to be added to the new device.
-            </td>
-        </tr>
-        <tr>
-            <td>extensions</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>
-                <b>Not Implemented</b> - including this will result in a 501 Not Implemented response.
-                Container for network-element specific properties.
-            </td>
-        </tr>
-        <tr>
-            <td>extensions.broadworks</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>
-                <b>Not Implemented</b> - including this will result in a 501 Not Implemented response.
-                Container for BroadWorks-specific properties.
-            </td>
-        </tr>
-        <tr>
-            <td>extensions.broadworks.mobilityManager</td>
-            <td style="text-align: center;">no</td>
-            <td></td>
-            <td>
-                <b>Not Implemented</b> - including this will result in a 501 Not Implemented response.<br />
-                Container for BroadWorks Mobility Manager propreties. Properties:
-                <table border=1>
-                    <thead>
-                    <th>Property</th>
-                    <th>Required?</th>
-                    <th>Default</th>
-                    <th>Description</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>provisioningURL</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Required if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true..</td>
-                        </tr>
-                        <tr>
-                            <td>provisioningUserName</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Required if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true..</td>
-                        </tr>
-                        <tr>
-                            <td>provisioningPassword</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Required if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true.</td>
-                        </tr>
-                        <tr>
-                            <td>defaultOriginatingServiceKey</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Not valid if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true.</td>
-                        </tr>
-                        <tr>
-                            <td>defaultTerminatingServiceKey</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Not valid if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true.</td>
-                        </tr>
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-##Response Properties - 201 Created
-
-Besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.
-<table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Description</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>customerId</td>
-            <td>A Loki Server ID (server-generated) of the existing Customer.</td>
-       </tr>
-       <tr>
-            <td>siteId</td>
-            <td>A Loki Server ID (server-generated) of the existing Site.</td>
-       </tr>
-       <tr>
-            <td>deviceId</td>
-            <td>
-                A Loki Server ID (server-generated) of the created Site Device. The format of this is subject to change. <br />
-                It is not guaranteed to match what is given as input ("deviceName") and also it is not guaranteed to match the created BroadWorks Device Name.
-                This can be resolved in a future release with GET /loki/customers/{+customerId}/sites/{+siteId}/devices{?extensions.broadworks.deviceName}.
-            </td>
-       </tr>
-       <tr>
-            <td>extensions.broadworks.serviceProviderId</td>
-            <td>The BroadWorks Service Provider/ Enterprise.<td>
-       </tr>
-       <tr>
-            <td>extensions.broadworks.groupId</td>
-            <td>The BroadWorks Group.</td>
-       </tr>
-        <tr>
-            <td>extensions.broadworks.deviceName</td>
-            <td>The BroadWorks Device Name that was created.</td>
-       </tr>
-    </tbody>
-</table>
-
-POST /loki/customers/{+customerId}/sites/{+siteId}/devices/{?mode}
-{
-    "deviceName": "Example Com AD3001",
-    "type": "Adtran TA908",
-    "protocol": "SIP 2.0",
-    "hostname": "10.0.0.5",
-    "port": 8080,
-    "outboundProxyServerNetAddress": "proxy1.example.com",
-    "stunServerNetAddress": "192.168.100.100",
-    "macAddress": "AABBCC112233",
-    "serialNumber": "A101-263",
-    "description": "Device for Trunk 3001",
-    "physicalLocation": "202 Main Street Nowhere, FR",
-    "transportProtocol": "TCP",
-    "deviceCredentials": {
-        "enabled": true,
-        "username": "4165551212",
-        "password": "4D0fj$&zJ"
-    },
-    "sacGroupName": "Primary",
-    "customTags": {
-        "logo": "http://images.example.com/logo.png",
-        "ntpServer": "tick.example.com"
-    },
-    "extensions" : {
-        "broadworks" : {
-            "mobilityManager" : {
-                "provisioningURL" : "http://provisioning.example.com",
-                "provisioningUserName" : "ExampleCom_1234",
-                "provisioningPassword" : "2394SfaE",
-                "defaultOriginatingServiceKey" : 42,
-                "defaultTerminatingServiceKey" : 767
-            }
-        }
-    }
-}
-< 201
-< Content-Type: application/hal+json
-< Transaction-Id: 1380080943120
-< Location: http://localhost:8340/loki/customers/ExampleCom/sites/ExampleCom/devices/ExampleCom%20Trunk%203001
-{
-    "_links": {
-        "self": {
-            "href": "http://localhost:8340/loki/customers/ExampleCom/sites/ExampleCom/devices/Example%20Com%20AD3001"
-        }
-    },
-    "customerId": "ExampleCom",
-    "siteId": "ExampleCom",
-    "deviceId": "IP New Device",
-    "extensions": {
-        "broadworks": {
-            "deviceName": "IP New Device",
-            "serviceProviderId": "ExampleCom",
-            "groupId": "ExampleCom"
-        }
-    },
-    "curies": [
-        {
-            "name": "ls",
-            "href": "http://localhost/loki/rels/{rel}",
-            "templated": true
-        }
-    ]
-}
 
 --
 CHANGELOG
