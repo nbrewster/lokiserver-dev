@@ -1265,6 +1265,91 @@ DELETE /routes/{+id}
 
 
 --
+Customers
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* customerId
+
+Extension Keys:
+
+* (none)
+--
+
+Retrieve the Customer matching a specific BroadWorks serviceProviderId.
+Can be used to resolve the Loki Server customerId of a Customer when only the
+BroadWorks IDs are known.
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>extensions.broadworks.serviceProviderId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Corresponds to the serviceProviderId of the service provider (or enterprise) in BroadWorks.
+            </td>
+        </tr>
+    </tbody>
+</table>
+GET /customers{?extensions.broadworks.serviceProviderId}
+< 200
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/ExampleCom"
+        }
+    },
+    "customerId": "Example Com",
+    "useCustomRoutingProfile": false,
+    "defaultDomain": "example.com",
+    "name": "Example Com Co.",
+    "supportEmail": "support@example.com",
+    "contact": {
+        "name": "Billy",
+        "number": "Bishop",
+        "email": "billy@example.com"
+    },
+    "address": {
+        "addressLine1": "415 Sixth Ave",
+        "addressLine2": "Suite 102",
+        "city": "North Seventh",
+        "stateOrProvince": "Alabama",
+        "zipOrPostalCode": "50415",
+        "country": "USA"
+    },
+    "useServiceProviderLanguages": false,
+    "extensions": {
+        "broadworks": {
+            "isEnterprise": true,
+            "serviceProviderId": "Example Com"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ]
+}
+
+
+--
 Sites
 ##Collection
 
@@ -1359,6 +1444,578 @@ GET /sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupI
             "templated": true
         }
     ]
+}
+
+
+Create a new Site.
+
+Rollback-enabled: Yes.
+
+## URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new Site is to be created.
+            Note this can be resolved from the BroadWorks IDs via GET /loki/customers{?extensions.broadworks.serviceProviderId}.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mode</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Controls execution mode.<br />
+            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
+            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
+            </td>
+       </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>siteName</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Suggested name for the new site. In the default configuration, this will be used as the group name for the underlying BroadWorks group.<br />
+            The siteName property will also be used to generate the BroadWorks groupId by stripping invalid characters and truncating the result to maximum 30 characters.
+            </td>
+        </tr>
+        <tr>
+            <td>defaultDomain</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Default Domain of the BroadWorks group.<br />
+            If not present in the request the Service Provider/Enterprise default domain will be assigned to the new group.
+            </td>
+        </tr>
+        <tr>
+            <td>userLimit</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Maximum number of users in the BroadWorks group</td>
+        </tr>
+         <tr>
+            <td>callingLineId</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Calling Line ID information.<br />
+                Details of the Calling Line ID properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>name</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Calling Line ID Group Name.<br /> 
+                            If not present in the request it will be generated from the siteName by removing disallowed characters.</td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Calling Line ID Group Number.</td>
+                        </tr>
+                        <tr>
+                            <td>tnRoutine</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Calling Line ID Group Phone Number (TN) assignment routine.<br />
+                            Supported values and impact on other required properties:
+                            <table border=1>
+                            <thead>
+                                <th>tnRoutine</th>
+                                <th>Description</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><b>port-no-temp</b></td>
+                                <td>TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</td>
+                            </tr>
+                            <tr>
+                                <td><b>auto</b></td>
+                                <td>TN may or may not already exist in the system; will be assigned automatically to either/both as needed.</td>
+                            </tr>
+                            <tr>
+                                <td><b>no-number</b></td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            <tr>
+                                <td><b>""</b>(empty string)</td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            </tbody>
+                            </table></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+         <tr>
+            <td>timeZone</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Time Zone expressed as a Zone Name from the IANA Time Zone Database, e.g. "America/New_York".</td>
+        </tr>
+        <tr>
+            <td>locationDialingCode</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Location Dialing Code.</td>
+        </tr>
+        <tr>
+            <td>contact</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Contact information.<br />
+                Details of the Contact properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>name</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Contact Name.</td>
+                        </tr>
+                        <tr>
+                            <td>number</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Contact Phone Number.</td>
+                        </tr>
+                        <tr>
+                            <td>email</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Contact E-mail address</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>address</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Address information.<br />
+                Details of the Address properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>addressLine1</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Street address.</td>
+                        </tr>
+                        <tr>
+                            <td>addressLine2</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Street address.</td>
+                        </tr>
+                        <tr>
+                            <td>city</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>City</td>
+                        </tr>
+                        <tr>
+                            <td>stateOrProvince</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>State or Province</td>
+                        </tr>
+                        <tr>
+                            <td>zipOrPostalCode</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Zip or Postal Code</td>
+                        </tr>
+                        <tr>
+                            <td>country</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Country</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Container for network-element specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>
+                Container for BroadWorks-specific properties.<br />
+                Details of the BroadWorks-specific properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>groupId</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>The groupId for the new BroadWorks group.<br />
+                            If present it overwrites the generated value from the siteName.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>templateGroupId</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>The groupId of a BroadWorks group that will be used as template.<br />
+                            Must be the groupId of a group in the LokiHelper service provider defined in the configuration.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>extensionLength</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Extension Dialing information.<br />
+                Details of the Extension Dialing properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>min</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Controls the minimum extension dialing policy of a Group.</td>
+                        </tr>
+                        <tr>
+                            <td>max</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Controls the maximum extension dialing policy of a Group.</td>
+                        </tr>
+                        <tr>
+                            <td>default</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Controls the default extension dialing policy of a Group.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+	        <td>The set of services to configure to the new BroadWorks group.<br />
+	        Each service name must match a valid (configurable) group service on the network element.<br /> 
+	        The services that will be assigned to the new group will be the services assigned to the template group (see extensions.broadworks.templateGroupId property) so any configured service must be in the assigned services list of the template group.<br />
+            </td>
+        </tr>
+        <tr>
+            <td>services.'Voice Portal'.*</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Configuration settings for the Voice Portal service. The table below describes the supported settings.
+            <table border=1>
+                <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Notes</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>isActive</td>
+                        <td style="text-align: center;">no</td>
+                        <td>n/a</td>
+                        <td>On/Off</td>
+                    </tr>
+                    <tr>
+                        <td>extension</td>
+                        <td style="text-align: center;">no</td>
+                        <td>n/a</td>
+                        <td>Extension</td>
+                    </tr>
+                    <tr>
+                        <td>phoneNumber</td>
+                        <td style="text-align: center;">no</td>
+                        <td>n/a</td>
+                        <td>Phone Number</td>
+                    </tr>
+                    <tr>
+                        <td>tnRoutine</td>
+                        <td style="text-align: center;">no</td>
+                        <td>n/a</td>
+                        <td>Voice Portal Phone Number (TN) assignment routine.<br />
+                        Supported values and impact on other required properties:
+                        <table border=1>
+                        <thead>
+                            <th>tnRoutine</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><b>port-no-temp</b></td>
+                            <td>TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</td>
+                        </tr>
+                        <tr>
+                            <td><b>auto</b></td>
+                            <td>TN may or may not already exist in the system; will be assigned automatically to either/both as needed.</td>
+                        </tr>
+                        <tr>
+                            <td><b>no-number</b></td>
+                            <td>TN will not be assigned automatically.</td>
+                        </tr>
+                        <tr>
+                            <td><b>""</b>(empty string)</td>
+                            <td>TN will not be assigned automatically.</td>
+                        </tr>
+                        </tbody>
+                        </table></td>
+                    </tr>
+                <tbody>
+            </table>
+            </td>
+        </tr>
+        <tr>
+            <td>services.'Third-Party Voice Mail Support'.*</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Configuration settings for the Third-Party Voice Mail Support service. The table below describes the supported settings.
+            <table border=1>
+            <thead>
+                <th>Property</th>
+                <th>Required?</th>
+                <th>Default</th>
+                <th>Notes</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>isActive</td>
+                <td style="text-align: center;">no</td>
+                <td>n/a</td>
+                <td>On/Off</td>
+            </tr>
+            <tr>
+                <td>groupServer</td>
+                <td style="text-align: center;">no</td>
+                <td>n/a</td>
+                <td>Third-Party Voice Mail Server.</td>
+            </tr>
+            <tbody>
+            </table>
+            </td>
+        </tr>
+        <tr>
+            <td>networkClassesOfService</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>
+                <b>Not Implemented</b><br />
+                Container for Network Classes of Service specific properties.
+            </td>
+        </tr>
+        <tr>
+            <td>networkClassesOfService.default</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>
+                <b>Not Implemented</b><br />
+                Group's default Network Class of Service.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Response Properties - 201 Created
+
+Besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td>A Loki Server ID (server-generated) of the existing Customer.</td>
+       </tr>
+       <tr>
+            <td>siteId</td>
+            <td>A Loki Server ID (server-generated) of the created Site. The format of this is subject to change. <br />
+                It is not guaranteed to match what is given as input ("siteName") and also it is not guaranteed to match the created BroadWorks Group ID.
+            </td>
+       </tr>
+       <tr>
+            <td>extensions.broadworks.serviceProviderId</td>
+            <td>The ID of the BroadWorks Service Provider/ Enterprise in which the group was created.<td>
+       </tr>
+       <tr>
+            <td>extensions.broadworks.groupId</td>
+            <td>The ID of the created BroadWorks Group.</td>
+       </tr>
+       <tr>
+            <td>callingLineId.name</td>
+            <td>The generated Calling Line ID Group Name if it wasn't present in the request.</td>
+       </tr>
+       <tr>
+            <td>defaultDomain</td>
+            <td>The assigned default domain if it wasn't present in the request.</td>
+       </tr>
+    </tbody>
+</table>
+
+POST /customers/{+customerId}/sites{?mode}
+{
+    "siteName": "Example Com - North",
+    "defaultDomain": "example.com",
+    "userLimit": 10,
+    "callingLineId": {
+        "name": "ExampleComNorth",
+        "phoneNumber": "+1-4164449867",
+        "tnRoutine": "port-no-temp"
+    },
+    "timeZone": "America/St_Johns",
+    "locationDialingCode": "415",
+    "contact": {
+        "name": "Billy",
+        "number": "Bishop",
+        "email": "billy@example.com"
+    },
+    "address": {
+        "addressLine1": "415 Sixth Ave",
+        "addressLine2": "Suite 102",
+        "city": "North Seventh",
+        "stateOrProvince": "Alabama",
+        "zipOrPostalCode": "50415",
+        "country": "USA"
+    },
+    "extensionLength": {
+        "min": 2,
+        "max": 6,
+        "default": 4
+    },
+    "services": {
+        "Voice Portal": {
+            "isActive": true,
+            "extension": "4000",
+            "phoneNumber": "+1-4165554000",
+            "tnRoutine": "port-no-temp"
+        },
+        "Third-Party Voice Mail Support": {
+            "isActive": true,
+            "groupServer": "mail.example.com"
+        }
+    },
+    "networkClassesOfService": {
+        "default": "Standard"
+    },
+    "extensions": {
+        "broadworks": {
+            "groupId": "Example Com - North",
+            "templateGroupId": "BusinessLineBasic"
+        }
+    }
+}
+< 201
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+< Location: http://lokiserver.apiary.io/loki/customers/ExampleCom/sites/Example%20Com%20-%20North
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com/sites/Example%20Com%20-%20North"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "customerId": "Example Com",
+    "siteId": "Example Com - North",
+    "callingLineId" : {
+            "name": "ExampleComNorth",
+    },
+    "extensions" : {
+        "broadworks": {
+	        "serviceProviderId": "Example Com",
+	        "groupId": "Example Com - North"
+        }
+    }
 }
 
 
@@ -3457,6 +4114,11 @@ CHANGELOG
 General:
 * Added section "Single vs Multi cluster BroadWorks behaviour", to clarify 404 Not Found response body format. 
 
+Changes for S2183 42676: Loki REST: Initial Site Add Support (parent):
+
+* Added GET /loki/customers{?extensions.broadworks.serviceProviderId}
+* Added POST /loki/customers/{+customerId}/sites{?mode}
+
 #2.39
 
 Changes for S1783 42012: LWS-REST: Site Device creation and TN Assign to a Site (parent):
@@ -3639,6 +4301,87 @@ POST /loki/routes
     { }
 }
 
+GET /loki/customers{?extensions.broadworks.serviceProviderId}
+{
+    "requestURIQuery": {
+        "title": "Retrieve Customer request URI Query parameters schema",
+        "properties": {
+			"extensions.broadworks.serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+		}
+	},
+	"response": {
+	    "title": "Retrieve Customer response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "required": true },
+			"useCustomRoutingProfile": { "type": "boolean" },
+			"defaultDomain": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[a-zA-Z0-9.-]+$", "required": true },
+            "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "supportEmail": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
+            "contact": {
+                "type": "object",
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "number": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" }
+                }
+            },
+            "address": {
+                "type": "object",
+                "properties": {
+                    "addressLine1": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "addressLine2": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "city": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "stateOrProvince": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "zipOrPostalCode": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "country": { "type": "string", "minLength": 1, "maxLength": 50 }
+                }
+            },
+            "useServiceProviderLanguages": { "type": "boolean" },
+            "extensions": {
+                "type": "object",
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "isEnterprise": { "type": "boolean" },
+                            "serviceProviderId": { "type": "string",  "minLength": 1, "maxLength": 30, "required": true }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
+}
+
 GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
 {
 	"request": {
@@ -3667,6 +4410,207 @@ GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.g
 		}
 	},
 	"response": {}
+}
+
+POST /loki/customers/{+customerId}/sites{?mode}
+{   
+    "requestURITemplate": {
+        "title": "Create Site request request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "required": true }
+        }
+    },
+    "requestURIQuery": {
+        "title": "Create Site request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+    "requestBody": { 
+        "title": "Create Site request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "siteName": { "type": "string", "minLength": 1, "maxLength": 80, "required": true },
+            "defaultDomain": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[a-zA-Z0-9.-]+$" },
+            "userLimit": { "type": "integer", "minimum": 1, "maximum": 999999, "required": true },
+            "callingLineId": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "phoneNumber": { "id": "E.164 DN",
+                        "type": "string",
+                        "description": "A formatted TN.",
+                        "pattern": "^\\+\\d+-\\d+$",
+                        "minLength": 1,
+                        "maxLength": 23
+                    },
+                    "tnRoutine": { "enum": [null, "", "port-no-temp", "auto", "no-number"] }
+                }
+            },
+            "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+            "locationDialingCode": { "type": "string", "minLength": 1, "maxLength": 15, "pattern": "^[0-9]+$" },
+            "contact": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "number": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" }
+                }
+            },
+            "address": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "addressLine1": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "addressLine2": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "city": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "stateOrProvince": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "zipOrPostalCode": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "country": { "type": "string", "minLength": 1, "maxLength": 50 }
+                }
+            },
+            "extensions": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "templateGroupId": { "type": "string", "minLength": 1, "maxLength": 30 }
+                        }
+                    }
+                }
+            },
+            "extensionLength": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "min": { "type": "integer", "minimum": 2, "maximum": 20 },
+                    "max": { "type": "integer", "minimum": 2, "maximum": 20 },
+                    "default": { "type": "integer", "minimum": 2, "maximum": 20 }
+                }
+            },
+            "services": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "Voice Portal": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "isActive": { "type": "boolean" },
+                            "extension": { "type": "string", "minLength": 2, "maxLength": 20 },
+                            "phoneNumber": { "id": "E.164 DN",
+                                "type": "string",
+                                "description": "A formatted TN.",
+                                "pattern": "^\\+\\d+-\\d+$",
+                                "minLength": 1,
+                                "maxLength": 23
+                            },
+                            "tnRoutine": { "enum": [null, "", "port-no-temp", "auto", "no-number"] }
+                        }
+                    },
+                    "Third-Party Voice Mail Support": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "isActive": { "type": "boolean" },
+                            "groupServer": { "id": "OutgoingDNorSIPURI", "anyOf": [
+                                { 
+                                    "id": "E.164 DN",
+                                    "type": ["string", "null"],
+                                    "description": "A formatted TN.",
+                                    "pattern": "^\\+\\d+-\\d+$",
+                                    "minLength": 1,
+                                    "maxLength": 23,
+                                    "required": false
+                                },
+                                {   
+                                    "id": "non-E.164 DN", 
+                                    "type": "string",
+                                    "description": "A non-E.164 formatted TN.",
+                                    "pattern": "^[\\d\\-]+$",
+                                    "minLength": 1,
+                                    "maxLength": 23,
+                                    "required": false
+                                },
+                                { 
+                                    "id": "SIP URI", 
+                                    "type": "string",
+                                    "description": "SIP URI",
+                                    "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                    "minLength": 1,
+                                    "maxLength": 161,
+                                    "required": false
+                                }
+                            ]}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "response": {
+	    "title": "Create Site response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "required": true },
+			"siteId": { "type": "string", "minLength": 1, "required": true },
+			"callingLineId": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 80 }
+                }
+            },
+			"defaultDomain": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[a-zA-Z0-9.-]+$" },
+            "extensions": {
+                "type": "object",
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "serviceProviderId": { "type": "string",  "minLength": 1, "maxLength": 30, "required": true },
+                            "groupId": { "type": "string",  "minLength": 1, "maxLength": 30, "required": true }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
 }
 
 POST /loki/users{?mode}
