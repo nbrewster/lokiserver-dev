@@ -1779,10 +1779,13 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td style="text-align: center;">no</td>
             <td>n/a</td>
 	        <td>The set of services to configure to the new BroadWorks group.<br />
-	        Each service name must match a valid (configurable) group service on the network element.<br />
-	        <b>Note</b>: The Site Add request does not assign the services from the "services" section in the request body - it just configures them.<br /> 
-            If the user needs services assigned to the group, he must be sure to specify a template group that has those services assigned.<br /> 
-            If the user includes service configuration settings, but the template group doesn't have that service (or the template is omitted), then the request will fail.<br />
+	        Each service name must match a valid (configurable) group service in BroadWorks.<br />
+	        <b>Note</b>: The Site Add request does not assign the services from the <code>services</code> section in the request
+	        body; it only configures them.<br /> 
+            To ensure the necessary group services are assigned to the BroadWorks group, be sure to select a BroadWorks
+            template that has the desired services assigned.<br /> 
+            If service configuration settings are included in the request, but the template group doesn't have the
+            service(s) assigned (or the template is omitted in the request), the request will fail.<br />
             </td>
         </tr>
         <tr>
@@ -2535,13 +2538,13 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>username</td>
                             <td style="text-align: center;">varies</td>
                             <td>n/a</td>
-                            <td>Access device userId. It's required only when enabled is set to true.</td>
+                            <td>Access device userId. Required only when enabled is set to true.</td>
                         </tr>
                         <tr>
                             <td>password</td>
                             <td style="text-align: center;">varies</td>
                             <td>n/a</td>
-                            <td>Access device password. Will be validated against device access password complexity rules. It's required only when enabled is set to true.</td>
+                            <td>Access device password. Will be validated against device access password complexity rules. Required only when enabled is set to true.</td>
                         </tr>
                 </table>
             </td>
