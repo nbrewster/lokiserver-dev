@@ -4115,7 +4115,7 @@ PUT /users/{+userId}/call-processing-policy
 Update a BroadWorks User's Alternate Numbers service settings.
 In current implementation, services are updated on BroadWorks user using LWS-SOAP UserModifyRequest API call.
 
-In addition to the standard error codes, this will return 404 Not Found if the user does not exist in BroadWorks.
+In addition to the standard error codes, this will return 424 Not Found if the user does not exist in BroadWorks or other external dependency fails.
 
 ##Request Properties##
 Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
