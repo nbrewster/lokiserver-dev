@@ -4112,6 +4112,116 @@ PUT /users/{+userId}/call-processing-policy
 < 204
 < Transaction-Id: 1380080943120
 
+Update a BroadWorks User's Alternate Numbers service settings.
+In current implementation, services are updated on BroadWorks user using LWS-SOAP UserModifyRequest API call.
+
+In addition to the standard error codes, this will return 404 Not Found if the user does not exist in BroadWorks.
+
+##Request Properties##
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>distinctiveRing</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td></td>
+            <td>Distinctive ring setting.</td>
+        </tr>
+        <tr>
+            <td>alternateNumbers</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td></td>
+            <td>Container for alternate numbers information. Alternate numbers is an array of entries. Details of the alternate number entry properties:
+                <table border=1>
+                    <thead>
+                        <th>Property</th>
+                        <th>Required?</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>yes</td>
+                            <td></td>
+                            <td>Alternate Number ID – number of Alt. Num entry in the list.</td>
+                        </tr>
+                        <tr>
+                            <td>tnRoutine</td>
+                            <td>no</td>
+                            <td></td>
+                            <td><b>Not Implemented</b><br/> TN management routine for provided phone number.</td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td>no</td>
+                            <td></td>
+                            <td>TN management routine for provided phone number.</td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td>no</td>
+                            <td></td>
+                            <td>Alternate phone number.</td>
+                        </tr>
+                        <tr>
+                            <td>extension</td>
+                            <td>no</td>
+                            <td></td>
+                            <td>Alternate extension.</td>
+                        </tr>
+                        <tr>
+                            <td>rignPattern</td>
+                            <td>no</td>
+                            <td></td>
+                            <td>Ring pattern.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+PUT /users/{+userId}/services/Alternate%20Numbers
+> Content-Type: application/json
+{
+    "distinctiveRing": false,
+    "alternateNumbers": [
+        {
+            "id": 1,
+            "phoneNumber": "+1-4125553000",
+            "extension": "3000",
+            "ringPattern": "Long-Long" 
+        }, 
+        {
+            "id": 5, 
+            "extension": "3005",
+            "ringPattern": "Long-Long" 
+        }
+    ]
+}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": null,
+    "externalErrorSummary": "Error modifying user: JohnDoe.",
+    "externalErrorDetail": "User Modify Failed. Alternate Numbers pre-validation error:Error updating service: Alternate Numbers. User [JohnDoe] does not have Alternate Numbers service assigned."
+}
+
 
 --
 CHANGELOG
@@ -5971,4 +6081,54 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/devices/{?mode}
 		}
 	},
 	"response": {}
+}
+
+PUT /loki/users/{+userId}/services/Alternate%20Numbers
+{   
+    "requestURITemplate": {
+        "title": "User Alternate Numbers Modify request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "userId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": { 
+        "title": "User Alternate Numbers Modify request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "distinctiveRing": {
+                "type": "boolean"
+            },
+            "alternateNumbers": {
+                "type": "array",
+                "maxItems": 10,
+                "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "id": { "type": "integer", "min": 1, "max": 10, "required": true },
+                        "tnRoutine": { "enum": ["", "port-no-temp", "auto"] },
+                        "phoneNumber": {
+                            "extends":[{
+                                "$ref": "/bwksDnSchema"
+                            }, {
+                                "type": ["string", "null"]
+                            }]
+                        },
+                        "extension": {
+                            "type": ["string", "null"],
+                            "minLength": 2,
+                            "maxLength": 20,
+                            "pattern":"^[0-9]+$"
+                        },
+                        "ringPattern": {
+                            "enum": [null, "Normal", "Long-Long", "Short-Short-Long", "Short-Long-Short"]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "response": {}
 }
