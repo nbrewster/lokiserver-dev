@@ -4215,6 +4215,61 @@ PUT /users/{+userId}/services/Alternate%20Numbers
 }
 
 
+Delete a BroadWorks User.
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>keepMailbox</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>true</td>
+            <td>Flag that controls whether the Message Store user account is kept or deleted along with the BroadWorks user.</td>
+        </tr>
+    </tbody>
+</table>
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n.a</td>
+            <td>Loki Server userId (server-generated) of the user to be deleted.</td>
+        </tr>
+    </tbody>
+</table>
+
+DELETE /users/{+userId}{?keepMailbox}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "Error: [Error 4008] User not found: JohnDoe",
+    "externalErrorDetail": "User Delete Failed. Error: [Error 4008] User not found: JohnDoe"
+}
+
+
 --
 CHANGELOG
 
@@ -6122,5 +6177,24 @@ PUT /loki/users/{+userId}/services/Alternate%20Numbers
             }
         }
     },
+    "response": {}
+}
+
+DELETE /loki/users/{+userId}
+{
+    "requestURITemplate": {
+        "title": "Delete User request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "userId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestURIQuery": {
+        "title": "Delete User URI Query parameters schema",
+        "properties": {
+            "keepMailbox": { "enum": [ "true", "false"] }
+        }
+    },
+    "requestBody": {},
     "response": {}
 }
