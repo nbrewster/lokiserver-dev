@@ -4215,7 +4215,7 @@ PUT /users/{+userId}/services/Alternate%20Numbers
 }
 
 
-Delete a BroadWorks User.
+Delete a VoIP User.
 
 ##URI Query Parameters
 
@@ -4269,6 +4269,75 @@ DELETE /users/{+userId}{?keepMailbox}
     "externalErrorDetail": "User Delete Failed. Error: [Error 4008] User not found: JohnDoe"
 }
 
+Reset the device credentials on a VoIP User’s primary device.
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n.a</td>
+            <td>Loki Server userId (server-generated) of the user.</td>
+        </tr>
+    </tbody>
+</table>
+
+POST /users/{+userId}/resetDeviceCredentials
+< 200
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "_links": {
+        "self": {
+           "href": "http://lokiserver.apiary.io/loki/users/JohnDoe/resetDeviceCredentials"
+        }
+    },
+    "username": "12147483642",
+    "password": "Mu+7*+",
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ]
+}
++++++
+< 404
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "NOT_FOUND",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "[Error 4008] User not found: JohnDoe",
+    "externalErrorDetail": "[Error 4008] User not found: JohnDoe"
+}
++++++
+< 422
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "SEMANTIC_ERROR",
+    "summary": "The server was unable to process your request",
+    "detail": "User does not have primary device"
+}
++++++
+< 501
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "NOT_IMPLEMENTED",
+    "summary": "The requested functionality is not implemented.",
+    "detail": "Resetting device credentials for user without phone number is not supported."
+}
 
 --
 CHANGELOG
@@ -6197,4 +6266,52 @@ DELETE /loki/users/{+userId}{?keepMailbox}
     },
     "requestBody": {},
     "response": {}
+}
+
+POST /loki/users/{+userId}/resetDeviceCredentials
+{
+    "requestURITemplate": {
+        "title": "Reset User Device Credentials request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "userId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": {},
+    "response": {
+        "title": "Reset User Device Credentials response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+            	"type": "object",
+            	"required": true,
+            	"properties": {
+            		"self": {
+            			"type": "object",
+            			"required": true,
+            			"properties": {
+            				"href": {
+            					"type": "string",
+            					"required": true
+            				}
+            			}
+            		}
+            	}
+            },
+            "username": {"type": "string", "minLength": 1, "maxLength": 161, "required": true },
+            "password": {"type": "string", "minLength": 1, "maxLength": 60, "required": true },
+            "curies": {
+            	"type": "array",
+            	"required": true,
+            	"items": {
+            		"type": "object",
+            		"properties": {
+            			"name": { "type": "string", "required": true },
+            			"href": { "type": "string", "required": true },
+            			"templated": { "type": "boolean", "required": true }
+            		}
+            	}
+            }
+        }
+    }
 }
