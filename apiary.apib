@@ -4270,6 +4270,7 @@ DELETE /users/{+userId}{?keepMailbox}
 }
 
 
+
 Reset the device credentials on a VoIP User’s primary device.
 
 ##URI Template Parameters
@@ -4338,6 +4339,48 @@ POST /users/{+userId}/resetDeviceCredentials
     "errorCode": "NOT_IMPLEMENTED",
     "summary": "The requested functionality is not implemented.",
     "detail": "Resetting device credentials for user without phone number is not supported."
+}
+
+
+
+Modify VoIP User's assigned services.
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n.a</td>
+            <td>Loki Server userId (server-generated) of the user.</td>
+        </tr>
+    </tbody>
+</table>
+
+PUT /users/{+userId}/services/assigned-services
+> Content-Type: application/json
+{ 
+    "services": ["Authentication", "Alternate Numbers"] , 
+    "servicePacks": ["Executive"] 
+} 
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "[Error 4008] User not found: JohnDoe",
+    "externalErrorDetail": "[Error 4008] User not found: JohnDoe."
 }
 
 --
@@ -6315,4 +6358,17 @@ POST /loki/users/{+userId}/resetDeviceCredentials
             }
         }
     }
+}
+
+PUT /loki/users/{+userId}/services/assigned-services
+{
+    "requestURITemplate": {
+        "title": "Modify User assigned services request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "userId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": {},
+    "response": {}
 }
