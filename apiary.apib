@@ -2357,6 +2357,367 @@ POST /sites/{+siteId}/phone-numbers/deactivate
 
 
 --
+Site Services
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* customerId
+* siteId
+
+Extension Keys:
+
+* (none)
+--
+
+Retrieve the Voice Portal service settings of a Site.
+
+**NOT IMPLEMENTED**
+
+GET /customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+< 200
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.example.com/loki/customers/Example%20Com/sites/Example%20Com%20North/services/Voice%20Portal"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "customerId": "Example Com",
+    "siteId": "Example Com North",
+    "voicePortalId": "VoicePortalId",
+    "profile": {
+        "name": "Voice Portal",
+        "callingLineId": {
+            "lastName": "Portal",
+            "firstName": "Voice",
+            "phoneNumber": "+1-555123456" 
+        },
+        "phoneNumber": "+1-555123456",
+        "countryCode": "1",
+        "nationalPrefix": "+1",
+        "extension": "3456",
+        "department": "dep",
+        "language": "English",
+        "timeZone": "America/New_York",
+        "timeZoneDisplayName": "(GMT-04:00) (US) Eastern Time",
+        "alias": [
+            "voiceportal@example.com"
+        ],
+        "publicUserIdentity": "VoicePortalId"
+    },
+    "isActive": true,
+    "enableExtendedScope": true,
+    "allowIdentificationByPhoneNumberOrVoiceMailAliasesOnLogin": false,
+    "useVoicePortalWizard": true,
+    "externalRouting": {
+        "scope": "Group",
+        "useExternal": true,
+        "address": "external@example.com"
+    },
+    "homeZone": "Home Zone #1",
+    "networkClassOfService": "NCoS #1"
+}
+
+
+Modify the Voice Portal service settings of a Site.<br />
+Process name: Modify Site Voice Portal (VoIP Entity)<br />
+Rollback-enabled: No.
+
+## URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the Site is located.
+            </td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server siteId (server-generated) of the Site where the Voice Portal service is configured.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>profile</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Profile information.<br />
+                Details of the Profile properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>name</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Name</td>
+                        </tr>
+                        <tr>
+                            <td>callingLineId</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>
+                                Container for Calling Line ID information.<br />
+                                Details of the Calling Line ID properties:
+                                <table border=1>
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Required?</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>firstName</td>
+                                            <td style="text-align: center;">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID First Name.<br /> 
+                                            If not present in the request it will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>lastName</td>
+                                            <td style="text-align: center;">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Last Name.<br /> 
+                                            If not present in the request it will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>phoneNumber</td>
+                                            <td style="text-align: center;">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Phone Number.<br />
+                                            <b>Not Implemented</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Phone Number.</td>
+                        </tr>
+                        <tr>
+                            <td>tnRoutine</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Voice Portal Phone Number (TN) assignment routine.<br />
+                            <b>Not Implemented</b><br />
+                            Supported values and impact on other required properties:
+                            <table border=1>
+                            <thead>
+                                <th>tnRoutine</th>
+                                <th>Description</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><b>port-no-temp</b></td>
+                                <td>TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</td>
+                            </tr>
+                            <tr>
+                                <td><b>auto</b></td>
+                                <td>TN may or may not already exist in the system; will be assigned automatically to either/both as needed.</td>
+                            </tr>
+                            <tr>
+                                <td><b>no-number</b></td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            <tr>
+                                <td><b>""</b>(empty string)</td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            </tbody>
+                            </table></td>
+                        </tr>
+                        <tr>
+                            <td>extension</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Extension.</td>
+                        </tr>
+                        <tr>
+                            <td>department</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Department.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>language</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Language.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>timeZone</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Time Zone expressed as a Zone Name from the IANA Time Zone Database, e.g. "America/New_York".<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>alias</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>List of possible SIP URIs aliases of the Voice Portal.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>publicUserIdentity</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Public User Identity SIP URI for the Voice Portal.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>isActive</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>On/Off.</td>
+        </tr>
+        <tr>
+            <td>enableExtendedScope</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>It is supported only in HSS data mode.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>allowIdentificationByPhoneNumberOrVoiceMailAliasesOnLogin</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Allow Phone Numbers or Voice Mail Aliases on login in addition to Extensions.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>useVoicePortalWizard</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Use Voice Portal Wizard.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>externalRouting</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>
+                Container for External Routing information.<br />
+                <b>Not Implemented</b><br />
+                Details of the External Routing properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>scope</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Use System Settings/ Use Group Settings.</td>
+                        </tr>
+                        <tr>
+                            <td>useExternal</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Use External Routing Address.</td>
+                        </tr>
+                        <tr>
+                            <td>address</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>External Routing address.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>homeZone</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Home Zone.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>networkClassOfService</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Network Class of Service.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+    </tbody>
+</table>
+
+PUT /customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
+{
+    "isActive": true,
+    "profile": {
+        "name": "Voice Portal",
+        "phoneNumber": "+1-54356536564",
+        "callingLineId": {
+            "firstName": "CLID first name",
+            "lastName": "CLID last name"
+        }
+    }        
+}
+< 204
+< Transaction-Id: 1380080943120
+
+
+--
 VoIP Site Devices
 ##Collection
 
@@ -4386,6 +4747,13 @@ PUT /users/{+userId}/services/assigned-services
 --
 CHANGELOG
 
+#2.41
+
+Changes for S2291: LWS-REST: Create LWS-SOAP-backed request to modify group voice portal settings:
+
+* Added GET /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+* Added PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+
 #2.40
 
 General:
@@ -6249,7 +6617,13 @@ PUT /loki/users/{+userId}/services/Alternate%20Numbers
         "title": "User Alternate Numbers Modify request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+            "userId": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true 
+            }
         }
     },
     "requestBody": { 
@@ -6299,7 +6673,13 @@ DELETE /loki/users/{+userId}{?keepMailbox}
         "title": "Delete User request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+            "userId": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true 
+            }
         }
     },
     "requestURIQuery": {
@@ -6318,7 +6698,13 @@ POST /loki/users/{+userId}/resetDeviceCredentials
         "title": "Reset User Device Credentials request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+            "userId": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true 
+            }
         }
     },
     "requestBody": {},
@@ -6366,9 +6752,160 @@ PUT /loki/users/{+userId}/services/assigned-services
         "title": "Modify User assigned services request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+            "userId": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+            }
         }
     },
     "requestBody": {},
     "response": {}
+}
+
+GET /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+{
+    "requestURITemplate": {
+        "title": "VoIP Entity - Retrieve Site Voice Portal service settings request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": { },
+    "response": { 
+        "title": "VoIP Entity - Retrieve Site Voice Portal service settings response body schema",
+        "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "voicePortalId": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			},
+            "profile": {
+                "type": "object",
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "callingLineId": {
+                        "type": "object",
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "phoneNumber": { "type": "string", "minLength": 1, "maxLength": 23, "pattern": "^[\\d\\-]+$" }
+                        }
+                    },
+                    "phoneNumber": { "type": "string", "minLength": 1, "maxLength": 23, "pattern": "^[\\d\\-]+$" },
+                    "extension": { "type": "string", "minLength": 1, "maxLength": 20, "pattern": "^[\\d\\-]+$" },
+                    "countryCode": { "type": "string" },
+                    "nationalPrefix": { "type": "string" },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "timeZoneDisplayName": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": { "type": [ "string", "array" ] },
+                    "publicUserIdentity": { "type": "string", "minLength": 1, "maxLength": 161, "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$" }
+                }
+            },
+            "isActive": { "type": "boolean" },
+            "enableExtendedScope": { "type": "boolean" },
+            "allowIdentificationByPhoneNumberOrVoiceMailAliasesOnLogin": { "type": "boolean" },
+            "useVoicePortalWizard": { "type": "boolean" },
+            "externalRouting": {
+                "type": "object",
+                "properties": {
+                    "scope": { "enum": [ "Group", "System" ] },
+                    "useExternal": { "type": "boolean" },
+                    "address": { "type": "string", "minLength": 1, "maxLength": 161, "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$" }
+                }
+            },
+            "homeZoneName": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 }
+        }
+    }
+}
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+{
+    "requestURITemplate": {
+        "title": "VoIP Entity - Modify Site Voice Portal service settings request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": {
+        "title": "VoIP Entity - Modify Site Voice Portal service settings request body schema",
+        "type": "object",
+        "properties": {
+            "profile": {
+                "type": "object",
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "callingLineId": {
+                        "type": "object",
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "phoneNumber": { "type": "string", "minLength": 1, "maxLength": 23, "pattern": "^[\\d\\-]+$" }
+                        }
+                    },
+                    "phoneNumber": { "type": "string", "minLength": 1, "maxLength": 23, "pattern": "^[\\d\\-]+$" },
+                    "tnRoutine": { "enum": [null, "", "port-no-temp", "auto", "no-number"] },
+                    "extension": { "type": "string", "minLength": 1, "maxLength": 20, "pattern": "^[\\d\\-]+$" },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": { "type": [ "string", "array" ] },
+                    "publicUserIdentity": { "type": "string", "minLength": 1, "maxLength": 161, "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$" }
+                }
+            },
+            "isActive": { "type": "boolean" },
+            "enableExtendedScope": { "type": "boolean" },
+            "allowIdentificationByPhoneNumberOrVoiceMailAliasesOnLogin": { "type": "boolean" },
+            "useVoicePortalWizard": { "type": "boolean" },
+            "externalRouting": {
+                "type": "object",
+                "properties": {
+                    "scope": { "enum": [ "Group", "System" ] },
+                    "useExternal": { "type": "boolean" },
+                    "address": { "type": "string", "minLength": 1, "maxLength": 161, "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$" }
+                }
+            },
+            "homeZoneName": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 }
+        }
+    },
+    "response": { }
 }
