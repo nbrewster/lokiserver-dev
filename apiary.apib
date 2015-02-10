@@ -4748,9 +4748,1928 @@ PUT /users/{+userId}/services/assigned-services
 }
 
 --
+VoIP Site Auto Attendant
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* autoAttendantId
+
+Extension Keys:
+
+* (none)
+--
+
+Create a new VoIP Auto Attendant.<br />
+Process name: Create Auto Attendant (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mode</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Controls execution mode.<br />
+            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
+            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Auto Attendant is to be created.
+            In a default configuration (where a VoIP Auto Attendant is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Auto Attendant is to be created.
+            In a default configuration (where a VoIP Auto Attendant is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.groupId is populated.</td>
+        </tr>
+        <tr>
+            <td>profile</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>
+                Container for Profile information.<br />
+                Details of the Profile properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>name</td>
+                            <td style="text-align: center;">yes</td>
+                            <td>n/a</td>
+                            <td>Name</td>
+                        </tr>
+                        <tr>
+                            <td>callingLineId</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>
+                                Container for Calling Line ID information.<br />
+                                <b>Not Implemented</b><br />
+                                Details of the Calling Line ID properties:
+                                <table border=1>
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Required?</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>firstName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID First Name.<br /> 
+                                            In initial implementation will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>lastName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Last Name.<br /> 
+                                            In initial implementation will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>phoneNumber</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Phone Number.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Phone Number.</td>
+                        </tr>
+                        <tr>
+                            <td>tnRoutine</td>
+                            <td style="text-align: center;">no</td>
+                            <td>"" (empty string)</td>
+                            <td>Phone Number (TN) assignment routine.<br />
+                            Supported values and impact on other required properties:
+                            <table border=1>
+                            <thead>
+                                <th>tnRoutine</th>
+                                <th>Description</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><b>port-no-temp</b></td>
+                                <td>TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</td>
+                            </tr>
+                            <tr>
+                                <td><b>auto</b></td>
+                                <td>TN may or may not already exist in the system; will be assigned automatically to either/both as needed.<br />
+                                <b>Not Implemented</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>no-number</b></td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            <tr>
+                                <td><b>""</b>(empty string)</td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            </tbody>
+                            </table></td>
+                        </tr>
+                        <tr>
+                            <td>extension</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Extension.</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Password.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>department</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Department.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>language</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Language.</td>
+                        </tr>
+                        <tr>
+                            <td>timeZone</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Time Zone expressed as a Zone Name from the IANA Time Zone Database, e.g. "America/New_York".</td>
+                        </tr>
+                        <tr>
+                            <td>alias</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>List of possible SIP URIs aliases of the Virtual User.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>publicServiceIdentity</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Public User Identity SIP URI for the Virtual User.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>Basic</td>
+            <td>The type of the Auto Attendant. Allowed values: "Basic", "Standard".<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>firstDigitTimeoutSeconds</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Time allowed for initial user input to Auto Attendant main menu.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>enableVideo</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>false</td>
+            <td><b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>businessHours</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for business hours settings.<br />
+                <b>Not Implemented</b><br />
+                Details of the business hours properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>type</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>n/a</td>
+                            <td>Schedule access level.</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>n/a</td>
+                            <td>Schedule name.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>holidaySchedule</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for holiday schedule settings.<br />
+                <b>Not Implemented</b><br />
+                Details of the holiday schedule properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>type</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>n/a</td>
+                            <td>Schedule access level.</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>n/a</td>
+                            <td>Schedule name.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>extensionDialingScope</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>Group</td>
+            <td>The scope of extension or name dialing.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>nameDialingScope</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>Group</td>
+            <td>The name of dialing scope.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>nameDialingEntries</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>LastName + FirstName</td>
+            <td>The format callers should use when dialing by name.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>businessHoursMenu</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The configuration of the automated receptionist greeting prompt and dialing menu to be used during business hours.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>afterHoursMenu</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The configuration of the automated receptionist greeting prompt and dialing menu to be used after business hours.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>holidayMenu</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The configuration of the automated receptionist greeting prompt and dialing menu to be used during the holiday.<br />
+            Note: This element is valid only for “Standard” Auto Attendands.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>networkClassOfService</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Network Class of Service name.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+	        <td>Container for list of services and their configuration settings to be assigned to the virtual user.<br />
+            Note: Initial release does not support service configuration.<br />
+	        To assign a service without doing any configuration, set the value to an empty object, e.g.
+	        <code>"services" : { "Remote Office" : { } }</code>.<br />
+            </td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Container for network-element specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for BroadWorks-specific properties.<br />
+                Details of the BroadWorks-specific properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>serviceProviderId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>ID of the BroadWorks service provider or enterprse in which the underlying BroadWorks Virtual User is to be created.
+                            In a default configuration (where a VoIP Virtual User is composed of BroadWorks entities only),
+                            this property can be used instead of customerId (eliminating the need to know the server-generated customerId
+                            prior to placing this request).</td>
+                        </tr>
+                        <tr>
+                            <td>groupId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>ID of the BroadWorks group in which the underlying BroadWorks Virtual User is to be created.
+                            In a default configuration (where a VoIP Virtual User is composed of BroadWorks entities only),
+                            this property can be used instead of customerId (eliminating the need to know the server-generated customerId
+                            prior to placing this request).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>resourceId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>The ID to be set on the new virtual user. If it is omitted then the userId of the virtual user will be auto-generated.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+POST /auto-attendants{?mode}
+> Content-Type: application/json
+{
+    "customerId": "Example Com",
+    "siteId": "Example Com - North",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "5551239876@example.com"
+        }
+    },
+    "profile": {
+        "name": "My Auto Attendant",
+        "phoneNumber": "+1-5551239876",
+        "extension": "9876",
+        "language": "English",
+        "timeZone": " America/New_York"
+    },
+    "services": {
+        "Alternate Numbers": {},
+        "Basic Call Logs": {}
+    }
+}
+< 201
+< Location: http://lokiserver.example.com/loki/auto-attendants/5551239876%40example.com
+< Transaction-Id: 1380080943120
+< Content-Type: application/hal+json
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.example.com/loki/auto-attendants/5551239876%40example.com"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "autoAttendantId": "5551239876@example.com",
+    "profile": {
+        "callingLineId" : {
+            "lastName": "My Auto Attendant",
+            "firstName": "My Auto Attendant"
+        },
+        "publicServiceIdentity": "5551239876@example.com",
+        "extension": "9876"
+    },   
+    "extensions" : {
+        "broadworks": {
+            "resourceId": "5551239876@example.com"
+        }
+    }
+}
+
+
+--
+VoIP Site Hunt Group
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* huntGroupId
+
+Extension Keys:
+
+* (none)
+--
+
+Create a new VoIP Hunt Group.<br />
+Process name: Create Hunt Group (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mode</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Controls execution mode.<br />
+            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
+            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Hunt Group is to be created.
+            In a default configuration (where a VoIP Hunt Group is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Hunt Group is to be created.
+            In a default configuration (where a VoIP Hunt Group is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.groupId is populated.</td>
+        </tr>
+        <tr>
+            <td>profile</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>
+                Container for Profile information.<br />
+                Details of the Profile properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>name</td>
+                            <td style="text-align: center;">yes</td>
+                            <td>n/a</td>
+                            <td>Name</td>
+                        </tr>
+                        <tr>
+                            <td>callingLineId</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>
+                                Container for Calling Line ID information.<br />
+                                <b>Not Implemented</b><br />
+                                Details of the Calling Line ID properties:
+                                <table border=1>
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Required?</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>firstName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID First Name.<br /> 
+                                            In initial implementation will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>lastName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Last Name.<br /> 
+                                            In initial implementation will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>phoneNumber</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Phone Number.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Phone Number.</td>
+                        </tr>
+                        <tr>
+                            <td>tnRoutine</td>
+                            <td style="text-align: center;">no</td>
+                            <td>"" (empty string)</td>
+                            <td>Phone Number (TN) assignment routine.<br />
+                            Supported values and impact on other required properties:
+                            <table border=1>
+                            <thead>
+                                <th>tnRoutine</th>
+                                <th>Description</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><b>port-no-temp</b></td>
+                                <td>TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</td>
+                            </tr>
+                            <tr>
+                                <td><b>auto</b></td>
+                                <td>TN may or may not already exist in the system; will be assigned automatically to either/both as needed.<br />
+                                <b>Not Implemented</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>no-number</b></td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            <tr>
+                                <td><b>""</b>(empty string)</td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            </tbody>
+                            </table></td>
+                        </tr>
+                        <tr>
+                            <td>extension</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Extension.</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Password.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>department</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Department.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>language</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Language.</td>
+                        </tr>
+                        <tr>
+                            <td>timeZone</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Time Zone expressed as a Zone Name from the IANA Time Zone Database, e.g. "America/New_York".</td>
+                        </tr>
+                        <tr>
+                            <td>alias</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>List of possible SIP URIs aliases of the Virtual User.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>publicServiceIdentity</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Public User Identity SIP URI for the Virtual User.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>policy</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>Regular</td>
+            <td>Policy for distributing calls within a hunt group.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>noAnswer</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for No Answer Settings.<br />
+                <b>Not Implemented</b><br />
+                Details of the No Answer properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>skipToAgent</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Flag to enable skipping to other agents.Maps to huntAfterNoAnswer in OCI.</td>
+                        </tr>
+                        <tr>
+                            <td>skipToAgentAfterNumberOfRings</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>5</td>
+                            <td>Number of rings to wait for the currently hunted agent to answer before hunting to the next available agent.
+                            Maps to NumberOfRings in OCI.</td>
+                        </tr>
+                        <tr>
+                            <td>forwardCallAfterTimeout</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Maps to forwardAfterTimeout in OCI.</td>
+                        </tr>
+                        <tr>
+                            <td>forwardAfterTimeoutSeconds</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>0</td>
+                            <td>Time to wait for any agent to answer before forwarding the caller elsewhere.
+                            Maps to forwardTimeoutSeconds in OCI.</td>
+                        </tr>
+                        <tr>
+                            <td>forwardToPhoneNumber</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>An outgoing phone number or a number meant to be dialed.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>agentUserId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>List of assigned Users to the Hunt Group.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>allowCallWaitingForAgents</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>false</td>
+            <td>Allow Call Waiting on agents<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>callingLineIdSettings</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Calling Line ID settings. Maps to useSystemHuntGroupCLIDSetting in OCI.<br />
+                <b>Not Implemented</b><br />
+                Details of the Calling Line ID properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>useCustom</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Use custom settings.</td>
+                        </tr>
+                        <tr>
+                            <td>includeHuntGroupName</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>true</td>
+                            <td>Include the Hunt Group Name in the CLID.
+                            Maps to includeHuntGroupNameInCLID in OCI.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>notReachableSettings</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Not Reachable Settings.<br />
+                <b>Not Implemented</b><br />
+                Details of the Not Reachable properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>enableForwarding</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Enable Call Forwarding Not Reachable.
+                            Maps to enableNotReachableForwarding in OCI.</td>
+                        </tr>
+                        <tr>
+                            <td>forwardToPhoneNumber</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Phone number to forward when not reachable.
+                            Maps to notReachableForwardToPhoneNumber in OCI.</td>
+                        </tr>
+                        <tr>
+                            <td>makeBusyWhenNotReachable</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Make Hunt Group busy when all available agents are not reachable.
+                            Maps to makeBusyWhenNotReachable in OCI.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>allowMembersToControlGroupBusy</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>false</td>
+            <td>Allow members to control Group Busy.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>enableGroupBusy</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>false</td>
+            <td>Allow members to control Group Busy.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>applyGroupBusyWhenTerminatingToAgent</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Apply Group Busy When Terminating Call to Agent<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>networkClassOfService</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Network Class of Service name.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+	        <td>Container for list of services and their configuration settings to be assigned to the virtual user.<br />
+            Note: Initial release does not support service configuration.<br />
+	        To assign a service without doing any configuration, set the value to an empty object, e.g.
+	        <code>"services" : { "Remote Office" : { } }</code>.<br />
+            </td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Container for network-element specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for BroadWorks-specific properties.<br />
+                Details of the BroadWorks-specific properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>serviceProviderId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>ID of the BroadWorks service provider or enterprse in which the underlying BroadWorks Virtual User is to be created.
+                            In a default configuration (where a VoIP Virtual User is composed of BroadWorks entities only),
+                            this property can be used instead of customerId (eliminating the need to know the server-generated customerId
+                            prior to placing this request).</td>
+                        </tr>
+                        <tr>
+                            <td>groupId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>ID of the BroadWorks group in which the underlying BroadWorks Virtual User is to be created.
+                            In a default configuration (where a VoIP Virtual User is composed of BroadWorks entities only),
+                            this property can be used instead of customerId (eliminating the need to know the server-generated customerId
+                            prior to placing this request).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>resourceId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>The ID to be set on the new virtual user. If it is omitted then the userId of the virtual user will be auto-generated.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+POST /hunt-groups{?mode}
+> Content-Type: application/json
+{
+    "customerId": "Example Com",
+    "siteId": "Example Com - North",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "5551239876@example.com"
+        }
+    },
+    "profile": {
+        "name": "My Hunt group",
+        "phoneNumber": "+1-5551239876",
+        "extension": "9876",
+        "language": "English",
+        "timeZone": " America/New_York"
+    },
+    "services": {
+        "Alternate Numbers": {},
+        "Basic Call Logs": {}
+    }
+}
+< 201
+< Location: http://lokiserver.example.com/loki/hunt-groups/5551239876%40example.com
+< Transaction-Id: 1380080943120
+< Content-Type: application/hal+json
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.example.com/loki/hunt-groups/5551239876%40example.com"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "huntGroupId": "5551239876@example.com",
+    "profile": {
+        "callingLineId" : {
+            "lastName": "My Hunt group",
+            "firstName": "My Hunt group"
+        },
+        "publicServiceIdentity": "5551239876@example.com",
+        "extension": "9876" 
+    },    
+    "extensions" : {
+        "broadworks": {
+            "resourceId": "5551239876@example.com"
+        }
+    }
+}
+
+
+--
+VoIP Site Call Center
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* callCenterId
+
+Extension Keys:
+
+* (none)
+--
+
+Create a new VoIP Call Center.<br />
+Process name: Create Call Center (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mode</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Controls execution mode.<br />
+            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
+            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Call Center is to be created.
+            In a default configuration (where a VoIP Call Center is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Call Center is to be created.
+            In a default configuration (where a VoIP Call Center is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.groupId is populated.</td>
+        </tr>
+        <tr>
+            <td>profile</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>
+                Container for Profile information.<br />
+                Details of the Profile properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>name</td>
+                            <td style="text-align: center;">yes</td>
+                            <td>n/a</td>
+                            <td>Name</td>
+                        </tr>
+                        <tr>
+                            <td>callingLineId</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>
+                                Container for Calling Line ID information.<br />
+                                <b>Not Implemented</b><br />
+                                Details of the Calling Line ID properties:
+                                <table border=1>
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Required?</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>firstName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID First Name.<br /> 
+                                            In initial implementation will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>lastName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Last Name.<br /> 
+                                            In initial implementation will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>phoneNumber</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Phone Number.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Phone Number.</td>
+                        </tr>
+                        <tr>
+                            <td>tnRoutine</td>
+                            <td style="text-align: center;">no</td>
+                            <td>"" (empty string)</td>
+                            <td>Phone Number (TN) assignment routine.<br />
+                            Supported values and impact on other required properties:
+                            <table border=1>
+                            <thead>
+                                <th>tnRoutine</th>
+                                <th>Description</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><b>port-no-temp</b></td>
+                                <td>TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</td>
+                            </tr>
+                            <tr>
+                                <td><b>auto</b></td>
+                                <td>TN may or may not already exist in the system; will be assigned automatically to either/both as needed.<br />
+                                <b>Not Implemented</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>no-number</b></td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            <tr>
+                                <td><b>""</b>(empty string)</td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            </tbody>
+                            </table></td>
+                        </tr>
+                        <tr>
+                            <td>extension</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Extension.</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Password.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>department</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Department.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>language</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Language.</td>
+                        </tr>
+                        <tr>
+                            <td>timeZone</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Time Zone expressed as a Zone Name from the IANA Time Zone Database, e.g. "America/New_York".</td>
+                        </tr>
+                        <tr>
+                            <td>alias</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>List of possible SIP URIs aliases of the Virtual User.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>publicServiceIdentity</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Public User Identity SIP URI for the Virtual User.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Call center type.</td>
+        </tr>
+        <tr>
+            <td>routingType</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>Priority Based</td>
+            <td>Call Center Routing type for distributing calls within a call center.
+            Note: Applies only to “Premium” call centers.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>policy</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>Regular</td>
+            <td>Policy for distributing calls within a call center.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>enableReporting</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Enable Call Center External Reporting.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>callCenterSettings</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Call Center settings.<br />
+                <b>Not Implemented</b><br />
+                Details of the Call Center properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>enableVideo</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Enable video.</td>
+                        </tr>
+                        <tr>
+                            <td>queueLength</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>0</td>
+                            <td>The limit for the number of calls the system will keep in queue, waiting for an available agent.</td>
+                        </tr>
+                        <tr>
+                            <td>playRingingWhenOfferingCall</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>true</td>
+                            <td>Play ringing when offering call.</td>
+                        </tr>
+                        <tr>
+                            <td>allowCallerToDialEscapeDigit</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Allow callers to dial a digit to escape.</td>
+                        </tr>
+                        <tr>
+                            <td>escapeDigit</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>0</td>
+                            <td>Digit to press by callers to escape call.</td>
+                        </tr>
+                        <tr>
+                            <td>resetCallStatisticsUponEntryInQueue</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Reset caller statistics upon entry to queue.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>agentSettings</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Agent settings.<br />
+                <b>Not Implemented</b><br />
+                Details of the Agent properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>allowAgentLogoff</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Allow agents to join Call Centers.</td>
+                        </tr>
+                        <tr>
+                            <td>allowCallWaitingForAgents</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Allow Call Waiting on agents.</td>
+                        </tr>
+                        <tr>
+                            <td>allowCallsToAgentsInWrapUp</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Enable calls to agents in wrap-up state.
+                            Note: Applies only for “Standard” and “Premium.</td>
+                        </tr>
+                        <tr>
+                            <td>overrideAgentWrapUpTime</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Enable maximum ACD wrap-up timer.
+                            Note: Applies only for “Standard” and “Premium.</td>
+                        </tr>
+                        <tr>
+                            <td>wrapUpSeconds</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Wrap up time.
+                            Note: Applies only for “Standard” and “Premium.</td>
+                        </tr>
+                        <tr>
+                            <td>enableAutomaticStateChangeForAgents</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Enable automatic agent state
+                            Note: Applies only for “Standard” and “Premium.”</td>
+                        </tr>
+                        <tr>
+                            <td>agentStateAfterCall</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Agent Automatic Call Distribution (ACD) State. States available for Wrap-Up agent state management.
+                            Note: Applies only for “Standard” and “Premium.”</td>
+                        </tr>
+                        <tr>
+                            <td>forceDeliveryOfCalls</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>false</td>
+                            <td>Enable automatic call answer after a number of seconds
+                            Note: Applies only for “Premium.”</td>
+                        </tr>
+                        <tr>
+                            <td>forceDeliveryWaitTimeSeconds</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Number of seconds to automatically answer call if enabled.
+                            Note: Applies only for “Premium.”</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>agentUnavailableCode</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Call Center Agent Unavailable Code Value.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>bandwidthAndQoS</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Bandwidth and QoS Settings.<br />
+                <b>Not Implemented</b><br />
+                Details of the Bandwidth and QoS properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>externalPreferredAudioCodec</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>None(literally)</td>
+                            <td>Preferred announcement / music codec for external calls.</td>
+                        </tr>
+                        <tr>
+                            <td>internalPreferredAudioCodec</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>None(literally)</td>
+                            <td>Preferred announcement / music codec for internal calls.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>networkClassOfService</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Network Class of Service name.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+	        <td>Container for list of services and their configuration settings to be assigned to the virtual user.<br />
+            Note: Initial release does not support service configuration.<br />
+	        To assign a service without doing any configuration, set the value to an empty object, e.g.
+	        <code>"services" : { "Remote Office" : { } }</code>.<br />
+            </td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Container for network-element specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for BroadWorks-specific properties.<br />
+                Details of the BroadWorks-specific properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>serviceProviderId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>ID of the BroadWorks service provider or enterprse in which the underlying BroadWorks Virtual User is to be created.
+                            In a default configuration (where a VoIP Virtual User is composed of BroadWorks entities only),
+                            this property can be used instead of customerId (eliminating the need to know the server-generated customerId
+                            prior to placing this request).</td>
+                        </tr>
+                        <tr>
+                            <td>groupId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>ID of the BroadWorks group in which the underlying BroadWorks Virtual User is to be created.
+                            In a default configuration (where a VoIP Virtual User is composed of BroadWorks entities only),
+                            this property can be used instead of customerId (eliminating the need to know the server-generated customerId
+                            prior to placing this request).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>resourceId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>The ID to be set on the new virtual user. If it is omitted then the userId of the virtual user will be auto-generated.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+POST /call-centers{?mode}
+> Content-Type: application/json
+{
+    "customerId": "Example Com",
+    "siteId": "Example Com - North",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "5551239876@example.com"
+        }
+    },
+    "profile": {
+        "name": "My Call Center",
+        "phoneNumber": "+1-5551239876",
+        "extension": "9876",
+        "language": "English",
+        "timeZone": " America/New_York"
+    },
+    "services": {
+        "Alternate Numbers": {},
+        "Basic Call Logs": {}
+    }
+}
+< 201
+< Location: http://lokiserver.example.com/loki/call-centers/5551239876%40example.com
+< Transaction-Id: 1380080943120
+< Content-Type: application/hal+json
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.example.com/loki/call-centers/5551239876%40example.com"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "callCenterId": "5551239876@example.com",
+    "profile": {
+        "callingLineId" : {
+            "lastName": "My Call Center",
+            "firstName": "My Call Center"
+        },
+        "publicServiceIdentity": "5551239876@example.com",
+        "extension": "9876"
+    },
+    "policy": "Regular",
+    "callCenterSettings": {
+        "enableVideo": false,
+        "queueLength": 0,
+        "allowCallerToDialEscapeDigit": true,
+        "escapeDigit": 0,
+        "playRingingWhenOfferingCall": true
+    },
+    "agentSettings": {
+        "allowAgentLogoff": false,
+        "allowCallWaitingForAgents": false
+    },
+    "bandwidthAndQoS": {
+        "externalPreferredAudioCodec": "None",
+        "internalPreferredAudioCodec": "None"
+    },    
+    "extensions" : {
+        "broadworks": {
+            "resourceId": "5551239876@example.com"
+        }
+    }
+}
+
+
+--
+VoIP Site Instant Group Call
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* instantGroupCallId
+
+Extension Keys:
+
+* (none)
+--
+
+Create a new VoIP Instant Group Call.<br />
+Process name: Create Instant Group Call (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mode</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Controls execution mode.<br />
+            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
+            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Instant Group Call is to be created.
+            In a default configuration (where a VoIP Instant Group Call is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Instant Group Call is to be created.
+            In a default configuration (where a VoIP Instant Group Call is composed of BroadWorks entities only),
+            this property can be omitted if extensions.broadworks.groupId is populated.</td>
+        </tr>
+        <tr>
+            <td>profile</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>
+                Container for Profile information.<br />
+                Details of the Profile properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>name</td>
+                            <td style="text-align: center;">yes</td>
+                            <td>n/a</td>
+                            <td>Name</td>
+                        </tr>
+                        <tr>
+                            <td>callingLineId</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>
+                                Container for Calling Line ID information.<br />
+                                <b>Not Implemented</b><br />
+                                Details of the Calling Line ID properties:
+                                <table border=1>
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Required?</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>firstName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID First Name.<br /> 
+                                            In initial implementation will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>lastName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Last Name.<br /> 
+                                            In initial implementation will be copied from the profile.name.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>phoneNumber</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Calling Line ID Phone Number.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Phone Number.</td>
+                        </tr>
+                        <tr>
+                            <td>tnRoutine</td>
+                            <td style="text-align: center;">no</td>
+                            <td>"" (empty string)</td>
+                            <td>Phone Number (TN) assignment routine.<br />
+                            Supported values and impact on other required properties:
+                            <table border=1>
+                            <thead>
+                                <th>tnRoutine</th>
+                                <th>Description</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><b>port-no-temp</b></td>
+                                <td>TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</td>
+                            </tr>
+                            <tr>
+                                <td><b>auto</b></td>
+                                <td>TN may or may not already exist in the system; will be assigned automatically to either/both as needed.<br />
+                                <b>Not Implemented</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>no-number</b></td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            <tr>
+                                <td><b>""</b>(empty string)</td>
+                                <td>TN will not be assigned automatically.</td>
+                            </tr>
+                            </tbody>
+                            </table></td>
+                        </tr>
+                        <tr>
+                            <td>extension</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Extension.</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Password.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>department</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Department.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>language</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Language.</td>
+                        </tr>
+                        <tr>
+                            <td>timeZone</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Time Zone expressed as a Zone Name from the IANA Time Zone Database, e.g. "America/New_York".</td>
+                        </tr>
+                        <tr>
+                            <td>alias</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>List of possible SIP URIs aliases of the Virtual User.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>publicServiceIdentity</td>
+                            <td style="text-align: center;">no</td>
+                            <td>n/a</td>
+                            <td>Public User Identity SIP URI for the Virtual User.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>destinationPhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Instant Group Call User List.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>isAnswerTimeoutEnabled</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>false</td>
+            <td>Enable Maximum Call Time for Unanswered Calls.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>answerTimeoutMinutes</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The maximum duration for unanswered call.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>networkClassOfService</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Network Class of Service name.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+	        <td>Container for list of services and their configuration settings to be assigned to the virtual user.<br />
+            Note: Initial release does not support service configuration.<br />
+	        To assign a service without doing any configuration, set the value to an empty object, e.g.
+	        <code>"services" : { "Remote Office" : { } }</code>.<br />
+            </td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Container for network-element specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for BroadWorks-specific properties.<br />
+                Details of the BroadWorks-specific properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>serviceProviderId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>ID of the BroadWorks service provider or enterprse in which the underlying BroadWorks Virtual User is to be created.
+                            In a default configuration (where a VoIP Virtual User is composed of BroadWorks entities only),
+                            this property can be used instead of customerId (eliminating the need to know the server-generated customerId
+                            prior to placing this request).</td>
+                        </tr>
+                        <tr>
+                            <td>groupId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>ID of the BroadWorks group in which the underlying BroadWorks Virtual User is to be created.
+                            In a default configuration (where a VoIP Virtual User is composed of BroadWorks entities only),
+                            this property can be used instead of customerId (eliminating the need to know the server-generated customerId
+                            prior to placing this request).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>resourceId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>The ID to be set on the new virtual user. If it is omitted then the userId of the virtual user will be auto-generated.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+POST /instant-group-calls{?mode}
+> Content-Type: application/json
+{
+    "customerId": "Example Com",
+    "siteId": "Example Com - North",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "5551239876@example.com"
+        }
+    },
+    "profile": {
+        "name": "My IGC",
+        "phoneNumber": "+1-5551239876",
+        "extension": "9876",
+        "language": "English",
+        "timeZone": " America/New_York"
+    },
+    "services": {
+        "Alternate Numbers": {},
+        "Basic Call Logs": {}
+    }
+}
+< 201
+< Location: http://lokiserver.example.com/loki/instant-group-calls/5551239876%40example.com
+< Transaction-Id: 1380080943120
+< Content-Type: application/hal+json
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.example.com/loki/instant-group-calls/5551239876%40example.com"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "instantGroupCallId": "5551239876@example.com",
+    "profile": {
+        "callingLineId" : {
+            "lastName": "My IGC",
+            "firstName": "My IGC"
+        },
+        "publicServiceIdentity": "5551239876@example.com",
+        "extension": "9876",
+    },
+    "extensions" : {
+        "broadworks": {
+            "resourceId": "5551239876@example.com"
+        }
+    }
+}
+
+
+--
 CHANGELOG
 
 #2.41
+
+Changes for S2270: LWS-REST: VoIP Virtual User Add:
+
+* Added POST /loki/auto-attendants{?mode}
+* Added POST /loki/hunt-groups{?mode}
+* Added POST /loki/call-centers{?mode}
+* Added POST /loki/instant-group-calls{?mode}
 
 Changes for S2291: LWS-REST: Create LWS-SOAP-backed request to modify group voice portal settings:
 
@@ -6911,4 +8830,720 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
         }
     },
     "response": { }
+}
+
+POST /loki/auto-attendants{?mode}
+{   
+    "requestURIQuery": {
+        "title": "Create Site Auto Attendant request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+    "requestBody": { 
+        "title": "Create Site Auto Attendant request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "extensions": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "resourceId": { "type": "string", "minLength": 1, "maxLength": 161 }
+                        }
+                    }
+                }
+            },
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "required": true,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    "callingLineId": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                        }
+                    },
+                    "phoneNumber": { "$ref": "/bwksDnSchema" },
+                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "password": { "type": "string", "minLength": 1, "maxLength": 60 },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": {
+                        "type": "array",
+                        "maxItems": 3,
+                        "items": { "$ref": "/bwksSipUri" }
+                    },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 },
+            "services": {
+                "type": "object",
+                "patternproperties": {
+                    "^.+$" : {
+                        "type": "object"
+                    }
+                }
+            },
+            "type": { "enum": ["Basic", "Standard"] },
+            "firstDigitTimeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 60 },
+            "enableVideo": { "type": "boolean" },
+            "businessHours": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "type": { "enum": ["Service Provider", "Group", "User"], "required": true },
+                    "name": { "type": "string", "minLength": 1, "maxLength": 40, "required": true }
+                }
+            },
+            "holidaySchedule": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "type": { "enum": ["Service Provider", "Group", "User"], "required": true },
+                    "name": { "type": "string", "minLength": 1, "maxLength": 40, "required": true }
+                }
+            },
+            "extensionDialingScope": { "enum": ["Service Provider", "Group", "Department"] },
+            "nameDialingScope": { "enum": ["Service Provider", "Group", "Department"] },
+            "nameDialingEntries": { "enum": ["LastName + FirstName", "LastName + FirstName or FirstName + LastName"] },
+            "businessHoursMenu": { "type": "object", "additionalProperties": false },
+            "afterHoursMenu": { "type": "object", "additionalProperties": false },
+            "holidayMenu": { "type": "object", "additionalProperties": false }
+        }
+    },
+    "response": {
+	    "title": "Create Site Auto Attendant response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "required": true },
+			"siteId": { "type": "string", "minLength": 1, "required": true },
+			"autoAttendantId": { "type": "string", "minLength": 1, "maxLength": 161, "required": true },
+			"profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "required": true,
+                "properties": {
+                    "callingLineId": {
+                        "type": "object",
+                        "required": true,
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$", "required": true },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$", "required": true }
+                        }
+                    },
+                    "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "extensions": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "type": "object",
+                            "required": true,
+                            "additionalProperties": false,
+                            "properties": {
+                                "resourceId":{ "type": "string", "minLength": 1, "maxLength": 161, "required": true }
+                            }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
+}
+
+POST /loki/hunt-groups{?mode}
+{   
+    "requestURIQuery": {
+        "title": "Create Site Hunt Group request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+    "requestBody": { 
+        "title": "Create Site Hunt Group request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "extensions": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "resourceId": { "type": "string", "minLength": 1, "maxLength": 161 }
+                        }
+                    }
+                }
+            },
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "required": true,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    "callingLineId": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                        }
+                    },
+                    "phoneNumber": { "$ref": "/bwksDnSchema" },
+                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "password": { "type": "string", "minLength": 1, "maxLength": 60 },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": {
+                        "type": "array",
+                        "maxItems": 3,
+                        "items": { "$ref": "/bwksSipUri" }
+                    },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 },
+            "services": {
+                "type": "object",
+                "patternproperties": {
+                    "^.+$" : {
+                        "type": "object"
+                    }
+                }
+            },
+            "policy": { "enum": ["Circular", "Regular", "Simultaneous", "Uniform", "Weighted"] },
+            "noAnswer": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "skipToAgent": { "type": "boolean" },
+                    "skipToAgentAfterNumberOfRings": { "type": "integer", "minimum": 1, "maximum": 20 },
+                    "forwardCallAfterTimeout": { "type": "boolean" },
+                    "forwardAfterTimeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 20 },
+                    "forwardToPhoneNumber": { "type": "string", "minLength": 1, "maxLength": 30 }
+                }
+            },
+            "agentUserId": {
+                "type": "array",
+                "items": { "$ref": "/userId" }
+            },
+            "allowCallWaitingForAgents": { "type": "boolean" },
+            "callingLineIdSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "useCustom": { "type": "boolean" },
+                    "includeHuntGroupName": { "type": "boolean" }
+                }
+            },
+            "notReachableSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "enableForwarding": { "type": "boolean" },
+                    "forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
+                    "makeBusyWhenNotReachable": { "type": "boolean" }
+                }
+            },
+            "allowMembersToControlGroupBusy": { "type": "boolean" },
+            "enableGroupBusy": { "type": "boolean" },
+            "applyGroupBusyWhenTerminatingToAgent": { "type": "boolean" }
+        }
+    },
+    "response": {
+	    "title": "Create Site Hunt Group response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "required": true },
+			"siteId": { "type": "string", "minLength": 1, "required": true },
+			"huntGroupId": { "type": "string", "minLength": 1, "maxLength": 161, "required": true },
+			"profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "required": true,
+                "properties": {
+                    "callingLineId": {
+                        "type": "object",
+                        "required": true,
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$", "required": true },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$", "required": true }
+                        }
+                    },
+                    "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "extensions": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "type": "object",
+                            "required": true,
+                            "additionalProperties": false,
+                            "properties": {
+                                "resourceId":{ "type": "string", "minLength": 1, "maxLength": 161, "required": true }
+                            }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
+}
+
+POST /loki/call-centers{?mode}
+{   
+    "requestURIQuery": {
+        "title": "Create Site Call Center request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+    "requestBody": { 
+        "title": "Create Site Call Center request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "extensions": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "resourceId": { "type": "string", "minLength": 1, "maxLength": 161 }
+                        }
+                    }
+                }
+            },
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "required": true,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    "callingLineId": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                        }
+                    },
+                    "phoneNumber": { "$ref": "/bwksDnSchema" },
+                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "password": { "type": "string", "minLength": 1, "maxLength": 60 },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": {
+                        "type": "array",
+                        "maxItems": 3,
+                        "items": { "$ref": "/bwksSipUri" }
+                    },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 },
+            "services": {
+                "type": "object",
+                "patternproperties": {
+                    "^.+$" : {
+                        "type": "object"
+                    }
+                }
+            },
+            "type": { "enum": ["Basic", "Standard", "Premium"], "required": true },
+            "routingtype": { "enum": ["Priority Based", "Skill Based"] },
+            "policy": { "enum": ["Circular", "Regular", "Simultaneous", "Uniform", "Weighted"] },
+            "enableReporting": { "type": "boolean" },
+            "callCenterSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "enableVideo": { "type": "boolean" },
+                    "queueLength": { "type": "integer", "minimum": 0, "maximum": 525 },
+                    "playRingingWhenOfferingCall": { "type": "boolean" },
+                    "allowCallerToDialEscapeDigit": { "type": "boolean" },
+                    "escapeDigit": { "type": "string", "minLength": 1, "maxLength": 1, "pattern": "^[0-9]+$" },
+                    "resetCallStatisticsUponEntryInQueue": { "type": "boolean" }
+                }
+            },
+            "agentSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "allowAgentLogoff": { "type": "boolean" },
+                    "allowCallWaitingForAgents": { "type": "boolean" },
+                    "allowCallsToAgentsInWrapUp": { "type": "boolean" },
+                    "overrideAgentWrapUpTime": { "type": "boolean" },
+                    "wrapUpSeconds": { "type": "integer", "minimum": 1, "maximum": 3600 },
+                    "enableAutomaticStateChangeForAgents": { "type": "boolean" },
+                    "agentStateAfterCall": { "enum": ["Available", "Unavailable", "Wrap-Up"] },
+                    "forceDeliveryOfCalls": { "type": "boolean" },
+                    "forceDeliveryWaitTimeSeconds": { "type": "integer", "minimum": 1, "maximum": 10 }
+                }
+            },
+            "agentUnavailableCode": { "type": "string", "minLength": 1, "maxLength": 10 },
+            "bandwidthAndQoS": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "externalPreferredAudioCodec": { "enum": ["None", "G711", "G722", "G729", "G726", "AMR", "AMR-WB"] },
+                    "internalPreferredAudioCodec": { "enum": ["None", "G711", "G722", "G729", "G726", "AMR", "AMR-WB"] }
+                }
+            }
+        }
+    },
+    "response": {
+	    "title": "Create Site Call Center response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "required": true },
+			"siteId": { "type": "string", "minLength": 1, "required": true },
+			"callCenterId": { "type": "string", "minLength": 1, "maxLength": 161, "required": true },
+			"profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "required": true,
+                "properties": {
+                    "callingLineId": {
+                        "type": "object",
+                        "required": true,
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$", "required": true },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$", "required": true }
+                        }
+                    },
+                    "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "extensions": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "type": "object",
+                            "required": true,
+                            "additionalProperties": false,
+                            "properties": {
+                                "resourceId":{ "type": "string", "minLength": 1, "maxLength": 161, "required": true }
+                            }
+                        }
+                    }
+                }
+            },
+            "policy": { "enum": ["Circular", "Regular", "Simultaneous", "Uniform", "Weighted"] },
+            "callCenterSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "enableVideo": { "type": "boolean" },
+                    "queueLength": { "type": "integer", "minimum": 0, "maximum": 525 },
+                    "playRingingWhenOfferingCall": { "type": "boolean" },
+                    "allowCallerToDialEscapeDigit": { "type": "boolean" },
+                    "escapeDigit": { "type": "string", "minLength": 1, "maxLength": 1, "pattern": "^[0-9]+$" }
+                }
+            },
+            "agentSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "allowAgentLogoff": { "type": "boolean" },
+                    "allowCallWaitingForAgents": { "type": "boolean" }
+                }
+            },
+            "bandwidthAndQoS": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "externalPreferredAudioCodec": { "enum": ["None", "G711", "G722", "G729", "G726", "AMR", "AMR-WB"] },
+                    "internalPreferredAudioCodec": { "enum": ["None", "G711", "G722", "G729", "G726", "AMR", "AMR-WB"] }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
+}
+
+POST /loki/instant-group-calls{?mode}
+{   
+    "requestURIQuery": {
+        "title": "Create Site Instant Group Call request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+    "requestBody": { 
+        "title": "Create Site Instant Group Call request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "extensions": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "resourceId": { "type": "string", "minLength": 1, "maxLength": 161 }
+                        }
+                    }
+                }
+            },
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "required": true,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    "callingLineId": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                        }
+                    },
+                    "phoneNumber": { "$ref": "/bwksDnSchema" },
+                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "password": { "type": "string", "minLength": 1, "maxLength": 60 },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": {
+                        "type": "array",
+                        "maxItems": 3,
+                        "items": { "$ref": "/bwksSipUri" }
+                    },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 },
+            "services": {
+                "type": "object",
+                "patternproperties": {
+                    "^.+$" : {
+                        "type": "object"
+                    }
+                }
+            },
+            "destinationPhoneNumber": {
+                "type": "array",
+                "items": { "$ref": "/outgoingDnOrSipUri" }
+            },
+            "isAnswerTimeoutEnabled": { "type": "boolean" },
+            "answerTimeoutMinutes": { "type": "integer", "minimum": 1, "maximum": 60 }
+        }
+    },
+    "response": {
+	    "title": "Create Site Instant Group Call response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "required": true },
+			"siteId": { "type": "string", "minLength": 1, "required": true },
+			"instantGroupCallId": { "type": "string", "minLength": 1, "maxLength": 161, "required": true },
+			"profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "required": true,
+                "properties": {
+                    "callingLineId": {
+                        "type": "object",
+                        "required": true,
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$", "required": true },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$", "required": true }
+                        }
+                    },
+                    "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "extensions": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "type": "object",
+                            "required": true,
+                            "additionalProperties": false,
+                            "properties": {
+                                "resourceId":{ "type": "string", "minLength": 1, "maxLength": 161, "required": true }
+                            }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
 }
