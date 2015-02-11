@@ -4551,7 +4551,10 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                                 <tbody>
                                     <tr>
                                         <td><b>port-no-temp</b></td>
-                                        <td>TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</td>
+                                        <td>
+                                            TN does not exist in the system; will attempt to assign at both the Customer and Site levels.<br/>
+                                            <b>Not Implemented</b>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><b>auto</b></td>
@@ -4560,7 +4563,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                                     </tr>
                                     <tr>
                                         <td><b>""</b>(empty string)</td>
-                                        <td>TN will not be assigned automatically.</td>
+                                        <td>TN must already be available for use; no assignment will be performed.</td>
                                     </tr>
                                 </tbody>
                                 </table>
