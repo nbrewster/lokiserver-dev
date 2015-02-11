@@ -4476,6 +4476,25 @@ PUT /users/{+userId}/call-processing-policy
 Update a BroadWorks User's Alternate Numbers service settings.
 In current implementation, services are updated on BroadWorks user using LWS-SOAP UserModifyRequest API call.
 
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server userId (server-generated) of the user whose Alternate Numbers service will be updated.</td>
+        </tr>
+    </tbody>
+</table>
+
 ##Request Properties##
 Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
 
@@ -4511,6 +4530,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>yes</td>
                             <td></td>
                             <td>Alternate Number ID – number of Alt. Num entry in the list.
+                                <br/>Allowed values: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].
                                 <br/><b>Note:</b> The IDs must be provided in ascending order in the request, providing
                                 the IDs in a random order will cause the request to fail.
                             </td>
@@ -4519,25 +4539,61 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>tnRoutine</td>
                             <td>no</td>
                             <td></td>
-                            <td><b>Not Implemented</b><br/> TN management routine for provided phone number.</td>
+                            <td>
+                                Alternate Number assignment routine.<br />
+                                <b>Note: at this time only ""(empty string) is allowed.</b><br/>
+                                Supported values and impact on other required properties:
+                                <table border=1>
+                                <thead>
+                                    <th>tnRoutine</th>
+                                    <th>Description</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>port-no-temp</b></td>
+                                        <td>TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>auto</b></td>
+                                        <td>TN may or may not already exist in the system; will be assigned automatically to either/both as needed.<br />
+                                        <b>Not Implemented</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>""</b>(empty string)</td>
+                                        <td>TN will not be assigned automatically.</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                Omitted tnRoutine parameter is same as ""(empty string) tnRoutine value.
+                            </td>
                         </tr>
                         <tr>
                             <td>phoneNumber</td>
                             <td>no</td>
                             <td></td>
-                            <td>Alternate phone number.</td>
+                            <td>
+                                Alternate phone number.<br/>
+                                Must be E.164 formatted, e.g. +1-2005553001 (the dash is required, after the country code).<br/>
+                                Accepts also null value. Submitting null will erase phone number in the alternate number entry specified with "id".
+                            </td>
                         </tr>
                         <tr>
                             <td>extension</td>
                             <td>no</td>
                             <td></td>
-                            <td>Alternate extension.</td>
+                            <td>
+                                Alternate extension.<br/>
+                                Accepts also null value. Submitting null will erase extension in the alternate number entry specified with "id".
+                            </td>
                         </tr>
                         <tr>
                             <td>rignPattern</td>
                             <td>no</td>
                             <td></td>
-                            <td>Ring pattern.</td>
+                            <td>
+                                Ring pattern.<br/>Allowed values: [ null, "Normal", "Long-Long", "Short-Short-Long", "Short-Long-Short" ]. Null is equal to “Normal”.<br/>
+                                <b>Note:</b> Ring pattern does not have meaning when phone number and extension are both empty, and will be ignored in this case.
+                            </td>
                         </tr>
                     </tbody>
                 </table>
