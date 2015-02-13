@@ -3573,7 +3573,13 @@ Extension Keys:
 
 Create a new VoIP User.
 
+There are two ways to create a User in LWS-REST:<br />
+1) Default/Legacy - through LWS-REST BroadWorks Entity and Utility services<br />
 Rollback-enabled: No
+
+2) Alternative - through LWS-SOAP<br />
+Process name: Create User via LWS-SOAP (VoIP Entity)<br />
+Rollback-enabled: Yes.
 
 ##URI Query Parameters
 
@@ -3635,17 +3641,50 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             @domain.</td>
         </tr>
         <tr>
+            <td>department</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td></td>
+            <td>User department.<br />
+            The following table describes the differences in validation between the two ways of adding a User in LWS-REST:
+            <table border=1>
+                <thead>
+                    <th>Default/Legacy</th>
+                    <th>Alternative</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><b>Not Implemented</b></td>
+                    <td>Supported</td>
+                </tr>
+                <tbody>
+            </table>
+            </td>
+        </tr>
+        <tr>
             <td>userType</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td></td>
-            <td>Identifies the user type, which is one of “trunking”, “businessLine”, “centrex”, “systemDevice”, “noDevice”.<br />
-            Initially only “trunking” and “businessLine” are supported, and other values will result in an 501 NOT_IMPLEMENTED error.</td>
+            <td>Identifies the user type, which is one of “trunking”, “businessLine”, “hostedPbx”, “systemDevice”, “noDevice”.<br />
+            The following table describes the differences in validation between the two ways of adding a User in LWS-REST:
+            <table border=1>
+                <thead>
+                    <th>Default/Legacy</th>
+                    <th>Alternative</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Initially only “trunking” and “businessLine” are supported, and other values will result in an 501 NOT_IMPLEMENTED error.</td>
+                    <td>All values are supported with the exception of “systemDevice” value, which will result in a 501 NOT_IMPLEMENTED error.</td>
+                </tr>
+                <tbody>
+            </table>
+            </td>
         </tr>
         <tr>
             <td>accessDevice</td>
-            <td style="text-align: center;">(varies)</td>
+            <td style="text-align: center; font-weight:bold">(varies)</td>
             <td></td>
-            <td>Required when userType is “businessLine” (ignored otherwise).
+            <td>Required when userType is “businessLine” or "hostedPbx" (ignored otherwise).
                 <table border=1>
                 <thead>
                     <th>Property</th>
@@ -3656,33 +3695,36 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 <tbody>
                 <tr>
                     <td>name</td>
-                    <td style="text-align: center; font-weight:bold">yes</td>
+                    <td style="text-align: center; font-weight:bold">(varies)</td>
                     <td></td>
-                    <td>When userType is “businessLine”, this must contain the name of an existing Site-level device (group-level device in BroadWorks).</td>
+                    <td>When userType is “businessLine” the "name" is required and must contain the name of an existing Site-level device (group-level device in BroadWorks).<br />
+                    When userType is “hostedPbx”, if present the "name" must be a valid deviceName that doesn't match an existing device in BroadWorks.
+                    If omitted, it will be auto-generated.</td>
                 </tr>
                 <tr>
                     <td>type</td>
-                    <td style="text-align: center; font-weight:bold">no</td>
+                    <td style="text-align: center; font-weight:bold">(varies)</td>
                     <td></td>
-                    <td>Ignored.</td>
+                    <td>Required for userType “hostedPbx”, otherwise it is ignored.</td>
                 </tr>
                 <tr>
                     <td>model</td>
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
-                    <td>Ignored.</td>
+                    <td>Applicable only for userType “hostedPbx”, otherwise it is ignored.</td>
                 </tr>
                 <tr>
                     <td>macAddress</td>
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
-                    <td>Ignored.</td>
+                    <td>Applicable only for userType “hostedPbx”, otherwise it is ignored..</td>
                 </tr>
                 <tr>
                     <td>linePort</td>
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
-                    <td>Ignored.</td>
+                    <td>Applicable only for userType “hostedPbx”, otherwise it is ignored.<br />
+                    If the userType is "hostedPbx" and the linePort is omitted, it will be auto-generated.</td>
                 </tr>
                 <tbody>
                 </table>
@@ -3716,7 +3758,20 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td>linePort</td>
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
-                    <td>Ignored.</td>
+                    <td>The following table describes the differences in validation between the two ways of adding a User in LWS-REST:
+                    <table border=1>
+                        <thead>
+                            <th>Default/Legacy</th>
+                            <th>Alternative</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Ignored.</td>
+                            <td>Supported.</td>
+                        </tr>
+                        <tbody>
+                    </table>
+                    </td>
                 </tr>
                 <tbody>
                 </table>
@@ -3745,6 +3800,12 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             </thead>
             <tbody>
             <tr>
+                <td><b>""</b>(empty string)</td>
+                <td style="text-align: center; font-weight:bold">yes</td>
+                <td style="text-align: center; font-weight:bold">no</td>
+                <td>TN must already be available for use; no assignment will be performed.</td>
+            </tr>
+            <tr>
                 <td><b>port-no-temp</b></td>
                 <td style="text-align: center; font-weight:bold">yes</td>
                 <td style="text-align: center; font-weight:bold">no</td>
@@ -3754,7 +3815,20 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 <td><b>auto</b></td>
                 <td style="text-align: center; font-weight:bold">yes</td>
                 <td style="text-align: center; font-weight:bold">no</td>
-                <td>TN may or may not already exist in the system, and will be assigned automatically only as needed.</td>
+                <td>TN may or may not already exist in the system, and will be assigned automatically only as needed.<br />
+                The following table describes the differences in validation between the two ways of adding a User in LWS-REST:
+                <table border=1>
+                    <thead>
+                        <th>Default/Legacy</th>
+                        <th>Alternative</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Supported.</td>
+                        <td><b>Not Implemented</b></td>
+                    </tr>
+                    <tbody>
+                </table></td>
             </tr>
             <tr>
                 <td></td>
@@ -3906,7 +3980,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>services.'Charge Number'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
-            <td>Configuration settings for the Charge Number user service. The table below describes the supported settings.
+            <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
+            Configuration settings for the Charge Number user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
             <table border=1>
             <thead>
@@ -3955,7 +4030,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>services.'Call Forwarding No Answer'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
-            <td>Configuration settings for the Call Forwarding No Answer user service. The table below describes the supported settings.
+            <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
+            Configuration settings for the Call Forwarding No Answer user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>            
             <table border=1>
             <thead>
@@ -3992,7 +4068,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>services.'Call Forwarding Not Reachable'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
-            <td>Configuration settings for the Call Forwarding Not Reachable user service. The table below describes the supported settings.
+            <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
+            Configuration settings for the Call Forwarding Not Reachable user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
             <table border=1>
             <thead>
@@ -4022,7 +4099,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>services.'Third-Party Voice Mail Support'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
-            <td>Configuration settings for the Third-Party Voice Mail Support user service. The table below describes the supported settings.
+            <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
+            Configuration settings for the Third-Party Voice Mail Support user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
             <table border=1>
             <thead>
@@ -4138,6 +4216,147 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     </tbody>
 </table>
 
+##Response Properties - 201 Created
+
+For the alternative User Add process besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.<br />
+Note: The default (legacy) request response contains all the properties sent in the request body and also the normal HAL _links and curies properties..
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Mandatory</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td>The Loki Server VoIP Id of the BroadWorks User.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>extensions. broadworks. userId</td>
+            <td>The BroadWorks ID of the new user.</td>
+            <td>Yes (Only for the alternative process)</td>
+       </tr>
+       <tr>
+            <td>extension</td>
+            <td>Extension of the user.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>portalPassword</td>
+            <td>Web password for user.</td>
+            <td>Yes (Only for the alternative process)</td>
+       </tr>
+       <tr>
+            <td>passcode</td>
+            <td>Voice Portal passcode for user.</td>
+            <td>Yes (Only for the alternative process)</td>
+       </tr>
+       <tr>
+            <td>firstName</td>
+            <td>User’s first name.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>lastName</td>
+            <td>User’s last name.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>publicUserIdentities</td>
+            <td>User’s public identities entries.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>services Authentication. username</td>
+            <td>User’s username for Authentication service.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>services. Authentication. password</td>
+            <td>User’s password for Authentication service.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>accessDevice. deviceCredentials. username</td>
+            <td>User’s device username credential.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>accessDevice. deviceCredentials. password</td>
+            <td>User’s device password credential.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>accessDevice. name</td>
+            <td>User’s device name.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>accessDevice. linePort</td>
+            <td>User’s device lineport.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>_warnings</td>
+            <td>Placeholder for warnings returned by the external API (LWS-SOAP)</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>_warnings[].code</td>
+            <td>Any warning code received from LWS-SOAP.<br />Note: Is omitted for now.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>_warnings[].summary</td>
+            <td>Any warnings received from LWS-SOAP.</td>
+            <td>yes</td>
+       </tr>
+       <tr>
+            <td>_warnings[].details</td>
+            <td>Any warnings received from LWS-SOAP.</td>
+            <td>yes</td>
+       </tr>
+    </tbody>
+</table>
+
+For the “hostedPbx” user type the response has an _embedded.ls:site-devices property that contains a 
+HAL representation of the created device with the following properties:
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Mandatory</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td>Customer ID.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>siteId</td>
+            <td>Site ID.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>deviceId</td>
+            <td>Device ID.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>linePort</td>
+            <td>Lineport.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>extensions. broadworks. resourceId</td>
+            <td>BroadWorks device name.</td>
+            <td>Yes</td>
+       </tr>
+    </tbody>
+</table>
+
 ###User Type
 The the accessDevice and trunkGroup values vary depending on the type of user being added (userType). See examples (excerpts from a request body) below.
 #### Business Line User Add
@@ -4145,6 +4364,17 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
     "userType" : "businessLine",
     "accessDevice": {
         "name": "exampleComIad001"
+    },
+    ...
+#### HostedPbx User Add
+    ...
+    "userType" : "hostedPbx",
+    "accessDevice": {
+        "name": "exampleComIad001",
+        "type": "Example",
+        "model": "Example",
+        "macAddress": "0A1B2C3D4E5F",
+        "linePort": "exampleComIad001@example.com"
     },
     ...
 #### Trunking User Add
@@ -6723,6 +6953,10 @@ CHANGELOG
 
 #2.41
 
+Changes for S2265: VoIP User Add Alternative Process (via LWS-SOAP)
+
+* Added details for the differences between the default (legacy) and the alternative POST /loki/users request.
+
 Changes for S2270: LWS-REST: VoIP Virtual User Add:
 
 * Added POST /loki/auto-attendants{?mode}
@@ -7241,13 +7475,19 @@ POST /loki/customers/{+customerId}/sites{?mode}
 
 POST /loki/users{?mode}
 {
-	"request": {
+    "requestURIQuery": {
+        "title": "Create Site request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+	"requestBodyLegacy": {
 		"post": {
 			"body": {
 				"id": "voipUsersBody",
 				"type": "object",
 				"additionalProperties": false,
-				"title": "Post schema, body",
+				"title": "Schema for the legacy(default) User Add request body",
 				"properties": {
 					"customerId": {
 						"type": "string",
@@ -7325,7 +7565,7 @@ POST /loki/users{?mode}
 						"enum": [
 							"trunking",
 							"businessLine",
-							"centrex",
+							"hostedPbx",
 							"systemDevice",
 							"noDevice"
 						],
@@ -7546,25 +7786,254 @@ POST /loki/users{?mode}
 			}
 		}
 	},
-	"definitions": {
-		"voipUsersURISchema": {
-			"post": {
-				"params": {
-					"id": "voipUsersURL",
-					"type": "object",
-					"additionalProperties": false,
-					"title": "Get schema, params",
-					"description": "Validates mode parameter",
-					"properties": {
-						"mode": {
-							"enum": [
-								"create-only"
-							]
+	"requestBodyAlternate": { 
+        "title": "Create User Alternate process request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": {	"type": "string", "minLength": 1, "maxLength": 30 },
+			"siteId": {	"type": "string", "minLength": 1, "maxLength": 30 },
+			"userId": {	"$ref": "/userId" },
+			"phoneNumber": { "$ref": "/bwksDnSchema" },
+			"tnRoutine": { "$ref": "/tnRoutineWithNoNumber"	},
+			"extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20,	"pattern": "^[0-9]+$" },
+			"CLID": { "$ref": "/bwksDnSchema" },
+			"lastName": { "type": "string",	"minLength": 1,	"maxLength": 30, "required": true },
+			"firstName": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+			"callingLineIdLastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"	},
+			"callingLineIdFirstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+			"email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email"	},
+			"timeZone": { "type": "string",	"minLength": 1,	"maxLength": 127 },
+			"language": { "type": "string",	"minLength": 1,	"maxLength": 40	},
+			"role": { "type": "any"	},
+			"userType": { "enum": ["trunking", "businessLine", "hostedPbx",	"systemDevice",	"noDevice"], "required": true },
+			"accessDevice": {
+				"type": "object",
+				"additionalProperties": false,
+				"description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
+				"properties": {
+					"name": { "type": "string",	"minLength": 1,	"maxLength": 40, "required": true },
+					"type": { "type": "string", "minLength": 1, "maxLength": 40 },
+					"model": { "type": "string", "minLength": 1, "maxLength": 256 },
+					"macAddress": { "type": "string", "minLength": 12, "maxLength": 12, "pattern": "^[0-9A-Fa-f]{12}$" },
+					"linePort": { "type": "string", "minLength": 1, "maxLength": 161 }
+				}
+			},
+			"trunkGroup": {
+				"type": "object",
+				"additionalProperties": false,
+				"description": "Details of the user's trunk group(s), for Trunking users.",
+				"properties": {
+					"name": { "type": "string",	"minLength": 1,	"maxLength": 30 },
+					"linePort": { "type": "string", "minLength": 1, "maxLength": 161 }
+				}
+			},
+			"servicePacks": {
+				"type": "object",
+				"additionalProperties": false,
+				"description": "Service Packs that will be assigned to User",
+				"properties": {
+					"base": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 80
+					},
+					"add-on": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 80
+						}
+					}
+				}
+			},
+			"services": {
+				"type": "object",
+				"properties": {
+					"Authentication": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"username": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 80
+							},
+							"password": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 60
+							}
+						}
+					}
+				}
+			},
+			"extensions": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"broadworks": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"serviceProviderId": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 30
+							},
+							"groupId": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 30
+							}
 						}
 					}
 				}
 			}
-		},
+        }
+    },
+    "responseAlternate": {
+	    "title": "Create User response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"userId": {	"$ref": "/userId" },
+			"extension": { "type": "string", "minLength": 2, "maxLength": 20,	"pattern": "^[0-9]+$" },
+			"lastName": { "type": "string",	"minLength": 1,	"maxLength": 30 },
+			"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
+			"portalPassword": { "type": "string",	"minLength": 1 },
+			"passcode": { "type": "string",	"minLength": 1 },
+			"publicUserIdentities": { "type": "array" },
+			"accessDevice": {
+				"type": "object",
+				"additionalProperties": false,
+				"description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
+				"properties": {
+					"name": { "type": "string",	"minLength": 1,	"maxLength": 40 },
+					"linePort": { "type": "string", "minLength": 1, "maxLength": 161 },
+					"deviceCredentials": { 
+					    "type": "object", 
+					    "additionalProperties": false,
+					    "properties": {
+					        "username": { "type": "string", "minLength": 1 },
+					        "password": { "type": "string", "minLength": 1 }
+					    }
+				    }
+				}
+			},
+			"services": {
+				"type": "object",
+				"properties": {
+					"Authentication": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"username": { "type": "string",	"minLength": 1,	"maxLength": 80	},
+							"password": { "type": "string",	"minLength": 1,	"maxLength": 60	}
+						}
+					}
+				}
+			},
+			"extensions": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"broadworks": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"userId": {	"$ref": "/userId" }
+						}
+					}
+				}
+			},
+			"_embedded": {
+				"type": "object",
+				"properties": {
+					"ls:site-devices": {
+						"type": "array",
+        				"items": {
+        					"type": "object",
+        					"properties": {
+        					    "_links": {
+                    				"type": "object",
+                    				"required": true,
+                    				"properties": {
+                    					"self": {
+                    						"type": "object",
+                    						"required": true,
+                    						"properties": {
+                    							"href": {
+                    								"type": "string",
+                    								"required": true
+                    							}
+                    						}
+                    					}
+                    				}
+                    			},
+        						"customerId": {	"type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    			"siteId": {	"type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    			"deviceId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    			"linePort": { "type": "string", "minLength": 1, "maxLength": 161 },
+                    			"extensions": {
+                    				"type": "object",
+                    				"additionalProperties": false,
+                    				"properties": {
+                    					"broadworks": {
+                    						"type": "object",
+                    						"additionalProperties": false,
+                    						"properties": {
+                    							"resourceId": { "type": "string",	"minLength": 1,	"maxLength": 40, "required": true }
+                    						}
+                    					}
+                    				}
+			                    }
+        					}
+        				}
+					}
+				}
+			},
+			"_warnings": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"summary": { "type": "string" },
+						"details": { "type": "string" }
+					}
+				}
+			},
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	},
+	"definitions": {
 		"userId": {
 			"type": "string",
 			"minLength": 1,
