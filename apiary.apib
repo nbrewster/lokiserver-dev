@@ -4183,6 +4183,42 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             </td>
         </tr>
         <tr>
+            <td>services.'BroadWorks Mobility'.*</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td></td>
+            <td><b>Note: In the default (legacy) process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
+            Configuration settings for the BroadWorks Mobility user service. The table below describes the supported settings.
+            <table border=1>
+            <thead>
+                <th>Property</th>
+                <th>Required?</th>
+                <th>Default</th>
+                <th>Notes</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>isActive</td>
+                <td style="text-align: center; font-weight:bold">no</td>
+                <td>false</td>
+                <td>Turning on/off the service.</td>
+            </tr>
+            <tr>
+                <td>mobilePhoneNumber</td>
+                <td style="text-align: center; font-weight:bold">no</td>
+                <td></td>
+                <td>Mobile phone number</td>
+            </tr>
+            <tr>
+                <td>mobileDevicePassword</td>
+                <td style="text-align: center; font-weight:bold">no</td>
+                <td></td>
+                <td>The password for the mobile number, to be used for an eligibility check.</td>
+            </tr>
+            <tbody>
+            </table>
+            </td>
+        </tr>
+        <tr>
             <td>extensions</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
@@ -4212,7 +4248,6 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             this property can be used instead of siteId (eliminating the need to know the server-generated siteId
             prior to placing this request).</td>
         </tr>
-
     </tbody>
 </table>
 
@@ -4453,6 +4488,11 @@ POST /users{?mode}
         "Call Forwarding Not Reachable" : {
             "isActive" : true,
             "forwardToPhoneNumber" : "+1-2005553101"
+        },
+        "BroadWorks Mobility": {
+            "isActive": false,
+            "mobilePhoneNumber": "+1-2005553101",
+            "mobileDevicePassword": "Fg%3fg56"
         },
         "Remote Office" : { }
     },
@@ -7865,6 +7905,23 @@ POST /loki/users{?mode}
 								"minLength": 1,
 								"maxLength": 60
 							}
+						}
+					},
+					"BroadWorks Mobility": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"isActive": {
+								"type": "boolean"
+							},
+							"mobilePhoneNumber": {
+                                "extends":[{
+                                    "$ref": "/bwksDnSchema"
+                                }, {
+                                    "type": ["string", "null"]
+                                }]
+                            },
+                            "mobileDevicePassword": { "type": "string", "minLength": 1 }
 						}
 					}
 				}
