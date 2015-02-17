@@ -3664,7 +3664,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>userType</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td></td>
-            <td>Identifies the user type, which is one of “trunking”, “businessLine”, “hostedPbx”, “systemDevice”, “noDevice”.<br />
+            <td>Identifies the user type, which is one of “trunking”, "ATA", “businessLine”, “hostedPbx”, “systemDevice”, “noDevice”.<br />
             The following table describes the differences in validation between the two ways of adding a User in LWS-REST:
             <table border=1>
                 <thead>
@@ -3694,37 +3694,77 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 </thead>
                 <tbody>
                 <tr>
+                    <td>deviceManagementRoutine</td>
+                    <td style="text-align: center; font-weight:bold">(varies)</td>
+                    <td>existing</td>
+                    <td>
+                         Device adding routine.<br />
+                         <i>Note: This property applies only for userType “ATA”, otherwise it is ignored.</i>
+                         <table border=1>
+                            <thead>
+                                <th>Default/Legacy</th>
+                                <th>Alternative</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Subbported.</td>
+                                <td><b>Not implemented</b>.</td>
+                            </tr>
+                            <tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
                     <td>name</td>
                     <td style="text-align: center; font-weight:bold">(varies)</td>
                     <td></td>
-                    <td>When userType is “businessLine” the "name" is required and must contain the name of an existing Site-level device (group-level device in BroadWorks).<br />
-                    When userType is “hostedPbx”, if present the "name" must be a valid deviceName that doesn't match an existing device in BroadWorks.
-                    If omitted, it will be auto-generated.</td>
+                    <td>Access device name.<br />
+                    When userType is “businessLine” this property is required and must contain the name of an existing Site-level device (group-level device in BroadWorks).<br />
+                    When userType is "ATA" and accessDevice.deviceManagementRoutine has "existing" value (or it is omitted) this property is required and must match an existing Site-level device (group-level device in BroadWorks).. 
+                    When userType is “hostedPbx”, if present this property must be a valid deviceName that doesn't match an existing device in BroadWorks.<br />
+                    If this property is omitted, it will be auto generated in the following cases:<br /> 
+                    •	userType is “hostedPbx”<br /> 
+                    •	userType is “ATA” and accessDevice. deviceManagementRoutine is “create”
+                    </td>
                 </tr>
                 <tr>
                     <td>type</td>
                     <td style="text-align: center; font-weight:bold">(varies)</td>
                     <td></td>
-                    <td>Required for userType “hostedPbx”, otherwise it is ignored.</td>
+                    <td>
+                        Access device type.<br />
+                        This property is required when userType is “hostedPbx” or userType is "ATA" and accessDevice.deviceManagementRoutine is “create”.<br />
+                        <i>Applicable only for userType “hostedPbx” and “ATA”, otherwise it is ignored.</i>
+                        </td>
                 </tr>
                 <tr>
                     <td>model</td>
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
-                    <td>Applicable only for userType “hostedPbx”, otherwise it is ignored.</td>
+                    <td>
+                        Device Model<br />
+                        <i>Applicable only for userType “hostedPbx”, otherwise it is ignored.</i>
+                    </td>
                 </tr>
                 <tr>
                     <td>macAddress</td>
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
-                    <td>Applicable only for userType “hostedPbx”, otherwise it is ignored..</td>
+                    <td>
+                        MAC address of the device.
+                        This property is required when userType is “hostedPbx” or userType is "ATA" and accessDevice.deviceManagementRoutine is “create”.<br />
+                        <i>Applicable only for userType “hostedPbx” and “ATA”, otherwise it is ignored.</i>
+                    </td>
                 </tr>
                 <tr>
                     <td>linePort</td>
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
-                    <td>Applicable only for userType “hostedPbx”, otherwise it is ignored.<br />
-                    If the userType is "hostedPbx" and the linePort is omitted, it will be auto-generated.</td>
+                    <td>
+                        LinePort of the user using the device.<br />
+                        If omitted, it will be auto-generated for userType “hostedPbx”, “buinessLine” or “ATA”.<br />
+                        <i>Applicable only for userType “hostedPbx” and “ATA”, otherwise it is ignored.</i>
+                    </td>
                 </tr>
                 <tbody>
                 </table>
@@ -4355,8 +4395,9 @@ Note: The default (legacy) request response contains all the properties sent in 
     </tbody>
 </table>
 
-For the “hostedPbx” user type the response has an _embedded.ls:site-devices property that contains a 
-HAL representation of the created device with the following properties:
+For the “hostedPbx”, "businessLine" and "ATA" user type the response has an _embedded.ls:site-devices property that contains a 
+HAL representation of the created device with the following properties described in the table below.<br />
+<b>Note</b>: _embedded.ls:site-devices property is present in the response only when using "Alternate" process of POST /loki/users{?mode}.
 <table border=1>
     <thead>
     <th>Parameter</th>
@@ -4380,6 +4421,21 @@ HAL representation of the created device with the following properties:
             <td>Yes</td>
        </tr>
        <tr>
+            <td>deviceCredentials</td>
+            <td>Container for device credentials.</td>
+            <td>no</td>
+       </tr>
+       <tr>
+            <td>deviceCredentials.username</td>
+            <td>Device authentication username.</td>
+            <td>no</td>
+       </tr>
+        <tr>
+            <td>deviceCredentials.username</td>
+            <td>Device authentication passwprd.</td>
+            <td>no</td>
+       </tr>
+       <tr>
             <td>linePort</td>
             <td>Lineport.</td>
             <td>no</td>
@@ -4394,6 +4450,32 @@ HAL representation of the created device with the following properties:
 
 ###User Type
 The the accessDevice and trunkGroup values vary depending on the type of user being added (userType). See examples (excerpts from a request body) below.
+#### ATA User Add with device creation (auto-generated device name)
+    ...
+    "userType" : "ATA",
+    "accessDevice": {
+      "deviceManagementRoutine": "create",
+      "type": "Polycom Soundpoint IP 500",
+      "macAddress": "AABBCC112234"
+    },
+    ...
+#### ATA User Add with device creation
+    ...
+    "userType" : "ATA",
+    "accessDevice": {
+      "deviceManagementRoutine": "create",
+      "type": "Polycom Soundpoint IP 500",
+      "macAddress": "AABBCC112234"
+    },
+    ...
+#### ATA User Add using existing device
+    ...
+    "userType" : "ATA",
+    "accessDevice": {
+      "deviceManagementRoutine": "existing",
+      "name": "ATA device"
+    },
+    ...
 #### Business Line User Add
     ...
     "userType" : "businessLine",
@@ -4533,6 +4615,29 @@ POST /users{?mode}
     "callingLineIdFirstName" : "John",
     "timeZone" : "America/New_York",
     "language" : "English",
+    "_embedded": {
+        "ls:site-devices": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http://lokiserver.apiary.io/loki/customers/a2c36fd5/sites/a2c36fd5/devices/16502342235_a2c36fd5"
+                    }
+                },
+                 "customerId" : "Example Com",
+                 "siteId" : "Example Com - North",
+                "deviceId": "exampleComIad001",
+                "extensions": {
+                    "broadworks": {
+                        "resourceId": "exampleComIad001"
+                    }
+                },
+                "deviceCredentials": {
+                    "username": "16502342235",
+                    "password": "{3qT8L"
+                }
+            }
+        ]
+    },
     "services" : {
         "Authentication" : {
             "username" : "2005553001@sip.example.com",
@@ -7604,6 +7709,7 @@ POST /loki/users{?mode}
 					"userType": {
 						"enum": [
 							"trunking",
+							"ATA",
 							"businessLine",
 							"hostedPbx",
 							"systemDevice",
@@ -7616,6 +7722,7 @@ POST /loki/users{?mode}
 						"additionalProperties": false,
 						"description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
 						"properties": {
+						    "deviceManagementRoutine": {"type": "any"},
 							"name": {
 								"type": "string",
 								"minLength": 1,
@@ -7846,12 +7953,13 @@ POST /loki/users{?mode}
 			"timeZone": { "type": "string",	"minLength": 1,	"maxLength": 127 },
 			"language": { "type": "string",	"minLength": 1,	"maxLength": 40	},
 			"role": { "type": "any"	},
-			"userType": { "enum": ["trunking", "businessLine", "hostedPbx",	"systemDevice",	"noDevice"], "required": true },
+			"userType": { "enum": ["ATA", "trunking", "businessLine", "hostedPbx",	"systemDevice",	"noDevice"], "required": true },
 			"accessDevice": {
 				"type": "object",
 				"additionalProperties": false,
 				"description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
 				"properties": {
+				    "deviceManagementRoutine": {"enum": ["create", "existing"]},
 					"name": { "type": "string",	"minLength": 1,	"maxLength": 40, "required": true },
 					"type": { "type": "string", "minLength": 1, "maxLength": 40 },
 					"model": { "type": "string", "minLength": 1, "maxLength": 256 },
