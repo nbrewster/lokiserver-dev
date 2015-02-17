@@ -3707,7 +3707,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             </thead>
                             <tbody>
                             <tr>
-                                <td>Subbported.</td>
+                                <td>Supported.</td>
                                 <td><b>Not implemented</b>.</td>
                             </tr>
                             <tbody>
@@ -3720,7 +3720,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td></td>
                     <td>Access device name.<br />
                     When userType is “businessLine” this property is required and must contain the name of an existing Site-level device (group-level device in BroadWorks).<br />
-                    When userType is "ATA" and accessDevice.deviceManagementRoutine has "existing" value (or it is omitted) this property is required and must match an existing Site-level device (group-level device in BroadWorks).. 
+                    When userType is "ATA" and accessDevice.deviceManagementRoutine has "existing" value (or it is omitted) this property is required and must match an existing Site-level device (group-level device in BroadWorks).<br />
                     When userType is “hostedPbx”, if present this property must be a valid deviceName that doesn't match an existing device in BroadWorks.<br />
                     If this property is omitted, it will be auto generated in the following cases:<br /> 
                     •	userType is “hostedPbx”<br /> 
@@ -3751,7 +3751,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
                     <td>
-                        MAC address of the device.
+                        MAC address of the device.<br />
                         This property is required when userType is “hostedPbx” or userType is "ATA" and accessDevice.deviceManagementRoutine is “create”.<br />
                         <i>Applicable only for userType “hostedPbx” and “ATA”, otherwise it is ignored.</i>
                     </td>
@@ -4427,12 +4427,12 @@ HAL representation of the created device with the following properties described
        </tr>
        <tr>
             <td>deviceCredentials.username</td>
-            <td>Device authentication username.</td>
+            <td>Auto generated device authentication username.</td>
             <td>no</td>
        </tr>
         <tr>
             <td>deviceCredentials.username</td>
-            <td>Device authentication passwprd.</td>
+            <td>Auto generated device authentication passwprd.</td>
             <td>no</td>
        </tr>
        <tr>
@@ -4620,7 +4620,7 @@ POST /users{?mode}
             {
                 "_links": {
                     "self": {
-                        "href": "http://lokiserver.apiary.io/loki/customers/a2c36fd5/sites/a2c36fd5/devices/16502342235_a2c36fd5"
+                        "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com/sites/Example%20Com%20-%20North/devices/exampleComIad001"
                     }
                 },
                  "customerId" : "Example Com",
