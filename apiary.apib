@@ -4379,7 +4379,11 @@ Note: The default (legacy) request response contains all the properties sent in 
        </tr>
        <tr>
             <td>_warnings[].code</td>
-            <td>Any warning code received from LWS-SOAP.<br />Note: Is omitted for now.</td>
+            <td>
+                Warning codes.<br />
+                <b>Note</b>: When the request is using Alternate process then this field will have
+                WARN_DEVICE_CREDENTIAL_UPDATE_FAILED value in the case when the device credentials were not set, otherwise this property is not present.
+            </td>
             <td>no</td>
        </tr>
        <tr>
@@ -7101,6 +7105,7 @@ CHANGELOG
 Changes for S2265: VoIP User Add Alternative Process (via LWS-SOAP)
 
 * Added details for the differences between the default (legacy) and the alternative POST /loki/users request.
+* New "ATA" userType supported only by alternative POST /loki/users request.
 
 Changes for S2270: LWS-REST: VoIP Virtual User Add:
 
@@ -8179,6 +8184,7 @@ POST /loki/users{?mode}
 				"items": {
 					"type": "object",
 					"properties": {
+					    "code": { "type": "string" },
 						"summary": { "type": "string" },
 						"details": { "type": "string" }
 					}
