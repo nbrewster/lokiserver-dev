@@ -4254,6 +4254,13 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 <td></td>
                 <td>The password for the mobile number, to be used for an eligibility check.</td>
             </tr>
+            <tr>
+                <td>mobileNetworkName</td>
+                <td style="text-align: center; font-weight:bold">no</td>
+                <td></td>
+                <td>Name of a BroadWorks Mobility Mobile Network.<br />
+                Note: Used only if the "mobilePhoneNumber" is present in the request. If the "mobileNetworkName" is omitted from the request the config value, if not empty, is used.</td>
+            </tr>
             <tbody>
             </table>
             </td>
@@ -4578,7 +4585,8 @@ POST /users{?mode}
         "BroadWorks Mobility": {
             "isActive": false,
             "mobilePhoneNumber": "+1-2005553101",
-            "mobileDevicePassword": "Fg%3fg56"
+            "mobileDevicePassword": "Fg%3fg56",
+            "mobileNetworkName": "Example"
         },
         "Remote Office" : { }
     },
@@ -8034,7 +8042,8 @@ POST /loki/users{?mode}
                                     "type": ["string", "null"]
                                 }]
                             },
-                            "mobileDevicePassword": { "type": "string", "minLength": 1 }
+                            "mobileDevicePassword": { "type": "string", "minLength": 1 },
+                            "mobileNetworkName": { "type": "string", "minLength": 1, "maxLength": 80 }
 						}
 					}
 				}
