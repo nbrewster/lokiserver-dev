@@ -5662,7 +5662,15 @@ POST /auto-attendants{?mode}
         }
     }
 }
-
++++++
+< 422
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "SEMANTIC_ERROR",
+    "summary": "The server was unable to process your request",
+    "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Auto Attendant.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Auto Attendant."
+}
 
 --
 VoIP Site Hunt Group
@@ -6173,6 +6181,15 @@ POST /hunt-groups{?mode}
             "resourceId": "5551239876@example.com"
         }
     }
+}
++++++
+< 422
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "SEMANTIC_ERROR",
+    "summary": "The server was unable to process your request",
+    "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Hunt Group.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Hunt Group."
 }
 
 
@@ -6738,6 +6755,15 @@ POST /call-centers{?mode}
         }
     }
 }
++++++
+< 422
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "SEMANTIC_ERROR",
+    "summary": "The server was unable to process your request",
+    "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Call Center.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Call Center."
+}
 
 
 --
@@ -7102,6 +7128,15 @@ POST /instant-group-calls{?mode}
             "resourceId": "5551239876@example.com"
         }
     }
+}
++++++
+< 422
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "SEMANTIC_ERROR",
+    "summary": "The server was unable to process your request",
+    "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Instant Group Call.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Instant Group Call."
 }
 
 
