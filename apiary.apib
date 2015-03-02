@@ -35,6 +35,39 @@ If LWS-REST is configured in multi cluster mode and you try to access a resource
 
 Clients of LWS-REST should support both response body formats.
 
+## Different responses depending on BroadWorks version
+LWS-REST returns different results depending on the BroadWorks version when sending a request which results in an invalid XML request to BroadWorks. 
+See below for different error responses:
+
+For BroadWorks version 17sp4 with bad patch (preventing return of 6004 BroadWorks response) result is:<br />
+Response code: 502
+<pre>{
+    "errorCode": "CLIENT_ERROR",
+    "summary": "ociClient",
+    "detail": "Received empty response"
+}
+</pre>
+
+However if a timeout is set for BroadWorks service (broadworks > requestTimeout from config.xml) to a value smaller than timeout value set in BroadWorks (usually 30 seconds) the result is:<br />
+Response code: 504
+<pre>{
+    "errorCode": "ETIMEDOUT",
+    "summary": "ociClient",
+    "detail": "Received null response"
+}
+</pre>
+
+For BroadWorks version > 17sp4 result is:<br />
+Response code: 500
+<pre>{
+    "errorCode": "EXTERNAL_API_SERVER",
+    "externalErrorCode": "6004",
+    "externalErrorSummary": "[Error 6004] OCI XML Request validation error",
+    "externalErrorDetail": "[BroadWorks detail message]"
+}</pre>
+
+Clients of LWS-REST should support all the response body formats.
+
 ## URI Templates
 Refer to https://tools.ietf.org/html/rfc6570 for details on URI Templates. Not that LWS-REST
 uses reserved characters (i.e. ":") in some URI Template variables, thus the request templates
