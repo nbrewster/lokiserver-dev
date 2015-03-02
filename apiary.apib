@@ -1351,7 +1351,7 @@ GET /customers{?extensions.broadworks.serviceProviderId}
     "customerId": "Example Com",
     "useCustomRoutingProfile": false,
     "defaultDomain": "example.com",
-    "name": "Example Com Co.",
+    "customerName": "Example Com Co.",
     "supportEmail": "support@example.com",
     "contact": {
         "name": "Billy",
@@ -1381,6 +1381,240 @@ GET /customers{?extensions.broadworks.serviceProviderId}
         }
     ]
 }
+--
+
+Retrieve the Customer matching a specific customerId.<br/>
+Process name: Retrieve Customer (VoIP Entity)
+
+##URI Template Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer</td>
+        </tr>
+    </tbody>
+</table>
+
+GET /customers/{+customerId}
+< 200
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/ExampleCom"
+        }
+    },
+    "customerId": "Example Com",
+    "useCustomRoutingProfile": false,
+    "defaultDomain": "example.com",
+    "customerName": "Example Com Co.",
+    "supportEmail": "support@example.com",
+    "contact": {
+        "name": "Billy",
+        "number": "Bishop",
+        "email": "billy@example.com"
+    },
+    "address": {
+        "addressLine1": "415 Sixth Ave",
+        "addressLine2": "Suite 102",
+        "city": "North Seventh",
+        "stateOrProvince": "Alabama",
+        "zipOrPostalCode": "50415",
+        "country": "USA"
+    },
+    "useServiceProviderLanguages": false,
+    "extensions": {
+        "broadworks": {
+            "isEnterprise": true,
+            "serviceProviderId": "Example Com"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ]
+}
+--
+
+Create Customer.<br/>
+Process name: Create Customer (VoIP Entity)
+
+##URI Query Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mode</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Controls execution mode. <br/>
+            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ]. <br/>
+            <b>NOTE:</b> at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+##Response Properties - 201 Created
+Besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+POST /customers{?mode}
+< 201
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+< Location: http://lokiserver.apiary.io/loki/customers/Example%20Com
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "customerId": "Example Com",
+    "defaultDomain": "voip.example.net",
+    "extensions" : {
+            "broadworks": {
+            "serviceProviderId": "Example Com",
+            "isEnterprise": true,
+            "hostingNe": "REL17AS"
+        }
+    }
+}
+--
+
+Update Customer.<br/>
+Process name: Modify Customer (VoIP Entity)
+
+##URI Template Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+PUT /customers/{+customerId}
+< 204
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "customerId": "Example Com",
+    "defaultDomain": "voip.example.net",
+    "extensions" : {
+            "broadworks": {
+            "serviceProviderId": "Example Com",
+            "isEnterprise": true,
+            "hostingNe": "REL17AS"
+        }
+    }
+}
+--
+
+Delete Customer.<br/>
+Process name: Delete Customer (VoIP Entity)
+
+##URI Template Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer</td>
+        </tr>
+    </tbody>
+</table>
+
+DELETE /customers/{+customerId}
+< 204
+< Transaction-Id: 1380080943120
 
 
 --
