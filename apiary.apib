@@ -1349,7 +1349,6 @@ GET /customers{?extensions.broadworks.serviceProviderId}
         }
     },
     "customerId": "Example Com",
-    "useCustomRoutingProfile": false,
     "defaultDomain": "example.com",
     "customerName": "Example Com Co.",
     "supportEmail": "support@example.com",
@@ -1381,28 +1380,69 @@ GET /customers{?extensions.broadworks.serviceProviderId}
         }
     ]
 }
---
+ 
+ 
+<!--------------------------------- GET /customers/{+customerId} ------------------------------->
 
 Retrieve the Customer matching a specific customerId.<br/>
-Process name: Retrieve Customer (VoIP Entity)
+Process Name: Retrieve Customer (VoIP Entity)
 
-##URI Template Parameters
+## URI Template Parameters
 <table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-        <tr>
-            <td>customerId</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer</td>
-        </tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
     </tbody>
 </table>
+<!--- JSON Schema for GET /customers/{+customerId} uriSchema:
+{"title":"URI Template Parameters","required":["customerId"],"properties":{"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30}}} -->
+
+## Response Properties - 200 OK
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>defaultDomain</td><td>yes</td><td>n/a</td><td></td></tr>
+    <tr><td>customerName</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>supportEmail</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>contact</td><td>no</td><td>n/a</td><td>Container for Contact information.<br>Details of the Contact properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>name</td><td>no</td><td>n/a</td><td>Contact Name</td></tr>
+    <tr><td>number</td><td>no</td><td>n/a</td><td>Contact Phone Number</td></tr>
+    <tr><td>email</td><td>no</td><td>n/a</td><td>Contact E-mail address</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>address</td><td>no</td><td>n/a</td><td>Container for Address information.<br>Details of the Address properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>addressLine1</td><td>no</td><td>n/a</td><td>Street address</td></tr>
+    <tr><td>addressLine2</td><td>no</td><td>n/a</td><td>Street address</td></tr>
+    <tr><td>city</td><td>no</td><td>n/a</td><td>City</td></tr>
+    <tr><td>stateOrProvince</td><td>no</td><td>n/a</td><td>State or Province</td></tr>
+    <tr><td>zipOrPostalCode</td><td>no</td><td>n/a</td><td>Zip or Postal Code</td></tr>
+    <tr><td>country</td><td>no</td><td>n/a</td><td>Country</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>useServiceProviderLanguages</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>extensions</td><td>no</td><td>n/a</td><td>Container for network-element specific properties<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>broadworks</td><td>no</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>isEnterprise</td><td>yes</td><td>n/a</td><td>True if BroadWorks entity is enterprise, false if it is service provider</td></tr>
+    <tr><td>serviceProviderId</td><td>yes</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise</td></tr>
+    <tr><td>useCustomRoutingProfile</td><td>no</td><td>n/a</td><td>Appears for service providers only</td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for GET /customers/{+customerId} Response 200:
+{"title":"Response Properties - 200 OK","type":"object","required":["customerId","defaultDomain","_links","curies"],"properties":{"_links":{"type":"object","required":["self"],"properties":{"self":{"type":"object","required":["href"],"properties":{"href":{"type":"string"}}}}},"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30},"defaultDomain":{"type":"string","minLength":1,"maxLength":80,"pattern":"^[a-zA-Z0-9.-]+$"},"customerName":{"type":"string","minLength":1,"maxLength":80},"supportEmail":{"type":"string","minLength":1,"maxLength":80,"format":"email"},"contact":{"description":"Container for Contact information.<br>Details of the Contact properties:","type":"object","properties":{"name":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Name"},"number":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Phone Number"},"email":{"type":"string","minLength":1,"maxLength":80,"format":"email","description":"Contact E-mail address"}}},"address":{"type":"object","description":"Container for Address information.<br>Details of the Address properties:","properties":{"addressLine1":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"addressLine2":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"city":{"type":"string","minLength":1,"maxLength":50,"description":"City"},"stateOrProvince":{"type":"string","minLength":1,"maxLength":50,"description":"State or Province"},"zipOrPostalCode":{"type":"string","minLength":1,"maxLength":50,"description":"Zip or Postal Code"},"country":{"type":"string","minLength":1,"maxLength":50,"description":"Country"}}},"useServiceProviderLanguages":{"type":"boolean"},"extensions":{"description":"Container for network-element specific properties","type":"object","properties":{"broadworks":{"description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","type":"object","required":["serviceProviderId","isEnterprise"],"properties":{"isEnterprise":{"type":"boolean","description":"True if BroadWorks entity is enterprise, false if it is service provider"},"serviceProviderId":{"title":"The ID of the BroadWorks Service Provider/Enterprise","type":"string","minLength":1,"maxLength":30},"useCustomRoutingProfile":{"type":"boolean","description":"Appears for service providers only"}}}}},"curies":{"type":"array","items":{"type":"object","required":["name","href","templated"],"properties":{"name":{"type":"string"},"href":{"type":"string"},"templated":{"type":"boolean"}}}}}} -->
+
 
 GET /customers/{+customerId}
 < 200
@@ -1411,11 +1451,10 @@ GET /customers/{+customerId}
 {
     "_links": {
         "self": {
-            "href": "http://lokiserver.apiary.io/loki/customers/ExampleCom"
+            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com"
         }
     },
     "customerId": "Example Com",
-    "useCustomRoutingProfile": false,
     "defaultDomain": "example.com",
     "customerName": "Example Com Co.",
     "supportEmail": "support@example.com",
@@ -1447,56 +1486,101 @@ GET /customers/{+customerId}
         }
     ]
 }
---
+
+<!--- JSON Schema for GET /customers/{+customerId} response 200:
+{"title":"Response Properties - 200 OK","type":"object","required":["customerId","defaultDomain","_links","curies"],"properties":{"_links":{"type":"object","required":["self"],"properties":{"self":{"type":"object","required":["href"],"properties":{"href":{"type":"string"}}}}},"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30},"defaultDomain":{"type":"string","minLength":1,"maxLength":80,"pattern":"^[a-zA-Z0-9.-]+$"},"customerName":{"type":"string","minLength":1,"maxLength":80},"supportEmail":{"type":"string","minLength":1,"maxLength":80,"format":"email"},"contact":{"description":"Container for Contact information.<br>Details of the Contact properties:","type":"object","properties":{"name":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Name"},"number":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Phone Number"},"email":{"type":"string","minLength":1,"maxLength":80,"format":"email","description":"Contact E-mail address"}}},"address":{"type":"object","description":"Container for Address information.<br>Details of the Address properties:","properties":{"addressLine1":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"addressLine2":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"city":{"type":"string","minLength":1,"maxLength":50,"description":"City"},"stateOrProvince":{"type":"string","minLength":1,"maxLength":50,"description":"State or Province"},"zipOrPostalCode":{"type":"string","minLength":1,"maxLength":50,"description":"Zip or Postal Code"},"country":{"type":"string","minLength":1,"maxLength":50,"description":"Country"}}},"useServiceProviderLanguages":{"type":"boolean"},"extensions":{"description":"Container for network-element specific properties","type":"object","properties":{"broadworks":{"description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","type":"object","required":["serviceProviderId","isEnterprise"],"properties":{"isEnterprise":{"type":"boolean","description":"True if BroadWorks entity is enterprise, false if it is service provider"},"serviceProviderId":{"title":"The ID of the BroadWorks Service Provider/Enterprise","type":"string","minLength":1,"maxLength":30},"useCustomRoutingProfile":{"type":"boolean","description":"Appears for service providers only"}}}}},"curies":{"type":"array","items":{"type":"object","required":["name","href","templated"],"properties":{"name":{"type":"string"},"href":{"type":"string"},"templated":{"type":"boolean"}}}}}} -->
+
+
+<!--------------------------------- POST /customers{?mode} ------------------------------->
 
 Create Customer.<br/>
-Process name: Create Customer (VoIP Entity)
+Process Name: Create Customer (VoIP Entity)
 
-##URI Query Parameters
+## URI Query Parameters
 <table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-        <tr>
-            <td>mode</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td>n/a</td>
-            <td>Controls execution mode. <br/>
-            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ]. <br/>
-            <b>NOTE:</b> at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</td>
-        </tr>
+    <tr><td>mode</td><td>yes</td><td>n/a</td><td>Controls execution mode.<br><b>Note</b>: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed</td></tr>
     </tbody>
 </table>
+<!--- JSON Schema for POST /customers{?mode} uriQuerySchema:
+{"title":"URI Query Parameters","required":["mode"],"properties":{"mode":{"description":"Controls execution mode.<br><b>Note</b>: at this time only \"create-only\" (attempts to create the resource, with no pre-validation) is allowed","enum":["prevalidate-only","prevalidate-and-create","create-only"]}}} -->
 
-##Request Properties
-Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+## Request Properties
 <table border=1>
-    <thead>
-    <th>Property</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
+    <tr><td>name</td><td>yes</td><td>n/a</td><td>This property is used to construct the BroadWorks serviceProviderId and serviceProviderName</td></tr>
+    <tr><td>defaultDomain</td><td>no</td><td>n/a</td><td>Default domain. Will be added to BroadWorks if not already exists. By default, default system domain will be used</td></tr>
+    <tr><td>supportEmail</td><td>no</td><td>n/a</td><td>Must be a valid email address</td></tr>
+    <tr><td>contact</td><td>no</td><td>n/a</td><td>Container for Contact information.<br>Details of the Contact properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>name</td><td>no</td><td>n/a</td><td>Contact Name</td></tr>
+    <tr><td>number</td><td>no</td><td>n/a</td><td>Contact Phone Number</td></tr>
+    <tr><td>email</td><td>no</td><td>n/a</td><td>Contact E-mail address</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>address</td><td>no</td><td>n/a</td><td>Container for Address information.<br>Details of the Address properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>addressLine1</td><td>no</td><td>n/a</td><td>Street address</td></tr>
+    <tr><td>addressLine2</td><td>no</td><td>n/a</td><td>Street address</td></tr>
+    <tr><td>city</td><td>no</td><td>n/a</td><td>City</td></tr>
+    <tr><td>stateOrProvince</td><td>no</td><td>n/a</td><td>State or Province</td></tr>
+    <tr><td>zipOrPostalCode</td><td>no</td><td>n/a</td><td>Zip or Postal Code</td></tr>
+    <tr><td>country</td><td>no</td><td>n/a</td><td>Country</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>networkClassesOfService</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for Network Classes of Service specific properties<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>default</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Group's default Network Class of Service</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>extensions</td><td>no</td><td>n/a</td><td><table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>broadworks</td><td>no</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>serviceProviderId</td><td>no</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise.<br>If present in the request body it overwrites the serviceProviderId value that was generated from the name</td></tr>
+    <tr><td>isEnterprise</td><td>no</td><td>true</td><td>Determines if service provider or enterprise will be created</td></tr>
+    <tr><td>hostingNe</td><td>no</td><td>n/a</td><td>hostingNE of Broadworks Application Server.<br>BroadWorks cluster ID. When omitted, default cluster is used</td></tr>
+    <tr><td>useCustomRoutingProfile</td><td>no</td><td>n/a</td><td>Required when extensions.broadworks.isEnterprise is false. Otherwise not required</td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table></td></tr>
     </tbody>
 </table>
+<!--- JSON Schema for POST /customers{?mode} bodySchema:
+{"title":"Request Properties","type":"object","additionalProperties":false,"required":["name"],"properties":{"name":{"type":"string","minLength":1,"maxLength":80,"description":"This property is used to construct the BroadWorks serviceProviderId and serviceProviderName"},"defaultDomain":{"type":"string","minLength":1,"maxLength":80,"pattern":"^[a-zA-Z0-9.-]+$","description":"Default domain. Will be added to BroadWorks if not already exists. By default, default system domain will be used"},"supportEmail":{"type":"string","minLength":1,"maxLength":80,"format":"email","description":"Must be a valid email address"},"contact":{"description":"Container for Contact information.<br>Details of the Contact properties:","type":"object","properties":{"name":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Name"},"number":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Phone Number"},"email":{"type":"string","minLength":1,"maxLength":80,"format":"email","description":"Contact E-mail address"}}},"address":{"type":"object","description":"Container for Address information.<br>Details of the Address properties:","properties":{"addressLine1":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"addressLine2":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"city":{"type":"string","minLength":1,"maxLength":50,"description":"City"},"stateOrProvince":{"type":"string","minLength":1,"maxLength":50,"description":"State or Province"},"zipOrPostalCode":{"type":"string","minLength":1,"maxLength":50,"description":"Zip or Postal Code"},"country":{"type":"string","minLength":1,"maxLength":50,"description":"Country"}}},"networkClassesOfService":{"type":"object","description":"<b>Not Implemented.</b><br>Container for Network Classes of Service specific properties","additionalProperties":false,"properties":{"default":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented.</b><br>Group's default Network Class of Service"}}},"extensions":{"type":"object","additionalProperties":false,"properties":{"broadworks":{"type":"object","additionalProperties":false,"description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","properties":{"serviceProviderId":{"title":"The ID of the BroadWorks Service Provider/Enterprise","type":"string","minLength":1,"maxLength":30,"description":"If present in the request body it overwrites the serviceProviderId value that was generated from the name"},"isEnterprise":{"type":"boolean","default":true,"description":"Determines if service provider or enterprise will be created"},"hostingNe":{"title":"hostingNE of Broadworks Application Server","type":"string","minLength":1,"maxLength":40,"description":"BroadWorks cluster ID. When omitted, default cluster is used"},"useCustomRoutingProfile":{"type":"boolean","description":"Required when extensions.broadworks.isEnterprise is false. Otherwise not required"}}}}}}} -->
 
-##Response Properties - 201 Created
-Besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.
+## Response Properties - 201 Created
 <table border=1>
-    <thead>
-    <th>Property</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>defaultDomain</td><td>no</td><td>n/a</td><td>Customer's default domain.<br>Presents in the response if not provided in the request</td></tr>
+    <tr><td>extensions</td><td>no</td><td>n/a</td><td>Container for network-element specific properties<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>serviceProviderId</td><td>yes</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise</td></tr>
+    <tr><td>isEnterprise</td><td>no</td><td>n/a</td><td>Presents in the response if not provided in the request</td></tr>
+    <tr><td>hostingNe</td><td>no</td><td>n/a</td><td>hostingNE of Broadworks Application Server.<br>Presents in the response if not provided in the request</td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table></td></tr>
     </tbody>
 </table>
+<!--- JSON Schema for POST /customers{?mode} Response 201:
+{"title":"Response Properties - 201 Created","type":"object","required":["_links","curies","customerId"],"properties":{"_links":{"type":"object","required":["self"],"properties":{"self":{"type":"object","required":["href"],"properties":{"href":{"type":"string"}}}}},"curies":{"type":"array","items":{"type":"object","required":["name","href","templated"],"properties":{"name":{"type":"string"},"href":{"type":"string"},"templated":{"type":"boolean"}}}},"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30},"defaultDomain":{"type":"string","minLength":1,"maxLength":80,"pattern":"^[a-zA-Z0-9.-]+$","title":"Customer's default domain","description":"Presents in the response if not provided in the request"},"extensions":{"type":"object","description":"Container for network-element specific properties","required":["broadworks"],"properties":{"broadworks":{"type":"object","description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","required":["serviceProviderId"],"properties":{"serviceProviderId":{"title":"The ID of the BroadWorks Service Provider/Enterprise","type":"string","minLength":1,"maxLength":30},"isEnterprise":{"type":"boolean","description":"Presents in the response if not provided in the request"},"hostingNe":{"title":"hostingNE of Broadworks Application Server","type":"string","minLength":1,"maxLength":40,"description":"Presents in the response if not provided in the request"}}}}}}} -->
+
 
 POST /customers{?mode}
 < 201
@@ -1518,102 +1602,98 @@ POST /customers{?mode}
     ],
     "customerId": "Example Com",
     "defaultDomain": "voip.example.net",
-    "extensions" : {
-            "broadworks": {
+    "extensions": {
+        "broadworks": {
             "serviceProviderId": "Example Com",
             "isEnterprise": true,
             "hostingNe": "REL17AS"
         }
     }
 }
---
+
+<!--- JSON Schema for POST /customers{?mode} response 201:
+{"title":"Response Properties - 201 Created","type":"object","required":["_links","curies","customerId"],"properties":{"_links":{"type":"object","required":["self"],"properties":{"self":{"type":"object","required":["href"],"properties":{"href":{"type":"string"}}}}},"curies":{"type":"array","items":{"type":"object","required":["name","href","templated"],"properties":{"name":{"type":"string"},"href":{"type":"string"},"templated":{"type":"boolean"}}}},"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30},"defaultDomain":{"type":"string","minLength":1,"maxLength":80,"pattern":"^[a-zA-Z0-9.-]+$","title":"Customer's default domain","description":"Presents in the response if not provided in the request"},"extensions":{"type":"object","description":"Container for network-element specific properties","required":["broadworks"],"properties":{"broadworks":{"type":"object","description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","required":["serviceProviderId"],"properties":{"serviceProviderId":{"title":"The ID of the BroadWorks Service Provider/Enterprise","type":"string","minLength":1,"maxLength":30},"isEnterprise":{"type":"boolean","description":"Presents in the response if not provided in the request"},"hostingNe":{"title":"hostingNE of Broadworks Application Server","type":"string","minLength":1,"maxLength":40,"description":"Presents in the response if not provided in the request"}}}}}}} -->
+
+
+<!--------------------------------- PUT /customers/{+customerId} ------------------------------->
 
 Update Customer.<br/>
-Process name: Modify Customer (VoIP Entity)
+Process Name: Modify Customer (VoIP Entity)
 
-##URI Template Parameters
+## URI Template Parameters
 <table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-        <tr>
-            <td>customerId</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer</td>
-        </tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
     </tbody>
 </table>
+<!--- JSON Schema for PUT /customers/{+customerId} uriSchema:
+{"title":"URI Template Parameters","required":["customerId"],"properties":{"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30}}} -->
 
-##Request Properties
-Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+## Request Properties
 <table border=1>
-    <thead>
-    <th>Property</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
+    <tr><td>customerName</td><td>no</td><td>n/a</td><td>This property maps to serviceProviderName of the related BroadWorks service provider or enterprise entity</td></tr>
+    <tr><td>defaultDomain</td><td>no</td><td>n/a</td><td>Domain must already be assigned to the Customer</td></tr>
+    <tr><td>supportEmail</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>contact</td><td>no</td><td>n/a</td><td>Container for Contact information.<br>Details of the Contact properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>name</td><td>no</td><td>n/a</td><td>Contact Name</td></tr>
+    <tr><td>number</td><td>no</td><td>n/a</td><td>Contact Phone Number</td></tr>
+    <tr><td>email</td><td>no</td><td>n/a</td><td>Contact E-mail address</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>address</td><td>no</td><td>n/a</td><td>Container for Address information.<br>Details of the Address properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>addressLine1</td><td>no</td><td>n/a</td><td>Street address</td></tr>
+    <tr><td>addressLine2</td><td>no</td><td>n/a</td><td>Street address</td></tr>
+    <tr><td>city</td><td>no</td><td>n/a</td><td>City</td></tr>
+    <tr><td>stateOrProvince</td><td>no</td><td>n/a</td><td>State or Province</td></tr>
+    <tr><td>zipOrPostalCode</td><td>no</td><td>n/a</td><td>Zip or Postal Code</td></tr>
+    <tr><td>country</td><td>no</td><td>n/a</td><td>Country</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>useServiceProviderLanguages</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>networkClassesOfService</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for Network Classes of Service specific properties<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>default</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Group's default Network Class of Service</td></tr>
+    </tbody>
+</table></td></tr>
     </tbody>
 </table>
+<!--- JSON Schema for PUT /customers/{+customerId} bodySchema:
+{"title":"Request Properties","type":"object","additionalProperties":false,"required":[],"properties":{"customerName":{"type":"string","minLength":1,"maxLength":80,"description":"This property maps to serviceProviderName of the related BroadWorks service provider or enterprise entity"},"defaultDomain":{"type":"string","minLength":1,"maxLength":80,"pattern":"^[a-zA-Z0-9.-]+$","description":"Domain must already be assigned to the Customer"},"supportEmail":{"type":"string","minLength":1,"maxLength":80,"format":"email"},"contact":{"description":"Container for Contact information.<br>Details of the Contact properties:","type":"object","properties":{"name":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Name"},"number":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Phone Number"},"email":{"type":"string","minLength":1,"maxLength":80,"format":"email","description":"Contact E-mail address"}}},"address":{"type":"object","description":"Container for Address information.<br>Details of the Address properties:","properties":{"addressLine1":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"addressLine2":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"city":{"type":"string","minLength":1,"maxLength":50,"description":"City"},"stateOrProvince":{"type":"string","minLength":1,"maxLength":50,"description":"State or Province"},"zipOrPostalCode":{"type":"string","minLength":1,"maxLength":50,"description":"Zip or Postal Code"},"country":{"type":"string","minLength":1,"maxLength":50,"description":"Country"}}},"useServiceProviderLanguages":{"type":"boolean"},"networkClassesOfService":{"type":"object","description":"<b>Not Implemented.</b><br>Container for Network Classes of Service specific properties","additionalProperties":false,"properties":{"default":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented.</b><br>Group's default Network Class of Service"}}}}} -->
+
 
 PUT /customers/{+customerId}
 < 204
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
-{
-    "_links": {
-        "self": {
-            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com"
-        }
-    },
-    "curies": [
-        {
-            "name": "ls",
-            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
-            "templated": true
-        }
-    ],
-    "customerId": "Example Com",
-    "defaultDomain": "voip.example.net",
-    "extensions" : {
-            "broadworks": {
-            "serviceProviderId": "Example Com",
-            "isEnterprise": true,
-            "hostingNe": "REL17AS"
-        }
-    }
-}
---
+
+
+<!--------------------------------- DELETE /customers/{+customerId} ------------------------------->
 
 Delete Customer.<br/>
-Process name: Delete Customer (VoIP Entity)
+Process Name: Delete Customer (VoIP Entity)
 
-##URI Template Parameters
+## URI Template Parameters
 <table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-        <tr>
-            <td>customerId</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer</td>
-        </tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
     </tbody>
 </table>
+<!--- JSON Schema for DELETE /customers/{+customerId} uriSchema:
+{"title":"URI Template Parameters","required":["customerId"],"properties":{"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30}}} -->
+
 
 DELETE /customers/{+customerId}
 < 204
+< Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
 
 
