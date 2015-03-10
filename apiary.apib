@@ -1552,10 +1552,10 @@ Process Name: Create Customer (VoIP Entity)
     <tr><td>broadworks</td><td>no</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>serviceProviderId</td><td>no</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise.<br>If present in the request body it overwrites the serviceProviderId value that was generated from the name</td></tr>
+    <tr><td>serviceProviderId</td><td>no</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise.<br>If present in the request body, it overwrites the serviceProviderId value that was generated from the name parameter</td></tr>
     <tr><td>isEnterprise</td><td>no</td><td>true</td><td>Determines if service provider or enterprise will be created</td></tr>
-    <tr><td>hostingNe</td><td>no</td><td>n/a</td><td>hostingNE of Broadworks Application Server.<br>BroadWorks cluster ID. When omitted, default cluster is used</td></tr>
-    <tr><td>useCustomRoutingProfile</td><td>no</td><td>n/a</td><td>Required when extensions.broadworks.isEnterprise is false. Otherwise not required</td></tr>
+    <tr><td>hostingNe</td><td>no</td><td>n/a</td><td>hostingNE of Broadworks Application Server.<br>BroadWorks cluster ID. Must match to one of hostingNe's specified in the Loki Server configuration. When omitted, default cluster is used</td></tr>
+    <tr><td>useCustomRoutingProfile</td><td>no</td><td>n/a</td><td>Required when extensions.broadworks.isEnterprise is false. Otherwise should be omitted</td></tr>
     </tbody>
 </table></td></tr>
     </tbody>
@@ -1563,7 +1563,7 @@ Process Name: Create Customer (VoIP Entity)
     </tbody>
 </table>
 <!--- JSON Schema for POST /customers{?mode} bodySchema:
-{"title":"Request Properties","type":"object","additionalProperties":false,"required":["name"],"properties":{"name":{"type":"string","minLength":1,"maxLength":80,"description":"This property is used to construct the BroadWorks serviceProviderId and serviceProviderName"},"defaultDomain":{"type":"string","minLength":1,"maxLength":80,"pattern":"^[a-zA-Z0-9.-]+$","description":"Default domain. Will be added to BroadWorks if not already exists. By default, default system domain will be used"},"supportEmail":{"type":"string","minLength":1,"maxLength":80,"format":"email","description":"Must be a valid email address"},"contact":{"description":"Container for Contact information.<br>Details of the Contact properties:","type":"object","properties":{"name":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Name"},"number":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Phone Number"},"email":{"type":"string","minLength":1,"maxLength":80,"format":"email","description":"Contact E-mail address"}}},"address":{"type":"object","description":"Container for Address information.<br>Details of the Address properties:","properties":{"addressLine1":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"addressLine2":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"city":{"type":"string","minLength":1,"maxLength":50,"description":"City"},"stateOrProvince":{"type":"string","minLength":1,"maxLength":50,"description":"State or Province"},"zipOrPostalCode":{"type":"string","minLength":1,"maxLength":50,"description":"Zip or Postal Code"},"country":{"type":"string","minLength":1,"maxLength":50,"description":"Country"}}},"networkClassesOfService":{"type":"object","description":"<b>Not Implemented.</b><br>Container for Network Classes of Service specific properties","additionalProperties":false,"properties":{"default":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented.</b><br>Group's default Network Class of Service"}}},"extensions":{"type":"object","additionalProperties":false,"properties":{"broadworks":{"type":"object","additionalProperties":false,"description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","properties":{"serviceProviderId":{"title":"The ID of the BroadWorks Service Provider/Enterprise","type":"string","minLength":1,"maxLength":30,"description":"If present in the request body it overwrites the serviceProviderId value that was generated from the name"},"isEnterprise":{"type":"boolean","default":true,"description":"Determines if service provider or enterprise will be created"},"hostingNe":{"title":"hostingNE of Broadworks Application Server","type":"string","minLength":1,"maxLength":40,"description":"BroadWorks cluster ID. When omitted, default cluster is used"},"useCustomRoutingProfile":{"type":"boolean","description":"Required when extensions.broadworks.isEnterprise is false. Otherwise not required"}}}}}}} -->
+{"title":"Request Properties","type":"object","additionalProperties":false,"required":["name"],"properties":{"name":{"type":"string","minLength":1,"maxLength":80,"description":"This property is used to construct the BroadWorks serviceProviderId and serviceProviderName"},"defaultDomain":{"type":"string","minLength":1,"maxLength":80,"pattern":"^[a-zA-Z0-9.-]+$","description":"Default domain. Will be added to BroadWorks if not already exists. By default, default system domain will be used"},"supportEmail":{"type":"string","minLength":1,"maxLength":80,"format":"email","description":"Must be a valid email address"},"contact":{"description":"Container for Contact information.<br>Details of the Contact properties:","type":"object","properties":{"name":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Name"},"number":{"type":"string","minLength":1,"maxLength":30,"description":"Contact Phone Number"},"email":{"type":"string","minLength":1,"maxLength":80,"format":"email","description":"Contact E-mail address"}}},"address":{"type":"object","description":"Container for Address information.<br>Details of the Address properties:","properties":{"addressLine1":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"addressLine2":{"type":"string","minLength":1,"maxLength":80,"description":"Street address"},"city":{"type":"string","minLength":1,"maxLength":50,"description":"City"},"stateOrProvince":{"type":"string","minLength":1,"maxLength":50,"description":"State or Province"},"zipOrPostalCode":{"type":"string","minLength":1,"maxLength":50,"description":"Zip or Postal Code"},"country":{"type":"string","minLength":1,"maxLength":50,"description":"Country"}}},"networkClassesOfService":{"type":"object","description":"<b>Not Implemented.</b><br>Container for Network Classes of Service specific properties","additionalProperties":false,"properties":{"default":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented.</b><br>Group's default Network Class of Service"}}},"extensions":{"type":"object","additionalProperties":false,"properties":{"broadworks":{"type":"object","additionalProperties":false,"description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","properties":{"serviceProviderId":{"title":"The ID of the BroadWorks Service Provider/Enterprise","type":"string","minLength":1,"maxLength":30,"description":"If present in the request body, it overwrites the serviceProviderId value that was generated from the name parameter"},"isEnterprise":{"type":"boolean","default":true,"description":"Determines if service provider or enterprise will be created"},"hostingNe":{"title":"hostingNE of Broadworks Application Server","type":"string","minLength":1,"maxLength":40,"description":"BroadWorks cluster ID. Must match to one of hostingNe's specified in the Loki Server configuration. When omitted, default cluster is used"},"useCustomRoutingProfile":{"type":"boolean","description":"Required when extensions.broadworks.isEnterprise is false. Otherwise should be omitted"}}}}}}} -->
 
 ## Response Properties - 201 Created
 <table border=1>
@@ -1589,8 +1589,65 @@ Process Name: Create Customer (VoIP Entity)
 <!--- JSON Schema for POST /customers{?mode} Response 201:
 {"title":"Response Properties - 201 Created","type":"object","required":["_links","curies","customerId"],"properties":{"_links":{"type":"object","required":["self"],"properties":{"self":{"type":"object","required":["href"],"properties":{"href":{"type":"string"}}}}},"curies":{"type":"array","items":{"type":"object","required":["name","href","templated"],"properties":{"name":{"type":"string"},"href":{"type":"string"},"templated":{"type":"boolean"}}}},"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30},"defaultDomain":{"type":"string","minLength":1,"maxLength":80,"pattern":"^[a-zA-Z0-9.-]+$","title":"Customer's default domain","description":"Presents in the response if not provided in the request"},"extensions":{"type":"object","description":"Container for network-element specific properties","required":["broadworks"],"properties":{"broadworks":{"type":"object","description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","required":["serviceProviderId"],"properties":{"serviceProviderId":{"title":"The ID of the BroadWorks Service Provider/Enterprise","type":"string","minLength":1,"maxLength":30},"isEnterprise":{"type":"boolean","description":"Presents in the response if not provided in the request"},"hostingNe":{"title":"hostingNE of Broadworks Application Server","type":"string","minLength":1,"maxLength":40,"description":"Presents in the response if not provided in the request"}}}}}}} -->
 
+### Examples
+
+#### Adding Enterprise
+No additional parameters is required, enterprise type is used by default.
+
+    {
+        "name": "Example Com",
+        "contact": {
+            "email": "example@example.com"
+        }
+    }
+#### Adding Service Provider
+To add service provider, isEnterprise needs to be set to false. In this case useCustomRoutingProfile parameter is required.
+
+    {
+        "name": "Example Com",
+        "contact": {
+            "email": "example@example.com"
+        },
+        "extension": {
+            "broadworks": {
+                "isEnterprise": false,
+                "useCustomRoutingProfile": false
+            }
+        }
+    }
+#### Specifying desired cluster
+In multi-cluster BroadWorks configuration, entity will be added on the default cluster. To specify other cluster, hostingNe parameter needs to be included.
+
+    {
+        "name": "Example Com",
+        "contact": {
+            "email": "example@example.com"
+        },
+        "extension": {
+            "broadworks": {
+                "hostingNe": "REL20AS2"
+            }
+        }
+    }
 
 POST /customers{?mode}
+> Content-Type: application/json
+{
+    "name": "Example Com",
+    "contact": {
+        "name": "Billy",
+        "number": "Bishop",
+        "email": "billy@example.com"
+    },
+    "address": {
+        "addressLine1": "415 Sixth Ave",
+        "addressLine2": "Suite 102",
+        "city": "North Seventh",
+        "stateOrProvince": "Alabama",
+        "zipOrPostalCode": "50415",
+        "country": "USA"
+    }
+}
 < 201
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
@@ -1678,6 +1735,25 @@ Process Name: Modify Customer (VoIP Entity)
 
 
 PUT /customers/{+customerId}
+> Content-Type: application/json
+{
+    "customerName": "Example Net",
+    "defaultDomain": "voip.example.net",
+    "supportEmail": "support@example.net",
+    "contact": {
+        "name": "Billy",
+        "number": "Bishop",
+        "email": "billy@example.net"
+    },
+    "address": {
+        "addressLine1": "415 Sixth Ave",
+        "addressLine2": "Suite 102",
+        "city": "North Seventh",
+        "stateOrProvince": "Alabama",
+        "zipOrPostalCode": "50415",
+        "country": "USA"
+    }
+}
 < 204
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
@@ -1703,7 +1779,6 @@ DELETE /customers/{+customerId}
 < 204
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
-
 
 --
 Sites
