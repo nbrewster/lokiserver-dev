@@ -4337,15 +4337,45 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
         </tr>
         <tr>
             <td>lastName</td>
-            <td style="text-align: center; font-weight:bold">no</td>
+            <td style="text-align: center;">(varies)</td>
             <td>(varies)</td>
-            <td>Last Name. If omitted, will be autopopulated with the 4th through the last digits of phoneNumber, after stripping the country code.</td>
+            <td>Last Name. <br />
+            The following table describes the differences in validation between the two ways of adding a User in LWS-REST:
+            <table border=1>
+                <thead>
+                    <th>Default/Legacy</th>
+                    <th>Alternative</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Not required.<br /> 
+                    If omitted, will be autopopulated with the 4th through the last digits of phoneNumber, after stripping the country code.</td>
+                    <td>Required</td>
+                </tr>
+                <tbody>
+            </table>
+            </td>
         </tr>
         <tr>
             <td>firstName</td>
-            <td style="text-align: center; font-weight:bold">no</td>
+            <td style="text-align: center; ">(varies)</td>
             <td>(varies)</td>
-            <td>First Name. If omitted, will be autopopulated with the1st 3 digits of phoneNumber, after stripping the country code.</td>
+            <td>First Name. <br />
+            The following table describes the differences in validation between the two ways of adding a User in LWS-REST:
+            <table border=1>
+                <thead>
+                    <th>Default/Legacy</th>
+                    <th>Alternative</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Not required.<br /> 
+                    If omitted, will be autopopulated with the 1st 3 digits of phoneNumber, after stripping the country code.</td>
+                    <td>Required</td>
+                </tr>
+                <tbody>
+            </table>
+            </td>
         </tr>
         <tr>
             <td>callingLineIdLastName</td>
