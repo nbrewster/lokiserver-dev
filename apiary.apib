@@ -6133,6 +6133,43 @@ POST /auto-attendants{?mode}
     "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Auto Attendant.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Auto Attendant."
 }
 
+Delete a VoIP Auto Attendant.<br />
+Process name: Delete Auto Attendant (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>autoAttendantId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server autoAttendantId (server-generated) of the Auto Attendant to be deleted.</td>
+        </tr>
+    </tbody>
+</table>
+
+DELETE /auto-attendants/{+autoAttendantId}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "Error",
+    "externalErrorDetail": "[Error 4008] User not found: autoAttendantTest"
+}
+
 --
 VoIP Site Hunt Group
 ##Collection
@@ -6653,6 +6690,42 @@ POST /hunt-groups{?mode}
     "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Hunt Group.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Hunt Group."
 }
 
+Delete a VoIP Hunt Group.<br />
+Process name: Delete Hunt Group (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>huntGroupId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server huntGroupId (server-generated) of the Hunt Group to be deleted.</td>
+        </tr>
+    </tbody>
+</table>
+
+DELETE /hunt-groups/{+huntGroupId}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "Error",
+    "externalErrorDetail": "[Error 4008] User not found: huntGroupTest"
+}
 
 --
 VoIP Site Call Center
@@ -7226,6 +7299,42 @@ POST /call-centers{?mode}
     "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Call Center.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Call Center."
 }
 
+Delete a VoIP Call Center.<br />
+Process name: Delete Call Center (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>callCenterId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server callCenterId (server-generated) of the Call Center to be deleted.</td>
+        </tr>
+    </tbody>
+</table>
+
+DELETE /call-centers/{+callCenterId}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "Error",
+    "externalErrorDetail": "[Error 4008] User not found: callCenterTest"
+}
 
 --
 VoIP Site Instant Group Call
@@ -7600,9 +7709,53 @@ POST /instant-group-calls{?mode}
     "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Instant Group Call.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Instant Group Call."
 }
 
+Delete a VoIP Instant Group Call.<br />
+Process name: Delete Instant Group Call (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>instantGroupCallId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server instantGroupCallId (server-generated) of the Instant Group Call to be deleted.</td>
+        </tr>
+    </tbody>
+</table>
+
+DELETE /instant-group-calls/{+instantGroupCallId}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "Error",
+    "externalErrorDetail": "[Error 4008] User not found: instantGroupCallTest"
+}
 
 --
 CHANGELOG
+
+#2.42
+
+Changes for S2275 LWS-REST VoIP Virtual User Delete
+ * Added DELETE /loki/auto-attendants/{+autoAttendantId}
+ * Added DELETE /loki/hunt-groups/{+huntGroupId}
+ * Added DELETE /loki/call-centers/{+callCenterId}
+ * Added DELETE /loki/instant-group-calls/{+instantGroupCallId}
 
 #2.41
 
@@ -10235,6 +10388,25 @@ POST /loki/auto-attendants{?mode}
 	}
 }
 
+DELETE /loki/auto-attendants/{+autoAttendantId}
+{
+    "requestURITemplate": {
+        "title": "Delete Auto Attendant request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "autoAttendantId": { 
+                "type": "string", 
+                "description": "The Auto Attendant Id must have the domain, but that is not enforced by validation",
+                "minLength": 1, 
+                "maxLength": 161,
+                "required": true 
+            }
+        }
+    },
+    "requestBody": {},
+    "response": {}
+}
+
 POST /loki/hunt-groups{?mode}
 {   
     "requestURIQuery": {
@@ -10415,6 +10587,25 @@ POST /loki/hunt-groups{?mode}
 			}
         }
 	}
+}
+
+DELETE /loki/hunt-groups/{+huntGroupId}
+{
+    "requestURITemplate": {
+        "title": "Delete Hunt Group request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "huntGroupId": { 
+                "type": "string", 
+                "description": "The Hunt Group Id must have the domain, but that is not enforced by validation",
+                "minLength": 1, 
+                "maxLength": 161,
+                "required": true 
+            }
+        }
+    },
+    "requestBody": {},
+    "response": {}
 }
 
 POST /loki/call-centers{?mode}
@@ -10630,6 +10821,25 @@ POST /loki/call-centers{?mode}
 	}
 }
 
+DELETE /loki/call-centers/{+callCenterId}
+{
+    "requestURITemplate": {
+        "title": "Delete Call Center request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "callCenterId": { 
+                "type": "string", 
+                "description": "The Call Center Id must have the domain, but that is not enforced by validation",
+                "minLength": 1, 
+                "maxLength": 161,
+                "required": true 
+            }
+        }
+    },
+    "requestBody": {},
+    "response": {}
+}
+
 POST /loki/instant-group-calls{?mode}
 {   
     "requestURIQuery": {
@@ -10779,4 +10989,23 @@ POST /loki/instant-group-calls{?mode}
 			}
         }
 	}
+}
+
+DELETE /loki/instant-group-calls/{+instantGroupCallId}
+{
+    "requestURITemplate": {
+        "title": "Delete Instant Group Call request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "instantGroupCallId": { 
+                "type": "string", 
+                "description": "The Instant Group Call Id must have the domain, but that is not enforced by validation",
+                "minLength": 1, 
+                "maxLength": 161,
+                "required": true 
+            }
+        }
+    },
+    "requestBody": {},
+    "response": {}
 }
