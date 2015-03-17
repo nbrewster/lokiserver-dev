@@ -7606,22 +7606,41 @@ CHANGELOG
 
 #2.41
 
-Changes for S2265: VoIP User Add Alternative Process (via LWS-SOAP)
+Changes for S1932 LWS-REST:  Customer Add (BroadWorks Enterprise/SP Add)
+ * Added POST /loki/customers{?mode}
+ * Added GET /loki/customers/{+customerId}
+ * Added PUT /loki/customers/{+customerId}
+ * Added DELETE /loki/customers/{+customerId}
 
-* Added details for the differences between the default (legacy) and the alternative POST /loki/users request.
-* New "ATA" userType supported only by alternative POST /loki/users request.
+Changes for S2264 LWS-REST Site Device Access Credentials Reset
+* Added POST /loki/users/{+userId}/resetDeviceCredentials
 
-Changes for S2270: LWS-REST: VoIP Virtual User Add:
+Changes for S2265 VoIP User Add Alternative Process (via LWS-SOAP)
+* Added details for the differences between the default (legacy) and the alternative process POST /loki/users request.
 
+Changes for S2266 LWS-REST VoIP User Alternate Numbers Modify
+* Added PUT /loki/users/{+userId}/services/Alternate&20Numbers
+
+Changes for S2267 LWS-REST VoIP User Service (Un-)Assignment
+* Added PUT /loki/users/{+userId}/services/assigned-services
+
+Changes for S2268 LWS-REST VoIP User Delete
+* Added DELETE /loki/users/{+userId}{?keepMailbox}
+
+Changes for S2270 LWS-REST: VoIP Virtual User Add:
 * Added POST /loki/auto-attendants{?mode}
 * Added POST /loki/hunt-groups{?mode}
 * Added POST /loki/call-centers{?mode}
 * Added POST /loki/instant-group-calls{?mode}
 
-Changes for S2291: LWS-REST: Create LWS-SOAP-backed request to modify group voice portal settings:
+Changes for S2289 LWS-REST: Enhance VoIP User Add (via LWS-SOAP) to support BroadWorks Mobility
+* Added support to configure "Broadworks Mobility" service, only supported by POST /loki/users alternative process request.
 
-* Added GET /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+Changes for S2291 LWS-REST: Create LWS-SOAP-backed request to modify group voice portal settings:
 * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+
+Changes for S2313 LWS-REST: Enhance LWS-SOAP-backed VoIP User Add to Support ATA User Type
+* New "ATA" userType supported only by POST /loki/users alternative process request.
 
 #2.40
 
