@@ -5321,7 +5321,192 @@ PUT /users/{+userId}/call-processing-policy
 < 204
 < Transaction-Id: 1380080943120
 
-Update a BroadWorks User's Alternate Numbers service settings.
+
+Delete a VoIP User.
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>keepMailbox</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>true</td>
+            <td>Flag that controls whether the Message Store user account is kept or deleted along with the BroadWorks user.</td>
+        </tr>
+    </tbody>
+</table>
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server userId (server-generated) of the user to be deleted.</td>
+        </tr>
+    </tbody>
+</table>
+
+DELETE /users/{+userId}{?keepMailbox}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "Error: [Error 4008] User not found: JohnDoe",
+    "externalErrorDetail": "User Delete Failed. Error: [Error 4008] User not found: JohnDoe"
+}
+
+
+
+Reset the device credentials on a VoIP User’s primary device.
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server userId (server-generated) of the user.</td>
+        </tr>
+    </tbody>
+</table>
+
+POST /users/{+userId}/resetDeviceCredentials
+< 200
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "_links": {
+        "self": {
+           "href": "http://lokiserver.apiary.io/loki/users/JohnDoe/resetDeviceCredentials"
+        }
+    },
+    "username": "12147483642",
+    "password": "Mu+7*+",
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ]
+}
++++++
+< 404
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "NOT_FOUND",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "[Error 4008] User not found: JohnDoe",
+    "externalErrorDetail": "[Error 4008] User not found: JohnDoe"
+}
++++++
+< 422
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "SEMANTIC_ERROR",
+    "summary": "The server was unable to process your request",
+    "detail": "User does not have primary device"
+}
++++++
+< 501
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "NOT_IMPLEMENTED",
+    "summary": "The requested functionality is not implemented.",
+    "detail": "Resetting device credentials for user without phone number is not supported."
+}
+
+
+--
+VoIP User Services
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* userId
+
+Extension Keys:
+
+* (none)
+--
+
+Modify VoIP User's assigned services.
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server userId (server-generated) of the user.</td>
+        </tr>
+    </tbody>
+</table>
+
+PUT /users/{+userId}/services/assigned-services
+> Content-Type: application/json
+{ 
+    "services": ["Authentication", "Alternate Numbers"] , 
+    "servicePacks": ["Executive"] 
+} 
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4008",
+    "externalErrorSummary": "[Error 4008] User not found: JohnDoe",
+    "externalErrorDetail": "[Error 4008] User not found: JohnDoe."
+}
+
+Update a BroadWorks User's Alternate Numbers service settings.<br />
 In current implementation, services are updated on BroadWorks user using LWS-SOAP UserModifyRequest API call.
 
 ##URI Template Parameters
@@ -5453,7 +5638,6 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     </tbody>
 </table>
 
-
 PUT /users/{+userId}/services/Alternate%20Numbers
 > Content-Type: application/json
 {
@@ -5485,10 +5669,12 @@ PUT /users/{+userId}/services/Alternate%20Numbers
     "externalErrorDetail": "User Modify Failed. Alternate Numbers pre-validation error:Error updating service: Alternate Numbers. User [JohnDoe] does not have Alternate Numbers service assigned."
 }
 
+Update a BroadWorks User's Intercept User service settings. <br />
+In current implementation, services are updated on BroadWorks user using LWS-SOAP UserModifyRequest API call.<br />
+Process name: Modify User Intercept User (VoIP Entity)<br />
+Rollback-enabled: No
 
-Delete a VoIP User.
-
-##URI Query Parameters
+##URI Template Parameters
 
 <table border=1>
     <thead>
@@ -5499,148 +5685,258 @@ Delete a VoIP User.
     </thead>
     <tbody>
         <tr>
-            <td>keepMailbox</td>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server userId (server-generated) of the user whose Intercept User service will be updated.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties##
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>isActive</td>
             <td style="text-align: center; font-weight:bold">no</td>
-            <td>true</td>
-            <td>Flag that controls whether the Message Store user account is kept or deleted along with the BroadWorks user.</td>
-        </tr>
-    </tbody>
-</table>
-
-##URI Template Parameters
-
-<table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>userId</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user to be deleted.</td>
+            <td>On/Off</td>
         </tr>
-    </tbody>
-</table>
-
-DELETE /users/{+userId}{?keepMailbox}
-< 204
-< Transaction-Id: 1380080943120
-+++++
-< 424
-< Transaction-Id: 1380080943120
-< Content-Type: application/json
-{
-    "errorCode": "EXTERNAL_API_ERROR",
-    "externalErrorCode": "4008",
-    "externalErrorSummary": "Error: [Error 4008] User not found: JohnDoe",
-    "externalErrorDetail": "User Delete Failed. Error: [Error 4008] User not found: JohnDoe"
-}
-
-
-
-Reset the device credentials on a VoIP User’s primary device.
-
-##URI Template Parameters
-
-<table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
-    <tbody>
         <tr>
-            <td>userId</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>playNewPhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user.</td>
+            <td>Container for playNewPhoneNumber settings. Details of the playNewPhoneNumber properties:
+                <table border=1>
+                    <thead>
+                        <th>Property</th>
+                        <th>Required?</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>enabled</td>
+                            <td>no</td>
+                            <td>n/a</td>
+                            <td>On/Off. Play new phone number</td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td>no</td>
+                            <td>n/a</td>
+                            <td>New phone number that will be played if playNewPhoneNumber.enabled is true</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
         </tr>
-    </tbody>
-</table>
-
-POST /users/{+userId}/resetDeviceCredentials
-< 200
-< Transaction-Id: 1380080943120
-< Content-Type: application/json
-{
-    "_links": {
-        "self": {
-           "href": "http://lokiserver.apiary.io/loki/users/JohnDoe/resetDeviceCredentials"
-        }
-    },
-    "username": "12147483642",
-    "password": "Mu+7*+",
-    "curies": [
-        {
-            "name": "ls",
-            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
-            "templated": true
-        }
-    ]
-}
-+++++
-< 404
-< Transaction-Id: 1380080943120
-< Content-Type: application/json
-{
-    "errorCode": "NOT_FOUND",
-    "externalErrorCode": "4008",
-    "externalErrorSummary": "[Error 4008] User not found: JohnDoe",
-    "externalErrorDetail": "[Error 4008] User not found: JohnDoe"
-}
-+++++
-< 422
-< Transaction-Id: 1380080943120
-< Content-Type: application/json
-{
-    "errorCode": "SEMANTIC_ERROR",
-    "summary": "The server was unable to process your request",
-    "detail": "User does not have primary device"
-}
-+++++
-< 501
-< Transaction-Id: 1380080943120
-< Content-Type: application/json
-{
-    "errorCode": "NOT_IMPLEMENTED",
-    "summary": "The requested functionality is not implemented.",
-    "detail": "Resetting device credentials for user without phone number is not supported."
-}
-
-
-
-Modify VoIP User's assigned services.
-
-##URI Template Parameters
-
-<table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
-    <tbody>
         <tr>
-            <td>userId</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>transferOnZeroToPhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user.</td>
+            <td>Container for transferOnZeroToPhoneNumber settings. Details of the transferOnZeroToPhoneNumber properties:
+                <table border=1>
+                    <thead>
+                        <th>Property</th>
+                        <th>Required?</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>enabled</td>
+                            <td>no</td>
+                            <td>n/a</td>
+                            <td>On/Off. Transfer to transferOnZeroToPhoneNumber.phoneNumber</td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td>no</td>
+                            <td>n/a</td>
+                            <td>Phone number to be transferred to when transferOnZeroToPhoneNumber.enabled is true</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>routeToVoiceMail</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>On/Off. Route to voice mail.</td>
+        </tr>
+        <tr>
+            <td>announcementSelection</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Announcement Selection, “Default” or “Personal”.<br />
+            <b>Not Implemented.</b>
+            </td>
+        </tr>
+        <tr>
+            <td>audioFile</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Container for audio file settings.<br /><b>Not Implemented.</b><br />
+                Details of the audio file properties:
+                <table border=1>
+                    <thead>
+                        <th>Property</th>
+                        <th>Required?</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>description</td>
+                            <td>yes</td>
+                            <td>n/a</td>
+                            <td>Description</td>
+                        </tr>
+                        <tr>
+                            <td>mediaType</td>
+                            <td>yes</td>
+                            <td>n/a</td>
+                            <td>Audio file type</td>
+                        </tr>
+                        <tr>
+                            <td>sourceFileName</td>
+                            <td>(varies)</td>
+                            <td>n/a</td>
+                            <td>Name of the audio file. Must not be present if "audioFile.content" is present.</td>
+                        </tr>
+                        <tr>
+                            <td>content</td>
+                            <td>(varies)</td>
+                            <td>n/a</td>
+                            <td>File contents. Must not be present if "audioFile.sourceFileName" is present.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>videoFile</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Container for video file settings.<br /><b>Not Implemented.</b><br />
+                Details of the video file properties:
+                <table border=1>
+                    <thead>
+                        <th>Property</th>
+                        <th>Required?</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>description</td>
+                            <td>yes</td>
+                            <td>n/a</td>
+                            <td>Description</td>
+                        </tr>
+                        <tr>
+                            <td>mediaType</td>
+                            <td>yes</td>
+                            <td>n/a</td>
+                            <td>Video file type</td>
+                        </tr>
+                        <tr>
+                            <td>sourceFileName</td>
+                            <td>(varies)</td>
+                            <td>n/a</td>
+                            <td>Name of the video file. Must not be present if "videoFile.content" is present.</td>
+                        </tr>
+                        <tr>
+                            <td>content</td>
+                            <td>(varies)</td>
+                            <td>n/a</td>
+                            <td>File contents. Must not be present if "videoFile.sourceFileName" is present.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>outboundReroutePhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Container for outboundReroutePhoneNumber settings.<br /><b>Not Implemented.</b><br />
+            Details of the outboundReroutePhoneNumber properties:
+                <table border=1>
+                    <thead>
+                        <th>Property</th>
+                        <th>Required?</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>enabled</td>
+                            <td>no</td>
+                            <td>n/a</td>
+                            <td>On/Off. Reroute outbound calls.</td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td>no</td>
+                            <td>n/a</td>
+                            <td>Phone number to reroute to when outboundReroutePhoneNumber.enabled is true.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>allowOutboundLocalCalls</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>On/Off.<br />
+            <b>Not Implemented.</b>
+            </td>
+        </tr>
+        <tr>
+            <td>inboundCallMode</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The type of inbound calls to Intercept or allow.<br />
+            <b>Not Implemented.</b>
+            </td>
+        </tr>
+        <tr>
+            <td>alternateBlockingAnnouncement</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>On/Off.<br />
+            <b>Not Implemented.</b>
+            </td>
         </tr>
     </tbody>
 </table>
 
-PUT /users/{+userId}/services/assigned-services
+PUT /users/{+userId}/services/Intercept%20User
 > Content-Type: application/json
-{ 
-    "services": ["Authentication", "Alternate Numbers"] , 
-    "servicePacks": ["Executive"] 
-} 
+{
+    "isActive": true,
+    "playNewPhoneNumber": {
+        "enabled" : true,
+        "phoneNumber" : "+1-4433049876"
+    },
+    "transferOnZeroToPhoneNumber": {
+      	"enabled" : true,
+      	"phoneNumber" : "+1-4433049877"
+    },
+  	"routeToVoiceMail": true
+}
 < 204
 < Transaction-Id: 1380080943120
 +++++
@@ -5649,9 +5945,9 @@ PUT /users/{+userId}/services/assigned-services
 < Content-Type: application/json
 {
     "errorCode": "EXTERNAL_API_ERROR",
-    "externalErrorCode": "4008",
-    "externalErrorSummary": "[Error 4008] User not found: JohnDoe",
-    "externalErrorDetail": "[Error 4008] User not found: JohnDoe."
+    "externalErrorCode": null,
+    "externalErrorSummary": "Error modifying user: JohnDoe.",
+    "externalErrorDetail": "User Modify Failed. Intercept User pre-validation error:Error updating service: Intercept User. User [JohnDoe] does not have Intercept User service assigned."
 }
 
 --
@@ -7751,7 +8047,12 @@ CHANGELOG
 
 #2.42
 
+Changes for S2297: LWS-REST: VoIP User Intercept Modify
+
+ * Added PUT /loki/users/{+userId}/services/Intercept%20User
+
 Changes for S2275 LWS-REST VoIP Virtual User Delete
+
  * Added DELETE /loki/auto-attendants/{+autoAttendantId}
  * Added DELETE /loki/hunt-groups/{+huntGroupId}
  * Added DELETE /loki/call-centers/{+callCenterId}
@@ -7760,39 +8061,49 @@ Changes for S2275 LWS-REST VoIP Virtual User Delete
 #2.41
 
 Changes for S1932 LWS-REST:  Customer Add (BroadWorks Enterprise/SP Add)
+
  * Added POST /loki/customers{?mode}
  * Added GET /loki/customers/{+customerId}
  * Added PUT /loki/customers/{+customerId}
  * Added DELETE /loki/customers/{+customerId}
 
 Changes for S2264 LWS-REST Site Device Access Credentials Reset
+
 * Added POST /loki/users/{+userId}/resetDeviceCredentials
 
 Changes for S2265 VoIP User Add Alternative Process (via LWS-SOAP)
 * Added details for the differences between the default (legacy) and the alternative process POST /loki/users request.
 
+
 Changes for S2266 LWS-REST VoIP User Alternate Numbers Modify
+
 * Added PUT /loki/users/{+userId}/services/Alternate&20Numbers
 
 Changes for S2267 LWS-REST VoIP User Service (Un-)Assignment
+
 * Added PUT /loki/users/{+userId}/services/assigned-services
 
 Changes for S2268 LWS-REST VoIP User Delete
+
 * Added DELETE /loki/users/{+userId}{?keepMailbox}
 
 Changes for S2270 LWS-REST: VoIP Virtual User Add:
+
 * Added POST /loki/auto-attendants{?mode}
 * Added POST /loki/hunt-groups{?mode}
 * Added POST /loki/call-centers{?mode}
 * Added POST /loki/instant-group-calls{?mode}
 
 Changes for S2289 LWS-REST: Enhance VoIP User Add (via LWS-SOAP) to support BroadWorks Mobility
+
 * Added support to configure "Broadworks Mobility" service, only supported by POST /loki/users alternative process request.
 
 Changes for S2291 LWS-REST: Create LWS-SOAP-backed request to modify group voice portal settings:
+
 * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
 
 Changes for S2313 LWS-REST: Enhance LWS-SOAP-backed VoIP User Add to Support ATA User Type
+
 * New "ATA" userType supported only by POST /loki/users alternative process request.
 
 #2.40
@@ -11007,5 +11318,86 @@ DELETE /loki/instant-group-calls/{+instantGroupCallId}
         }
     },
     "requestBody": {},
+    "response": {}
+}
+
+PUT /loki/users/{+userId}/services/Intercept%20User
+{   
+    "requestURITemplate": {
+        "title": "User Intercept Modify request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "userId": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true 
+            }
+        }
+    },
+    "requestBody": { 
+        "title": "User Intercept User Modify request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "isActive": { "type": "boolean" },
+            "playNewPhoneNumber": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "enabled": { "type": "boolean" },
+                    "phoneNumber": {
+                        "extends":[{
+                            "$ref": "/bwksDnSchema"
+                        }, {
+                            "type": ["string", "null"]
+                        }]
+                    }
+                }
+            },
+            "transferOnZeroToPhoneNumber": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "enabled": { "type": "boolean" },
+                    "phoneNumber": { "type": ["string", "null"], "minLength": 1, "maxLength": 30 }
+                }
+            },
+            "routeToVoiceMail": { "type": "boolean" },
+            "announcementSelection": { "enum": ["Default", "Personal"] },
+            "audioFile": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "description": { "type": "string", "minLength": 1, "maxLength": 256, "required": true },
+                    "mediaType": { "enum": ["WMA", "WAV", "3GP", "MOV"], "required": true },
+                    "sourceFileName": { "type": "string", "minLength": 1 },
+                    "content": { "type": "string", "minLength": 1 }
+                }
+            },
+            "videoFile": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "description": { "type": "string", "minLength": 1, "maxLength": 256, "required": true },
+                    "mediaType": { "enum": ["WMA", "WAV", "3GP", "MOV"], "required": true },
+                    "sourceFileName": { "type": "string", "minLength": 1 },
+                    "content": { "type": "string", "minLength": 1 }
+                }
+            },
+            "outboundReroutePhoneNumber": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "enabled": { "type": "boolean" },
+                    "phoneNumber": { "$ref": "/outgoingDnOrSipUri" }
+                }
+            },
+            "allowOutboundLocalCalls": { "type": "boolean" },
+            "inboundCallMode": { "enum": ["Intercept All", "Allow All", "Allow System Dns"] },
+            "alternateBlockingAnnouncement": { "type": "boolean" }
+        }
+    },
     "response": {}
 }
