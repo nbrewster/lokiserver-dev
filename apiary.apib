@@ -8492,7 +8492,12 @@ POST /loki/users{?mode}
 					"type": { "type": "string", "minLength": 1, "maxLength": 40 },
 					"model": { "type": "string", "minLength": 1, "maxLength": 256 },
 					"macAddress": { "type": "string", "minLength": 12, "maxLength": 12, "pattern": "^[0-9A-Fa-f]{12}$" },
-					"linePort": { "type": "string", "minLength": 1, "maxLength": 161 }
+					"linePort": {
+                        "type": "string",
+                        "pattern": "^(\\+|[\\w\\-\\.\\!~\\*\\'\\(\\)])[\\w\\-\\.\\!~\\*\\'\\(\\)]{0,79}(@[a-zA-Z\\d\\.\\-]{1,80})?$",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
 				}
 			},
 			"trunkGroup": {
@@ -8501,7 +8506,12 @@ POST /loki/users{?mode}
 				"description": "Details of the user's trunk group(s), for Trunking users.",
 				"properties": {
 					"name": { "type": "string",	"minLength": 1,	"maxLength": 30 },
-					"linePort": { "type": "string", "minLength": 1, "maxLength": 161 }
+					"linePort": {
+                        "type": "string",
+                        "pattern": "^(\\+|[\\w\\-\\.\\!~\\*\\'\\(\\)])[\\w\\-\\.\\!~\\*\\'\\(\\)]{0,79}(@[a-zA-Z\\d\\.\\-]{1,80})?$",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
 				}
 			},
 			"servicePacks": {
