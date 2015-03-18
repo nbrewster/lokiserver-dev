@@ -2446,7 +2446,7 @@ POST /customers/{+customerId}/sites{?mode}
     "customerId": "Example Com",
     "siteId": "Example Com - North",
     "callingLineId" : {
-            "name": "ExampleComNorth",
+            "name": "ExampleComNorth"
     },
     "extensions" : {
         "broadworks": {
@@ -2593,8 +2593,7 @@ POST /customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
                     }
                 },
                 "customerId": "Example Com",
-                "phoneNumber": "+1-2005553001",
-                }
+                "phoneNumber": "+1-2005553001"
             }
         ],
         "ls:site-phone-numbers": [
@@ -2606,8 +2605,7 @@ POST /customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
                 },
                 "customerId": "Example Com",
                 "siteId": " Example Com - North",
-                "phoneNumber": "+1-2005553001",
-                }
+                "phoneNumber": "+1-2005553001"
             }
         ]
     }
@@ -5163,7 +5161,9 @@ POST /users{?mode}
     "externalErrorSummary" : "[Error 4152] Group not found: LeoNVB:LeoExample",
     "externalErrorDetail" : "[Error 4152] Group not found: LeoNVB:LeoExample"
 }
-Or
++++++
+< 404
+< Content-Type: application/json
 {
     "errorCode": "NOT_FOUND",
     "summary": "The requested resource does not exist",
@@ -5174,7 +5174,7 @@ Or
 < Transaction-Id: 1380080943120
 < Content-Type: application/json
 {
-    "errorCode" : "INTERNAL_ERROR,
+    "errorCode" : "INTERNAL_ERROR",
     "summary" : "Internal error creating voip-user",
     "detail" : "The server encountered an error creating the resource. Please contact your administrator for assistance."
 }
@@ -7987,7 +7987,7 @@ POST /instant-group-calls{?mode}
             "firstName": "My IGC"
         },
         "publicServiceIdentity": "5551239876@example.com",
-        "extension": "9876",
+        "extension": "9876"
     },
     "extensions" : {
         "broadworks": {
