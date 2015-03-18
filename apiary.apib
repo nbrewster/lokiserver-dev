@@ -5189,6 +5189,303 @@ POST /users{?mode}
 }
 
 
+Modify a VoIP User.<br />
+In current implementation the VoIP User is updated using LWS-SOAP UserModifyRequest API call.<br />
+Process name: Modify User via LWS SOAP (VoIP Entity)<br />
+Rollback-enabled: No.
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server userId (server-generated) of the user to be deleted.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>phoneNumber</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Phone Number.<br />
+            Must be E.164 formatted, e.g. +1-2005553001 (the dash is required, after the country code).<br />
+            A value is required for certain TN routines; see documentation for tnRoutine for details.<br />
+        </tr>
+        <tr>
+            <td>tnRoutine</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>""(empty string)</td>
+            <td>Phone Number (TN) assignment routine.<br />
+            Supported values and impact on other required properties:
+            <table border=1>
+            <thead>
+                <th>tnRoutine</th>
+                <th>Description</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td><b>""</b>(empty string)</td>
+                <td>TN must already be available for use; no assignment will be performed.</td>
+            </tr>
+            <tr>
+                <td><b>port-no-temp</b></td>
+                <td>TN does not exist in the system, and will be assigned automatically at both the Customer and Site levels.</td>
+            </tr>
+            <tr>
+                <td><b>auto</b></td>
+                <td>TN may or may not already exist in the system, and will be assigned automatically only as needed.<br />
+                <b>Not Implemented</b></td>
+            </tr>
+            <tr>
+                <td><b>no-number</b></td>
+                <td>User will have no TN (extension-only user); phoneNumber must <i>not</i> be present.<br />
+                <b>Not Implemented</b></td>
+            </tr>
+            <tbody>
+            </table>
+        </tr>
+        <tr>
+            <td>extension</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Extension. </td>
+        </tr>
+        <tr>
+            <td>lastName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Last Name.</td>
+        </tr>
+        <tr>
+            <td>firstName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>First Name.</td>
+        </tr>
+        <tr>
+            <td>department</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>User department.</td>
+        </tr>
+        <tr>
+            <td>language</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Language.</td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>E-Mail address</td>
+        </tr>
+        <tr>
+            <td>CLID</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Calling Line ID Phone Number.<br />
+            Must be E.164 formatted, e.g. +1-2005553001 (the dash is required, after the country code).
+            </td>
+        </tr>
+        <tr>
+            <td>callingLineIdLastName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Calling Line ID Last Name..</td>
+        </tr>
+        <tr>
+            <td>callingLineIdFirstName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>no</td>
+            <td>Calling Line ID First Name.</td>
+        </tr>
+        <tr>
+            <td>timeZone</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Time Zone expressed as a Zone Name from the
+            <a href="https://www.iana.org/time-zones">IANA Time Zone Database</a>, e.g. "America/New_York".
+            </td>
+        </tr>
+        <tr>
+            <td>address</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Address information.<br />
+                Details of the Address properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>addressLine1</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Street address.</td>
+                        </tr>
+                        <tr>
+                            <td>addressLine2</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Street address.</td>
+                        </tr>
+                        <tr>
+                            <td>city</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>City</td>
+                        </tr>
+                        <tr>
+                            <td>stateOrProvince</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>State or Province</td>
+                        </tr>
+                        <tr>
+                            <td>zipOrPostalCode</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Zip or Postal Code</td>
+                        </tr>
+                        <tr>
+                            <td>country</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Country</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Response Properties - 200 OK
+
+Besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.<br />
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Mandatory</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td>The Loki Server VoIP Id of the BroadWorks User.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>extensions. broadworks. resourceId</td>
+            <td>The BroadWorks ID of the user.</td>
+            <td>Yes</td>
+       </tr>
+    </tbody>
+</table>
+
+PUT /users/{+userId}
+> Content-Type: application/json
+{
+    "extension": "2177",
+    "phoneNumber": "+1-6502342177",
+    "tnRoutine": "port-no-temp",
+    "lastName": "Smith",
+    "firstName": "John",
+    "language": "English",
+    "email": "jsmith@example.com",
+    "department": "Sales",
+    "CLID": "+1-6502342177",
+    "callingLineIdLastName": "Smith",
+    "callingLineIdFirstName": "John",
+    "timeZone": "America/New_York",
+    "address": {
+        "addressLine1": "152 W 34th St",
+        "city": "New York",
+        "stateOrProvince": "NY",
+        "zipOrPostalCode": "10001",
+        "country": "USA"
+    }
+}
+< 200
+< Transaction-Id: 1380080943120
+< Content-Type: application/hal+json
+{
+    "_links" : {
+        "self" : {
+            "href" : "http://lokiserver.apiary.io/loki/users/6502342177%40example.com"
+        }
+    },
+    "curies" : [
+        {
+            "name" : "ls",
+            "href" : "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated" : true
+        }
+    ],
+    "userId" : "6502342177@example.com",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "6502342177@example.com"
+        }
+    }
+}
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": null,
+    "externalErrorSummary": "User Modify Failed",
+    "externalErrorDetail": "User Modify Failed. User not found: [6502342177%40example.com]"
+}
++++++
+< 502
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_SERVER_ERROR",
+    "summary": "Unexpected response from remote API",
+    "detail": "LWS-SOAP: Received unexpected response: 'SuccessResponse'"
+}
++++++
+< 400
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode" : "FORMAT_ERROR",
+    "summary" : "Input validation failure",
+    "detail": "body.phoneNumber does not match pattern^\\+\\d+-\\d+$: was processing value \"+1-\""
+}
+
 Fetch a BroadWorks User's Call Processing Policies settings.
 Refer to BroadWorks documentation for specifics of the properties under extensions.broadworks.
 
@@ -9302,6 +9599,124 @@ POST /loki/users{?mode}
 		}
 	},
 	"response": {}
+}
+
+PUT /loki/users/{+userId}
+{
+    "requestURITemplate": {
+        "title": "Modify User request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "userId": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true 
+            }
+        }
+    },
+    "requestBody": { 
+        "title": "Modify User request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "phoneNumber": {
+                "type": ["string", "null"],
+                "pattern": "^\\+\\d+-\\d+$",
+                "minLength": 1,
+                "maxLength": 23
+            },
+			"tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
+			"extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20,	"pattern": "^[0-9]+$" },
+			"CLID": {
+                "type": "string",
+                "pattern": "^\\+\\d+-\\d+$",
+                "minLength": 1,
+                "maxLength": 23
+            },
+			"lastName": { "type": "string",	"minLength": 1,	"maxLength": 30 },
+			"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
+			"callingLineIdLastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"	},
+			"callingLineIdFirstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+			"email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email"	},
+			"timeZone": { "type": "string",	"minLength": 1,	"maxLength": 127 },
+			"language": { "type": "string",	"minLength": 1,	"maxLength": 40	},
+			"department": { "type": "string", "minLength": 1, "maxLength": 50},
+			"address": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "addressLine1": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "addressLine2": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "city": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "stateOrProvince": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "zipOrPostalCode": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "country": { "type": "string", "minLength": 1, "maxLength": 50 }
+                }
+            }
+        }
+    },
+    "response": {
+	    "title": "Modify User response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"userId": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true 
+            },
+			"extensions": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"broadworks": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"resourceId": { 
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 161,
+                                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                "required": true 
+                            }
+						}
+					}
+				}
+			},
+			"curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
 }
 
 PUT /loki/users/{+userId}/call-processing-policy
