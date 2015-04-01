@@ -3555,8 +3555,8 @@ Extension Keys:
 * (none)
 --
 
-Create a new VoIP TrunkGroup.
-
+Create a new VoIP Trunk Group.<br />
+Process name: Create VoIP Trunk Group (VoIP Entity Service)<br />
 Rollback-enabled: No; the rollback is dependent on VoIP User Add rollback, which is not implemented.
 If the trunk group add fails before the pilot user is created, the changes will be rolled back. Otherwise, no changes
 will be rolled back.
@@ -3612,8 +3612,13 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <th>Description</th>
     </thead>
     <tbody>
-    <tr><td>trunkGroupName</td><td>yes</td><td></td><td>Trunk Group Name</td></tr>
-    <tr><td>accessDevice</td><td>yes</td><td></td><td>Details of the Trunk Group's device. Properties:
+    <tr>
+        <td>name</td>
+        <td>yes</td>
+        <td>n/a</td>
+        <td>Suggested Trunk Group Name. In the default configuration, this will be used to generate the name for the underlying BroadWorks trunk group.</td>
+    </tr>
+    <tr><td>accessDevice</td><td>yes</td><td>n/a</td><td>Details of the Trunk Group's device. Properties:
         <table border=1>
             <thead>
             <th>Property</th>
@@ -3657,101 +3662,173 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             </tr>
         </table>
     </td></tr>
-    <tr><td>pilotUser</td><td>yes</td><td></td><td>Required to contain the properties of a POST /loki/users request with the exception of the following properties: accessDevice, trunkGroup and userType which are disallowed in this request.
+    <tr><td>pilotUser</td><td>yes</td><td>n/a</td><td>Required to contain the properties of a POST /loki/users request with the exception of the following properties: accessDevice, trunkGroup and userType which are disallowed in this request.
     </td></tr>
-    <tr><td>department</td><td>no</td><td></td><td>Department name (only Site-level departments are supported, initially).</td></tr>
-    <tr><td>capacityManagement</td><td>yes</td><td></td><td>Capacity Management settings</td></tr>
-    <tr><td>capacityManagement. maxActiveCalls</td><td>yes</td><td></td><td>Maximum Active Calls settings</td></tr>
-    <tr><td>capacityManagement. maxActiveCalls. total</td><td>yes</td><td></td><td>Maximum Active Calls / Total Calls</td></tr>
-    <tr><td>capacityManagement. maxActiveCalls. incoming</td><td>no</td><td></td><td>Maximum Active Calls / Incoming Calls</td></tr>
-    <tr><td>capacityManagement. maxActiveCalls. outgoing</td><td>no</td><td></td><td>Maximum Active Calls / Outgoing Calls</td></tr>
-    <tr><td>capacityManagement. burstingMaxActiveCalls</td><td>yes</td><td></td><td>Bursting Maximum Active Calls settings</td></tr>
-    <tr><td>capacityManagement. burstingMaxActiveCalls. enabled</td><td>yes</td><td></td><td>Bursting Capacity on/off</td></tr>
-    <tr><td>capacityManagement. burstingMaxActiveCalls. total</td><td>(see notes)</td><td></td><td>Bursting Maximum Active Calls / Total Calls. Required if "capacityManagement. burstingMaxActiveCalls. enabled" is true.</td></tr>
-    <tr><td>capacityManagement. burstingMaxActiveCalls. incoming</td><td>no</td><td></td><td>Bursting Maximum Active Calls / Incoming Calls</td></tr>
-    <tr><td>capacityManagement. burstingMaxActiveCalls. outgoing</td><td>no</td><td></td><td>Bursting Maximum Active Calls / Outgoing Calls</td></tr>
-    <tr><td>capacityManagement. incomingCapacityExceeded</td><td>yes</td><td></td><td>Incoming Capacity Exceeded settings</td></tr>
-    <tr><td>capacityManagement. incomingCapacityExceeded. action</td><td>no</td><td></td><td>Incoming Capacity Exceeded Action – one of {'Forward'|'Reroute'}</td></tr>
-    <tr><td>capacityManagement. incomingCapacityExceeded. forwardAddress</td><td>(see notes)</td><td></td><td>Forward to Phone Number / SIP-URI.
+    <tr><td>department</td><td>no</td><td>n/a</td><td>Department name (only Site-level departments are supported, initially).</td></tr>
+    <tr><td>capacityManagement</td><td>yes</td><td>n/a</td><td>Capacity Management settings</td></tr>
+    <tr><td>capacityManagement. maxActiveCalls</td><td>yes</td><td>n/a</td><td>Maximum Active Calls settings</td></tr>
+    <tr><td>capacityManagement. maxActiveCalls. total</td><td>yes</td><td>n/a</td><td>Maximum Active Calls / Total Calls</td></tr>
+    <tr><td>capacityManagement. maxActiveCalls. incoming</td><td>no</td><td>n/a</td><td>Maximum Active Calls / Incoming Calls</td></tr>
+    <tr><td>capacityManagement. maxActiveCalls. outgoing</td><td>no</td><td>n/a</td><td>Maximum Active Calls / Outgoing Calls</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls</td><td>yes</td><td>n/a</td><td>Bursting Maximum Active Calls settings</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls. enabled</td><td>yes</td><td>n/a</td><td>Bursting Capacity on/off</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls. total</td><td>(see notes)</td><td>n/a</td><td>Bursting Maximum Active Calls / Total Calls. Required if "capacityManagement. burstingMaxActiveCalls. enabled" is true.</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls. incoming</td><td>no</td><td>n/a</td><td>Bursting Maximum Active Calls / Incoming Calls</td></tr>
+    <tr><td>capacityManagement. burstingMaxActiveCalls. outgoing</td><td>no</td><td>n/a</td><td>Bursting Maximum Active Calls / Outgoing Calls</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded</td><td>yes</td><td>n/a</td><td>Incoming Capacity Exceeded settings</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. action</td><td>no</td><td>n/a</td><td>Incoming Capacity Exceeded Action – one of {'Forward'|'Reroute'}</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. forwardAddress</td><td>(see notes)</td><td>n/a</td><td>Forward to Phone Number / SIP-URI.
         Must be a valid phone number or SIP URI.
         Required if "capacityManagement. incomingCapacityExceeded. action" is "Forward".
     </td></tr>
-    <tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup</td><td>(see notes)</td><td></td><td>Details of target VoIP Trunk Group.
+    <tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup</td><td>(see notes)</td><td>n/a</td><td>Details of target VoIP Trunk Group.
         Required if "capacityManagement. incomingCapacityExceeded. action" is "Reroute".</td></tr>
-    <tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group.
+    <tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td>n/a</td><td>siteId of Site containing the reroute target VoIP Trunk Group.
         Required if "capacityManagement. incomingCapacityExceeded. action" is "Reroute".</td></tr>
-    <tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td></td><td>Name of the reroute target VoIP Trunk Group.
+    <tr><td>capacityManagement. incomingCapacityExceeded. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td>n/a</td><td>Name of the reroute target VoIP Trunk Group.
         Required if "capacityManagement. incomingCapacityExceeded. action" is "Reroute".</td></tr>
-    <tr><td>capacityManagement. incomingCapacityExceeded. initialCalls</td><td>yes</td><td></td><td>Capacity Exceeded Initial Value</td></tr>
-    <tr><td>capacityManagement. incomingCapacityExceeded. offsetCalls</td><td>yes</td><td></td><td>Capacity Exceeded Offset Value</td></tr>
-    <tr><td>unreachableDestination</td><td>yes</td><td></td><td>Unreachable Destination settings</td></tr>
-    <tr><td>unreachableDestination. timeout</td><td>yes</td><td></td><td>Unreachable Destination Timeout (seconds)</td></tr>
-    <tr><td>unreachableDestination. action</td><td>no</td><td></td><td>Unreachable Destination Action – one of {'Forward'|'Reroute'}</td></tr>
-    <tr><td>unreachableDestination. forwardAddress</td><td>(see notes)</td><td></td><td>Forward to Phone Number / SIP-URI.
+    <tr><td>capacityManagement. incomingCapacityExceeded. initialCalls</td><td>yes</td><td>n/a</td><td>Capacity Exceeded Initial Value</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. offsetCalls</td><td>yes</td><td>n/a</td><td>Capacity Exceeded Offset Value</td></tr>
+    <tr><td>unreachableDestination</td><td>yes</td><td>n/a</td><td>Unreachable Destination settings</td></tr>
+    <tr><td>unreachableDestination. timeout</td><td>yes</td><td>n/a</td><td>Unreachable Destination Timeout (seconds)</td></tr>
+    <tr><td>unreachableDestination. action</td><td>no</td><td>n/a</td><td>Unreachable Destination Action – one of {'Forward'|'Reroute'}</td></tr>
+    <tr><td>unreachableDestination. forwardAddress</td><td>(see notes)</td><td>n/a</td><td>Forward to Phone Number / SIP-URI.
         Must be a valid phone number or SIP URI.
         Required if "unreachableDestination. action" is "Forward".
     </td></tr>
-    <tr><td>unreachableDestination. rerouteTrunkGroup</td><td>(see notes)</td><td></td><td>Details of target VoIP Trunk Group.
+    <tr><td>unreachableDestination. rerouteTrunkGroup</td><td>(see notes)</td><td>n/a</td><td>Details of target VoIP Trunk Group.
         Required if "unreachableDestination. action" is "Reroute".</td></tr>
-    <tr><td>unreachableDestination. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group.
+    <tr><td>unreachableDestination. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td>n/a</td><td>siteId of Site containing the reroute target VoIP Trunk Group.
         Required if "unreachableDestination. action" is "Reroute".</td></tr>
-    <tr><td>unreachableDestination. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td></td><td>Name of the reroute target VoIP Trunk Group.
+    <tr><td>unreachableDestination. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td>n/a</td><td>Name of the reroute target VoIP Trunk Group.
         Required if "unreachableDestination. action" is "Reroute".</td></tr>
-    <tr><td>authentication</td><td>yes</td><td></td><td>SIP authentication settings</td></tr>
-    <tr><td>authentication. enabled</td><td>yes</td><td></td><td>Enable Authentication</td></tr>
-    <tr><td>authentication. username</td><td>(see notes)</td><td></td><td>Authentication User Name. Required if "authentication. enabled" is true.</td></tr>
-    <tr><td>authentication. password</td><td>(see notes)</td><td></td><td>Authentication password. Required if "authentication. enabled" is true.<br />
+    <tr><td>authentication</td><td>yes</td><td>n/a</td><td>SIP authentication settings</td></tr>
+    <tr><td>authentication. enabled</td><td>yes</td><td>n/a</td><td>Enable Authentication</td></tr>
+    <tr><td>authentication. username</td><td>(see notes)</td><td>n/a</td><td>Authentication User Name. Required if "authentication. enabled" is true.</td></tr>
+    <tr><td>authentication. password</td><td>(see notes)</td><td>n/a</td><td>Authentication password. Required if "authentication. enabled" is true.<br />
     If present, the password will be validated against the sipPassword rules configured in the server.
     </td></tr>
-    <tr><td>hostedUsers</td><td>no</td><td></td><td>Not implemented – will be ignored if present in request.</td></tr>
-    <tr><td>identity</td><td>yes</td><td></td><td>Identity settings</td></tr>
-    <tr><td>identity. trunkGroupIdentity</td><td>yes</td><td></td><td>Trunk Group Identity settings</td></tr>
-    <tr><td>identity. trunkGroupIdentity. identity</td><td>no</td><td></td><td>Trunk Group Identity, including @domain. Required to be a valid SIP URI.</td></tr>
-    <tr><td>identity. trunkGroupIdentity. allowTerminationToTrunkGroupIdentity</td><td>yes</td><td></td><td>Allow calls directly to trunk group with Trunk Identity</td></tr>
-    <tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentity</td><td>yes</td><td></td><td>Include Trunk Identity for Calls to Trunk Group</td></tr>
-    <tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentityForNetworkCalls</td><td>yes</td><td></td><td>Include Trunk Identity for Calls from Trunk Group</td></tr>
-    <tr><td>identity. otgDtgIdentity</td><td>yes</td><td></td><td>OTG/DTG Identity settings</td></tr>
-    <tr><td>identity. otgDtgIdentity. identity</td><td>no</td><td></td><td>OTG/DTG Identity</td></tr>
-    <tr><td>identity. otgDtgIdentity. allowTerminationToDtgIdentity</td><td>yes</td><td></td><td>Allow calls directly to trunk group with DTG Identity</td></tr>
-    <tr><td>identity. otgDtgIdentity. includeDtgIdentity</td><td>yes</td><td></td><td>Include DTG Identity for Calls to Trunk Group</td></tr>
-    <tr><td>identity. otgDtgIdentity. includeOtgIdentityForNetworkCalls</td><td>yes</td><td></td><td>Include OTG Identity for Calls from Trunk Group</td></tr>
-    <tr><td>identity. enableNetworkAddressIdentity</td><td>yes</td><td></td><td>Enable Network Address Identity</td></tr>
-    <tr><td>allowUnscreenedCalls</td><td>yes</td><td></td><td>Allow Unscreened Calls</td></tr>
-    <tr><td>allowUnscreenedEmergencyCalls</td><td>yes</td><td></td><td>Allow Unscreened Emergency Calls</td></tr>
-    <tr><td>pilotUserCallingLineIdentityPolicy</td><td>yes</td><td></td><td>Pilot User Calling Line Asserted Identity Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
-    <tr><td>pilotUserChargeNumberPolicy</td><td>yes</td><td></td><td>Pilot User Charge Number Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
-    <tr><td>callForwardingAlways</td><td>no</td><td></td><td>Call Forwarding Always settings</td></tr>
-    <tr><td>callForwardingAlways. action</td><td>no</td><td></td><td>Call Forwarding Always Action – one of {'Forward'|'Reroute'}</td></tr>
-    <tr><td>callForwardingAlways. forwardAddress</td><td>(see notes)</td><td></td><td>Forward to Phone Number / SIP-URI.
+    <tr><td>hostedUsers</td><td>no</td><td>n/a</td><td>Not implemented – will be ignored if present in request.</td></tr>
+    <tr><td>identity</td><td>yes</td><td>n/a</td><td>Identity settings</td></tr>
+    <tr><td>identity. trunkGroupIdentity</td><td>yes</td><td>n/a</td><td>Trunk Group Identity settings</td></tr>
+    <tr><td>identity. trunkGroupIdentity. identity</td><td>no</td><td>n/a</td><td>Trunk Group Identity, including @domain. Required to be a valid SIP URI.</td></tr>
+    <tr><td>identity. trunkGroupIdentity. allowTerminationToTrunkGroupIdentity</td><td>yes</td><td>n/a</td><td>Allow calls directly to trunk group with Trunk Identity</td></tr>
+    <tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentity</td><td>yes</td><td>n/a</td><td>Include Trunk Identity for Calls to Trunk Group</td></tr>
+    <tr><td>identity. trunkGroupIdentity. includeTrunkGroupIdentityForNetworkCalls</td><td>yes</td><td>n/a</td><td>Include Trunk Identity for Calls from Trunk Group</td></tr>
+    <tr><td>identity. otgDtgIdentity</td><td>yes</td><td>n/a</td><td>OTG/DTG Identity settings</td></tr>
+    <tr><td>identity. otgDtgIdentity. identity</td><td>no</td><td>n/a</td><td>OTG/DTG Identity</td></tr>
+    <tr><td>identity. otgDtgIdentity. allowTerminationToDtgIdentity</td><td>yes</td><td>n/a</td><td>Allow calls directly to trunk group with DTG Identity</td></tr>
+    <tr><td>identity. otgDtgIdentity. includeDtgIdentity</td><td>yes</td><td>n/a</td><td>Include DTG Identity for Calls to Trunk Group</td></tr>
+    <tr><td>identity. otgDtgIdentity. includeOtgIdentityForNetworkCalls</td><td>yes</td><td>n/a</td><td>Include OTG Identity for Calls from Trunk Group</td></tr>
+    <tr><td>identity. enableNetworkAddressIdentity</td><td>yes</td><td>n/a</td><td>Enable Network Address Identity</td></tr>
+    <tr><td>allowUnscreenedCalls</td><td>yes</td><td>n/a</td><td>Allow Unscreened Calls</td></tr>
+    <tr><td>allowUnscreenedEmergencyCalls</td><td>yes</td><td>n/a</td><td>Allow Unscreened Emergency Calls</td></tr>
+    <tr><td>pilotUserCallingLineIdentityPolicy</td><td>yes</td><td>n/a</td><td>Pilot User Calling Line Asserted Identity Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
+    <tr><td>pilotUserChargeNumberPolicy</td><td>yes</td><td>n/a</td><td>Pilot User Charge Number Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
+    <tr><td>callForwardingAlways</td><td>no</td><td>n/a</td><td>Call Forwarding Always settings</td></tr>
+    <tr><td>callForwardingAlways. action</td><td>no</td><td>n/a</td><td>Call Forwarding Always Action – one of {'Forward'|'Reroute'}</td></tr>
+    <tr><td>callForwardingAlways. forwardAddress</td><td>(see notes)</td><td>n/a</td><td>Forward to Phone Number / SIP-URI.
         Must be a valid phone number or SIP URI.
         Required if "callForwardingAlways. action" is "Forward".
     </td></tr>
-    <tr><td>callForwardingAlways. rerouteTrunkGroup</td><td>(see notes)</td><td></td><td>Details of target VoIP Trunk Group. Required if "callForwardingAlways. action" is "Reroute".</td></tr>
-    <tr><td>callForwardingAlways. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td></td><td>siteId of Site containing the reroute target VoIP Trunk Group. Required if "callForwardingAlways. action" is "Reroute".</td></tr>
-    <tr><td>callForwardingAlways. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td></td><td>Name of the reroute target VoIP Trunk Group. Required if "callForwardingAlways. action" is "Reroute".</td></tr>
-    <tr><td>peeringDomain</td><td>yes</td><td></td><td>Peering Domain settings</td></tr>
-    <tr><td>peeringDomain. domainName</td><td>no</td><td></td><td>Peering Domain</td></tr>
-    <tr><td>peeringDomain. routeToPeeringDomain</td><td>yes</td><td></td><td>Route To Peering Domain</td></tr>
-    <tr><td>trunkGroupPrefix</td><td>yes</td><td></td><td>Trunk Group Prefix settings</td></tr>
-    <tr><td>trunkGroupPrefix. enabled</td><td>yes</td><td></td><td>Enable Trunk Group Prefix.</td></tr>
-    <tr><td>trunkGroupPrefix. prefix</td><td>(see notes)</td><td></td><td>Trunk Group Prefix. Required when "trunkGroupPrefix. enabled" is true.</td></tr>
-    <tr><td>advancedReroute</td><td>yes</td><td></td><td>Stateful Trunk Group Rerouting settings</td></tr>
-    <tr><td>advancedReroute. enabled</td><td>yes</td><td></td><td>Enable Stateful Trunk Group Rerouting</td></tr>
-    <tr><td>advancedReroute. sendContinuousOptionsMessage</td><td>yes</td><td></td><td>Send Continuous Options Message</td></tr>
-    <tr><td>advancedReroute. continuousOptionsSendingInterval</td><td>yes</td><td></td><td>Send Continuous Options Message Every (seconds)</td></tr>
-    <tr><td>advancedReroute. failureOptionsSendingInterval</td><td>yes</td><td></td><td>Send Failure Options Message Every (seconds)</td></tr>
-    <tr><td>advancedReroute. failureThresholdCounter</td><td>yes</td><td></td><td>Failure Threshold Counter</td></tr>
-    <tr><td>advancedReroute. successThresholdCounter</td><td>yes</td><td></td><td>Success Threshold Counter</td></tr>
-    <tr><td>advancedReroute. inviteFailureThresholdCounter</td><td>yes</td><td></td><td>Invite Failure Threshold Counter</td></tr>
-    <tr><td>advancedReroute. inviteFailureThresholdWindow</td><td>yes</td><td></td><td>Invite Failure Threshold Window</td></tr>
-    <tr><td>pilotUserCallingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>Pilot User Calling Line Asserted Identity Policy settings</td></tr>
-    <tr><td>pilotUserCallingLineAssertedIdentityPolicy. useTrunkGroupCallingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>If true, use Trunk Group's Pilot User Calling Line Asserted Identity Policy. Otherwise, use the Customer's policy.</td></tr>
-    <tr><td>pilotUserCallingLineAssertedIdentityPolicy.  callingLineAssertedIdentityPolicy</td><td>yes</td><td></td><td>Use this Trunk Group Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'}</td></tr>
+    <tr><td>callForwardingAlways. rerouteTrunkGroup</td><td>(see notes)</td><td>n/a</td><td>Details of target VoIP Trunk Group. Required if "callForwardingAlways. action" is "Reroute".</td></tr>
+    <tr><td>callForwardingAlways. rerouteTrunkGroup. siteId</td><td>(see notes)</td><td>n/a</td><td>siteId of Site containing the reroute target VoIP Trunk Group. Required if "callForwardingAlways. action" is "Reroute".</td></tr>
+    <tr><td>callForwardingAlways. rerouteTrunkGroup. trunkGroupName</td><td>(see notes)</td><td>n/a</td><td>Name of the reroute target VoIP Trunk Group. Required if "callForwardingAlways. action" is "Reroute".</td></tr>
+    <tr><td>peeringDomain</td><td>yes</td><td>n/a</td><td>Peering Domain settings</td></tr>
+    <tr><td>peeringDomain. domainName</td><td>no</td><td>n/a</td><td>Peering Domain</td></tr>
+    <tr><td>peeringDomain. routeToPeeringDomain</td><td>yes</td><td>n/a</td><td>Route To Peering Domain</td></tr>
+    <tr><td>trunkGroupPrefix</td><td>yes</td><td>n/a</td><td>Trunk Group Prefix settings</td></tr>
+    <tr><td>trunkGroupPrefix. enabled</td><td>yes</td><td>n/a</td><td>Enable Trunk Group Prefix.</td></tr>
+    <tr><td>trunkGroupPrefix. prefix</td><td>(see notes)</td><td>n/a</td><td>Trunk Group Prefix. Required when "trunkGroupPrefix. enabled" is true.</td></tr>
+    <tr><td>advancedReroute</td><td>yes</td><td>n/a</td><td>Stateful Trunk Group Rerouting settings</td></tr>
+    <tr><td>advancedReroute. enabled</td><td>yes</td><td>n/a</td><td>Enable Stateful Trunk Group Rerouting</td></tr>
+    <tr><td>advancedReroute. sendContinuousOptionsMessage</td><td>yes</td><td>n/a</td><td>Send Continuous Options Message</td></tr>
+    <tr><td>advancedReroute. continuousOptionsSendingInterval</td><td>yes</td><td>n/a</td><td>Send Continuous Options Message Every (seconds)</td></tr>
+    <tr><td>advancedReroute. failureOptionsSendingInterval</td><td>yes</td><td>n/a</td><td>Send Failure Options Message Every (seconds)</td></tr>
+    <tr><td>advancedReroute. failureThresholdCounter</td><td>yes</td><td>n/a</td><td>Failure Threshold Counter</td></tr>
+    <tr><td>advancedReroute. successThresholdCounter</td><td>yes</td><td>n/a</td><td>Success Threshold Counter</td></tr>
+    <tr><td>advancedReroute. inviteFailureThresholdCounter</td><td>yes</td><td>n/a</td><td>Invite Failure Threshold Counter</td></tr>
+    <tr><td>advancedReroute. inviteFailureThresholdWindow</td><td>yes</td><td>n/a</td><td>Invite Failure Threshold Window</td></tr>
+    <tr><td>pilotUserCallingLineAssertedIdentityPolicy</td><td>yes</td><td>n/a</td><td>Pilot User Calling Line Asserted Identity Policy settings</td></tr>
+    <tr><td>pilotUserCallingLineAssertedIdentityPolicy. useTrunkGroupCallingLineAssertedIdentityPolicy</td><td>yes</td><td>n/a</td><td>If true, use Trunk Group's Pilot User Calling Line Asserted Identity Policy. Otherwise, use the Customer's policy.</td></tr>
+    <tr><td>pilotUserCallingLineAssertedIdentityPolicy.  callingLineAssertedIdentityPolicy</td><td>yes</td><td>n/a</td><td>Use this Trunk Group Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'}</td></tr>
+    <tr>
+        <td>extensions</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Container for network-element specific properties</td>
+    </tr>
+    <tr>
+        <td>extensions.broadworks</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>
+            Container for BroadWorks-specific properties.<br />
+            Details of the BroadWorks-specific properties:
+            <table border=1>
+                <thead>
+                <th>Property</th>
+                <th>Required?</th>
+                <th>Default</th>
+                <th>Description</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>resourceId</td>
+                        <td>no</td>
+                        <td>n/a</td>
+                        <td>The name for the new BroadWorks trunk group.<br />
+                        If present it overwrites the generated value from the name.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
     </tbody>
 </table>
+
+##Response Properties - 201 Created
+
+For the Trunk Group Add process besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.<br />
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Mandatory</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>trunkGroupId</td>
+            <td>Loki Server VoIP Id of the new BroadWorks Trunk Group.</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>customerId</td>
+            <td>Loki Server VoIP Id of the Customer in which the new VoIP Trunk Group was created.</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td>Loki Server VoIP Id of the Site in which the new VoIP Trunk Group was created.</td>
+            <td>Yes</td>
+        </tr>
+       <tr>
+            <td>extensions. broadworks. resourceId</td>
+            <td>BroadWorks ID of the new Trunk Group.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>_embedded. ls:pilot-users</td>
+            <td>HAL representation of the created Pilot User (a VoIP User resource representation).</td>
+            <td>Yes</td>
+       </tr>
+    </tbody>
+</table>
+
 POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 {
-    "trunkGroupName": "ExampleCom Trunk 3001",
+    "name": "ExampleCom Trunk 3001",
     "department": "Sales",
     "accessDevice": {
         "deviceManagementRoutine": "create",
@@ -3897,6 +3974,11 @@ POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                 "forwardToPhoneNumber": "+1-2405553101"
             }
         }
+    },
+    "extensions": {
+        "broadworks": {
+            "resourceId": "ExampleCom Trunk 3001"
+        }
     }
 }
 < 201
@@ -3963,20 +4045,18 @@ POST /customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                     }
                 },
                 "customerId": "ExampleCom",
-                "siteId": "ExampleCom",
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
-                        "templated": true
-                    }
-                ]
+                "siteId": "ExampleCom"
             }
         ]
     },
     "customerId": "ExampleCom",
     "siteId": "ExampleCom",
-    "trunkGroupName": "ExampleCom Trunk 3001",
+    "trunkGroupId": "ExampleCom Trunk 3001",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "ExampleCom Trunk 3001"
+        }
+    },
     "curies": [
         {
             "name": "ls",
@@ -10312,7 +10392,14 @@ PUT /loki/users/{+userId}/call-processing-policy
 
 POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 {
-	"request": {
+    "requestURITemplate": {
+        "title": "VoIP Entity - VoIP Trunk Group create request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+	"requestBody": {
 		"post": {
 			"body": {
 				"id": "voipTrunkGroupsBody",
@@ -10321,45 +10408,17 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 				"additionalProperties": false,
 				"title": "Post schema, body",
 				"properties": {
-					"trunkGroupName": {
-						"type": "string",
-						"minLength": 1,
-						"maxLength": 30,
-						"required": true
-					},
+					"name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
 					"accessDevice": {
 						"type": "object",
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"deviceManagementRoutine": {
-								"enum": [
-									"create",
-									"existing"
-								]
-							},
-							"level": {
-								"enum": [
-									"Site"
-								],
-								"required": true
-							},
-							"deviceType": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 40
-							},
-							"deviceName": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 40,
-								"required": true
-							},
-							"hostname": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 80
-							}
+							"deviceManagementRoutine": { "enum": [ "create", "existing" ] },
+							"level": { "enum": [ "Site" ], "required": true },
+							"deviceType": { "type": "string", "minLength": 1, "maxLength": 40 },
+							"deviceName": { "type": "string", "minLength": 1, "maxLength": 40, "required": true },
+							"hostname": { "type": "string", "minLength": 1, "maxLength": 80 }
 						}
 					},
 					"pilotUser": {
@@ -10367,47 +10426,15 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"customerId": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 30
-							},
-							"siteId": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 30
-							},
-							"userId": {
-								"$ref": "/userId"
-							},
-							"phoneNumber": {
-								"$ref": "/bwksDnSchema"
-							},
-							"tnRoutine": {
-								"$ref": "/tnRoutineWithNoNumber"
-							},
-							"extension": {
-								"type": [
-									"string",
-									"null"
-								],
-								"minLength": 2,
-								"maxLength": 20,
-								"pattern": "^[0-9]+$"
-							},
-							"CLID": {
-								"$ref": "/bwksDnSchema"
-							},
-							"lastName": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 30
-							},
-							"firstName": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 30
-							},
+							"customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
+							"siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+							"userId": { "$ref": "/userId" },
+							"phoneNumber": { "$ref": "/bwksDnSchema" },
+							"tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+							"extension": { "type": [ "string", "null" ], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+							"CLID": { "$ref": "/bwksDnSchema" },
+							"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
+							"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
 							"callingLineIdLastName": {
 								"type": "string",
 								"minLength": 1,
@@ -10420,42 +10447,19 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"maxLength": 30,
 								"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
 							},
-							"email": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 80,
-								"format": "email"
-							},
-							"timeZone": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 127
-							},
-							"language": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 40
-							},
-							"role": {
-								"type": "any"
-							},
+							"email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
+							"timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+							"language": { "type": "string", "minLength": 1, "maxLength": 40 },
+							"role": { "type": "any" },
 							"servicePacks": {
 								"type": "object",
 								"additionalProperties": false,
 								"description": "Service Packs that will be assigned to User",
 								"properties": {
-									"base": {
-										"type": "string",
-										"minLength": 1,
-										"maxLength": 80
-									},
+									"base": { "type": "string", "minLength": 1, "maxLength": 80 },
 									"add-on": {
 										"type": "array",
-										"items": {
-											"type": "string",
-											"minLength": 1,
-											"maxLength": 80
-										}
+										"items": { "type": "string", "minLength": 1, "maxLength": 80 }
 									}
 								}
 							},
@@ -10466,16 +10470,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 										"type": "object",
 										"additionalProperties": false,
 										"properties": {
-											"username": {
-												"type": "string",
-												"minLength": 1,
-												"maxLength": 80
-											},
-											"password": {
-												"type": "string",
-												"minLength": 1,
-												"maxLength": 60
-											}
+											"username": { "type": "string", "minLength": 1, "maxLength": 80 },
+											"password": { "type": "string", "minLength": 1, "maxLength": 60 }
 										}
 									},
 									"Charge Number": {
@@ -10495,53 +10491,27 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 													}
 												]
 											},
-											"useChargeNumberForEnhancedTranslations": {
-												"type": "boolean"
-											},
-											"sendChargeNumberToNetwork": {
-												"type": "boolean"
-											},
-											"tnRoutine": {
-												"$ref": "/tnRoutine"
-											}
+											"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
+											"sendChargeNumberToNetwork": { "type": "boolean" },
+											"tnRoutine": { "$ref": "/tnRoutine" }
 										}
 									},
 									"Third-Party Voice Mail Support": {
 										"type": "object",
 										"additionalProperties": false,
 										"properties": {
-											"isActive": {
-												"type": "boolean"
-											},
-											"busyRedirectToVoiceMail": {
-												"type": "boolean"
-											},
-											"noAnswerRedirectToVoiceMail": {
-												"type": "boolean"
-											},
-											"noAnswerNumberOfRings": {
-												"$ref": "/numberOfRings"
-											},
-											"alwaysRedirectToVoiceMail": {
-												"type": "boolean"
-											},
-											"outOfPrimaryZoneRedirectToVoiceMail": {
-												"type": "boolean"
-											},
+											"isActive": { "type": "boolean" },
+											"busyRedirectToVoiceMail": { "type": "boolean" },
+											"noAnswerRedirectToVoiceMail": { "type": "boolean" },
+											"noAnswerNumberOfRings": { "$ref": "/numberOfRings" },
+											"alwaysRedirectToVoiceMail": { "type": "boolean" },
+											"outOfPrimaryZoneRedirectToVoiceMail": { "type": "boolean" },
 											"serverSelection": {
-												"enum": [
-													"Group Mail Server",
-													"User Specific Mail Server"
-												]
+												"enum": [ "Group Mail Server", "User Specific Mail Server" ]
 											},
-											"userServer": {
-												"$ref": "/outgoingDnOrSipUri"
-											},
+											"userServer": { "$ref": "/outgoingDnOrSipUri" },
 											"mailboxIdType": {
-												"enum": [
-													"User Or Group Phone Number",
-													"URL"
-												]
+												"enum": [ "User Or Group Phone Number", "URL" ]
 											},
 											"mailboxURL": {
 												"extends": [
@@ -10562,28 +10532,17 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 										"type": "object",
 										"additionalProperties": false,
 										"properties": {
-											"isActive": {
-												"type": "boolean"
-											},
-											"forwardToPhoneNumber": {
-												"$ref": "/outgoingDnOrSipUri"
-											},
-											"numberOfRings": {
-												"$ref": "/numberOfRings"
-											}
+											"isActive": { "type": "boolean" },
+											"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
+											"numberOfRings": { "$ref": "/numberOfRings" }
 										}
 									},
 									"Call Forwarding Not Reachable": {
 										"type": "object",
 										"additionalProperties": false,
 										"properties": {
-											"isActive": {
-												"type": "boolean",
-												"required": false
-											},
-											"forwardToPhoneNumber": {
-												"$ref": "/outgoingDnOrSipUri"
-											}
+											"isActive": { "type": "boolean" },
+											"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" }
 										}
 									}
 								}
@@ -10596,27 +10555,15 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 										"type": "object",
 										"additionalProperties": false,
 										"properties": {
-											"serviceProviderId": {
-												"type": "string",
-												"minLength": 1,
-												"maxLength": 30
-											},
-											"groupId": {
-												"type": "string",
-												"minLength": 1,
-												"maxLength": 30
-											}
+											"serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
+											"groupId": { "type": "string", "minLength": 1, "maxLength": 30 }
 										}
 									}
 								}
 							}
 						}
 					},
-					"department": {
-						"type": "string",
-						"minLength": 1,
-						"maxLength": 50
-					},
+					"department": { "type": "string", "minLength": 1, "maxLength": 50 },
 					"capacityManagement": {
 						"type": "object",
 						"required": true,
@@ -10627,21 +10574,9 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"required": true,
 								"additionalProperties": false,
 								"properties": {
-									"total": {
-										"type": "integer",
-										"minimum": 1,
-										"required": true
-									},
-									"incoming": {
-										"type": "integer",
-										"minimum": 1,
-										"maximum": 999999
-									},
-									"outgoing": {
-										"type": "integer",
-										"minimum": 1,
-										"maximum": 999999
-									}
+									"total": { "type": "integer", "minimum": 1, "required": true },
+									"incoming": { "type": "integer", "minimum": 1, "maximum": 999999 },
+									"outgoing": { "type": "integer", "minimum": 1, "maximum": 999999 }
 								}
 							},
 							"burstingMaxActiveCalls": {
@@ -10649,24 +10584,10 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"required": true,
 								"additionalProperties": false,
 								"properties": {
-									"enabled": {
-										"$ref": "/requiredBoolean"
-									},
-									"total": {
-										"type": "integer",
-										"minimum": 0,
-										"maximum": 999999
-									},
-									"incoming": {
-										"type": "integer",
-										"minimum": 0,
-										"maximum": 999999
-									},
-									"outgoing": {
-										"type": "integer",
-										"minimum": 0,
-										"maximum": 999999
-									}
+									"enabled": { "$ref": "/requiredBoolean" },
+									"total": { "type": "integer", "minimum": 0, "maximum": 999999 },
+									"incoming": { "type": "integer", "minimum": 0, "maximum": 999999 },
+									"outgoing": { "type": "integer", "minimum": 0, "maximum": 999999 }
 								}
 							},
 							"incomingCapacityExceeded": {
@@ -10674,25 +10595,11 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"required": true,
 								"additionalProperties": false,
 								"properties": {
-									"action": {
-										"$ref": "/trunkingActions"
-									},
-									"forwardAddress": {
-										"$ref": "/outgoingDnOrSipUri"
-									},
-									"rerouteTrunkGroup": {
-										"$ref": "/rerouteTrunkGroup"
-									},
-									"initialCalls": {
-										"type": "integer",
-										"minimum": 0,
-										"required": true
-									},
-									"offsetCalls": {
-										"type": "integer",
-										"minimum": 0,
-										"required": true
-									}
+									"action": { "$ref": "/trunkingActions" },
+									"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
+									"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" },
+									"initialCalls": { "type": "integer", "minimum": 0, "required": true },
+									"offsetCalls": { "type": "integer", "minimum": 0, "required": true }
 								}
 							}
 						}
@@ -10702,21 +10609,10 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"timeout": {
-								"type": "integer",
-								"minimum": 0,
-								"maximum": 15,
-								"required": true
-							},
-							"action": {
-								"$ref": "/trunkingActions"
-							},
-							"forwardAddress": {
-								"$ref": "/outgoingDnOrSipUri"
-							},
-							"rerouteTrunkGroup": {
-								"$ref": "/rerouteTrunkGroup"
-							}
+							"timeout": { "type": "integer", "minimum": 0, "maximum": 15, "required": true },
+							"action": { "$ref": "/trunkingActions" },
+							"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
+							"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" }
 						}
 					},
 					"authentication": {
@@ -10724,24 +10620,12 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"enabled": {
-								"$ref": "/requiredBoolean"
-							},
-							"username": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 80
-							},
-							"password": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 60
-							}
+							"enabled": { "$ref": "/requiredBoolean" },
+							"username": { "type": "string", "minLength": 1, "maxLength": 80 },
+							"password": { "type": "string", "minLength": 1, "maxLength": 60 }
 						}
 					},
-					"hostedUsers": {
-						"type": "array"
-					},
+					"hostedUsers": { "type": "array" },
 					"identity": {
 						"type": "object",
 						"required": true,
@@ -10752,18 +10636,10 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"required": true,
 								"additionalProperties": false,
 								"properties": {
-									"identity": {
-										"$ref": "/bwksSipUri"
-									},
-									"allowTerminationToTrunkGroupIdentity": {
-										"$ref": "/requiredBoolean"
-									},
-									"includeTrunkGroupIdentity": {
-										"$ref": "/requiredBoolean"
-									},
-									"includeTrunkGroupIdentityForNetworkCalls": {
-										"$ref": "/requiredBoolean"
-									}
+									"identity": { "$ref": "/bwksSipUri" },
+									"allowTerminationToTrunkGroupIdentity": { "$ref": "/requiredBoolean" },
+									"includeTrunkGroupIdentity": { "$ref": "/requiredBoolean" },
+									"includeTrunkGroupIdentityForNetworkCalls": { "$ref": "/requiredBoolean" }
 								}
 							},
 							"otgDtgIdentity": {
@@ -10771,62 +10647,32 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"required": true,
 								"additionalProperties": false,
 								"properties": {
-									"identity": {
-										"type": "string",
-										"minLength": 1,
-										"maxLength": 80
-									},
-									"allowTerminationToDtgIdentity": {
-										"$ref": "/requiredBoolean"
-									},
-									"includeDtgIdentity": {
-										"$ref": "/requiredBoolean"
-									},
-									"includeOtgIdentityForNetworkCalls": {
-										"$ref": "/requiredBoolean"
-									}
+									"identity": { "type": "string", "minLength": 1, "maxLength": 80 },
+									"allowTerminationToDtgIdentity": { "$ref": "/requiredBoolean" },
+									"includeDtgIdentity": { "$ref": "/requiredBoolean" },
+									"includeOtgIdentityForNetworkCalls": { "$ref": "/requiredBoolean" }
 								}
 							},
-							"enableNetworkAddressIdentity": {
-								"$ref": "/requiredBoolean"
-							}
+							"enableNetworkAddressIdentity": { "$ref": "/requiredBoolean" }
 						}
 					},
-					"allowUnscreenedCalls": {
-						"$ref": "/requiredBoolean"
-					},
-					"allowUnscreenedEmergencyCalls": {
-						"$ref": "/requiredBoolean"
-					},
+					"allowUnscreenedCalls": { "$ref": "/requiredBoolean" },
+					"allowUnscreenedEmergencyCalls": { "$ref": "/requiredBoolean" },
 					"pilotUserCallingLineIdentityPolicy": {
-						"enum": [
-							"All Originating Calls",
-							"Unscreened Originating Calls",
-							"No Calls"
-						],
+						"enum": [ "All Originating Calls", "Unscreened Originating Calls", "No Calls" ],
 						"required": true
 					},
 					"pilotUserChargeNumberPolicy": {
-						"enum": [
-							"All Originating Calls",
-							"Unscreened Originating Calls",
-							"No Calls"
-						],
+						"enum": [ "All Originating Calls", "Unscreened Originating Calls", "No Calls" ],
 						"required": true
 					},
 					"callForwardingAlways": {
 						"type": "object",
 						"additionalProperties": false,
 						"properties": {
-							"action": {
-								"$ref": "/trunkingActions"
-							},
-							"forwardAddress": {
-								"$ref": "/outgoingDnOrSipUri"
-							},
-							"rerouteTrunkGroup": {
-								"$ref": "/rerouteTrunkGroup"
-							}
+							"action": { "$ref": "/trunkingActions" },
+							"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
+							"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" }
 						}
 					},
 					"peeringDomain": {
@@ -10834,14 +10680,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"domainName": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 80
-							},
-							"routeToPeeringDomain": {
-								"$ref": "/requiredBoolean"
-							}
+							"domainName": { "type": "string", "minLength": 1, "maxLength": 80 },
+							"routeToPeeringDomain": { "$ref": "/requiredBoolean" }
 						}
 					},
 					"trunkGroupPrefix": {
@@ -10849,14 +10689,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"enabled": {
-								"$ref": "/requiredBoolean"
-							},
-							"prefix": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 15
-							}
+							"enabled": { "$ref": "/requiredBoolean" },
+							"prefix": { "type": "string", "minLength": 1, "maxLength": 15 }
 						}
 					},
 					"advancedReroute": {
@@ -10864,12 +10698,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"enabled": {
-								"$ref": "/requiredBoolean"
-							},
-							"sendContinuousOptionsMessage": {
-								"$ref": "/requiredBoolean"
-							},
+							"enabled": { "$ref": "/requiredBoolean" },
+							"sendContinuousOptionsMessage": { "$ref": "/requiredBoolean" },
 							"continuousOptionsSendingInterval": {
 								"type": "integer",
 								"minimum": 30,
@@ -10913,18 +10743,26 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"useTrunkGroupCallingLineAssertedIdentityPolicy": {
-								"$ref": "/requiredBoolean"
-							},
+							"useTrunkGroupCallingLineAssertedIdentityPolicy": { "$ref": "/requiredBoolean" },
 							"callingLineAssertedIdentityPolicy": {
-								"enum": [
-									"All Originating Calls",
-									"Unscreened Originating Calls"
-								],
+								"enum": [ "All Originating Calls", "Unscreened Originating Calls" ],
 								"required": true
 							}
 						}
-					}
+					},
+					"extensions": {
+        				"type": "object",
+        				"additionalProperties": false,
+        				"properties": {
+        					"broadworks": {
+        						"type": "object",
+        						"additionalProperties": false,
+        						"properties": {
+        							"resourceId": { "type": "string",  "minLength": 1,  "maxLength": 30  }
+        						}
+        					}
+        				}
+        			}
 				}
 			}
 		}
@@ -10999,7 +10837,216 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 			"required": false
 		}
 	},
-	"response": {}
+	"response": {
+	    "title": "VoIP Trunk Group create response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+			"trunkGroupId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+			"extensions": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"broadworks": {
+						"type": "object",
+						"required": true,
+						"additionalProperties": false,
+						"properties": {
+							"resourceId": { 
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 30,
+                                "required": true 
+                            }
+						}
+					}
+				}
+			},
+			"_embedded": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"ls:pilot-users": {
+						"type": "array",
+						"required": true,
+						"items": {
+						    "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+    							"_links": {
+                    				"type": "object",
+                    				"required": true,
+                    				"properties": {
+                    					"self": {
+                    						"type": "object",
+                    						"required": true,
+                    						"properties": {
+                    							"href": {
+                    								"type": "string",
+                    								"required": true
+                    							}
+                    						}
+                    					}
+                    				}
+                    			},
+                    			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+    							"siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+    							"userId": { "$ref": "/userId", "required": true },
+    							"phoneNumber": { "$ref": "/bwksDnSchema" },
+    							"extension": { "type": [ "string", "null" ], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+    							"CLID": { "$ref": "/bwksDnSchema" },
+    							"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
+    							"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
+    							"callingLineIdLastName": {
+    								"type": "string",
+    								"minLength": 1,
+    								"maxLength": 30,
+    								"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+    							},
+    							"callingLineIdFirstName": {
+    								"type": "string",
+    								"minLength": 1,
+    								"maxLength": 30,
+    								"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+    							},
+    							"email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
+    							"timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+    							"language": { "type": "string", "minLength": 1, "maxLength": 40 },
+    							"role": { "type": "any" },
+    							"servicePacks": {
+    								"type": "object",
+    								"additionalProperties": false,
+    								"description": "Service Packs that will be assigned to User",
+    								"properties": {
+    									"base": { "type": "string", "minLength": 1, "maxLength": 80 },
+    									"add-on": {
+    										"type": "array",
+    										"items": { "type": "string", "minLength": 1, "maxLength": 80 }
+    									}
+    								}
+    							},
+    							"services": {
+    								"type": "object",
+    								"properties": {
+    									"Authentication": {
+    										"type": "object",
+    										"additionalProperties": false,
+    										"properties": {
+    											"username": { "type": "string", "minLength": 1, "maxLength": 80 },
+    											"password": { "type": "string", "minLength": 1, "maxLength": 60 }
+    										}
+    									},
+    									"Charge Number": {
+    										"type": "object",
+    										"additionalProperties": false,
+    										"properties": {
+    											"phoneNumber": {
+    												"extends": [
+    													{
+    														"$ref": "/bwksDnSchema"
+    													},
+    													{
+    														"type": [
+    															"string",
+    															"null"
+    														]
+    													}
+    												]
+    											},
+    											"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
+    											"sendChargeNumberToNetwork": { "type": "boolean" },
+    											"tnRoutine": { "$ref": "/tnRoutine" }
+    										}
+    									},
+    									"Third-Party Voice Mail Support": {
+    										"type": "object",
+    										"additionalProperties": false,
+    										"properties": {
+    											"isActive": { "type": "boolean" },
+    											"busyRedirectToVoiceMail": { "type": "boolean" },
+    											"noAnswerRedirectToVoiceMail": { "type": "boolean" },
+    											"noAnswerNumberOfRings": { "$ref": "/numberOfRings" },
+    											"alwaysRedirectToVoiceMail": { "type": "boolean" },
+    											"outOfPrimaryZoneRedirectToVoiceMail": { "type": "boolean" },
+    											"serverSelection": {
+    												"enum": [ "Group Mail Server", "User Specific Mail Server" ]
+    											},
+    											"userServer": { "$ref": "/outgoingDnOrSipUri" },
+    											"mailboxIdType": {
+    												"enum": [ "User Or Group Phone Number", "URL" ]
+    											},
+    											"mailboxURL": {
+    												"extends": [
+    													{
+    														"$ref": "/bwksSipUri"
+    													},
+    													{
+    														"type": [
+    															"string",
+    															"null"
+    														]
+    													}
+    												]
+    											}
+    										}
+    									},
+    									"Call Forwarding No Answer": {
+    										"type": "object",
+    										"additionalProperties": false,
+    										"properties": {
+    											"isActive": { "type": "boolean" },
+    											"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
+    											"numberOfRings": { "$ref": "/numberOfRings" }
+    										}
+    									},
+    									"Call Forwarding Not Reachable": {
+    										"type": "object",
+    										"additionalProperties": false,
+    										"properties": {
+    											"isActive": { "type": "boolean" },
+    											"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" }
+    										}
+    									}
+    								}
+    							}
+							}
+						}
+					}
+				}
+			}
+        }
+	}
 }
 
 POST /loki/sites/{+siteId}/phone-numbers/activate
