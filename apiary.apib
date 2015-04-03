@@ -1557,7 +1557,7 @@ Process Name: Create Customer (VoIP Entity)
     <tr><td>broadworks</td><td>no</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>serviceProviderId</td><td>no</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise.<br>If present in the request body, it overwrites the serviceProviderId value that was generated from the name parameter</td></tr>
+    <tr><td>resourceId</td><td>no</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise.<br>If present in the request body, it overwrites the serviceProviderId value that was generated from the name parameter</td></tr>
     <tr><td>isEnterprise</td><td>no</td><td>true</td><td>Determines if service provider or enterprise will be created</td></tr>
     <tr><td>hostingNe</td><td>no</td><td>n/a</td><td>hostingNE of Broadworks Application Server.<br>BroadWorks cluster ID. Must match to one of hostingNe's specified in the Loki Server configuration. When omitted, default cluster is used</td></tr>
     <tr><td>useCustomRoutingProfile</td><td>no</td><td>n/a</td><td>Required when extensions.broadworks.isEnterprise is false. Otherwise should be omitted</td></tr>
@@ -1582,7 +1582,7 @@ Process Name: Create Customer (VoIP Entity)
     <tr><td>broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>serviceProviderId</td><td>yes</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise</td></tr>
+    <tr><td>resourceId</td><td>yes</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise</td></tr>
     <tr><td>isEnterprise</td><td>no</td><td>n/a</td><td>Presents in the response if not provided in the request</td></tr>
     <tr><td>hostingNe</td><td>no</td><td>n/a</td><td>hostingNE of Broadworks Application Server.<br>Presents in the response if not provided in the request</td></tr>
     </tbody>
@@ -1674,7 +1674,7 @@ POST /customers{?mode}
     "defaultDomain": "voip.example.net",
     "extensions": {
         "broadworks": {
-            "serviceProviderId": "Example Com",
+            "resourceId": "Example Com",
             "isEnterprise": true,
             "hostingNe": "REL17AS"
         }
@@ -12428,4 +12428,131 @@ PUT /loki/users/{+userId}/services/Intercept%20User
         }
     },
     "response": {}
+}
+
+POST /loki/customers{?mode}
+{
+    "requestURIQuery": {
+        "title": "Create Customer request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+    "requestBody": {
+        "title": "Create Customer request body properties",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "name": { "type": "string", "minLength": 1, "maxLength": 80, "required": true },
+            "defaultDomain": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 80, 
+                "pattern": "^[a-zA-Z0-9.-]+$"
+            },
+            "supportEmail": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
+            "contact": {
+                "type": "object",
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "number": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" }
+                }
+            },
+            "address": {
+                "type": "object",
+                "properties": {
+                    "addressLine1": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "addressLine2": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "city": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "stateOrProvince": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "zipOrPostalCode": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "country": { "type": "string", "minLength": 1, "maxLength": 50 }
+                }
+            },
+            "networkClassesOfService": { 
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "default": { "type": "string", "minLength": 1, "maxLength": 40 }
+                }
+            },
+            "extensions": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": { 
+                            "resourceId": { 
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 30,
+                                "pattern": "^[^%+/#:\\'\"]+$"
+                            },
+                            "isEnterprise": { "type": "boolean" },
+                            "hostingNe": { "type": "string", "minLength": 1, "maxLength": 40 },
+                            "useCustomRoutingProfile": { "type": "boolean" }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "response": {
+        "title": "Create Customer response properties",
+        "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			},
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "defaultDomain": {"type": "string", "minLength": 1, "maxLength": 80, "pattern":"^[a-zA-Z0-9.-]+$" },
+            "extensions": {
+                "type": "object",
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "properties": {
+                            "resourceId": { 
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 30,
+                                "pattern": "^[^%+/#:\\'\"]+$",
+                                "required": true
+                            },
+                            "isEnterprise": { "type": "boolean" },
+                            "hostingNe": { "type": "string", "minLength": 1, "maxLength": 40 }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
