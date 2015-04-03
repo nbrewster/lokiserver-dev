@@ -1382,7 +1382,7 @@ GET /customers{?extensions.broadworks.serviceProviderId}
     "extensions": {
         "broadworks": {
             "isEnterprise": true,
-            "serviceProviderId": "Example Com"
+            "resourceId": "Example Com"
         }
     },
     "curies": [
@@ -1445,7 +1445,7 @@ Process Name: Retrieve Customer (VoIP Entity)
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
     <tr><td>isEnterprise</td><td>yes</td><td>n/a</td><td>True if BroadWorks entity is enterprise, false if it is service provider</td></tr>
-    <tr><td>serviceProviderId</td><td>yes</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise</td></tr>
+    <tr><td>resourceId</td><td>yes</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise</td></tr>
     <tr><td>useCustomRoutingProfile</td><td>no</td><td>n/a</td><td>Appears for service providers only</td></tr>
     </tbody>
 </table></td></tr>
@@ -1488,7 +1488,7 @@ GET /customers/{+customerId}
     "extensions": {
         "broadworks": {
             "isEnterprise": true,
-            "serviceProviderId": "Example Com"
+            "resourceId": "Example Com"
         }
     },
     "curies": [
@@ -9245,14 +9245,14 @@ POST /loki/routes
     { }
 }
 
-GET /loki/customers{?extensions.broadworks.serviceProviderId}
+GET /loki/customers/{+customerId}
 {
-    "requestURIQuery": {
-        "title": "Retrieve Customer request URI Query parameters schema",
+    "requestURITemplate": {
+        "title": "Retrieve Customer request URI template parameters schema",
         "properties": {
-			"extensions.broadworks.serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
-		}
-	},
+            "customerId": { "type": "string", "minLength": 1, "required": true }
+        }
+    },
 	"response": {
 	    "title": "Retrieve Customer response body parameters schema",
 	    "type": "object",
@@ -9305,7 +9305,7 @@ GET /loki/customers{?extensions.broadworks.serviceProviderId}
                     "properties": {
                         "broadworks": {
                             "isEnterprise": { "type": "boolean" },
-                            "serviceProviderId": { "type": "string",  "minLength": 1, "maxLength": 30, "required": true }
+                            "resourceId": { "type": "string",  "minLength": 1, "maxLength": 30, "required": true }
                         }
                     }
                 }
