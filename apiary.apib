@@ -1943,11 +1943,11 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     </thead>
     <tbody>
         <tr>
-            <td>siteName</td>
+            <td>name</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
             <td>Suggested name for the new site. In the default configuration, this will be used as the group name for the underlying BroadWorks group.<br />
-            The siteName property will also be used to generate the BroadWorks groupId by stripping invalid characters and truncating the result to maximum 30 characters.
+            The name property will also be used to generate the BroadWorks groupId by stripping invalid characters and truncating the result to maximum 30 characters.
             </td>
         </tr>
         <tr>
@@ -2153,11 +2153,11 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     </thead>
                     <tbody>
                         <tr>
-                            <td>groupId</td>
+                            <td>resourceId</td>
                             <td style="text-align: center;">no</td>
                             <td>n/a</td>
                             <td>The groupId for the new BroadWorks group.<br />
-                            If present it overwrites the generated value from the siteName.
+                            If present it overwrites the generated value from the name property.
                             </td>
                         </tr>
                         <tr>
@@ -2360,11 +2360,7 @@ Besides the properties listed in the table below, the response also contains the
             </td>
        </tr>
        <tr>
-            <td>extensions.broadworks.serviceProviderId</td>
-            <td>The ID of the BroadWorks Service Provider/ Enterprise in which the group was created.</td>
-       </tr>
-       <tr>
-            <td>extensions.broadworks.groupId</td>
+            <td>extensions.broadworks.resourceId</td>
             <td>The ID of the created BroadWorks Group.</td>
        </tr>
        <tr>
@@ -2380,7 +2376,7 @@ Besides the properties listed in the table below, the response also contains the
 
 POST /customers/{+customerId}/sites{?mode}
 {
-    "siteName": "Example Com - North",
+    "name": "Example Com - North",
     "defaultDomain": "example.com",
     "userLimit": 10,
     "callingLineId": {
@@ -2425,7 +2421,7 @@ POST /customers/{+customerId}/sites{?mode}
     },
     "extensions": {
         "broadworks": {
-            "groupId": "Example Com - North",
+            "resourceId": "Example Com - North",
             "templateGroupId": "BusinessLineBasic"
         }
     }
@@ -2454,8 +2450,7 @@ POST /customers/{+customerId}/sites{?mode}
     },
     "extensions" : {
         "broadworks": {
-	        "serviceProviderId": "Example Com",
-	        "groupId": "Example Com - North"
+	        "resourceId": "Example Com - North"
         }
     }
 }
@@ -9380,7 +9375,7 @@ POST /loki/customers/{+customerId}/sites{?mode}
         "type": "object",
         "additionalProperties": false,
         "properties": {
-            "siteName": { "type": "string", "minLength": 1, "maxLength": 80, "required": true },
+            "name": { "type": "string", "minLength": 1, "maxLength": 80, "required": true },
             "defaultDomain": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[a-zA-Z0-9.-]+$" },
             "userLimit": { "type": "integer", "minimum": 1, "maximum": 999999, "required": true },
             "callingLineId": {
@@ -9429,7 +9424,12 @@ POST /loki/customers/{+customerId}/sites{?mode}
                         "type": "object",
                         "additionalProperties": false,
                         "properties": {
-                            "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
+                            "resourceId": { 
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 30, 
+                                "pattern": "^[^%+/;:\\'\"]+$" 
+                            },
                             "templateGroupId": { "type": "string", "minLength": 1, "maxLength": 30 }
                         }
                     }
@@ -9540,8 +9540,7 @@ POST /loki/customers/{+customerId}/sites{?mode}
                     "type": "object",
                     "properties": {
                         "broadworks": {
-                            "serviceProviderId": { "type": "string",  "minLength": 1, "maxLength": 30, "required": true },
-                            "groupId": { "type": "string",  "minLength": 1, "maxLength": 30, "required": true }
+                            "resourceId": { "type": "string",  "minLength": 1, "maxLength": 30, "required": true }
                         }
                     }
                 }
