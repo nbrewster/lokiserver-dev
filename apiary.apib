@@ -1786,6 +1786,334 @@ DELETE /customers/{+customerId}
 < Transaction-Id: 1380080943120
 
 --
+Customer Administrators
+##Collection
+
+Supported network elements:
+
+* BroadWorks Application Server
+* LWS-SOAP
+
+Keys:
+
+* customerId
+* customerAdministratorId
+
+Extension Keys:
+
+* (none)
+--
+
+Create a new Administrator in the specified VoIP Customer.<br />
+In the initial implementation a Customer Administrator is composed of a single BroadWorks Service Provider/Enterprise Administrator.<br />
+Process name: Customer Admin Add via LWS-SOAP (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Query Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mode</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Controls execution mode.<br />
+            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
+            <b>Note: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+## URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the Administrator should be created.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>name</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>The clients suggested name for the resource.<br />
+            It is used for constructing the BroadWorks Id of the Customer Administrator</td>
+        </tr>
+        <tr>
+            <td>firstName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>First name.</td>
+        </tr>
+        <tr>
+            <td>lastName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Last name.</td>
+        </tr>
+        <tr>
+            <td>language</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>LWS-SOAP configured languages/default/value</td>
+            <td>Language.</td>
+        </tr>
+        <tr>
+            <td>password</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Password.<br />
+            <b>Note: If it is omitted LWS-SOAP will generate it.</b></td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>Normal</td>
+            <td>Administrator type.<br />
+            <b>Note: “Normal” value for this property resolves to “Service Provider” type in BroadWorks</b>
+            </td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Email address.<br />
+            <b>Note: Not provisioned to BroadWorks. Used only for external integration via an orchestration system.</b>
+            </td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Container for network-element specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for BroadWorks-specific properties.<br />
+                Details of the BroadWorks-specific properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>resourceId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>The BroadWorks ID to be set on the new Administrator.<br />
+                            <b>Note: If provided it overrides the value generated from the “name” property.</b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+##Response Properties - 201 Created
+
+For the Create Customer Administrator process besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Mandatory</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerAdministratorId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>The Loki Server ID (server-generated) of the new Customer Administrator.</td>
+        </tr>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the Administrator was created.
+            </td>
+        </tr>
+        <tr>
+            <td>firstName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>First name.</td>
+        </tr>
+        <tr>
+            <td>lastName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>Last name.</td>
+        </tr>
+        <tr>
+            <td>language</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Language.</td>
+        </tr>
+        <tr>
+            <td>password</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Password.</td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Administrator type.</td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Container for network-element specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>
+                Container for BroadWorks-specific properties.<br />
+                Details of the BroadWorks-specific properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Mandatory</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>resourceId</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>The BroadWorks ID set on the new Administrator.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+POST /customers/{+customerId}/administrators{?mode}
+> Content-Type: application/json
+{
+    "name": "wsmith@example.com",
+    "firstName": "Will",
+    "lastName": "Smith",
+    "language": "English",
+    "password": "dk6&di9!-0",
+    "type": "Normal",
+    "email": "wsmith@example.com",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "wsmith@example.com"
+        }
+    }
+}
+< 201
+< Location: http://lokiserver.apiary.io/loki/customers/Example%20Com/administrators/wsmith@example.com
+< Transaction-Id: 1380080943120
+< Content-Type: application/hal+json
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com/administrators/wsmith@example.com"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "customerId": "Example Com",
+    "customerAdministratorId": "wsmith@example.com",
+    "firstName": "Will",
+    "lastName": "Smith",
+    "language": "English",
+    "password": "dk6&di9!-0",
+    "type": "Normal",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "wsmith@example.com"
+        }
+    }
+}
+
+Delete a Customer Administrator.<br />
+Process name: Delete Customer Administrator via LWS SOAP(VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer from which the Administrator should be deleted.
+            </td>
+        </tr>
+        <tr>
+            <td>customerAdministratorId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerAdministratorId (server-generated) of the Customer Administrator to be deleted.</td>
+        </tr>
+    </tbody>
+</table>
+
+DELETE /customers/{+customerId}/administrators/{+customerAdministratorId}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4007",
+    "externalErrorSummary": "Error deleting administrator: adminTest",
+    "externalErrorDetail": "[Error 4007] Invalid login ID: adminTest"
+}
+
+--
 Sites
 ##Collection
 
@@ -12555,4 +12883,147 @@ POST /loki/customers{?mode}
             }
         }
     }
+}
+
+POST /loki/customers/{+customerId}/administrators{?mode}
+{
+    "requestURIQuery": {
+        "title": "Create Customer Administrator request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+	"requestURITemplate": {
+        "title": "Create Customer Administrator request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": {
+        "title": "Create Customer Administrator request body properties",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "name": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 80,
+                "pattern": "^[w'#$%&-/=?;.|~!`^{}+]+$",
+                "required": true
+            },
+            "firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+            "password": { "type": "string", "minLength": 1, "maxLength": 60 },
+            "type": { "enum": [ "Normal", "Customer", "Password Reset Only" ] },
+            "email": { "type": "string", "minLength": 1, "maxLength": 254, "format": "email" },
+            "extensions": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": { 
+                            "resourceId": { 
+                                "type": "string",
+                                "minLength": 6,
+                                "maxLength": 80,
+                                "pattern": "^[w'#$%&-/=?;.|~!`^{}+]+$"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "response": {
+        "title": "Create Customer Administrator response properties",
+        "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			},
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "customerAdministratorId": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 80,
+                "pattern": "^[w'#$%&-/=?;.|~!`^{}+]+$",
+                "required": true
+            },
+            "firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "language": { "type": "string", "minLength": 1, "maxLength": 40, "required": true },
+            "password": { "type": "string", "minLength": 1, "maxLength": 60, "required": true },
+            "type": { "enum": [ "Normal", "Customer", "Password Reset Only" ], "required": true },
+            "extensions": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": true,
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": true,
+                        "properties": { 
+                            "resourceId": { 
+                                "type": "string",
+                                "minLength": 6,
+                                "maxLength": 80,
+                                "pattern": "^[w'#$%&-/=?;.|~!`^{}+]+$",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+DELETE /loki/customers/{+customerId}/administrators/{+customerAdministratorId}
+{
+    "requestURITemplate": {
+        "title": "Delete Customer Administrator request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "customerAdministratorId": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 80,
+                "pattern": "^[w'#$%&-/=?;.|~!`^{}+]+$",
+                "required": true
+            }
+        }
+    },
+    "requestBody": { },
+    "response": { }
 }
