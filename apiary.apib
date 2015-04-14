@@ -1326,73 +1326,6 @@ Extension Keys:
 
 * (none)
 --
-
-Retrieve the Customer matching a specific BroadWorks serviceProviderId.
-Can be used to resolve the Loki Server customerId of a Customer when only the
-BroadWorks IDs are known.<br />
-Process name: Retrieve Customer by BroadWorks Key (VoIP Entity)
-
-##URI Query Parameters
-
-<table border=1>
-    <thead>
-    <th>Parameter</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>extensions.broadworks.serviceProviderId</td>
-            <td style="text-align: center; font-weight:bold">yes</td>
-            <td>n/a</td>
-            <td>Corresponds to the serviceProviderId of the service provider (or enterprise) in BroadWorks.
-            </td>
-        </tr>
-    </tbody>
-</table>
-GET /customers{?extensions.broadworks.serviceProviderId}
-< 200
-< Content-Type: application/hal+json
-< Transaction-Id: 1380080943120
-{
-    "_links": {
-        "self": {
-            "href": "http://lokiserver.apiary.io/loki/customers/ExampleCom"
-        }
-    },
-    "customerId": "Example Com",
-    "defaultDomain": "example.com",
-    "customerName": "Example Com Co.",
-    "supportEmail": "support@example.com",
-    "contact": {
-        "name": "Billy",
-        "number": "Bishop",
-        "email": "billy@example.com"
-    },
-    "address": {
-        "addressLine1": "415 Sixth Ave",
-        "addressLine2": "Suite 102",
-        "city": "North Seventh",
-        "stateOrProvince": "Alabama",
-        "zipOrPostalCode": "50415",
-        "country": "USA"
-    },
-    "useServiceProviderLanguages": false,
-    "extensions": {
-        "broadworks": {
-            "isEnterprise": true,
-            "resourceId": "Example Com"
-        }
-    },
-    "curies": [
-        {
-            "name": "ls",
-            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
-            "templated": true
-        }
-    ]
-}
  
  
 <!--------------------------------- GET /customers/{+customerId} ------------------------------->
@@ -2131,11 +2064,11 @@ Extension Keys:
 * (none)
 --
 
-Retrieve the Site matching a specific BroadWorks serviceProviderId and groupId.
-Can be used to resolve the Loki Server customerId/siteId of a Site when only the
-BroadWorks IDs are known.
+Retrieve a Site.<br />
+Process name: Retrieve Site (VoIP Entity Service).<br />
+Rollback-enabled: No.
 
-##URI Query Parameters
+## URI Template Parameters
 
 <table border=1>
     <thead>
@@ -2146,22 +2079,20 @@ BroadWorks IDs are known.
     </thead>
     <tbody>
         <tr>
-            <td>extensions.broadworks.serviceProviderId</td>
+            <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Corresponds to the serviceProviderId of the service provider (or enterprise) in BroadWorks.
-            </td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new Site is located.</td>
         </tr>
         <tr>
-            <td>extensions.broadworks.groupId</td>
+            <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Corresponds to the groupId of the group in BroadWorks.
-            </td>
+            <td>Loki Server siteId (server-generated) of the Site.</td>
         </tr>
     </tbody>
 </table>
-GET /sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
+GET /customers/{+customerId}/sites/{+siteId}
 < 200
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
@@ -2177,9 +2108,10 @@ GET /sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupI
     "userLimit": 25,
     "userCount": 2,
     "siteName": "ExampleCom",
-    "callingLineIdName": "ExampleCom",
-    "callingLineIdPhoneNumber": "+12025555003",
-    "callingLineIdDisplayPhoneNumber": "2025555003",
+    "callingLineId": {
+        "name": "ExampleCom",
+        "phoneNumber": "+12025555003"
+    },
     "timeZone": "US/Eastern",
     "locationDialingCode": "1",
     "contact": {
@@ -2197,8 +2129,7 @@ GET /sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupI
     },
     "extensions": {
         "broadworks": {
-            "serviceProviderId": "ExampleCom",
-            "groupId": "ExampleCom"
+            "resourceId": "ExampleCom"
         }
     },
     "curies": [
@@ -2229,9 +2160,7 @@ Rollback-enabled: Yes.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new Site is to be created.
-            Note this can be resolved from the BroadWorks IDs via GET /loki/customers{?extensions.broadworks.serviceProviderId}.
-            </td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new Site is to be created.</td>
         </tr>
     </tbody>
 </table>
@@ -2828,17 +2757,13 @@ Assigns a TN to a Site based on the specified TN management routine.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new TN is to be assigned.
-            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
-            </td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new TN is to be assigned.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new TN is to be assigned.
-            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
-            </td>
+            <td>Loki Server siteId (server-generated) of the Site in which the new TN is to be assigned.</td>
         </tr>
     </tbody>
 </table>
@@ -3510,17 +3435,13 @@ Rollback-enabled: No; If the VoIP Site Device add fails then there is nothing to
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Site Device is to be created.
-            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
-            </td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Site Device is to be created.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Site Device is to be created.
-            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
-            </td>
+            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Site Device is to be created.</td>
         </tr>
     </tbody>
 </table>
@@ -3908,17 +3829,13 @@ will be rolled back.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Trunk Group is to be created.
-            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
-            </td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Trunk Group is to be created.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Trunk Group is to be created.
-            Note this can be resolved from the BroadWorks IDs via GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}.
-            </td>
+            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Trunk Group is to be created.</td>
         </tr>
     </tbody>
 </table>
@@ -9322,6 +9239,17 @@ CHANGELOG
 
 #2.42
 
+General
+
+ * Added GET /loki/customers/{+customerId}/sites/{+siteId}
+ * Removed GET /loki/customers{?extensions.broadworks.serviceProviderId}
+ * Removed GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
+
+Changes for S2368, 2369, 2295: LWS-REST: Create LWS-SOAP-backed request for Customer Administrator Add, Delete
+
+ * Added POST /loki/customers/{+customerId}/administrators{?mode}
+ * Added DELETE /loki/customers/{+customerId}/administrators/{+customerAdministratorId}
+
 Changes for S2297: LWS-REST: VoIP User Intercept Modify
 
  * Added PUT /loki/users/{+userId}/services/Intercept%20User
@@ -9654,34 +9582,103 @@ GET /loki/customers/{+customerId}
 	}
 }
 
-GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
+GET /loki/customers/{+customerId}/sites/{+siteId}
 {
-	"request": {
-		"get": {
-			"query": {
-				"id": "extensionsBroadworks",
+	"requestURITemplate": {
+        "title": "Retrieve Site request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "required": true }
+        }
+    },
+	"response": {
+	    "title": "Retrieve Site response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
 				"type": "object",
-				"additionalProperties": false,
-				"title": "Get schema, query params",
-				"description": "Validates extensions.broadworks query parameters",
+				"required": true,
 				"properties": {
-					"extensions.broadworks.serviceProviderId": {
-						"type": "string",
-						"minLength": 1,
-						"maxLength": 30,
-						"required": true
-					},
-					"extensions.broadworks.groupId": {
-						"type": "string",
-						"minLength": 1,
-						"maxLength": 30,
-						"required": true
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "required": true },
+			"siteId": { "type": "string", "minLength": 1, "required": true },
+			"siteName": { "type": "string", "minLength": 1, "maxLength": 80 },
+			"callingLineId": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "phoneNumber": { "id": "E.164 DN",
+                        "type": "string",
+                        "description": "A formatted TN.",
+                        "pattern": "^\\+\\d+-\\d+$",
+                        "minLength": 1,
+                        "maxLength": 23
+                    }
+                }
+            },
+            "defaultDomain": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[a-zA-Z0-9.-]+$" },
+            "userLimit": { "type": "integer", "minimum": 1, "maximum": 999999, "required": true },
+            "userCount": { "type": "integer", "minimum": 1, "maximum": 999999, "required": true },
+            "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+            "locationDialingCode": { "type": "string", "minLength": 1, "maxLength": 15, "pattern": "^[0-9]+$" },
+            "contact": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "number": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" }
+                }
+            },
+            "address": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "addressLine1": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "addressLine2": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "city": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "stateOrProvince": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "zipOrPostalCode": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "country": { "type": "string", "minLength": 1, "maxLength": 50 }
+                }
+            },
+			"extensions": {
+                "type": "object",
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "resourceId": { "type": "string",  "minLength": 1, "maxLength": 30, "required": true }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
 					}
 				}
 			}
-		}
-	},
-	"response": {}
+        }
+	}
 }
 
 POST /loki/customers/{+customerId}/sites{?mode}
