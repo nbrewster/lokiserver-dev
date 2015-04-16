@@ -9562,6 +9562,11 @@ General
  * Removed GET /loki/customers{?extensions.broadworks.serviceProviderId}
  * Removed GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
 
+Changes for S2370, 2296, 2371: LWS-REST Site Admin Add, Delete
+
+ * Added POST /loki/customers/{+customerId}/sites/{+siteId}/administrators{?mode}
+ * Added DELETE /loki/customers/{+customerId}/sites/{+siteId}/administrators/{+siteAdministratorId}
+
 Changes for S2368, 2369, 2295: LWS-REST: Create LWS-SOAP-backed request for Customer Administrator Add, Delete
 
  * Added POST /loki/customers/{+customerId}/administrators{?mode}
