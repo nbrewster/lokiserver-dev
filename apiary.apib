@@ -6959,6 +6959,15 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
         </tr>
         <tr>
+            <td>name</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The clients suggested name for the resource. <br /> 
+            It is used for constructing the BroadWorks Auto Attendant ID.<br />
+            <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
+            </td>
+        </tr>
+        <tr>
             <td>profile</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
@@ -7294,7 +7303,10 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>resourceId</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
-                            <td>The ID to be set on the new virtual user. If it is omitted then the userId of the virtual user will be auto-generated.</td>
+                            <td>The ID to be set on the new virtual user. <br />
+                            <b>Note: If provided it overrides the value generated from the "name" property.</b><br />
+                            <b>If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -7411,6 +7423,7 @@ POST /auto-attendants{?mode}
 {
     "customerId": "Example Com",
     "siteId": "Example Com - North",
+    "name": "5551239876@example.com",
     "extensions": {
         "broadworks": {
             "resourceId": "5551239876@example.com"
@@ -7586,6 +7599,15 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Hunt Group is to be created.
             In a default configuration (where a VoIP Hunt Group is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The clients suggested name for the resource. <br /> 
+            It is used for constructing the BroadWorks Hunt Group ID.<br />
+            <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
+            </td>
         </tr>
         <tr>
             <td>profile</td>
@@ -7965,7 +7987,10 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>resourceId</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
-                            <td>The ID to be set on the new virtual user. If it is omitted then the userId of the virtual user will be auto-generated.</td>
+                            <td>The ID to be set on the new virtual user. <br />
+                            <b>Note: If provided it overrides the value generated from the "name" property.</b><br />
+                            <b>If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -8082,6 +8107,7 @@ POST /hunt-groups{?mode}
 {
     "customerId": "Example Com",
     "siteId": "Example Com - North",
+    "name": "5551239876@example.com",
     "extensions": {
         "broadworks": {
             "resourceId": "5551239876@example.com"
@@ -8256,6 +8282,15 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Call Center is to be created.
             In a default configuration (where a VoIP Call Center is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The clients suggested name for the resource. <br /> 
+            It is used for constructing the BroadWorks Call Center ID.<br />
+            <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
+            </td>
         </tr>
         <tr>
             <td>profile</td>
@@ -8671,7 +8706,10 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>resourceId</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
-                            <td>The ID to be set on the new virtual user. If it is omitted then the userId of the virtual user will be auto-generated.</td>
+                            <td>The ID to be set on the new virtual user. <br />
+                            <b>Note: If provided it overrides the value generated from the "name" property.</b><br />
+                            <b>If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -8916,6 +8954,7 @@ POST /call-centers{?mode}
 {
     "customerId": "Example Com",
     "siteId": "Example Com - North",
+    "name": "5551239876@example.com",
     "extensions": {
         "broadworks": {
             "resourceId": "5551239876@example.com"
@@ -9097,6 +9136,15 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Instant Group Call is to be created.
             In a default configuration (where a VoIP Instant Group Call is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>The clients suggested name for the resource. <br /> 
+            It is used for constructing the BroadWorks Instant Group Call ID.<br />
+            <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
+            </td>
         </tr>
         <tr>
             <td>profile</td>
@@ -9329,7 +9377,10 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>resourceId</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
-                            <td>The ID to be set on the new virtual user. If it is omitted then the userId of the virtual user will be auto-generated.</td>
+                            <td>The ID to be set on the new virtual user. <br />
+                            <b>Note: If provided it overrides the value generated from the "name" property.</b><br />
+                            <b>If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -9446,6 +9497,7 @@ POST /instant-group-calls{?mode}
 {
     "customerId": "Example Com",
     "siteId": "Example Com - North",
+    "name": "5551239876@example.com",
     "extensions": {
         "broadworks": {
             "resourceId": "5551239876@example.com"
@@ -9561,6 +9613,7 @@ General
  * Added GET /loki/customers/{+customerId}/sites/{+siteId}
  * Removed GET /loki/customers{?extensions.broadworks.serviceProviderId}
  * Removed GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
+ * Updated the Virtual User Add requests to expose a "name" property 
 
 Changes for S2370, 2296, 2371: LWS-REST Site Admin Add, Delete
 
@@ -12227,6 +12280,12 @@ POST /loki/auto-attendants{?mode}
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "name": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+            },
             "extensions": {
                 "type": "object",
                 "additionalproperties": false,
@@ -12237,7 +12296,12 @@ POST /loki/auto-attendants{?mode}
                         "properties": {
                             "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
                             "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
-                            "resourceId": { "type": "string", "minLength": 1, "maxLength": 161 }
+                            "resourceId": { 
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 161,
+                                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                            }
                         }
                     }
                 }
@@ -12358,7 +12422,13 @@ POST /loki/auto-attendants{?mode}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId":{ "type": "string", "minLength": 1, "maxLength": 161, "required": true }
+                                "resourceId": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 161,
+                                    "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                    "required": true 
+                                }
                             }
                         }
                     }
@@ -12414,6 +12484,12 @@ POST /loki/hunt-groups{?mode}
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "name": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+            },
             "extensions": {
                 "type": "object",
                 "additionalproperties": false,
@@ -12424,7 +12500,12 @@ POST /loki/hunt-groups{?mode}
                         "properties": {
                             "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
                             "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
-                            "resourceId": { "type": "string", "minLength": 1, "maxLength": 161 }
+                            "resourceId": { 
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 161,
+                                "pattern": "^\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                            }
                         }
                     }
                 }
@@ -12557,7 +12638,13 @@ POST /loki/hunt-groups{?mode}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId":{ "type": "string", "minLength": 1, "maxLength": 161, "required": true }
+                                "resourceId": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 161,
+                                    "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                    "required": true 
+                                }
                             }
                         }
                     }
@@ -12613,6 +12700,12 @@ POST /loki/call-centers{?mode}
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "name": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+            },
             "extensions": {
                 "type": "object",
                 "additionalproperties": false,
@@ -12623,7 +12716,12 @@ POST /loki/call-centers{?mode}
                         "properties": {
                             "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
                             "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
-                            "resourceId": { "type": "string", "minLength": 1, "maxLength": 161 }
+                            "resourceId": { 
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 161,
+                                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                            }
                         }
                     }
                 }
@@ -12759,7 +12857,13 @@ POST /loki/call-centers{?mode}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId":{ "type": "string", "minLength": 1, "maxLength": 161, "required": true }
+                                "resourceId": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 161,
+                                    "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                    "required": true 
+                                }
                             }
                         }
                     }
@@ -12843,6 +12947,12 @@ POST /loki/instant-group-calls{?mode}
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+            "name": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+            },
             "extensions": {
                 "type": "object",
                 "additionalproperties": false,
@@ -12853,7 +12963,12 @@ POST /loki/instant-group-calls{?mode}
                         "properties": {
                             "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
                             "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
-                            "resourceId": { "type": "string", "minLength": 1, "maxLength": 161 }
+                            "resourceId": { 
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 161,
+                                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                            }
                         }
                     }
                 }
@@ -12955,7 +13070,13 @@ POST /loki/instant-group-calls{?mode}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId":{ "type": "string", "minLength": 1, "maxLength": 161, "required": true }
+                                "resourceId": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 161,
+                                    "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                    "required": true 
+                                }
                             }
                         }
                     }
