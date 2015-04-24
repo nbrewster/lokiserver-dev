@@ -4702,13 +4702,26 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
         </tr>
         <tr>
-            <td>userId</td>
+            <td>name</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>(varies)</td>
-            <td>Full UserID, including @domain. Will be constructed as [phoneNumber]@[Site default domain] if not provided.<br />
-            Note that in BroadWorks, if the domain matches the BroadWorks system default domain, the BroadWorks
-            userId will not contain an @domain portion. In the Loki Server API, the userId will always include
-            @domain.</td>
+            <td>The clients suggested name for the resource. <br /> 
+            It is used for constructing the BroadWorks User ID.<br />
+            <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the User ID will be auto-generated.</b><br />
+            The following table describes the differences in User ID generation between the two ways of adding a User in LWS-REST:
+            <table border=1>
+                <thead>
+                    <th>Default/Legacy</th>
+                    <th>Alternative</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Generated as [phoneNumber]@[Site default domain]</td>
+                    <td>Generated as specified in LWS-SOAP configuration</td>
+                </tr>
+                <tbody>
+            </table>
+            </td>
         </tr>
         <tr>
             <td>department</td>
@@ -5395,6 +5408,16 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             this property can be used instead of siteId (eliminating the need to know the server-generated siteId
             prior to placing this request).</td>
         </tr>
+        <tr>
+            <td>extensions. broadworks. resourceId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td></td>
+            <td>The ID to be set on the new User. <br />
+        	<b>Note: If provided it overrides the value generated from the "name" property.</b><br />
+        	<b>If both "name" and "extensions.broadworks.resourceId" are omitted then the User ID will be auto-generated 
+        	as described in the "name" property description.</b>
+        	</td>
+        </tr>
     </tbody>
 </table>
 
@@ -5415,9 +5438,9 @@ Note: The default (legacy) request response contains all the properties sent in 
             <td>Yes</td>
        </tr>
        <tr>
-            <td>extensions. broadworks. userId</td>
+            <td>extensions. broadworks. resourceId</td>
             <td>The BroadWorks ID of the new user.</td>
-            <td>Yes (Only for the alternative process)</td>
+            <td>Yes</td>
        </tr>
        <tr>
             <td>extension</td>
@@ -5627,7 +5650,7 @@ POST /users{?mode}
 {
     "customerId" : "a-server-generated-ID",
     "siteId" : "another-server-generated-ID",
-    "userId" : "2005553001@example.com",
+    "name" : "2005553001@example.com",
     "userType" : "businessLine",
     "phoneNumber" : "+1-2005553001",
     "tnRoutine" : "auto",
@@ -5693,7 +5716,8 @@ POST /users{?mode}
     "extensions" : {
         "broadworks" : {
             "serviceProviderId" : "Example Com",
-            "groupId" : "Example Com - North"
+            "groupId" : "Example Com - North",
+            "resourceId" : "2005553001@example.com"
         }
     }
 }
@@ -5782,6 +5806,11 @@ POST /users{?mode}
             "forwardToPhoneNumber" : "+1-2005553101"
         },
         "Remote Office" : { }
+    },
+    "extensions" : {
+        "broadworks" : {
+            "resourceId" : "2005553001@example.com"
+        }
     }
 }
 +++++
@@ -9614,6 +9643,7 @@ General
  * Removed GET /loki/customers{?extensions.broadworks.serviceProviderId}
  * Removed GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
  * Updated the Virtual User Add requests to expose a "name" property 
+ * Updated the POST /loki/users{?mode} request
 
 Changes for S2370, 2296, 2371: LWS-REST Site Admin Add, Delete
 
@@ -10287,7 +10317,7 @@ POST /loki/users{?mode}
 						"minLength": 1,
 						"maxLength": 30
 					},
-					"userId": {
+					"name": {
 						"$ref": "/userId"
 					},
 					"phoneNumber": {
@@ -10567,9 +10597,169 @@ POST /loki/users{?mode}
 										"type": "string",
 										"minLength": 1,
 										"maxLength": 30
-									}
+									},
+									"resourceId": {
+                						"$ref": "/userId"
+                					}
 								}
 							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"responseLegacy": {
+		"title": "Create User response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+			"siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+			"userId": {
+                "extends":[{
+                    "$ref": "/userId"
+                }, {
+                    "required": true
+                }]
+            },
+			"phoneNumber": { "$ref": "/bwksDnSchema" },
+			"extension": {
+				"type": "string",
+				"minLength": 2,
+				"maxLength": 20,
+				"pattern": "^[0-9]+$"
+			},
+			"CLID": { "$ref": "/bwksDnSchema" },
+			"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
+			"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
+			"callingLineIdLastName": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 30,
+				"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+			},
+			"callingLineIdFirstName": {
+				"type": "string",
+				"minLength": 1,
+				"maxLength": 30,
+				"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+			},
+			"email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
+			"timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+			"language": { "type": "string", "minLength": 1, "maxLength": 40 },
+			"services": {
+				"type": "object",
+				"properties": {
+					"Authentication": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"username": { "type": "string", "minLength": 1, "maxLength": 80 },
+							"password": { "type": "string", "minLength": 1, "maxLength": 60 }
+						}
+					},
+					"Charge Number": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"phoneNumber": {
+								"extends": [ {
+										"$ref": "/bwksDnSchema"
+									}, {
+										"type": [ "string", "null" ] 
+									}
+								]
+							},
+							"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
+							"sendChargeNumberToNetwork": { "type": "boolean" }
+						}
+					},
+					"Third-Party Voice Mail Support": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"isActive": { "type": "boolean" },
+							"busyRedirectToVoiceMail": { "type": "boolean" },
+							"noAnswerRedirectToVoiceMail": { "type": "boolean" },
+							"noAnswerNumberOfRings": { "$ref": "/numberOfRings" },
+							"alwaysRedirectToVoiceMail": { "type": "boolean" },
+							"outOfPrimaryZoneRedirectToVoiceMail": { "type": "boolean" },
+							"serverSelection": { "enum": [ "Group Mail Server", "User Specific Mail Server" ] },
+							"userServer": { "$ref": "/outgoingDnOrSipUri" },
+							"mailboxIdType": { "enum": [ "User Or Group Phone Number", "URL" ] },
+							"mailboxURL": {
+								"extends": [ {
+										"$ref": "/bwksSipUri"
+									},
+									{
+										"type": [ "string", "null" ]
+									}
+								]
+							}
+						}
+					},
+					"Call Forwarding No Answer": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"isActive": { "type": "boolean" },
+							"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
+							"numberOfRings": { "$ref": "/numberOfRings" }
+						}
+					},
+					"Call Forwarding Not Reachable": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"isActive": { "type": "boolean", "required": false },
+							"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" }
+						}
+					}
+				}
+			},
+			"extensions": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"broadworks": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"resourceId": {
+                                "extends":[{
+                                    "$ref": "/userId"
+                                }, {
+                                    "required": true
+                                }]
+                            }
 						}
 					}
 				}
@@ -10583,7 +10773,7 @@ POST /loki/users{?mode}
         "properties": {
             "customerId": {	"type": "string", "minLength": 1, "maxLength": 30 },
 			"siteId": {	"type": "string", "minLength": 1, "maxLength": 30 },
-			"userId": {	"$ref": "/userId" },
+			"name": {	"$ref": "/userId" },
 			"phoneNumber": { "$ref": "/bwksDnSchema" },
 			"tnRoutine": { "$ref": "/tnRoutineWithNoNumber"	},
 			"extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20,	"pattern": "^[0-9]+$" },
@@ -10705,7 +10895,10 @@ POST /loki/users{?mode}
 								"type": "string",
 								"minLength": 1,
 								"maxLength": 30
-							}
+							},
+                            "resourceId": {
+        						"$ref": "/userId"
+        					}
 						}
 					}
 				}
@@ -10732,7 +10925,13 @@ POST /loki/users{?mode}
 					}
 				}
 			},
-			"userId": {	"$ref": "/userId" },
+			"userId": {
+                "extends":[{
+                    "$ref": "/userId"
+                }, {
+                    "required": true
+                }]
+            },
 			"extension": { "type": "string", "minLength": 2, "maxLength": 20,	"pattern": "^[0-9]+$" },
 			"lastName": { "type": "string",	"minLength": 1,	"maxLength": 30 },
 			"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
@@ -10772,13 +10971,21 @@ POST /loki/users{?mode}
 			"extensions": {
 				"type": "object",
 				"additionalProperties": false,
+				"required": true,
 				"properties": {
 					"broadworks": {
 						"type": "object",
 						"additionalProperties": false,
+						"required": true,
 						"properties": {
-							"userId": {	"$ref": "/userId" }
-						}
+                            "resourceId": {
+                                "extends":[{
+                                    "$ref": "/userId"
+                                }, {
+                                    "required": true
+                                }]
+                            }
+                        }
 					}
 				}
 			},
