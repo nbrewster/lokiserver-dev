@@ -6580,6 +6580,17 @@ For the "Swap User Device via LWS SOAP (VoIP Entity) " besides the properties li
 </table>
 
 POST /users/{+userId}/swapDevice
+> Content-Type: application/json
+>
+{
+	"accessDevice": {
+	        "deviceManagementRoutine": "create",
+	        "name": "Example Com AD3001",
+	        "type": "Adtran TA908",
+	        "model": "Adtran TA908 Example Model",
+	        "keepDevice": false
+	}
+}
 < 200
 < Transaction-Id: 1380080943120
 < Content-Type: application/json
