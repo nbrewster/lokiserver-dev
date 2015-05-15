@@ -4717,7 +4717,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 <tbody>
                 <tr>
                     <td>Generated as [phoneNumber]@[Site default domain]</td>
-                    <td>Generated as specified in LWS-SOAP configuration</td>
+                    <td>Generated following config pattern.</td>
                 </tr>
                 <tbody>
             </table>
@@ -5503,6 +5503,11 @@ Note: The default (legacy) request response contains all the properties sent in 
             <td>no</td>
        </tr>
        <tr>
+            <td>uniqueId</td>
+            <td>Unique asset value.</td>
+            <td>Yes (Only for the alternative process)</td>
+       </tr>
+       <tr>
             <td>_warnings</td>
             <td>Placeholder for warnings returned by the external API (LWS-SOAP)</td>
             <td>no</td>
@@ -5751,6 +5756,7 @@ POST /users{?mode}
     "callingLineIdFirstName" : "John",
     "timeZone" : "America/New_York",
     "language" : "English",
+    "uniqueId" : "138008094312048295",
     "_embedded": {
         "ls:site-devices": [
             {
@@ -7640,6 +7646,11 @@ For the Create Auto Attendant process besides the properties listed in the table
             </td>
         </tr>
         <tr>
+            <td>uniqueId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Unique asset value.</td>
+        </tr>
+        <tr>
             <td>extensions</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>Container for network-element specific properties</td>
@@ -7718,7 +7729,8 @@ POST /auto-attendants{?mode}
         },
         "publicServiceIdentity": "5551239876@example.com",
         "extension": "9876"
-    },   
+    },
+    "uniqueId": "138008094312098236",
     "extensions" : {
         "broadworks": {
             "resourceId": "5551239876@example.com"
@@ -8324,6 +8336,11 @@ For the Create Hunt Group process besides the properties listed in the table bel
             </td>
         </tr>
         <tr>
+            <td>uniqueId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Unique asset value.</td>
+        </tr>
+        <tr>
             <td>extensions</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>Container for network-element specific properties</td>
@@ -8401,7 +8418,8 @@ POST /hunt-groups{?mode}
         },
         "publicServiceIdentity": "5551239876@example.com",
         "extension": "9876" 
-    },    
+    },
+    "uniqueId": "138008094312037582"
     "extensions" : {
         "broadworks": {
             "resourceId": "5551239876@example.com"
@@ -9171,6 +9189,11 @@ For the Create Call Center process besides the properties listed in the table be
             </td>
         </tr>
         <tr>
+            <td>uniqueId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Unique asset value.</td>
+        </tr>
+        <tr>
             <td>extensions</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>Container for network-element specific properties</td>
@@ -9264,7 +9287,8 @@ POST /call-centers{?mode}
     "bandwidthAndQoS": {
         "externalPreferredAudioCodec": "None",
         "internalPreferredAudioCodec": "None"
-    },    
+    },
+    "uniqueId": "138008094312043748",
     "extensions" : {
         "broadworks": {
             "resourceId": "5551239876@example.com"
@@ -9714,6 +9738,11 @@ For the Create Instant Group Call process besides the properties listed in the t
             </td>
         </tr>
         <tr>
+            <td>uniqueId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Unique asset value.</td>
+        </tr>
+        <tr>
             <td>extensions</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>Container for network-element specific properties</td>
@@ -9792,6 +9821,7 @@ POST /instant-group-calls{?mode}
         "publicServiceIdentity": "5551239876@example.com",
         "extension": "9876"
     },
+    "uniqueId": "138008094312048393",
     "extensions" : {
         "broadworks": {
             "resourceId": "5551239876@example.com"
@@ -11215,6 +11245,7 @@ POST /loki/users{?mode}
 					}
 				}
 			},
+			"uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
 			"_embedded": {
 				"type": "object",
 				"properties": {
@@ -12939,6 +12970,7 @@ POST /loki/auto-attendants{?mode}
                     "publicServiceIdentity": { "$ref": "/bwksSipUri" }
                 }
             },
+            "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
             "extensions": {
                 "type": "object",
                 "required": true,
@@ -13155,6 +13187,7 @@ POST /loki/hunt-groups{?mode}
                     "publicServiceIdentity": { "$ref": "/bwksSipUri" }
                 }
             },
+            "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
             "extensions": {
                 "type": "object",
                 "required": true,
@@ -13374,6 +13407,7 @@ POST /loki/call-centers{?mode}
                     "publicServiceIdentity": { "$ref": "/bwksSipUri" }
                 }
             },
+            "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
             "extensions": {
                 "type": "object",
                 "required": true,
@@ -13587,6 +13621,7 @@ POST /loki/instant-group-calls{?mode}
                     "publicServiceIdentity": { "$ref": "/bwksSipUri" }
                 }
             },
+            "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
             "extensions": {
                 "type": "object",
                 "required": true,
