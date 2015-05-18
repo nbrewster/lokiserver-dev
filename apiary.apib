@@ -5964,7 +5964,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>department</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>User department.</td>
+            <td>User department.<br />
+            <b>Not Implemented</b></td>
         </tr>
         <tr>
             <td>language</td>
@@ -6097,7 +6098,6 @@ PUT /users/{+userId}
     "firstName": "John",
     "language": "English",
     "email": "jsmith@example.com",
-    "department": "Sales",
     "CLID": "+1-6502342177",
     "callingLineIdLastName": "Smith",
     "callingLineIdFirstName": "John",
@@ -11460,7 +11460,6 @@ PUT /loki/users/{+userId}
 			"email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email"	},
 			"timeZone": { "type": "string",	"minLength": 1,	"maxLength": 127 },
 			"language": { "type": "string",	"minLength": 1,	"maxLength": 40	},
-			"department": { "type": "string", "minLength": 1, "maxLength": 50},
 			"address": {
                 "type": "object",
                 "additionalProperties": false,
