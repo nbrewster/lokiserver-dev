@@ -7793,6 +7793,92 @@ DELETE /auto-attendants/{+autoAttendantId}
     "externalErrorDetail": "[Error 4008] User not found: autoAttendantTest"
 }
 
+Request modifies list of assigned services on specified Auto Attendant.<br />
+Process Name: Set Auto Attendant Services (VoIP Entity)<br />
+Rollback-enabled:  No<br />
+<b>Note</b>: Initial implementation will not check if the Auto Attendant actually exists in the provided Customer and Site and also it does not actually check that the user type you are altering is actually an Auto Attendant
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Customer.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Site.</td>
+        </tr>
+        <tr>
+            <td>autoAttendantId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Auto Attendant to be updated.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request properties
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Array of user services.</td>
+        </tr>
+        <tr>
+            <td>services[]</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server will not pre-validate service name correctness.
+Providing invalid service name will result in LWS-SOAP request validation error.</td>
+        </tr>
+    </tbody>
+</table>
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}/services/assigned-services
+> Content-Type: application/json
+{
+    "services": [
+        "Authentication",
+        "Alternate Numbers"
+    ]
+}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "summary": "Some services could not be assigned. No services were un-assigned",
+    "externalErrorCode": null,
+    "externalErrorSummary": "User service assignment failed. Some services were not assigned:",
+    "externalErrorDetail": "Authentication: Service is not assignable."
+}
+
 --
 VoIP Site Hunt Group
 ##Collection
@@ -8480,6 +8566,92 @@ DELETE /hunt-groups/{+huntGroupId}
     "externalErrorCode": "4008",
     "externalErrorSummary": "Error",
     "externalErrorDetail": "[Error 4008] User not found: huntGroupTest"
+}
+
+Request modifies list of assigned services on specified Hunt Group.<br />
+Process Name: Set Hunt Group Services (VoIP Entity)<br />
+Rollback-enabled:  No<br />
+<b>Note</b>: Initial implementation will not check if the Hunt Group actually exists in the provided Customer and Site and also it does not actually check that the user type you are altering is actually a Hunt Group.
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Customer.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Site.</td>
+        </tr>
+        <tr>
+            <td>huntGroupId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Hunt Group to be updated.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request properties
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Array of user services.</td>
+        </tr>
+        <tr>
+            <td>services[]</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server will not pre-validate service name correctness.
+Providing invalid service name will result in LWS-SOAP request validation error.</td>
+        </tr>
+    </tbody>
+</table>
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/services/assigned-services
+> Content-Type: application/json
+{
+    "services": [
+        "Authentication",
+        "Alternate Numbers"
+    ]
+}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "summary": "Some services could not be assigned. No services were un-assigned",
+    "externalErrorCode": null,
+    "externalErrorSummary": "User service assignment failed. Some services were not assigned:",
+    "externalErrorDetail": "Authentication: Service is not assignable."
 }
 
 --
@@ -9342,6 +9514,92 @@ DELETE /call-centers/{+callCenterId}
     "externalErrorDetail": "[Error 4008] User not found: callCenterTest"
 }
 
+Request modifies list of assigned services on specified Call Center.<br />
+Process Name: Set Call Center Services (VoIP Entity)<br />
+Rollback-enabled:  No<br />
+<b>Note</b>: Initial implementation will not check if the Call Center actually exists in the provided Customer and Site and also it does not actually check that the user type you are altering is actually a Call Center.
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Customer.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Site.</td>
+        </tr>
+        <tr>
+            <td>callCenterId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Call Center to be updated.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request properties
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Array of user services.</td>
+        </tr>
+        <tr>
+            <td>services[]</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server will not pre-validate service name correctness.
+Providing invalid service name will result in LWS-SOAP request validation error.</td>
+        </tr>
+    </tbody>
+</table>
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/services/assigned-services
+> Content-Type: application/json
+{
+    "services": [
+        "Authentication",
+        "Alternate Numbers"
+    ]
+}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "summary": "Some services could not be assigned. No services were un-assigned",
+    "externalErrorCode": null,
+    "externalErrorSummary": "User service assignment failed. Some services were not assigned:",
+    "externalErrorDetail": "Authentication: Service is not assignable."
+}
+
 --
 VoIP Site Instant Group Call
 ##Collection
@@ -9884,6 +10142,92 @@ DELETE /instant-group-calls/{+instantGroupCallId}
     "externalErrorDetail": "[Error 4008] User not found: instantGroupCallTest"
 }
 
+Request modifies list of assigned services on specified Instant Group Call.<br />
+Process Name: Set Instant Group Call Services (VoIP Entity)<br />
+Rollback-enabled:  No<br />
+<b>Note</b>: Initial implementation will not check if the Instant Group Call actually exists in the provided Customer and Site and also it does not actually check that the user type you are altering is actually an Instant Group Call.
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Customer.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Site.</td>
+        </tr>
+        <tr>
+            <td>instantGroupCallId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Instant Group Call to be updated.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request properties
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Array of user services.</td>
+        </tr>
+        <tr>
+            <td>services[]</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server will not pre-validate service name correctness.
+Providing invalid service name will result in LWS-SOAP request validation error.</td>
+        </tr>
+    </tbody>
+</table>
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}/services/assigned-services
+> Content-Type: application/json
+{
+    "services": [
+        "Authentication",
+        "Alternate Numbers"
+    ]
+}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "summary": "Some services could not be assigned. No services were un-assigned",
+    "externalErrorCode": null,
+    "externalErrorSummary": "User service assignment failed. Some services were not assigned:",
+    "externalErrorDetail": "Authentication: Service is not assignable."
+}
+
 --
 CHANGELOG
 
@@ -9921,6 +10265,12 @@ Changes for S2275 LWS-REST VoIP Virtual User Delete
 Changes for S2292  LWS-REST: User Device Swap
  
   * Added POST /loki/users/{+userId}/swapDevice
+  
+Changes for S2374 LWS-REST VoIP Virtual User Service (Un-)Assignment
+ * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}/services/assigned-services
+ * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/services/assigned-services
+ * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/services/assigned-services
+ * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}/services/assigned-services
 
 #2.41
 
@@ -14169,4 +14519,268 @@ DELETE /loki/customers/{+customerId}/sites/{+siteId}/administrators/{+siteAdmini
     },
     "requestBody": { },
     "response": { }
+}
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}/services/assigned-services
+{
+    "requestURITemplate": {
+    "title": "request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "autoAttendantId": {
+                "minLength": 1,
+                    "maxLength": 161,
+                    "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                    "required": true
+            }
+        }
+    },
+    "requestBody": {
+        "title": "User services assignment request body schema",
+        "type": "object",
+        "properties": {
+            "_links": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "self": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "href": {
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            },
+            "services": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "curies": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "href": {
+                            "type": "string"
+                        },
+                        "templated": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "response": {}
+}
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/services/assigned-services
+{
+    "requestURITemplate": {
+    "title": "request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "huntGroupId": {
+                "minLength": 1,
+                    "maxLength": 161,
+                    "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                    "required": true
+            }
+        }
+    },
+    "requestBody": {
+        "title": "User services assignment request body schema",
+        "type": "object",
+        "properties": {
+            "_links": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "self": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "href": {
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            },
+            "services": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "curies": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "href": {
+                            "type": "string"
+                        },
+                        "templated": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "response": {}
+}
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/services/assigned-services
+{
+    "requestURITemplate": {
+    "title": "request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "callCenterId": {
+                "minLength": 1,
+                    "maxLength": 161,
+                    "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                    "required": true
+            }
+        }
+    },
+    "requestBody": {
+        "title": "User services assignment request body schema",
+        "type": "object",
+        "properties": {
+            "_links": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "self": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "href": {
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            },
+            "services": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "curies": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "href": {
+                            "type": "string"
+                        },
+                        "templated": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "response": {}
+}
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}/services/assigned-services
+{
+    "requestURITemplate": {
+    "title": "request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "instantGroupCallId": {
+                "minLength": 1,
+                    "maxLength": 161,
+                    "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                    "required": true
+            }
+        }
+    },
+    "requestBody": {
+        "title": "User services assignment request body schema",
+        "type": "object",
+        "properties": {
+            "_links": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "self": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "href": {
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            },
+            "services": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "curies": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "href": {
+                            "type": "string"
+                        },
+                        "templated": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "response": {}
 }
