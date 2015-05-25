@@ -7145,6 +7145,493 @@ PUT /users/{+userId}/services/Intercept%20User
     "externalErrorDetail": "User Modify Failed. Intercept User pre-validation error:Error updating service: Intercept User. User [JohnDoe] does not have Intercept User service assigned."
 }
 
+Create a BroadWorks Mobility Mobile Identity for the specified VoIP User.<br />
+The underlying LWS-SOAP implementation supports only a single mobile identity per user. 
+If the user already has a mobile identity, this request will delete their primary mobile identity and replace it
+with a new one for the phone number from the inputs, rather than adding an additional mobile identity to the user. 
+The Phone Number is automatically added (by LWS-SOAP) to the Enterprise and/or Group MSDN Pool, if needed, 
+before creating the mobile identity.<br />
+Process name: Create BroadWorks Mobility Mobile Identity via LWS-SOAP (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the User.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request Properties
+
+Note: See the JSON Schema (**link TBD) for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mobilePhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Mobile phone number</td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Description of Mobile Identity.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>isPrimary</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Primary Mobile Identity.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>enableAlerting</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Enable Alerting.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>alertAgentCalls</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Alert for Agent Calls.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>alertClickToDialCalls</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Alert for Click To Dial Calls.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>alertGroupPagingCalls</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Alert for Group Paging Calls.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>useMobilityCallingLineID</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Use Mobility Calling Line ID.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>enableDiversionInhibitor</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Enable Diversion Inhibitor<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>requireAnswerConfirmation</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Require Answer Confirmation.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>broadworksCallControl</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Use BroadWorks-based Call Control Services.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>useSettingLevel</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Setting Level.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>deny</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>callOriginations</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Deny Call Originations.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>callTerminations</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Deny Call Terminations.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>devicesToRing</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+	        <td>Devices to Ring.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>include</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for inclusion properties.<br />
+                <b>Not Implemented</b><br />
+                Details of the inslusion properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>sharedCallAppearance</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Include Shared Call Appearance.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>broadworksAnywhere</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Include BroadWorks Anywhere.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>executiveAssistant</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Include Executive Assistant.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>mobileNumberAlerted</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+	        <td>Mobile Identity Alerted container.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>enableCallAnchoring</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+	        <td>Enable Call Anchoring.<br />
+            <b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>timeSchedule</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Time Schedule properties.<br />
+                <b>Not Implemented</b><br />
+                Details of the Time Schedule properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>scheduleKey</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>
+                                Container for a Schedule Key properties.<br />
+                                <b>Not Implemented</b><br />
+                                Details of the a Schedule Key properties:
+                                <table border=1>
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Required?</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>scheduleName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Time Schedule Name.<br />
+                                            <b>Not Implemented</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>scheduleType</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Time Schedule Type.<br />
+                                            <b>Not Implemented</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>scheduleLevel</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Time Schedule Level.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>holidaySchedule</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for Holiday Schedule properties.<br />
+                <b>Not Implemented</b><br />
+                Details of the Holiday Schedule properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>scheduleKey</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>
+                                Container for a Schedule Key properties.<br />
+                                <b>Not Implemented</b><br />
+                                Details of the a Schedule Key properties:
+                                <table border=1>
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Required?</th>
+                                    <th>Default</th>
+                                    <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>scheduleName</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Holiday Schedule Name.<br />
+                                            <b>Not Implemented</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>scheduleType</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>n/a</td>
+                                            <td>Holiday Schedule Type.<br />
+                                            <b>Not Implemented</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>scheduleLevel</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Holiday Schedule Level.<br />
+                            <b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>mobileDevicePassword</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+	        <td>The password for the mobile number, to be used for an eligibility check.<br />
+	        This property is not used in BroadWorks - it's only here for external orchestration systems to observe it.</td>
+        </tr>
+        <tr>
+            <td>mobileNetworkName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+	        <td>Name of a BroadWorks Mobility Mobile Network.<br />
+            <b>Note:</b> If the "mobileNetworkName" is omitted from the request the config value broadworks / userServices / service (where name is “BroadWorks Mobility”) / settings / mobileNetworkName, if not empty, is used.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Response Properties - 201 Created
+
+For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides the properties listed in the table below, the response also contains the normal HAL _links and curies properties.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Mandatory</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mobilePhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Mobile phone number.</td>
+        </tr>
+        <tr>
+            <td>mobileNetworkName</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>BroadWorks Mobility Mobile Network.</td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Container for network-element specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>
+                Container for BroadWorks-specific properties.<br />
+                Details of the BroadWorks-specific properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Mandatory</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>resourceId</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>Mobile phone number.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+POST /users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
+> Content-Type: application/json
+{
+    "mobilePhoneNumber": "+1-9876543210",
+    "mobileDevicePassword": "Example Password",
+    "mobileNetworkName": "Example Network Name"
+}
+< 201
+< Location: http://lokiserver.example.com/loki/users/2005553001%40example.com/BroadWorks%20Mobility/mobile-identities/%2B1-9876543210
+< Transaction-Id: 1380080943120
+< Content-Type: application/hal+json
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.example.com/loki/users/2005553001%40example.com/BroadWorks%20Mobility/mobile-identities/%2B1-9876543210"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],    
+    "mobilePhoneNumber": "+1-9876543210",
+    "mobileNetworkName": "Example Network Name",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "+1-9876543210"
+        }
+    }
+}
+
+Delete the specified BroadWorks Mobility Mobile Identity of the specified VoIP User.<br />
+Initial implementation will not check if the requested Mobile Identity exists.<br />
+The underlying LWS-SOAP request supports only a single mobile identity per user. 
+Thus this request will always delete the user's primary mobile identity, whether or not it matches the 
+phone number from the inputs. The Phone Number is automatically removed (by LWS-SOAP) from the 
+Enterprise and/or Group MSDN Pools.<br />
+Process name: Delete BroadWorks Mobility Mobile Identity via LWS-SOAP (VoIP Entity)<br />
+Rollback-enabled: No
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the User.</td>
+        </tr>
+        <tr>
+            <td>mobilePhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Mobile phone number.</td>
+        </tr>
+    </tbody>
+</table>
+
+DELETE /users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobilePhoneNumber}
+< 204
+< Transaction-Id: 1380080943120
++++++
+< 424
+< Transaction-Id: 1380080943120
+< Content-Type: application/json
+{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": null,
+    "externalErrorSummary": "Error modifying user: example@exmapledomain.com.",
+    "externalErrorDetail": "User Modify Failed. BroadWorks Mobility pre-validation error:Error updating service: BroadWorks Mobility. User [example@exmapledomain.com] does not have BroadWorks Mobility service assigned."
+}
+
 --
 VoIP Site Auto Attendant
 ##Collection
@@ -14524,15 +15011,15 @@ DELETE /loki/customers/{+customerId}/sites/{+siteId}/administrators/{+siteAdmini
 PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}/services/assigned-services
 {
     "requestURITemplate": {
-    "title": "request URI template parameters schema",
+        "title": "request URI template parameters schema",
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
             "autoAttendantId": {
                 "minLength": 1,
-                    "maxLength": 161,
-                    "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                    "required": true
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
             }
         }
     },
@@ -14540,46 +15027,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendan
         "title": "User services assignment request body schema",
         "type": "object",
         "properties": {
-            "_links": {
-                "type": "object",
-                "required": true,
-                "properties": {
-                    "self": {
-                        "type": "object",
-                        "required": true,
-                        "properties": {
-                            "href": {
-                                "type": "string",
-                                "required": true
-                            }
-                        }
-                    }
-                }
-            },
             "services": {
                 "type": "array",
                 "required": true,
                 "items": {
                     "type": "string",
                     "minLength": 1
-                }
-            },
-            "curies": {
-                "type": "array",
-                "required": true,
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "type": "string"
-                        },
-                        "href": {
-                            "type": "string"
-                        },
-                        "templated": {
-                            "type": "boolean"
-                        }
-                    }
                 }
             }
         }
@@ -14596,9 +15049,9 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/ser
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
             "huntGroupId": {
                 "minLength": 1,
-                    "maxLength": 161,
-                    "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                    "required": true
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
             }
         }
     },
@@ -14606,46 +15059,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/ser
         "title": "User services assignment request body schema",
         "type": "object",
         "properties": {
-            "_links": {
-                "type": "object",
-                "required": true,
-                "properties": {
-                    "self": {
-                        "type": "object",
-                        "required": true,
-                        "properties": {
-                            "href": {
-                                "type": "string",
-                                "required": true
-                            }
-                        }
-                    }
-                }
-            },
             "services": {
                 "type": "array",
                 "required": true,
                 "items": {
                     "type": "string",
                     "minLength": 1
-                }
-            },
-            "curies": {
-                "type": "array",
-                "required": true,
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "type": "string"
-                        },
-                        "href": {
-                            "type": "string"
-                        },
-                        "templated": {
-                            "type": "boolean"
-                        }
-                    }
                 }
             }
         }
@@ -14662,9 +15081,9 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/s
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
             "callCenterId": {
                 "minLength": 1,
-                    "maxLength": 161,
-                    "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                    "required": true
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
             }
         }
     },
@@ -14672,46 +15091,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/s
         "title": "User services assignment request body schema",
         "type": "object",
         "properties": {
-            "_links": {
-                "type": "object",
-                "required": true,
-                "properties": {
-                    "self": {
-                        "type": "object",
-                        "required": true,
-                        "properties": {
-                            "href": {
-                                "type": "string",
-                                "required": true
-                            }
-                        }
-                    }
-                }
-            },
             "services": {
                 "type": "array",
                 "required": true,
                 "items": {
                     "type": "string",
                     "minLength": 1
-                }
-            },
-            "curies": {
-                "type": "array",
-                "required": true,
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "type": "string"
-                        },
-                        "href": {
-                            "type": "string"
-                        },
-                        "templated": {
-                            "type": "boolean"
-                        }
-                    }
                 }
             }
         }
@@ -14722,15 +15107,15 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/s
 PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}/services/assigned-services
 {
     "requestURITemplate": {
-    "title": "request URI template parameters schema",
+        "title": "request URI template parameters schema",
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
             "instantGroupCallId": {
                 "minLength": 1,
-                    "maxLength": 161,
-                    "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                    "required": true
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
             }
         }
     },
@@ -14738,22 +15123,6 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
         "title": "User services assignment request body schema",
         "type": "object",
         "properties": {
-            "_links": {
-                "type": "object",
-                "required": true,
-                "properties": {
-                    "self": {
-                        "type": "object",
-                        "required": true,
-                        "properties": {
-                            "href": {
-                                "type": "string",
-                                "required": true
-                            }
-                        }
-                    }
-                }
-            },
             "services": {
                 "type": "array",
                 "required": true,
@@ -14761,26 +15130,206 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
                     "type": "string",
                     "minLength": 1
                 }
+            }
+        }
+    },
+    "response": {}
+}
+
+POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
+{
+    "requestURITemplate": {
+        "title": "Create a BroadWorks Mobility Mobile Identity for the specified VoIP User URI template properties",
+        "additionalProperties": false,
+        "properties": {
+            "userId": { 
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            }
+        }
+    },
+    "requestBody": {
+        "title": "Create a BroadWorks Mobility Mobile Identity for the specified VoIP User request body properties",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "mobilePhoneNumber": {
+                "id": "E.164 DN",
+                "type": "string",
+                "description": "A formatted TN.",
+                "pattern": "^\\+\\d+-\\d+$",
+                "minLength": 1,
+                "maxLength": 23,
+                "required": true
             },
-            "curies": {
+            "mobileDevicePassword": { "type": "string", "minLength": 1 },
+            "mobileNetworkName": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "description": { "type": "string", "minLength": 1, "maxLength": 40 },
+            "isPrimary": { "type": "boolean" },
+            "enableAlerting": { "type": "boolean" },
+            "alertAgentCalls": { "type": "boolean" },
+            "alertClickToDialCalls": { "type": "boolean" },
+            "alertGroupPagingCalls": { "type": "boolean" },
+            "useMobilityCallingLineID": { "type": "boolean" },
+            "enableDiversionInhibitor": { "type": "boolean" },
+            "requireAnswerConfirmation": { "type": "boolean" },
+            "broadworksCallControl": { "type": "boolean" },
+            "useSettingLevel": { "enum": [ "Group", "User" ] },
+            "deny": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "callOriginations": { "type": "boolean" },
+                    "callTerminations": { "type": "boolean" }
+                }
+            },
+            "devicesToRing": { "enum": [ "Fixed", "Mobile", "Both" ] },
+            "include": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "sharedCallAppearance": { "type": "boolean" },
+                    "broadworksAnywhere": { "type": "boolean" },
+                    "executiveAssistant": { "type": "boolean" }
+                }
+            },
+            "mobileNumberAlerted": {
                 "type": "array",
+				"items": {
+					"id": "E.164 DN",
+                    "type": "string",
+                    "description": "A formatted TN.",
+                    "pattern": "^\\+\\d+-\\d+$",
+                    "minLength": 1,
+                    "maxLength": 23
+				}
+            },
+            "timeSchedule": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "scheduleKey": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "scheduleName": { "type": "string", "minLength": 1, "maxLength": 40 },
+                            "scheduleType": { "enum": [ "Holiday", "Time" ] }
+                        }
+                    },
+                    "scheduleLevel": { "enum": [ "Service Provider”, “Group”, “User" ] }
+                }
+            },
+            "holidaySchedule": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "scheduleKey": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "scheduleName": { "type": "string", "minLength": 1, "maxLength": 40 },
+                            "scheduleType": { "enum": [ "Holiday", "Time" ] }
+                        }
+                    },
+                    "scheduleLevel": { "enum": [ "Service Provider”, “Group”, “User" ] }
+                }
+            }
+        }
+    },
+    "response": {
+        "title": "Create a BroadWorks Mobility Mobile Identity for the specified VoIP User response properties",
+        "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			},
+            "mobilePhoneNumber": {
+                "id": "E.164 DN",
+                "type": "string",
+                "description": "A formatted TN.",
+                "pattern": "^\\+\\d+-\\d+$",
+                "minLength": 1,
+                "maxLength": 23,
+                "required": true
+            },
+            "mobileNetworkName": { "type": "string", "minLength": 1, "maxLength": 80, "required": true },
+            "extensions": {
+                "type": "object",
+                "additionalProperties": false,
                 "required": true,
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "type": "string"
-                        },
-                        "href": {
-                            "type": "string"
-                        },
-                        "templated": {
-                            "type": "boolean"
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": true,
+                        "properties": { 
+                            "resourceId": { 
+                                "id": "E.164 DN",
+                                "type": "string",
+                                "description": "A formatted TN.",
+                                "pattern": "^\\+\\d+-\\d+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": true
+                            }
                         }
                     }
                 }
             }
         }
+    }
+}
+
+DELETE /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobilePhoneNumber}
+{
+    "requestURITemplate": {
+        "title": "Delete the specified User BroadWorks Mobility Mobile Identity URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "userId": { 
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            },
+            "mobilePhoneNumber": {
+                "id": "E.164 DN",
+                "type": "string",
+                "description": "A formatted TN.",
+                "pattern": "^\\+\\d+-\\d+$",
+                "minLength": 1,
+                "maxLength": 23,
+                "required": true
+            }
+        }
     },
-    "response": {}
+    "requestBody": { },
+    "response": { }
 }
