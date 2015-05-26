@@ -7145,6 +7145,25 @@ PUT /users/{+userId}/services/Intercept%20User
     "externalErrorDetail": "User Modify Failed. Intercept User pre-validation error:Error updating service: Intercept User. User [JohnDoe] does not have Intercept User service assigned."
 }
 
+--
+VoIP User BroadWorks Mobility Mobile Identity
+##Collection
+
+Supported network elements:
+
+* LWS-SOAP
+* BroadWorks Application Server
+
+Keys:
+
+* userId
+* mobileIdentityId
+
+Extension Keys:
+
+* (none)
+--
+
 Create a BroadWorks Mobility Mobile Identity for the specified VoIP User.<br />
 The underlying LWS-SOAP implementation supports only a single mobile identity per user. 
 If the user already has a mobile identity, this request will delete their primary mobile identity and replace it
@@ -7186,10 +7205,43 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     </thead>
     <tbody>
         <tr>
-            <td>mobilePhoneNumber</td>
+            <td>name</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Mobile phone number</td>
+            <td>Suggested resource ID. <br />Must be a mobile phone number.</td>
+        </tr>
+        <tr>
+            <td>extensions</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Container for network-element specific properties</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                Container for BroadWorks-specific properties.<br />
+                Details of the BroadWorks-specific properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>resourceId</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>BroadWorks mobile phone number.<br />
+                            <b>Note</b>: If present, it overrides the the generated value from the “name” property.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
         </tr>
         <tr>
             <td>description</td>
@@ -7512,9 +7564,14 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
     </thead>
     <tbody>
         <tr>
-            <td>mobilePhoneNumber</td>
+            <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>Mobile phone number.</td>
+            <td>Loki Server ID of the User.</td>
+        </tr>
+        <tr>
+            <td>mobileIdentityId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Loki Server ID of the Mobile Identity.</td>
         </tr>
         <tr>
             <td>mobileNetworkName</td>
@@ -7542,7 +7599,7 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
                         <tr>
                             <td>resourceId</td>
                             <td style="text-align: center; font-weight:bold">yes</td>
-                            <td>Mobile phone number.</td>
+                            <td>BroadWorks mobile phone number.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -7554,9 +7611,14 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
 POST /users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
 > Content-Type: application/json
 {
-    "mobilePhoneNumber": "+1-9876543210",
+    "name": "+1-9876543210",
     "mobileDevicePassword": "Example Password",
-    "mobileNetworkName": "Example Network Name"
+    "mobileNetworkName": "Example Network Name",
+    "extensions": {
+        "broadworks": {
+            "resourceId": "+1-9876543210"
+        }
+    }
 }
 < 201
 < Location: http://lokiserver.example.com/loki/users/2005553001%40example.com/BroadWorks%20Mobility/mobile-identities/%2B1-9876543210
@@ -7574,8 +7636,9 @@ POST /users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
             "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
             "templated": true
         }
-    ],    
-    "mobilePhoneNumber": "+1-9876543210",
+    ],
+    "userId": "2005553001@example.com"
+    "mobileIdentityId": "+1-9876543210",
     "mobileNetworkName": "Example Network Name",
     "extensions": {
         "broadworks": {
@@ -7610,15 +7673,15 @@ Rollback-enabled: No
             <td>Loki Server ID (server-generated) of the User.</td>
         </tr>
         <tr>
-            <td>mobilePhoneNumber</td>
+            <td>mobileIdentityId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Mobile phone number.</td>
+            <td>Loki Server ID of the Mobile Identity.</td>
         </tr>
     </tbody>
 </table>
 
-DELETE /users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobilePhoneNumber}
+DELETE /users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobileIdentityId}
 < 204
 < Transaction-Id: 1380080943120
 +++++
@@ -10727,6 +10790,11 @@ General
  * Removed GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
  * Updated the Virtual User Add requests to expose a "name" property 
  * Updated the POST /loki/users{?mode} request
+
+Changes for S2294: LWS-REST: VoIP User BroadWorks Mobility Support (LWS-SOAP-backed)
+
+ * Added POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
+ * Added DELETE /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobileIdentityId}
 
 Changes for S2370, 2296, 2371: LWS-REST Site Admin Add, Delete
 
@@ -15143,6 +15211,7 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
         "additionalProperties": false,
         "properties": {
             "userId": { 
+                "type": "string",
                 "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
@@ -15155,7 +15224,7 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
         "type": "object",
         "additionalProperties": false,
         "properties": {
-            "mobilePhoneNumber": {
+            "name": {
                 "id": "E.164 DN",
                 "type": "string",
                 "description": "A formatted TN.",
@@ -15163,6 +15232,26 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
                 "minLength": 1,
                 "maxLength": 23,
                 "required": true
+            },
+            "extensions": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "broadworks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": { 
+                            "resourceId": { 
+                                "id": "E.164 DN",
+                                "type": "string",
+                                "description": "A formatted TN.",
+                                "pattern": "^\\+\\d+-\\d+$",
+                                "minLength": 1,
+                                "maxLength": 23
+                            }
+                        }
+                    }
+                }
             },
             "mobileDevicePassword": { "type": "string", "minLength": 1 },
             "mobileNetworkName": { "type": "string", "minLength": 1, "maxLength": 80 },
@@ -15270,7 +15359,14 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
 					}
 				}
 			},
-            "mobilePhoneNumber": {
+			"userId": { 
+			    "type": "string",
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            },
+            "mobileIdentityId": {
                 "id": "E.164 DN",
                 "type": "string",
                 "description": "A formatted TN.",
@@ -15307,7 +15403,7 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
     }
 }
 
-DELETE /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobilePhoneNumber}
+DELETE /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobileIdentityId}
 {
     "requestURITemplate": {
         "title": "Delete the specified User BroadWorks Mobility Mobile Identity URI template parameters schema",
@@ -15319,7 +15415,7 @@ DELETE /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+
                 "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
                 "required": true
             },
-            "mobilePhoneNumber": {
+            "mobileIdentityId": {
                 "id": "E.164 DN",
                 "type": "string",
                 "description": "A formatted TN.",
