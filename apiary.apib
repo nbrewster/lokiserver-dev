@@ -10585,6 +10585,166 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/s
     "externalErrorDetail": "Authentication: Service is not assignable."
 }
 
+<!--------------------------------- PUT /customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId} ------------------------------->
+
+Update Call Center instance.<br/>
+Process Name: Modify Call Center via LWS-SOAP (VoIP Entity)<br/>
+Rollback-enabled: No
+
+
+## URI Template Parameters
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Loki Server siteId (server-generated) of the Site</td></tr>
+    <tr><td>callCenterId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Call Center instance</td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId} uriSchema:
+{"title":"URI Template Parameters","required":["customerId","siteId","callCenterId"],"properties":{"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30},"siteId":{"title":"Loki Server siteId (server-generated) of the Site","type":"string","minLength":1,"maxLength":30},"callCenterId":{"type":"string","minLength":1,"maxLength":161,"title":"Loki Server ID of the Call Center instance"}}} -->
+
+## Request Properties
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for Virtual User Profile settings:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>name</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td>Container for Calling Line Id settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>lastName</td><td>no</td><td>n/a</td><td>Calling Line Id last name</td></tr>
+    <tr><td>firstName</td><td>no</td><td>n/a</td><td>Calling Line Id first name</td></tr>
+    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
+    <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td>Phone Number add routine to apply. Allowed values: ["", "no-number", "port-no-temp", "auto"]<br>Note: "auto" and "no-number" values will not be implemented in initial release</td></tr>
+    <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
+    <tr><td>password</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>department</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>language</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>timeZone</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>alias</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>publicServiceIdentity</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>type</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>routingType</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>policy</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>enableReporting</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>callCenterSettings</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for Call Center settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>enableVideo</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>queueLength</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>playRingingWhenOfferingCall</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>allowCallerToDialEscapeDigit</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>escapeDigit</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>resetCallStatisticsUponEntryInQueue</td><td>no</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>agentSettings</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for Agent settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>allowAgentLogoff</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>allowCallWaitingForAgents</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>allowCallsToAgentsInWrapUp</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>overrideAgentWrapUpTime</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>wrapUpSeconds</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>enableAutomaticStateChangeForAgents</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>agentStateAfterCall</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>forceDeliveryOfCalls</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>forceDeliveryWaitTimeSeconds</td><td>no</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>agentUnavailableCode</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>bandwidthAndQoS</td><td>no</td><td>n/a</td><td><b>Not Implemented</b><table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>externalPreferredAudioCodec</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>internalPreferredAudioCodec</td><td>no</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>networkClassesOfService</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Network Class of Service</td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId} bodySchema:
+{"title":"Request Properties","type":"object","additionalProperties":false,"required":[],"properties":{"profile":{"title":"Container for Virtual User Profile settings:","type":"object","additionalProperties":false,"required":[],"properties":{"name":{"type":"string","minLength":1,"maxLength":30},"callingLineId":{"type":"object","additionalProperties":false,"description":"Container for Calling Line Id settings","properties":{"lastName":{"type":"string","minLength":1,"maxLength":30,"pattern":"^[\\\\x20-\\\\x21\\\\x23-\\\\x24\\\\x26-\\\\x2A\\\\x2C-\\\\x2E\\\\x30-\\\\x7F]+$","description":"Calling Line Id last name"},"firstName":{"type":"string","minLength":1,"maxLength":30,"pattern":"^[\\\\x20-\\\\x21\\\\x23-\\\\x24\\\\x26-\\\\x2A\\\\x2C-\\\\x2E\\\\x30-\\\\x7F]+$","description":"Calling Line Id first name"},"phoneNumber":{"type":"string","description":"<b>Not Implemented.</b><br> Calling Line Id phone number","pattern":"^\\\\+\\\\d+-\\\\d+$","minLength":1,"maxLength":23}}},"phoneNumber":{"type":["string","null"],"description":"An E.164-formatted TN","pattern":"^\\\\+\\\\d+-\\\\d+$","minLength":1,"maxLength":23},"tnRoutine":{"description":"Phone Number add routine to apply. Allowed values: [\"\", \"no-number\", \"port-no-temp\", \"auto\"]<br>Note: \"auto\" and \"no-number\" values will not be implemented in initial release","enum":["","port-no-temp","auto","no-number"]},"extension":{"title":"Extension","type":["string","null"],"minLength":2,"maxLength":20,"pattern":"^[0-9]+$"},"password":{"type":"string","minLength":1,"maxLength":60,"description":"<b>Not Implemented</b>"},"department":{"type":"string","minLength":1,"maxLength":50,"description":"<b>Not Implemented</b>"},"language":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented</b>"},"timeZone":{"type":"string","minLength":1,"maxLength":127,"description":"<b>Not Implemented</b>"},"alias":{"type":"array","maxItems":3,"items":{"type":"string","description":"SIP URI","pattern":"^[\\\\+]?[\\\\w\\\\-\\\\.\\\\!~\\\\*\\'\\\\(\\\\)]+@[a-zA-Z\\\\d\\\\.\\\\-]+$","minLength":1,"maxLength":161,"required":false},"description":"<b>Not Implemented</b>"},"publicServiceIdentity":{"type":"string","description":"<b>Not Implemented</b>","pattern":"^[\\\\+]?[\\\\w\\\\-\\\\.\\\\!~\\\\*\\'\\\\(\\\\)]+@[a-zA-Z\\\\d\\\\.\\\\-]+$","minLength":1,"maxLength":161,"required":false}}},"type":{"enum":["Basic","Standard","Premium"],"description":"<b>Not Implemented</b>"},"routingType":{"enum":["Priority Based","Skill Based"],"description":"<b>Not Implemented</b>"},"policy":{"enum":["Circular","Regular","Simultaneous","Uniform","Weighted"],"description":"<b>Not Implemented</b>"},"enableReporting":{"type":"boolean","description":"<b>Not Implemented</b>"},"callCenterSettings":{"type":"object","additionalProperties":false,"properties":{"enableVideo":{"type":"boolean"},"queueLength":{"type":"integer","minimum":0,"maximum":525},"playRingingWhenOfferingCall":{"type":"boolean"},"allowCallerToDialEscapeDigit":{"type":"boolean"},"escapeDigit":{"type":"string","minLength":1,"maxLength":1,"pattern":"^[0-9]+$"},"resetCallStatisticsUponEntryInQueue":{"type":"boolean"}},"description":"<b>Not Implemented.</b><br>Container for Call Center settings"},"agentSettings":{"type":"object","additionalProperties":false,"properties":{"allowAgentLogoff":{"type":"boolean"},"allowCallWaitingForAgents":{"type":"boolean"},"allowCallsToAgentsInWrapUp":{"type":"boolean"},"overrideAgentWrapUpTime":{"type":"boolean"},"wrapUpSeconds":{"type":"integer","minimum":1,"maximum":3600},"enableAutomaticStateChangeForAgents":{"type":"boolean"},"agentStateAfterCall":{"enum":["Available","Unavailable","Wrap-Up"]},"forceDeliveryOfCalls":{"type":"boolean"},"forceDeliveryWaitTimeSeconds":{"type":"integer","minimum":1,"maximum":10}},"description":"<b>Not Implemented.</b><br>Container for Agent settings"},"agentUnavailableCode":{"type":"string","minLength":1,"maxLength":10,"description":"<b>Not Implemented</b>"},"bandwidthAndQoS":{"type":"object","additionalProperties":false,"properties":{"externalPreferredAudioCodec":{"enum":["None","G711","G722","G729","G726","AMR","AMR-WB"]},"internalPreferredAudioCodec":{"enum":["None","G711","G722","G729","G726","AMR","AMR-WB"]}},"description":"<b>Not Implemented</b>"},"networkClassesOfService":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented.</b><br>Network Class of Service"}}} -->
+
+## Response Properties - 200 OK
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>callCenterId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Call Center instance</td></tr>
+    <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
+    <tr><td>publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>extensions</td><td>yes</td><td>n/a</td><td>Container for network-element specific properties<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>resourceId</td><td>yes</td><td>n/a</td><td>Call Center instance ID in the BroadWorks</td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId} Response 200:
+{"title":"Response Properties - 200 OK","type":"object","required":["_links","curies","callCenterId","extensions"],"properties":{"_links":{"type":"object","required":["self"],"properties":{"self":{"type":"object","required":["href"],"properties":{"href":{"type":"string"}}}}},"curies":{"type":"array","items":{"type":"object","required":["name","href","templated"],"properties":{"name":{"type":"string"},"href":{"type":"string"},"templated":{"type":"boolean"}}}},"callCenterId":{"type":"string","minLength":1,"maxLength":161,"title":"Loki Server ID of the Call Center instance"},"profile":{"type":"object","description":"Container for profile settings","properties":{"extension":{"title":"Extension","type":["string","null"],"minLength":2,"maxLength":20,"pattern":"^[0-9]+$"},"publicServiceIdentity":{"type":"string","minLength":1,"maxLength":161,"title":"Public Service Identity"}}},"extensions":{"type":"object","description":"Container for network-element specific properties","required":["broadworks"],"properties":{"broadworks":{"type":"object","description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","required":["resourceId"],"properties":{"resourceId":{"type":"string","minLength":1,"maxLength":161,"description":"Call Center instance ID in the BroadWorks"}}}}}}} -->
+
+
+PUT /customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
+> Content-Type: application/json
+{
+    "profile": {
+        "name": "My Call Center",
+        "callingLineId": {
+            "firstName": "First",
+            "lastName": "Last"
+        },
+        "phoneNumber": "+1-4150192301",
+        "tnRoutine": "port-no-temp",
+        "extension": "2301"
+    }
+}
+< 200
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com/sites/Example%20Site/call-centers/4151002300"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "callCenterId": "4151002300",
+    "profile": {
+        "extension": "2300",
+        "publicServiceIdentity": "4151002300@voip.example.net"
+    },
+    "extensions": {
+        "broadworks": {
+            "resourceId": "4151002300"
+        }
+    }
+}
+
 --
 VoIP Site Instant Group Call
 ##Collection
