@@ -8429,6 +8429,288 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendan
     "externalErrorDetail": "Authentication: Service is not assignable."
 }
 
+<!--------------------------------- PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId} ------------------------------->
+
+Update Auto Attendant instance.<br/>
+Process Name: Modify Auto Attendant via LWS-SOAP (VoIP Entity)<br/>
+Rollback-enabled: No
+
+
+## URI Template Parameters
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Loki Server siteId (server-generated) of the Site</td></tr>
+    <tr><td>autoAttendantId</td><td>yes</td><td>n/a</td><td>Loki Server autoAttendantId of the Auto Attendant instance</td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId} uriSchema:
+{"title":"URI Template Parameters","required":["customerId","siteId","autoAttendantId"],"properties":{"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30},"siteId":{"title":"Loki Server siteId (server-generated) of the Site","type":"string","minLength":1,"maxLength":30},"autoAttendantId":{"type":"string","minLength":1,"maxLength":161,"title":"Loki Server autoAttendantId of the Auto Attendant instance"}}} -->
+
+## Request Properties
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for Virtual User Profile settings:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>name</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td><table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>lastName</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>firstName</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
+    <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
+    <tr><td>password</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>department</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>language</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>timeZone</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>alias</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>publicServiceIdentity</td><td>no</td><td>n/a</td><td>SIP URI</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>firstDigitTimeoutSeconds</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>enableVideo</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>businessHours</td><td>no</td><td>n/a</td><td><table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>type</td><td>yes</td><td>n/a</td><td></td></tr>
+    <tr><td>name</td><td>yes</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>holidaySchedule</td><td>no</td><td>n/a</td><td><table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>type</td><td>yes</td><td>n/a</td><td></td></tr>
+    <tr><td>name</td><td>yes</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>extensionDialingScope</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>nameDialingScope</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>nameDialingEntries</td><td>no</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId} bodySchema:
+{"title":"Request Properties","type":"object","additionalProperties":false,"required":[],"properties":{"profile":{"title":"Container for Virtual User Profile settings:","type":"object","additionalProperties":false,"required":[],"properties":{"name":{"type":"string","minLength":1,"maxLength":30},"callingLineId":{"type":"object","additionalProperties":false,"properties":{"lastName":{"type":"string","minLength":1,"maxLength":30,"pattern":"^[\\\\x20-\\\\x21\\\\x23-\\\\x24\\\\x26-\\\\x2A\\\\x2C-\\\\x2E\\\\x30-\\\\x7F]+$"},"firstName":{"type":"string","minLength":1,"maxLength":30,"pattern":"^[\\\\x20-\\\\x21\\\\x23-\\\\x24\\\\x26-\\\\x2A\\\\x2C-\\\\x2E\\\\x30-\\\\x7F]+$"},"phoneNumber":{"type":"string","description":"An E.164-formatted TN","pattern":"^\\\\+\\\\d+-\\\\d+$","minLength":1,"maxLength":23}}},"phoneNumber":{"type":["string","null"],"description":"An E.164-formatted TN","pattern":"^\\\\+\\\\d+-\\\\d+$","minLength":1,"maxLength":23},"tnRoutine":{"enum":["","port-no-temp","auto","no-number"]},"extension":{"title":"Extension","type":["string","null"],"minLength":2,"maxLength":20,"pattern":"^[0-9]+$"},"password":{"type":"string","minLength":1,"maxLength":60},"department":{"type":"string","minLength":1,"maxLength":50},"language":{"type":"string","minLength":1,"maxLength":40},"timeZone":{"type":"string","minLength":1,"maxLength":127},"alias":{"type":"array","maxItems":3,"items":{"type":"string","description":"SIP URI","pattern":"^[\\\\+]?[\\\\w\\\\-\\\\.\\\\!~\\\\*\\'\\\\(\\\\)]+@[a-zA-Z\\\\d\\\\.\\\\-]+$","minLength":1,"maxLength":161,"required":false}},"publicServiceIdentity":{"type":"string","description":"SIP URI","pattern":"^[\\\\+]?[\\\\w\\\\-\\\\.\\\\!~\\\\*\\'\\\\(\\\\)]+@[a-zA-Z\\\\d\\\\.\\\\-]+$","minLength":1,"maxLength":161,"required":false}}},"firstDigitTimeoutSeconds":{"type":"integer","minimum":1,"maximum":60},"enableVideo":{"type":"boolean"},"businessHours":{"type":"object","additionalProperties":false,"required":["type","name"],"properties":{"type":{"enum":["Service Provider","Group","User"]},"name":{"type":"string","minLength":1,"maxLength":40}}},"holidaySchedule":{"type":"object","additionalProperties":false,"required":["type","name"],"properties":{"type":{"enum":["Service Provider","Group","User"]},"name":{"type":"string","minLength":1,"maxLength":40}}},"extensionDialingScope":{"enum":["Service Provider","Group","Department"]},"nameDialingScope":{"enum":["Service Provider","Group","Department"]},"nameDialingEntries":{"enum":["LastName + FirstName","LastName + FirstName or FirstName + LastName"]}}} -->
+
+## Response Properties - 200 OK
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>autoAttendantId</td><td>yes</td><td>n/a</td><td>Loki Server autoAttendantId of the Auto Attendant instance</td></tr>
+    <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
+    <tr><td>publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>extensions</td><td>yes</td><td>n/a</td><td>Container for network-element specific properties<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>resourceId</td><td>yes</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId} Response 200:
+{"title":"Response Properties - 200 OK","type":"object","required":["_links","curies","autoAttendantId","extensions"],"properties":{"_links":{"type":"object","required":["self"],"properties":{"self":{"type":"object","required":["href"],"properties":{"href":{"type":"string"}}}}},"curies":{"type":"array","items":{"type":"object","required":["name","href","templated"],"properties":{"name":{"type":"string"},"href":{"type":"string"},"templated":{"type":"boolean"}}}},"autoAttendantId":{"type":"string","minLength":1,"maxLength":161,"title":"Loki Server autoAttendantId of the Auto Attendant instance"},"profile":{"type":"object","description":"Container for profile settings","properties":{"extension":{"title":"Extension","type":["string","null"],"minLength":2,"maxLength":20,"pattern":"^[0-9]+$"},"publicServiceIdentity":{"type":"string","minLength":1,"maxLength":161,"title":"Public Service Identity"}}},"extensions":{"type":"object","description":"Container for network-element specific properties","required":["broadworks"],"properties":{"broadworks":{"type":"object","description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","required":["resourceId"],"properties":{"resourceId":{"type":"string","minLength":1,"maxLength":161}}}}}}} -->
+
+PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}
+> Content-Type: application/json
+{
+    "profile": {
+        "name": "My Auto Attendant",
+        "callingLineId": {
+            "firstName": "Shoes",
+            "lastName": "Sales"
+        },
+        "phoneNumber": "+1-4150192301",
+        "tnRoutine": "port-no-temp",
+        "extension": "2301"
+    }
+}
+< 200
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com/sites/Example%20Site/auto-attendants/4151002300"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "autoAttendantId": "4151002300",
+    "profile": {
+        "extension": "2300",
+        "publicServiceIdentity": "4151002300@voip.example.net"
+    },
+    "extensions": {
+        "broadworks": {
+            "resourceId": "4151002300"
+        }
+    }
+}
+
+<!--------------------------------- PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId} ------------------------------->
+
+Update Auto Attendant instance.<br/>
+Process Name: Modify Auto Attendant via LWS-SOAP (VoIP Entity)<br/>
+Rollback-enabled: No
+
+
+## URI Template Parameters
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Loki Server siteId (server-generated) of the Site</td></tr>
+    <tr><td>autoAttendantId</td><td>yes</td><td>n/a</td><td>Loki Server autoAttendantId of the Auto Attendant instance</td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId} uriSchema:
+{"title":"URI Template Parameters","required":["customerId","siteId","autoAttendantId"],"properties":{"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30},"siteId":{"title":"Loki Server siteId (server-generated) of the Site","type":"string","minLength":1,"maxLength":30},"autoAttendantId":{"type":"string","minLength":1,"maxLength":161,"title":"Loki Server autoAttendantId of the Auto Attendant instance"}}} -->
+
+## Request Properties
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for Virtual User Profile settings:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>name</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td>Container for Calling Line Id settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>lastName</td><td>no</td><td>n/a</td><td>Calling Line Id last name</td></tr>
+    <tr><td>firstName</td><td>no</td><td>n/a</td><td>Calling Line Id first name</td></tr>
+    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
+    <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td>Phone Number add routine to apply. Allowed values: ["", "no-number", "port-no-temp", "auto"]<br>Note: "auto" and "no-number" values will not be implemented in initial release</td></tr>
+    <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
+    <tr><td>password</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>department</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>language</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>timeZone</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>alias</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>publicServiceIdentity</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>firstDigitTimeoutSeconds</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>enableVideo</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>businessHours</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for business hours settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>type</td><td>yes</td><td>n/a</td><td>Schedule access level</td></tr>
+    <tr><td>name</td><td>yes</td><td>n/a</td><td>Schedule name</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>holidaySchedule</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for holiday hours settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>type</td><td>yes</td><td>n/a</td><td>Schedule access level</td></tr>
+    <tr><td>name</td><td>yes</td><td>n/a</td><td>Schedule name</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>extensionDialingScope</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>The scope of extension or name dialing</td></tr>
+    <tr><td>nameDialingScope</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>The name of dialing scope</td></tr>
+    <tr><td>nameDialingEntries</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>The format callers should use when dialing by name</td></tr>
+    <tr><td>networkClassesOfService</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Network Class of Service</td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId} bodySchema:
+{"title":"Request Properties","type":"object","additionalProperties":false,"required":[],"properties":{"profile":{"title":"Container for Virtual User Profile settings:","type":"object","additionalProperties":false,"required":[],"properties":{"name":{"type":"string","minLength":1,"maxLength":30},"callingLineId":{"type":"object","additionalProperties":false,"description":"Container for Calling Line Id settings","properties":{"lastName":{"type":"string","minLength":1,"maxLength":30,"pattern":"^[\\\\x20-\\\\x21\\\\x23-\\\\x24\\\\x26-\\\\x2A\\\\x2C-\\\\x2E\\\\x30-\\\\x7F]+$","description":"Calling Line Id last name"},"firstName":{"type":"string","minLength":1,"maxLength":30,"pattern":"^[\\\\x20-\\\\x21\\\\x23-\\\\x24\\\\x26-\\\\x2A\\\\x2C-\\\\x2E\\\\x30-\\\\x7F]+$","description":"Calling Line Id first name"},"phoneNumber":{"type":"string","description":"<b>Not Implemented.</b><br> Calling Line Id phone number","pattern":"^\\\\+\\\\d+-\\\\d+$","minLength":1,"maxLength":23}}},"phoneNumber":{"type":["string","null"],"description":"An E.164-formatted TN","pattern":"^\\\\+\\\\d+-\\\\d+$","minLength":1,"maxLength":23},"tnRoutine":{"description":"Phone Number add routine to apply. Allowed values: [\"\", \"no-number\", \"port-no-temp\", \"auto\"]<br>Note: \"auto\" and \"no-number\" values will not be implemented in initial release","enum":["","port-no-temp","auto","no-number"]},"extension":{"title":"Extension","type":["string","null"],"minLength":2,"maxLength":20,"pattern":"^[0-9]+$"},"password":{"type":"string","minLength":1,"maxLength":60,"description":"<b>Not Implemented</b>"},"department":{"type":"string","minLength":1,"maxLength":50,"description":"<b>Not Implemented</b>"},"language":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented</b>"},"timeZone":{"type":"string","minLength":1,"maxLength":127,"description":"<b>Not Implemented</b>"},"alias":{"type":"array","maxItems":3,"items":{"type":"string","description":"SIP URI","pattern":"^[\\\\+]?[\\\\w\\\\-\\\\.\\\\!~\\\\*\\'\\\\(\\\\)]+@[a-zA-Z\\\\d\\\\.\\\\-]+$","minLength":1,"maxLength":161,"required":false},"description":"<b>Not Implemented</b>"},"publicServiceIdentity":{"type":"string","description":"<b>Not Implemented</b>","pattern":"^[\\\\+]?[\\\\w\\\\-\\\\.\\\\!~\\\\*\\'\\\\(\\\\)]+@[a-zA-Z\\\\d\\\\.\\\\-]+$","minLength":1,"maxLength":161,"required":false}}},"firstDigitTimeoutSeconds":{"type":"integer","minimum":1,"maximum":60,"description":"<b>Not Implemented</b>"},"enableVideo":{"type":"boolean","description":"<b>Not Implemented</b>"},"businessHours":{"type":"object","additionalProperties":false,"description":"<b>Not Implemented.</b><br>Container for business hours settings","required":["type","name"],"properties":{"type":{"enum":["Service Provider","Group","User"],"description":"Schedule access level"},"name":{"type":"string","minLength":1,"maxLength":40,"description":"Schedule name"}}},"holidaySchedule":{"type":"object","additionalProperties":false,"required":["type","name"],"description":"<b>Not Implemented.</b><br>Container for holiday hours settings","properties":{"type":{"enum":["Service Provider","Group","User"],"description":"Schedule access level"},"name":{"type":"string","minLength":1,"maxLength":40,"description":"Schedule name"}}},"extensionDialingScope":{"description":"<b>Not Implemented.</b><br>The scope of extension or name dialing","enum":["Service Provider","Group","Department"]},"nameDialingScope":{"enum":["Service Provider","Group","Department"],"description":"<b>Not Implemented.</b><br>The name of dialing scope"},"nameDialingEntries":{"enum":["LastName + FirstName","LastName + FirstName or FirstName + LastName"],"description":"<b>Not Implemented.</b><br>The format callers should use when dialing by name"},"networkClassesOfService":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented.</b><br>Network Class of Service"}}} -->
+
+## Response Properties - 200 OK
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>autoAttendantId</td><td>yes</td><td>n/a</td><td>Loki Server autoAttendantId of the Auto Attendant instance</td></tr>
+    <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
+    <tr><td>publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>extensions</td><td>yes</td><td>n/a</td><td>Container for network-element specific properties<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>resourceId</td><td>yes</td><td>n/a</td><td>Auto Attendant instande ID in the BroadWorks</td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId} Response 200:
+{"title":"Response Properties - 200 OK","type":"object","required":["_links","curies","autoAttendantId","extensions"],"properties":{"_links":{"type":"object","required":["self"],"properties":{"self":{"type":"object","required":["href"],"properties":{"href":{"type":"string"}}}}},"curies":{"type":"array","items":{"type":"object","required":["name","href","templated"],"properties":{"name":{"type":"string"},"href":{"type":"string"},"templated":{"type":"boolean"}}}},"autoAttendantId":{"type":"string","minLength":1,"maxLength":161,"title":"Loki Server autoAttendantId of the Auto Attendant instance"},"profile":{"type":"object","description":"Container for profile settings","properties":{"extension":{"title":"Extension","type":["string","null"],"minLength":2,"maxLength":20,"pattern":"^[0-9]+$"},"publicServiceIdentity":{"type":"string","minLength":1,"maxLength":161,"title":"Public Service Identity"}}},"extensions":{"type":"object","description":"Container for network-element specific properties","required":["broadworks"],"properties":{"broadworks":{"type":"object","description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","required":["resourceId"],"properties":{"resourceId":{"type":"string","minLength":1,"maxLength":161,"description":"Auto Attendant instande ID in the BroadWorks"}}}}}}} -->
+
+
+PUT /customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}
+> Content-Type: application/json
+{
+    "profile": {
+        "name": "My Auto Attendant",
+        "callingLineId": {
+            "firstName": "Shoes",
+            "lastName": "Sales"
+        },
+        "phoneNumber": "+1-4150192301",
+        "tnRoutine": "port-no-temp",
+        "extension": "2301"
+    }
+}
+< 200
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com/sites/Example%20Site/auto-attendants/4151002300"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "autoAttendantId": "4151002300",
+    "profile": {
+        "extension": "2300",
+        "publicServiceIdentity": "4151002300@voip.example.net"
+    },
+    "extensions": {
+        "broadworks": {
+            "resourceId": "4151002300"
+        }
+    }
+}
+
 --
 VoIP Site Hunt Group
 ##Collection
