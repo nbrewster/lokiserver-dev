@@ -9486,6 +9486,159 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/ser
     "externalErrorDetail": "Authentication: Service is not assignable."
 }
 
+<!--------------------------------- PUT /customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId} ------------------------------->
+
+Update Hunt Group instance.<br/>
+Process Name: Modify Hunt Group via LWS-SOAP (VoIP Entity)<br/>
+Rollback-enabled: No
+
+
+## URI Template Parameters
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Loki Server siteId (server-generated) of the Site</td></tr>
+    <tr><td>huntGroupId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Hunt Group instance</td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId} uriSchema:
+{"title":"URI Template Parameters","required":["customerId","siteId","huntGroupId"],"properties":{"customerId":{"title":"Loki Server customerId (server-generated) of the Customer","type":"string","minLength":1,"maxLength":30},"siteId":{"title":"Loki Server siteId (server-generated) of the Site","type":"string","minLength":1,"maxLength":30},"huntGroupId":{"type":"string","minLength":1,"maxLength":161,"title":"Loki Server ID of the Hunt Group instance"}}} -->
+
+## Request Properties
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for Virtual User Profile settings:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>name</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td>Container for Calling Line Id settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>lastName</td><td>no</td><td>n/a</td><td>Calling Line Id last name</td></tr>
+    <tr><td>firstName</td><td>no</td><td>n/a</td><td>Calling Line Id first name</td></tr>
+    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
+    <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td>Phone Number add routine to apply. Allowed values: ["", "no-number", "port-no-temp", "auto"]<br>Note: "auto" and "no-number" values will not be implemented in initial release</td></tr>
+    <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
+    <tr><td>password</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>department</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>language</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>timeZone</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>alias</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>publicServiceIdentity</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>policy</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>noAnswer</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for No Answer Settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>skipToAgent</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>skipToAgentAfterNumberOfRings</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>forwardCallAfterTimeout</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>forwardAfterTimeoutSeconds</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>forwardToPhoneNumber</td><td>no</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>allowCallWaitingForAgents</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>callingLineIdSettings</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for Calling Line ID settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>useCustom</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>includeHuntGroupName</td><td>no</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>notReachableSettings</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for Not Reachable Settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>enableForwarding</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>forwardToPhoneNumber</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr><td>makeBusyWhenNotReachable</td><td>no</td><td>n/a</td><td></td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>allowMembersToControlGroupBusy</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>enableGroupBusy</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>applyGroupBusyWhenTerminatingToAgent</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
+    <tr><td>networkClassesOfService</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Network Class of Service</td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId} bodySchema:
+{"title":"Request Properties","type":"object","additionalProperties":false,"required":[],"properties":{"profile":{"title":"Container for Virtual User Profile settings:","type":"object","additionalProperties":false,"required":[],"properties":{"name":{"type":"string","minLength":1,"maxLength":30},"callingLineId":{"type":"object","additionalProperties":false,"description":"Container for Calling Line Id settings","properties":{"lastName":{"type":"string","minLength":1,"maxLength":30,"pattern":"^[\\\\x20-\\\\x21\\\\x23-\\\\x24\\\\x26-\\\\x2A\\\\x2C-\\\\x2E\\\\x30-\\\\x7F]+$","description":"Calling Line Id last name"},"firstName":{"type":"string","minLength":1,"maxLength":30,"pattern":"^[\\\\x20-\\\\x21\\\\x23-\\\\x24\\\\x26-\\\\x2A\\\\x2C-\\\\x2E\\\\x30-\\\\x7F]+$","description":"Calling Line Id first name"},"phoneNumber":{"type":"string","description":"<b>Not Implemented.</b><br> Calling Line Id phone number","pattern":"^\\\\+\\\\d+-\\\\d+$","minLength":1,"maxLength":23}}},"phoneNumber":{"type":["string","null"],"description":"An E.164-formatted TN","pattern":"^\\\\+\\\\d+-\\\\d+$","minLength":1,"maxLength":23},"tnRoutine":{"description":"Phone Number add routine to apply. Allowed values: [\"\", \"no-number\", \"port-no-temp\", \"auto\"]<br>Note: \"auto\" and \"no-number\" values will not be implemented in initial release","enum":["","port-no-temp","auto","no-number"]},"extension":{"title":"Extension","type":["string","null"],"minLength":2,"maxLength":20,"pattern":"^[0-9]+$"},"password":{"type":"string","minLength":1,"maxLength":60,"description":"<b>Not Implemented</b>"},"department":{"type":"string","minLength":1,"maxLength":50,"description":"<b>Not Implemented</b>"},"language":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented</b>"},"timeZone":{"type":"string","minLength":1,"maxLength":127,"description":"<b>Not Implemented</b>"},"alias":{"type":"array","maxItems":3,"items":{"type":"string","description":"SIP URI","pattern":"^[\\\\+]?[\\\\w\\\\-\\\\.\\\\!~\\\\*\\'\\\\(\\\\)]+@[a-zA-Z\\\\d\\\\.\\\\-]+$","minLength":1,"maxLength":161,"required":false},"description":"<b>Not Implemented</b>"},"publicServiceIdentity":{"type":"string","description":"<b>Not Implemented</b>","pattern":"^[\\\\+]?[\\\\w\\\\-\\\\.\\\\!~\\\\*\\'\\\\(\\\\)]+@[a-zA-Z\\\\d\\\\.\\\\-]+$","minLength":1,"maxLength":161,"required":false}}},"policy":{"enum":["Circular","Regular","Simultaneous","Uniform","Weighted"],"description":"<b>Not Implemented</b>"},"noAnswer":{"type":"object","additionalProperties":false,"properties":{"skipToAgent":{"type":"boolean"},"skipToAgentAfterNumberOfRings":{"type":"integer","minimum":1,"maximum":20},"forwardCallAfterTimeout":{"type":"boolean"},"forwardAfterTimeoutSeconds":{"type":"integer","minimum":1,"maximum":20},"forwardToPhoneNumber":{"type":"string","minLength":1,"maxLength":30}},"description":"<b>Not Implemented.</b><br>Container for No Answer Settings"},"allowCallWaitingForAgents":{"type":"boolean","description":"<b>Not Implemented</b>"},"callingLineIdSettings":{"type":"object","additionalProperties":false,"properties":{"useCustom":{"type":"boolean"},"includeHuntGroupName":{"type":"boolean"}},"description":"<b>Not Implemented.</b><br>Container for Calling Line ID settings"},"notReachableSettings":{"type":"object","additionalProperties":false,"properties":{"enableForwarding":{"type":"boolean"},"forwardToPhoneNumber":{"anyOf":[{"type":["string","null"],"description":"An E.164-formatted TN","pattern":"^\\\\+\\\\d+-\\\\d+$","minLength":1,"maxLength":23},{"extends":[{"$ref":"/bwksDnSchema"},{"description":"A non-E.164 formatted TN.","pattern":"^[\\\\d\\\\-]+$"}]},{"type":"string","description":"SIP URI","pattern":"^[\\\\+]?[\\\\w\\\\-\\\\.\\\\!~\\\\*\\'\\\\(\\\\)]+@[a-zA-Z\\\\d\\\\.\\\\-]+$","minLength":1,"maxLength":161,"required":false}]},"makeBusyWhenNotReachable":{"type":"boolean"}},"description":"<b>Not Implemented.</b><br>Container for Not Reachable Settings"},"allowMembersToControlGroupBusy":{"type":"boolean","description":"<b>Not Implemented</b>"},"enableGroupBusy":{"type":"boolean","description":"<b>Not Implemented</b>"},"applyGroupBusyWhenTerminatingToAgent":{"type":"boolean","description":"<b>Not Implemented</b>"},"networkClassesOfService":{"type":"string","minLength":1,"maxLength":40,"description":"<b>Not Implemented.</b><br>Network Class of Service"}}} -->
+
+## Response Properties - 200 OK
+<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>huntGroupId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Hunt Group instance</td></tr>
+    <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
+    <tr><td>publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
+    </tbody>
+</table></td></tr>
+    <tr><td>extensions</td><td>yes</td><td>n/a</td><td>Container for network-element specific properties<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:<table border=1>
+    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+    <tbody>
+    <tr><td>resourceId</td><td>yes</td><td>n/a</td><td>Hunt Group instance ID in the BroadWorks</td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table></td></tr>
+    </tbody>
+</table>
+<!--- JSON Schema for PUT /customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId} Response 200:
+{"title":"Response Properties - 200 OK","type":"object","required":["_links","curies","huntGroupId","extensions"],"properties":{"_links":{"type":"object","required":["self"],"properties":{"self":{"type":"object","required":["href"],"properties":{"href":{"type":"string"}}}}},"curies":{"type":"array","items":{"type":"object","required":["name","href","templated"],"properties":{"name":{"type":"string"},"href":{"type":"string"},"templated":{"type":"boolean"}}}},"huntGroupId":{"type":"string","minLength":1,"maxLength":161,"title":"Loki Server ID of the Hunt Group instance"},"profile":{"type":"object","description":"Container for profile settings","properties":{"extension":{"title":"Extension","type":["string","null"],"minLength":2,"maxLength":20,"pattern":"^[0-9]+$"},"publicServiceIdentity":{"type":"string","minLength":1,"maxLength":161,"title":"Public Service Identity"}}},"extensions":{"type":"object","description":"Container for network-element specific properties","required":["broadworks"],"properties":{"broadworks":{"type":"object","description":"Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:","required":["resourceId"],"properties":{"resourceId":{"type":"string","minLength":1,"maxLength":161,"description":"Hunt Group instance ID in the BroadWorks"}}}}}}} -->
+
+
+PUT /customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
+> Content-Type: application/json
+{
+    "profile": {
+        "name": "My Hunt Group",
+        "callingLineId": {
+            "firstName": "First",
+            "lastName": "Last"
+        },
+        "phoneNumber": "+1-4150192301",
+        "tnRoutine": "port-no-temp",
+        "extension": "2301"
+    }
+}
+< 200
+< Content-Type: application/hal+json
+< Transaction-Id: 1380080943120
+{
+    "_links": {
+        "self": {
+            "href": "http://lokiserver.apiary.io/loki/customers/Example%20Com/sites/Example%20Site/hunt-groups/4151002300"
+        }
+    },
+    "curies": [
+        {
+            "name": "ls",
+            "href": "http://lokiserver.apiary.io/loki/rels/{rel}",
+            "templated": true
+        }
+    ],
+    "huntGroupId": "4151002300",
+    "profile": {
+        "extension": "2300",
+        "publicServiceIdentity": "4151002300@voip.example.net"
+    },
+    "extensions": {
+        "broadworks": {
+            "resourceId": "4151002300"
+        }
+    }
+}
+
 --
 VoIP Site Call Center
 ##Collection
