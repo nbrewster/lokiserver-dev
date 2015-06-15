@@ -68,6 +68,155 @@ Response code: 500
 
 Clients of LWS-REST should support all the response body formats.
 
+## Error responses
+LWS-REST returns different error responses depending on the error encountered.<br />
+See below examples of different error responses:
+
+Error: Input validation failure - URI query parameter<br />
+Response code: 400 Bad Request
+<pre>{
+    "errorCode": "URI_QUERY_FORMAT_ERROR",
+    "summary": "URI query parameter variable validation failure",
+    "detail": "query.mode is required"
+}
+</pre>
+
+Error: Input validation failure - URI template variable<br />
+Response code: 400 Bad Request
+<pre>{
+    "errorCode": "URI_TEMPLATE_FORMAT_ERROR",
+    "summary": "URI template variable validation failure",
+    "detail": "params.mobileIdentityId does not match pattern^\\+\\d+-\\d+$: was processing value \"example\""
+}
+</pre>
+
+Error: Input validation failure - body property<br />
+Response code: 400 Bad Request
+<pre>{
+    "errorCode": "FORMAT_ERROR",
+    "summary": "Input validation failure",
+    "detail": "body.profile.name is not of a type(s) string: was processing value \"123\""
+}
+</pre>
+
+Error: Not authenticated (or authentication failed with some error)<br />
+Response code: 401 Unauthorized
+<pre>{
+    "errorCode": "EXTERNAL_API_AUTHENTICATION_ERROR",
+    "externalErrorCode": "4962",
+    "externalErrorSummary": "[Error 4962] Invalid password",
+    "externalErrorDetail": "[Error 4962] Invalid password"
+}
+</pre>
+
+Error: Not authorized to perform a request<br />
+Response code: 403 Forbidden
+<pre>{
+    "errorCode": "EXTERNAL_API_FORBIDDEN",
+    "externalErrorCode": "4003",
+    "externalErrorSummary": "[Error 4003] Unauthorized request: UserAuthenticationModifyRequest",
+    "externalErrorDetail": "[Error 4003] Unauthorized request: UserAuthenticationModifyRequest"
+}
+</pre>
+
+Error: Unexpected response from remote API.<br />
+Response code: 502 Bad Gateway
+<pre>{
+    "errorCode": "EXTERNAL_API_SERVER_ERROR",
+    "summary": "Unexpected response from remote API",
+    "detail": "LWS-SOAP: Received unexpected response: 'SuccessResponse'"
+}
+</pre>
+
+Error: Unable to connect to remote API.<br />
+Response code: 502 Bad Gateway
+<pre>{
+    "errorCode": "EXTERNAL_API_CONNECTION_ERROR",
+    "summary": "Unable to connect to remote API",
+    "detail": "LWS-SOAP: Unable to connect: ECONNREFUSED"
+}
+</pre>
+
+Error: Failed to send remote API request.<br />
+Response code: 502 Bad Gateway
+<pre>{
+    "errorCode": "EXTERNAL_API_CLIENT_ERROR",
+    "summary": "Failed to send remote API request.",
+    "detail": "LWS-SOAP: Failed to send request"
+}
+</pre>
+
+Error: Error response from remote API.<br />
+Response code: 424 Failed Dependency
+<pre>{
+    "errorCode": "EXTERNAL_API_ERROR",
+    "externalErrorCode": "4208",
+    "externalErrorSummary": "Auto Attendant Add Failed",
+    "externalErrorDetail": "[Error 4208] The name is already in use by a service of this type."
+}
+</pre>
+
+Error: Remote API request timed out.<br />
+Response code: 504 Gateway Time-out
+<pre>{
+    "errorCode": "EXTERNAL_API_REQUEST_TIMEOUT",
+    "summary": "External API request timeout",
+    "detail": "LWS-SOAP: Message timed out after 30000 ms."
+}
+</pre>
+
+Error: Unable to parse remote API response.<br />
+Response code: 502 Bad Gateway
+<pre>{
+    "errorCode": "EXTERNAL_API_PARSE_ERROR",
+    "summary": "Unable to parse remote API response",
+    "detail": "LWS-SOAP: Parse error:Property \"enableVideo\" couldn't be converted. Value false is not valid for integer type"
+}
+</pre>
+
+Error: The server was unable to process your request.<br />
+Response code: 422 Unprocessable Entity
+<pre>{
+    "errorCode": "SEMANTIC_ERROR",
+    "summary": "The server was unable to process your request",
+    "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Auto Attendant.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Auto Attendant."
+}
+</pre>
+
+Error: The client tried to access a resource on an external network element and the resource doesn’t exist.<br />
+Response code: 404 Not Found
+<pre>{
+    "errorCode": "NOT_FOUND",
+    "externalErrorCode": "4151",
+    "externalErrorSummary": "[Error 4151] Service Provider or Enterprise not found: example",
+    "externalErrorDetail": "[Error 4151] Service Provider or Enterprise not found: example"
+}
+</pre>
+
+Error: The requested functionality is not implemented.<br />
+Response code: 501 Not Implemented
+<pre>{
+    "errorCode": "NOT_IMPLEMENTED",
+    "summary": "The requested functionality is not implemented.",
+    "detail": "body.profile.callingLineId: Property phoneNumber does not exist in the schema"
+}
+</pre>
+
+Error: Server configuration error.<br />
+Response code: 500 Internal Server Error
+<pre>{
+    "errorCode": "CONFIG_ERROR",
+    "summary": "Server configuration error",
+    "detail": "LWS-SOAP support is not enabled"
+}
+</pre>
+
+Error: Client tried to call a method that isn’t supported for the resource.<br />
+Response code: 405 Method Not Allowed
+
+Error: The client called a resource that does not exist at all.<br />
+Response code: 404 Not Found
+
 ## BroadWorks Service values in LWS-REST
 LWS-REST does not support BroadWorks Service name labels.
 If you are using a request that takes as input a BroadWorks Service name you need to provide the BroadWorks Service name value.
@@ -11364,6 +11513,7 @@ CHANGELOG
 
 General
 
+ * Added the "Error responses" section
  * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}
  * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
  * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
