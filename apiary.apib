@@ -3550,7 +3550,7 @@ Retrieve the Voice Portal service settings of a Site.
 
 **NOT IMPLEMENTED**
 
-GET /customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+GET /customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
 < 200
 < Content-Type: application/hal+json
 < Transaction-Id: 1380080943120
@@ -4192,7 +4192,7 @@ Besides the properties listed in the table below, the response also contains the
        </tr>
        <tr>
             <td>extensions.broadworks.serviceProviderId</td>
-            <td>The ID of the BroadWorks Service Provider/ Enterprise in which the device was created.<td>
+            <td>The ID of the BroadWorks Service Provider/ Enterprise in which the device was created.</td>
        </tr>
        <tr>
             <td>extensions.broadworks.groupId</td>
@@ -4205,7 +4205,7 @@ Besides the properties listed in the table below, the response also contains the
     </tbody>
 </table>
 
-POST /customers/{+customerId}/sites/{+siteId}/devices/{?mode}
+POST /customers/{+customerId}/sites/{+siteId}/devices{?mode}
 {
     "deviceName": "Example Com AD3001",
     "type": "Adtran TA908",
@@ -6852,6 +6852,46 @@ Modify VoIP User's assigned services.
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
             <td>Loki Server userId (server-generated) of the user.</td>
+        </tr>
+    </tbody>
+</table>
+
+##Request properties
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>services</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Array of user services.</td>
+        </tr>
+        <tr>
+            <td>services[]</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td><b>Note</b>: The service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server will not pre-validate service name correctness. Providing invalid service name will result in LWS-SOAP request validation error.</td>
+        </tr>
+        <tr>
+            <td>servicePacks</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td>Array of service packs.</td>
+        </tr>
+        <tr>
+            <td>servicePacks[]</td>
+            <td style="text-align: center;">no</td>
+            <td>n/a</td>
+            <td><b>Note</b>: The service pack name should be a valid service pack name in BroadWorks, available for assignment in the BroadWorks system that is configured for operations.
+            </td>
         </tr>
     </tbody>
 </table>
@@ -12303,7 +12343,9 @@ POST /loki/users{?mode}
 						"maxLength": 30
 					},
 					"name": {
-						"$ref": "/userId"
+						"minLength": 1,
+        				"maxLength": 161,
+        				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
 					},
 					"phoneNumber": {
 						"$ref": "/bwksDnSchema"
@@ -13045,107 +13087,7 @@ POST /loki/users{?mode}
 				}
 			}
         }
-	},
-	"definitions": {
-		"userId": {
-			"type": "string",
-			"minLength": 1,
-			"maxLength": 161,
-			"pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
-		},
-		"tnRoutineWithNoNumber": {
-			"enum": [
-				null,
-				"",
-				"port-no-temp",
-				"auto",
-				"no-number"
-			]
-		},
-		"bwksDnSchema": {
-			"type": "string",
-			"description": "A formatted TN.",
-			"pattern": "^\\+\\d+-\\d+$",
-			"minLength": 1,
-			"maxLength": 23,
-			"required": false
-		},
-		"tnRoutine": {
-			"enum": [
-				null,
-				"",
-				"port-no-temp",
-				"auto"
-			]
-		},
-		"numberOfRings": {
-			"enum": [
-				0,
-				2,
-				3,
-				4,
-				5,
-				6,
-				7,
-				8,
-				9,
-				10,
-				11,
-				12,
-				13,
-				14,
-				15,
-				16,
-				17,
-				18,
-				19,
-				20
-			]
-		},
-		"bwksNonFormattedDnSchema": {
-			"type": "string",
-			"description": "A non-E.164 formatted TN.",
-			"pattern": "^[\\d\\-]+$",
-			"minLength": 1,
-			"maxLength": 23,
-			"required": false
-		},
-		"outgoingDnOrSipUri": {
-			"anyOf": [
-				{
-					"id": "E.164 DN",
-					"extends": [
-						{
-							"$ref": "/bwksDnSchema"
-						},
-						{
-							"type": [
-								"string",
-								"null"
-							]
-						}
-					]
-				},
-				{
-					"id": "non-E.164 DN",
-					"$ref": "/bwksNonFormattedDnSchema"
-				},
-				{
-					"id": "SIP URI",
-					"$ref": "/bwksSipUri"
-				}
-			]
-		},
-		"bwksSipUri": {
-			"type": "string",
-			"description": "SIP URI",
-			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-			"minLength": 1,
-			"maxLength": 161,
-			"required": false
-		}
-	},
-	"response": {}
+	}
 }
 
 PUT /loki/users/{+userId}
@@ -13283,449 +13225,383 @@ PUT /loki/users/{+userId}/call-processing-policy
 
 POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 {
+    "requestURIQuery": {
+        "title": "VoIP Trunk Group create request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
     "requestURITemplate": {
-        "title": "VoIP Entity - VoIP Trunk Group create request URI template parameters schema",
+        "title": "VoIP Trunk Group create request URI template parameters schema",
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
 	"requestBody": {
-		"post": {
-			"body": {
-				"id": "voipTrunkGroupsBody",
+	    "title": "VoIP Trunk Group create request body properties",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+			"name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+			"accessDevice": {
 				"type": "object",
 				"required": true,
 				"additionalProperties": false,
-				"title": "Post schema, body",
 				"properties": {
-					"name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
-					"accessDevice": {
+					"deviceManagementRoutine": { "enum": [ "create", "existing" ] },
+					"level": { "enum": [ "Site" ], "required": true },
+					"deviceType": { "type": "string", "minLength": 1, "maxLength": 40 },
+					"deviceName": { "type": "string", "minLength": 1, "maxLength": 40, "required": true },
+					"hostname": { "type": "string", "minLength": 1, "maxLength": 80 }
+				}
+			},
+			"pilotUser": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
+					"siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
+					"userId": {
+        				"minLength": 1,
+        				"maxLength": 161,
+        				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+        			},
+					"phoneNumber": { "$ref": "/bwksDnSchema" },
+					"tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+					"extension": { "type": [ "string", "null" ], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+					"CLID": { "$ref": "/bwksDnSchema" },
+					"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
+					"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
+					"callingLineIdLastName": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 30,
+						"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+					},
+					"callingLineIdFirstName": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 30,
+						"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+					},
+					"email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
+					"timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+					"language": { "type": "string", "minLength": 1, "maxLength": 40 },
+					"role": { "type": "any" },
+					"servicePacks": {
 						"type": "object",
-						"required": true,
 						"additionalProperties": false,
+						"description": "Service Packs that will be assigned to User",
 						"properties": {
-							"deviceManagementRoutine": { "enum": [ "create", "existing" ] },
-							"level": { "enum": [ "Site" ], "required": true },
-							"deviceType": { "type": "string", "minLength": 1, "maxLength": 40 },
-							"deviceName": { "type": "string", "minLength": 1, "maxLength": 40, "required": true },
-							"hostname": { "type": "string", "minLength": 1, "maxLength": 80 }
+							"base": { "type": "string", "minLength": 1, "maxLength": 80 },
+							"add-on": {
+								"type": "array",
+								"items": { "type": "string", "minLength": 1, "maxLength": 80 }
+							}
 						}
 					},
-					"pilotUser": {
+					"services": {
 						"type": "object",
-						"required": true,
-						"additionalProperties": false,
 						"properties": {
-							"customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
-							"siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
-							"userId": { "$ref": "/userId" },
-							"phoneNumber": { "$ref": "/bwksDnSchema" },
-							"tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
-							"extension": { "type": [ "string", "null" ], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-							"CLID": { "$ref": "/bwksDnSchema" },
-							"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
-							"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
-							"callingLineIdLastName": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 30,
-								"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-							},
-							"callingLineIdFirstName": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 30,
-								"pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-							},
-							"email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
-							"timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
-							"language": { "type": "string", "minLength": 1, "maxLength": 40 },
-							"role": { "type": "any" },
-							"servicePacks": {
+							"Authentication": {
 								"type": "object",
 								"additionalProperties": false,
-								"description": "Service Packs that will be assigned to User",
 								"properties": {
-									"base": { "type": "string", "minLength": 1, "maxLength": 80 },
-									"add-on": {
-										"type": "array",
-										"items": { "type": "string", "minLength": 1, "maxLength": 80 }
-									}
+									"username": { "type": "string", "minLength": 1, "maxLength": 80 },
+									"password": { "type": "string", "minLength": 1, "maxLength": 60 }
 								}
 							},
-							"services": {
+							"Charge Number": {
 								"type": "object",
+								"additionalProperties": false,
 								"properties": {
-									"Authentication": {
-										"type": "object",
-										"additionalProperties": false,
-										"properties": {
-											"username": { "type": "string", "minLength": 1, "maxLength": 80 },
-											"password": { "type": "string", "minLength": 1, "maxLength": 60 }
-										}
-									},
-									"Charge Number": {
-										"type": "object",
-										"additionalProperties": false,
-										"properties": {
-											"phoneNumber": {
-												"extends": [
-													{
-														"$ref": "/bwksDnSchema"
-													},
-													{
-														"type": [
-															"string",
-															"null"
-														]
-													}
-												]
+									"phoneNumber": {
+										"extends": [
+											{
+												"$ref": "/bwksDnSchema"
 											},
-											"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
-											"sendChargeNumberToNetwork": { "type": "boolean" },
-											"tnRoutine": { "$ref": "/tnRoutine" }
-										}
-									},
-									"Third-Party Voice Mail Support": {
-										"type": "object",
-										"additionalProperties": false,
-										"properties": {
-											"isActive": { "type": "boolean" },
-											"busyRedirectToVoiceMail": { "type": "boolean" },
-											"noAnswerRedirectToVoiceMail": { "type": "boolean" },
-											"noAnswerNumberOfRings": { "$ref": "/numberOfRings" },
-											"alwaysRedirectToVoiceMail": { "type": "boolean" },
-											"outOfPrimaryZoneRedirectToVoiceMail": { "type": "boolean" },
-											"serverSelection": {
-												"enum": [ "Group Mail Server", "User Specific Mail Server" ]
-											},
-											"userServer": { "$ref": "/outgoingDnOrSipUri" },
-											"mailboxIdType": {
-												"enum": [ "User Or Group Phone Number", "URL" ]
-											},
-											"mailboxURL": {
-												"extends": [
-													{
-														"$ref": "/bwksSipUri"
-													},
-													{
-														"type": [
-															"string",
-															"null"
-														]
-													}
+											{
+												"type": [
+													"string",
+													"null"
 												]
 											}
-										}
+										]
 									},
-									"Call Forwarding No Answer": {
-										"type": "object",
-										"additionalProperties": false,
-										"properties": {
-											"isActive": { "type": "boolean" },
-											"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
-											"numberOfRings": { "$ref": "/numberOfRings" }
-										}
+									"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
+									"sendChargeNumberToNetwork": { "type": "boolean" },
+									"tnRoutine": { "$ref": "/tnRoutine" }
+								}
+							},
+							"Third-Party Voice Mail Support": {
+								"type": "object",
+								"additionalProperties": false,
+								"properties": {
+									"isActive": { "type": "boolean" },
+									"busyRedirectToVoiceMail": { "type": "boolean" },
+									"noAnswerRedirectToVoiceMail": { "type": "boolean" },
+									"noAnswerNumberOfRings": { "$ref": "/numberOfRings" },
+									"alwaysRedirectToVoiceMail": { "type": "boolean" },
+									"outOfPrimaryZoneRedirectToVoiceMail": { "type": "boolean" },
+									"serverSelection": {
+										"enum": [ "Group Mail Server", "User Specific Mail Server" ]
 									},
-									"Call Forwarding Not Reachable": {
-										"type": "object",
-										"additionalProperties": false,
-										"properties": {
-											"isActive": { "type": "boolean" },
-											"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" }
-										}
+									"userServer": { "$ref": "/outgoingDnOrSipUri" },
+									"mailboxIdType": {
+										"enum": [ "User Or Group Phone Number", "URL" ]
+									},
+									"mailboxURL": {
+										"extends": [
+											{
+												"$ref": "/bwksSipUri"
+											},
+											{
+												"type": [
+													"string",
+													"null"
+												]
+											}
+										]
 									}
 								}
 							},
-							"extensions": {
+							"Call Forwarding No Answer": {
 								"type": "object",
 								"additionalProperties": false,
 								"properties": {
-									"broadworks": {
-										"type": "object",
-										"additionalProperties": false,
-										"properties": {
-											"serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
-											"groupId": { "type": "string", "minLength": 1, "maxLength": 30 }
-										}
-									}
+									"isActive": { "type": "boolean" },
+									"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
+									"numberOfRings": { "$ref": "/numberOfRings" }
 								}
-							}
-						}
-					},
-					"department": { "type": "string", "minLength": 1, "maxLength": 50 },
-					"capacityManagement": {
-						"type": "object",
-						"required": true,
-						"additionalProperties": false,
-						"properties": {
-							"maxActiveCalls": {
+							},
+							"Call Forwarding Not Reachable": {
 								"type": "object",
-								"required": true,
 								"additionalProperties": false,
 								"properties": {
-									"total": { "type": "integer", "minimum": 1, "required": true },
-									"incoming": { "type": "integer", "minimum": 1, "maximum": 999999 },
-									"outgoing": { "type": "integer", "minimum": 1, "maximum": 999999 }
+									"isActive": { "type": "boolean" },
+									"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" }
 								}
-							},
-							"burstingMaxActiveCalls": {
-								"type": "object",
-								"required": true,
-								"additionalProperties": false,
-								"properties": {
-									"enabled": { "$ref": "/requiredBoolean" },
-									"total": { "type": "integer", "minimum": 0, "maximum": 999999 },
-									"incoming": { "type": "integer", "minimum": 0, "maximum": 999999 },
-									"outgoing": { "type": "integer", "minimum": 0, "maximum": 999999 }
-								}
-							},
-							"incomingCapacityExceeded": {
-								"type": "object",
-								"required": true,
-								"additionalProperties": false,
-								"properties": {
-									"action": { "$ref": "/trunkingActions" },
-									"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
-									"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" },
-									"initialCalls": { "type": "integer", "minimum": 0, "required": true },
-									"offsetCalls": { "type": "integer", "minimum": 0, "required": true }
-								}
-							}
-						}
-					},
-					"unreachableDestination": {
-						"type": "object",
-						"required": true,
-						"additionalProperties": false,
-						"properties": {
-							"timeout": { "type": "integer", "minimum": 0, "maximum": 15, "required": true },
-							"action": { "$ref": "/trunkingActions" },
-							"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
-							"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" }
-						}
-					},
-					"authentication": {
-						"type": "object",
-						"required": true,
-						"additionalProperties": false,
-						"properties": {
-							"enabled": { "$ref": "/requiredBoolean" },
-							"username": { "type": "string", "minLength": 1, "maxLength": 80 },
-							"password": { "type": "string", "minLength": 1, "maxLength": 60 }
-						}
-					},
-					"hostedUsers": { "type": "array" },
-					"identity": {
-						"type": "object",
-						"required": true,
-						"additionalProperties": false,
-						"properties": {
-							"trunkGroupIdentity": {
-								"type": "object",
-								"required": true,
-								"additionalProperties": false,
-								"properties": {
-									"identity": { "$ref": "/bwksSipUri" },
-									"allowTerminationToTrunkGroupIdentity": { "$ref": "/requiredBoolean" },
-									"includeTrunkGroupIdentity": { "$ref": "/requiredBoolean" },
-									"includeTrunkGroupIdentityForNetworkCalls": { "$ref": "/requiredBoolean" }
-								}
-							},
-							"otgDtgIdentity": {
-								"type": "object",
-								"required": true,
-								"additionalProperties": false,
-								"properties": {
-									"identity": { "type": "string", "minLength": 1, "maxLength": 80 },
-									"allowTerminationToDtgIdentity": { "$ref": "/requiredBoolean" },
-									"includeDtgIdentity": { "$ref": "/requiredBoolean" },
-									"includeOtgIdentityForNetworkCalls": { "$ref": "/requiredBoolean" }
-								}
-							},
-							"enableNetworkAddressIdentity": { "$ref": "/requiredBoolean" }
-						}
-					},
-					"allowUnscreenedCalls": { "$ref": "/requiredBoolean" },
-					"allowUnscreenedEmergencyCalls": { "$ref": "/requiredBoolean" },
-					"pilotUserCallingLineIdentityPolicy": {
-						"enum": [ "All Originating Calls", "Unscreened Originating Calls", "No Calls" ],
-						"required": true
-					},
-					"pilotUserChargeNumberPolicy": {
-						"enum": [ "All Originating Calls", "Unscreened Originating Calls", "No Calls" ],
-						"required": true
-					},
-					"callForwardingAlways": {
-						"type": "object",
-						"additionalProperties": false,
-						"properties": {
-							"action": { "$ref": "/trunkingActions" },
-							"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
-							"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" }
-						}
-					},
-					"peeringDomain": {
-						"type": "object",
-						"required": true,
-						"additionalProperties": false,
-						"properties": {
-							"domainName": { "type": "string", "minLength": 1, "maxLength": 80 },
-							"routeToPeeringDomain": { "$ref": "/requiredBoolean" }
-						}
-					},
-					"trunkGroupPrefix": {
-						"type": "object",
-						"required": true,
-						"additionalProperties": false,
-						"properties": {
-							"enabled": { "$ref": "/requiredBoolean" },
-							"prefix": { "type": "string", "minLength": 1, "maxLength": 15 }
-						}
-					},
-					"advancedReroute": {
-						"type": "object",
-						"required": true,
-						"additionalProperties": false,
-						"properties": {
-							"enabled": { "$ref": "/requiredBoolean" },
-							"sendContinuousOptionsMessage": { "$ref": "/requiredBoolean" },
-							"continuousOptionsSendingInterval": {
-								"type": "integer",
-								"minimum": 30,
-								"maximum": 86400,
-								"required": true
-							},
-							"failureOptionsSendingInterval": {
-								"type": "integer",
-								"minimum": 10,
-								"maximum": 86400,
-								"required": true
-							},
-							"failureThresholdCounter": {
-								"type": "integer",
-								"minimum": 1,
-								"maximum": 60,
-								"required": true
-							},
-							"successThresholdCounter": {
-								"type": "integer",
-								"minimum": 1,
-								"maximum": 60,
-								"required": true
-							},
-							"inviteFailureThresholdCounter": {
-								"type": "integer",
-								"minimum": 1,
-								"maximum": 60,
-								"required": true
-							},
-							"inviteFailureThresholdWindow": {
-								"type": "integer",
-								"minimum": 30,
-								"maximum": 240,
-								"required": true
-							}
-						}
-					},
-					"pilotUserCallingLineAssertedIdentityPolicy": {
-						"type": "object",
-						"required": true,
-						"additionalProperties": false,
-						"properties": {
-							"useTrunkGroupCallingLineAssertedIdentityPolicy": { "$ref": "/requiredBoolean" },
-							"callingLineAssertedIdentityPolicy": {
-								"enum": [ "All Originating Calls", "Unscreened Originating Calls" ],
-								"required": true
 							}
 						}
 					},
 					"extensions": {
-        				"type": "object",
-        				"additionalProperties": false,
-        				"properties": {
-        					"broadworks": {
-        						"type": "object",
-        						"additionalProperties": false,
-        						"properties": {
-        							"resourceId": { "type": "string",  "minLength": 1,  "maxLength": 30  }
-        						}
-        					}
-        				}
-        			}
-				}
-			}
-		}
-	},
-	"definitions": {
-		"requiredBoolean": {
-			"type": "boolean",
-			"required": true
-		},
-		"trunkingActions": {
-			"enum": [
-				"Forward",
-				"Reroute"
-			]
-		},
-		"bwksNonFormattedDnSchema": {
-			"type": "string",
-			"description": "A non-E.164 formatted TN.",
-			"pattern": "^[\\d\\-]+$",
-			"minLength": 1,
-			"maxLength": 23,
-			"required": false
-		},
-		"outgoingDnOrSipUri": {
-			"anyOf": [
-				{
-					"id": "E.164 DN",
-					"extends": [
-						{
-							"$ref": "/bwksDnSchema"
-						},
-						{
-							"type": [
-								"string",
-								"null"
-							]
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"broadworks": {
+								"type": "object",
+								"additionalProperties": false,
+								"properties": {
+									"serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
+									"groupId": { "type": "string", "minLength": 1, "maxLength": 30 }
+								}
+							}
 						}
-					]
-				},
-				{
-					"id": "non-E.164 DN",
-					"$ref": "/bwksNonFormattedDnSchema"
-				},
-				{
-					"id": "SIP URI",
-					"$ref": "/bwksSipUri"
+					}
 				}
-			]
-		},
-		"rerouteTrunkGroup": {
-			"type": "object",
-			"additionalProperties": false,
-			"properties": {
-				"siteId": {
-					"type": "string",
-					"minLength": 1,
-					"maxLength": 30
-				},
-				"trunkGroupName": {
-					"type": "string",
-					"minLength": 1,
-					"maxLength": 30
+			},
+			"department": { "type": "string", "minLength": 1, "maxLength": 50 },
+			"capacityManagement": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"maxActiveCalls": {
+						"type": "object",
+						"required": true,
+						"additionalProperties": false,
+						"properties": {
+							"total": { "type": "integer", "minimum": 1, "required": true },
+							"incoming": { "type": "integer", "minimum": 1, "maximum": 999999 },
+							"outgoing": { "type": "integer", "minimum": 1, "maximum": 999999 }
+						}
+					},
+					"burstingMaxActiveCalls": {
+						"type": "object",
+						"required": true,
+						"additionalProperties": false,
+						"properties": {
+							"enabled": { "$ref": "/requiredBoolean" },
+							"total": { "type": "integer", "minimum": 0, "maximum": 999999 },
+							"incoming": { "type": "integer", "minimum": 0, "maximum": 999999 },
+							"outgoing": { "type": "integer", "minimum": 0, "maximum": 999999 }
+						}
+					},
+					"incomingCapacityExceeded": {
+						"type": "object",
+						"required": true,
+						"additionalProperties": false,
+						"properties": {
+							"action": { "$ref": "/trunkingActions" },
+							"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
+							"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" },
+							"initialCalls": { "type": "integer", "minimum": 0, "required": true },
+							"offsetCalls": { "type": "integer", "minimum": 0, "required": true }
+						}
+					}
+				}
+			},
+			"unreachableDestination": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"timeout": { "type": "integer", "minimum": 0, "maximum": 15, "required": true },
+					"action": { "$ref": "/trunkingActions" },
+					"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
+					"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" }
+				}
+			},
+			"authentication": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"enabled": { "$ref": "/requiredBoolean" },
+					"username": { "type": "string", "minLength": 1, "maxLength": 80 },
+					"password": { "type": "string", "minLength": 1, "maxLength": 60 }
+				}
+			},
+			"hostedUsers": { "type": "array" },
+			"identity": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"trunkGroupIdentity": {
+						"type": "object",
+						"required": true,
+						"additionalProperties": false,
+						"properties": {
+							"identity": { "$ref": "/bwksSipUri" },
+							"allowTerminationToTrunkGroupIdentity": { "$ref": "/requiredBoolean" },
+							"includeTrunkGroupIdentity": { "$ref": "/requiredBoolean" },
+							"includeTrunkGroupIdentityForNetworkCalls": { "$ref": "/requiredBoolean" }
+						}
+					},
+					"otgDtgIdentity": {
+						"type": "object",
+						"required": true,
+						"additionalProperties": false,
+						"properties": {
+							"identity": { "type": "string", "minLength": 1, "maxLength": 80 },
+							"allowTerminationToDtgIdentity": { "$ref": "/requiredBoolean" },
+							"includeDtgIdentity": { "$ref": "/requiredBoolean" },
+							"includeOtgIdentityForNetworkCalls": { "$ref": "/requiredBoolean" }
+						}
+					},
+					"enableNetworkAddressIdentity": { "$ref": "/requiredBoolean" }
+				}
+			},
+			"allowUnscreenedCalls": { "$ref": "/requiredBoolean" },
+			"allowUnscreenedEmergencyCalls": { "$ref": "/requiredBoolean" },
+			"pilotUserCallingLineIdentityPolicy": {
+				"enum": [ "All Originating Calls", "Unscreened Originating Calls", "No Calls" ],
+				"required": true
+			},
+			"pilotUserChargeNumberPolicy": {
+				"enum": [ "All Originating Calls", "Unscreened Originating Calls", "No Calls" ],
+				"required": true
+			},
+			"callForwardingAlways": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"action": { "$ref": "/trunkingActions" },
+					"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
+					"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" }
+				}
+			},
+			"peeringDomain": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"domainName": { "type": "string", "minLength": 1, "maxLength": 80 },
+					"routeToPeeringDomain": { "$ref": "/requiredBoolean" }
+				}
+			},
+			"trunkGroupPrefix": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"enabled": { "$ref": "/requiredBoolean" },
+					"prefix": { "type": "string", "minLength": 1, "maxLength": 15 }
+				}
+			},
+			"advancedReroute": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"enabled": { "$ref": "/requiredBoolean" },
+					"sendContinuousOptionsMessage": { "$ref": "/requiredBoolean" },
+					"continuousOptionsSendingInterval": {
+						"type": "integer",
+						"minimum": 30,
+						"maximum": 86400,
+						"required": true
+					},
+					"failureOptionsSendingInterval": {
+						"type": "integer",
+						"minimum": 10,
+						"maximum": 86400,
+						"required": true
+					},
+					"failureThresholdCounter": {
+						"type": "integer",
+						"minimum": 1,
+						"maximum": 60,
+						"required": true
+					},
+					"successThresholdCounter": {
+						"type": "integer",
+						"minimum": 1,
+						"maximum": 60,
+						"required": true
+					},
+					"inviteFailureThresholdCounter": {
+						"type": "integer",
+						"minimum": 1,
+						"maximum": 60,
+						"required": true
+					},
+					"inviteFailureThresholdWindow": {
+						"type": "integer",
+						"minimum": 30,
+						"maximum": 240,
+						"required": true
+					}
+				}
+			},
+			"pilotUserCallingLineAssertedIdentityPolicy": {
+				"type": "object",
+				"required": true,
+				"additionalProperties": false,
+				"properties": {
+					"useTrunkGroupCallingLineAssertedIdentityPolicy": { "$ref": "/requiredBoolean" },
+					"callingLineAssertedIdentityPolicy": {
+						"enum": [ "All Originating Calls", "Unscreened Originating Calls" ],
+						"required": true
+					}
+				}
+			},
+			"extensions": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"broadworks": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"resourceId": { "type": "string",  "minLength": 1,  "maxLength": 30  }
+						}
+					}
 				}
 			}
-		},
-		"bwksSipUri": {
-			"type": "string",
-			"description": "SIP URI",
-			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-			"minLength": 1,
-			"maxLength": 161,
-			"required": false
 		}
 	},
 	"response": {
@@ -14189,118 +14065,103 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
 	"response": {}
 }
 
-POST /loki/customers/{+customerId}/sites/{+siteId}/devices/{?mode}
+POST /loki/customers/{+customerId}/sites/{+siteId}/devices{?mode}
 {
-	"request": {
-		"post": {
-            "body": {
-                "id": "voipDevicesBodySchema",
+    "requestURIQuery": {
+        "title": "Create a new VoIP Site Device request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+	"requestURITemplate": {
+        "title": "Create a new VoIP Site Device request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": {
+        "title": "Create a new VoIP Site Device request body properties",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "deviceName": { "type": "string", "minLength": 1, "maxLength": 40, "required": true },
+            "type": { "type": "string", "minLength": 1, "maxLength": 40, "required": true },
+            "protocol": { "type": "string", "minLength": 1, "maxLength": 20 },
+            "hostname": { "type": "string", "minLength": 1, "maxLength": 40 },
+            "port": { "type": "integer", "minimum": 1025, "maximum": 65535 },
+            "outboundProxyServerNetAddress": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "stunServerNetAddress": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "macAddress": { "type": "string", "minLength": 1, "maxLength": 12 },
+            "serialNumber": { "type": "string", "minLength": 1,  "maxLength": 80 },
+            "description": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "physicalLocation": {  "type": "string", "minLength": 1, "maxLength": 1024 },
+            "transportProtocol": { "enum": ["UDP", "TCP", "Unspecified"] },
+            "deviceCredentials": {
                 "type": "object",
-                "required": true,
                 "additionalProperties": false,
-                "title": "Post schema, body",
                 "properties": {
-                    "deviceName": { 
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 40,
-                        "required": true
-                    },
-                    "type": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 40, 
-                        "required": true
-                    },
-                    "protocol": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 20
-                    },
-                    "hostname": {
-                        "type": "string",
-                        "minLength": 1, 
-                        "maxLength": 40
-                    },
-                    "port": {
-                        "type": "integer",
-                        "minimum": 1025,
-                        "maximum": 65535
-                    },
-                    "outboundProxyServerNetAddress": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 80
-                    },
-                    "stunServerNetAddress": { 
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 80
-                    },
-                    "macAddress": {
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 12
-                    },
-                    "serialNumber": {
-                        "type": "string",
-                        "minLength": 1, 
-                        "maxLength": 80
-                    },
-                    "description": { 
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 80
-                    },
-                    "physicalLocation": { 
-                        "type": "string",
-                        "minLength": 1, 
-                        "maxLength": 1024
-                    },
-                    "transportProtocol": { 
-                        "enum": ["UDP", "TCP", "Unspecified"]
-                    },
-                    "deviceCredentials": {
-                        "type": "object",
-                        "additionalProperties": false,
-                        "properties": {
-                            "enabled": {
-                                "$ref": "/requiredBoolean"
-                                },
-                            "username": { 
-                                "type": "string",
-                                "minLength": 1, 
-                                "maxLength": 161,
-                                "required": true
-                            },
-                            "password": {
-                                "type": "string",
-                                "minLength": 1,
-                                "maxLength": 60,
-                                "required": true
-                            }
+                    "enabled": { "type": "boolean", "required": true },
+                    "username": {  "type": "string", "minLength": 1, "maxLength": 161 },
+                    "password": { "type": "string", "minLength": 1, "maxLength": 60 }
+                }
+            },
+            "sacGroup": { "type": "any" },
+            "customTags": { "type": "any" },
+            "extensions": { "type": "any" }
+        }
+    },
+	"response": {
+	    "title": "Create a new VoIP Site Device response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			},
+			"customerId": { "type": "string", "minLength": 1, "required": true },
+			"siteId": { "type": "string", "minLength": 1, "required": true },
+			"deviceId": { "type": "string", "minLength": 1, "maxLength": 40, "required": true },
+			"extensions": {
+                "type": "object",
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "serviceProviderId": { "type": "string", "minLength": 1, "required": true },
+			                "groupId": { "type": "string", "minLength": 1, "required": true },
+                            "deviceName": { "type": "string", "minLength": 1, "maxLength": 40, "required": true }
                         }
-                    },
-                    "sacGroup": {
-                        "type": "any"
-                    },
-                    "customTags": {
-                        "type": "any"
-                    },
-                    "extensions": {
-                        "type": "any"
                     }
                 }
             }
         }
-	},
-	"definitions": {
-		"requiredBoolean": {
-			"type": "boolean",
-			"required": true
-		}
-	},
-	"response": {}
+	}
 }
 
 PUT /loki/users/{+userId}/services/Alternate%20Numbers
@@ -14441,7 +14302,7 @@ POST /loki/users/{+userId}/resetDeviceCredentials
 POST /loki/users/{+userId}/swapDevice
 {
     "requestURITemplate": {
-    "title": "Swap User Device request URI template parameters schema",
+        "title": "Swap User Device request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
         "userId": {
@@ -14547,11 +14408,33 @@ PUT /loki/users/{+userId}/services/assigned-services
             }
         }
     },
-    "requestBody": {},
+    "requestBody": {
+        "title": "Modify User assigned services request body schema",
+        "type": "object",
+        "properties": {
+            "services": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "servicePacks": {
+                "type": "array",
+                "required": true,
+                "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                }
+            }
+        }
+    },
     "response": {}
 }
 
-GET /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+GET /loki/customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
 {
     "requestURITemplate": {
         "title": "VoIP Entity - Retrieve Site Voice Portal service settings request URI template parameters schema",
@@ -14643,7 +14526,7 @@ GET /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
     }
 }
 
-PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
 {
     "requestURITemplate": {
         "title": "VoIP Entity - Modify Site Voice Portal service settings request URI template parameters schema",
@@ -14883,6 +14766,151 @@ POST /loki/auto-attendants{?mode}
 	}
 }
 
+PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}
+{   
+    "requestURITemplate": {
+        "title": "Modify Auto Attendant request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "autoAttendantId": {
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            }
+        }
+    },
+    "requestBody": { 
+        "title": "Modify Auto Attendant request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "callingLineId": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                        }
+                    },
+                    "phoneNumber": { "$ref": "/bwksDnSchema" },
+                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "password": { "type": "string", "minLength": 1, "maxLength": 60 },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": {
+                        "type": "array",
+                        "maxItems": 3,
+                        "items": { "$ref": "/bwksSipUri" }
+                    },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "firstDigitTimeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 60 },
+            "enableVideo": { "type": "boolean" },
+            "businessHours": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "type": { "enum": ["Service Provider", "Group", "User"], "required": true },
+                    "name": { "type": "string", "minLength": 1, "maxLength": 40, "required": true }
+                }
+            },
+            "holidaySchedule": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "type": { "enum": ["Service Provider", "Group", "User"], "required": true },
+                    "name": { "type": "string", "minLength": 1, "maxLength": 40, "required": true }
+                }
+            },
+            "extensionDialingScope": { "enum": ["Service Provider", "Group", "Department"] },
+            "nameDialingScope": { "enum": ["Service Provider", "Group", "Department"] },
+            "nameDialingEntries": { "enum": ["LastName + FirstName", "LastName + FirstName or FirstName + LastName"] }
+        }
+    },
+    "response": {
+	    "title": "Modify Auto Attendant response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"autoAttendantId": {
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            },
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "extensions": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "type": "object",
+                            "required": true,
+                            "additionalProperties": false,
+                            "properties": {
+                                "resourceId": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 161,
+                                    "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                    "required": true 
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
+}
+
 DELETE /loki/auto-attendants/{+autoAttendantId}
 {
     "requestURITemplate": {
@@ -15061,6 +15089,164 @@ POST /loki/hunt-groups{?mode}
                 }
             },
             "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
+            "extensions": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "type": "object",
+                            "required": true,
+                            "additionalProperties": false,
+                            "properties": {
+                                "resourceId": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 161,
+                                    "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                    "required": true 
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
+}
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
+{   
+    "requestURITemplate": {
+        "title": "Modify Hunt Group request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "huntGroupId": {
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            }
+        }
+    },
+    "requestBody": { 
+        "title": "Modify Hunt Group request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "callingLineId": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                        }
+                    },
+                    "phoneNumber": { "$ref": "/bwksDnSchema" },
+                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "password": { "type": "string", "minLength": 1, "maxLength": 60 },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": {
+                        "type": "array",
+                        "maxItems": 3,
+                        "items": { "$ref": "/bwksSipUri" }
+                    },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "policy": { "enum": ["Circular", "Regular", "Simultaneous", "Uniform", "Weighted"] },
+            "noAnswer": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "skipToAgent": { "type": "boolean" },
+                    "skipToAgentAfterNumberOfRings": { "type": "integer", "minimum": 1, "maximum": 20 },
+                    "forwardCallAfterTimeout": { "type": "boolean" },
+                    "forwardAfterTimeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 20 },
+                    "forwardToPhoneNumber": { "type": "string", "minLength": 1, "maxLength": 30 }
+                }
+            },
+            "allowCallWaitingForAgents": { "type": "boolean" },
+            "callingLineIdSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "useCustom": { "type": "boolean" },
+                    "includeHuntGroupName": { "type": "boolean" }
+                }
+            },
+            "notReachableSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "enableForwarding": { "type": "boolean" },
+                    "forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
+                    "makeBusyWhenNotReachable": { "type": "boolean" }
+                }
+            },
+            "allowMembersToControlGroupBusy": { "type": "boolean" },
+            "enableGroupBusy": { "type": "boolean" },
+            "applyGroupBusyWhenTerminatingToAgent": { "type": "boolean" },
+            "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 }
+        }
+    },
+    "response": {
+	    "title": "Modify Hunt Group response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"huntGroupId": {
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            },
+			"profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
             "extensions": {
                 "type": "object",
                 "required": true,
@@ -15348,6 +15534,171 @@ POST /loki/call-centers{?mode}
 	}
 }
 
+PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
+{   
+    "requestURITemplate": {
+        "title": "Modify Call Center request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "callCenterId": {
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            }
+        }
+    },
+    "requestBody": { 
+        "title": "Modify Call Center request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "callingLineId": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                        }
+                    },
+                    "phoneNumber": { "$ref": "/bwksDnSchema" },
+                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "password": { "type": "string", "minLength": 1, "maxLength": 60 },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": {
+                        "type": "array",
+                        "maxItems": 3,
+                        "items": { "$ref": "/bwksSipUri" }
+                    },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "type": { "enum": ["Basic", "Standard", "Premium"], "required": true },
+            "routingtype": { "enum": ["Priority Based", "Skill Based"] },
+            "policy": { "enum": ["Circular", "Regular", "Simultaneous", "Uniform", "Weighted"] },
+            "enableReporting": { "type": "boolean" },
+            "callCenterSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "enableVideo": { "type": "boolean" },
+                    "queueLength": { "type": "integer", "minimum": 0, "maximum": 525 },
+                    "playRingingWhenOfferingCall": { "type": "boolean" },
+                    "allowCallerToDialEscapeDigit": { "type": "boolean" },
+                    "escapeDigit": { "type": "string", "minLength": 1, "maxLength": 1, "pattern": "^[0-9]+$" },
+                    "resetCallStatisticsUponEntryInQueue": { "type": "boolean" }
+                }
+            },
+            "agentSettings": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "allowAgentLogoff": { "type": "boolean" },
+                    "allowCallWaitingForAgents": { "type": "boolean" },
+                    "allowCallsToAgentsInWrapUp": { "type": "boolean" },
+                    "overrideAgentWrapUpTime": { "type": "boolean" },
+                    "wrapUpSeconds": { "type": "integer", "minimum": 1, "maximum": 3600 },
+                    "enableAutomaticStateChangeForAgents": { "type": "boolean" },
+                    "agentStateAfterCall": { "enum": ["Available", "Unavailable", "Wrap-Up"] },
+                    "forceDeliveryOfCalls": { "type": "boolean" },
+                    "forceDeliveryWaitTimeSeconds": { "type": "integer", "minimum": 1, "maximum": 10 }
+                }
+            },
+            "agentUnavailableCode": { "type": "string", "minLength": 1, "maxLength": 10 },
+            "bandwidthAndQoS": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "externalPreferredAudioCodec": { "enum": ["None", "G711", "G722", "G729", "G726", "AMR", "AMR-WB"] },
+                    "internalPreferredAudioCodec": { "enum": ["None", "G711", "G722", "G729", "G726", "AMR", "AMR-WB"] }
+                }
+            },
+            "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 }
+        }
+    },
+    "response": {
+	    "title": "Modify Call Center response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"callCenterId": {
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            },
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "extensions": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "type": "object",
+                            "required": true,
+                            "additionalProperties": false,
+                            "properties": {
+                                "resourceId": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 161,
+                                    "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                    "required": true 
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
+}
+
 DELETE /loki/call-centers/{+callCenterId}
 {
     "requestURITemplate": {
@@ -15495,6 +15846,137 @@ POST /loki/instant-group-calls{?mode}
                 }
             },
             "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
+            "extensions": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "type": "object",
+                    "properties": {
+                        "broadworks": {
+                            "type": "object",
+                            "required": true,
+                            "additionalProperties": false,
+                            "properties": {
+                                "resourceId": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 161,
+                                    "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                    "required": true 
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			}
+        }
+	}
+}
+
+PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}
+{   
+    "requestURITemplate": {
+        "title": "Modify Instant Group Call request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "instantGroupCallId": {
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            }
+        }
+    },
+    "requestBody": { 
+        "title": "Modify Instant Group Call request body parameters schema",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "callingLineId": {
+                        "type": "object",
+                        "additionalproperties": false,
+                        "properties": {
+                            "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
+                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                        }
+                    },
+                    "phoneNumber": { "$ref": "/bwksDnSchema" },
+                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "password": { "type": "string", "minLength": 1, "maxLength": 60 },
+                    "department": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "language": { "type": "string", "minLength": 1, "maxLength": 40 },
+                    "timeZone": { "type": "string", "minLength": 1, "maxLength": 127 },
+                    "alias": {
+                        "type": "array",
+                        "maxItems": 3,
+                        "items": { "$ref": "/bwksSipUri" }
+                    },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
+            "destinationPhoneNumber": {
+                "type": "array",
+                "items": { "$ref": "/outgoingDnOrSipUri" }
+            },
+            "isAnswerTimeoutEnabled": { "type": "boolean" },
+            "answerTimeoutMinutes": { "type": "integer", "minimum": 1, "maximum": 60 },
+            "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 }
+        }
+    },
+    "response": {
+	    "title": "Modify Instant Group Call response body parameters schema",
+	    "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"instantGroupCallId": {
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            },
+            "profile": {
+                "type": "object",
+                "additionalproperties": false,
+                "properties": {
+                    "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
+                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                }
+            },
             "extensions": {
                 "type": "object",
                 "required": true,
