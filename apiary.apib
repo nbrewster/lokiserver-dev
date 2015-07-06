@@ -12348,10 +12348,13 @@ POST /loki/users{?mode}
         				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
 					},
 					"phoneNumber": {
-						"$ref": "/bwksDnSchema"
+						"type": "string",
+                        "pattern": "^\\+\\d+-\\d+$",
+                        "minLength": 1,
+                        "maxLength": 23
 					},
 					"tnRoutine": {
-						"$ref": "/tnRoutineWithNoNumber"
+						"enum": ["", "port-no-temp", "auto", "no-number"]
 					},
 					"extension": {
 						"type": [
@@ -12363,7 +12366,10 @@ POST /loki/users{?mode}
 						"pattern": "^[0-9]+$"
 					},
 					"CLID": {
-						"$ref": "/bwksDnSchema"
+						"type": "string",
+                        "pattern": "^\\+\\d+-\\d+$",
+                        "minLength": 1,
+                        "maxLength": 23
 					},
 					"lastName": {
 						"type": "string",
@@ -12502,17 +12508,10 @@ POST /loki/users{?mode}
 								"additionalProperties": false,
 								"properties": {
 									"phoneNumber": {
-										"extends": [
-											{
-												"$ref": "/bwksDnSchema"
-											},
-											{
-												"type": [
-													"string",
-													"null"
-												]
-											}
-										]
+										"type": ["string", "null"],
+                                        "pattern": "^\\+\\d+-\\d+$",
+                                        "minLength": 1,
+                                        "maxLength": 23
 									},
 									"useChargeNumberForEnhancedTranslations": {
 										"type": "boolean"
@@ -12521,7 +12520,7 @@ POST /loki/users{?mode}
 										"type": "boolean"
 									},
 									"tnRoutine": {
-										"$ref": "/tnRoutine"
+										"enum": ["", "port-no-temp", "auto"]
 									}
 								}
 							},
@@ -12539,7 +12538,7 @@ POST /loki/users{?mode}
 										"type": "boolean"
 									},
 									"noAnswerNumberOfRings": {
-										"$ref": "/numberOfRings"
+										"enum": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 									},
 									"alwaysRedirectToVoiceMail": {
 										"type": "boolean"
@@ -12554,7 +12553,35 @@ POST /loki/users{?mode}
 										]
 									},
 									"userServer": {
-										"$ref": "/outgoingDnOrSipUri"
+										"anyOf": [
+                                            {
+                                                "id": "E.164 DN",
+                                                "type": ["string", "null"],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "non-E.164 DN",
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "SIP URI",
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
 									},
 									"mailboxIdType": {
 										"enum": [
@@ -12563,17 +12590,11 @@ POST /loki/users{?mode}
 										]
 									},
 									"mailboxURL": {
-										"extends": [
-											{
-												"$ref": "/bwksSipUri"
-											},
-											{
-												"type": [
-													"string",
-													"null"
-												]
-											}
-										]
+										"type": ["string", "null"],
+                                        "description": "SIP URI",
+                                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 161
 									}
 								}
 							},
@@ -12585,10 +12606,38 @@ POST /loki/users{?mode}
 										"type": "boolean"
 									},
 									"forwardToPhoneNumber": {
-										"$ref": "/outgoingDnOrSipUri"
+										"anyOf": [
+                                            {
+                                                "id": "E.164 DN",
+                                                "type": ["string", "null"],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "non-E.164 DN",
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "SIP URI",
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
 									},
 									"numberOfRings": {
-										"$ref": "/numberOfRings"
+										"enum": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 									}
 								}
 							},
@@ -12601,7 +12650,35 @@ POST /loki/users{?mode}
 										"required": false
 									},
 									"forwardToPhoneNumber": {
-										"$ref": "/outgoingDnOrSipUri"
+										"anyOf": [
+                                            {
+                                                "id": "E.164 DN",
+                                                "type": ["string", "null"],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "non-E.164 DN",
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "SIP URI",
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
 									}
 								}
 							}
@@ -12626,7 +12703,10 @@ POST /loki/users{?mode}
 										"maxLength": 30
 									},
 									"resourceId": {
-                						"$ref": "/userId"
+									    "type": "string",
+                						"minLength": 1,
+                        				"maxLength": 161,
+                        				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
                 					}
 								}
 							}
@@ -12671,20 +12751,30 @@ POST /loki/users{?mode}
 			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
 			"siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
 			"userId": {
-                "extends":[{
-                    "$ref": "/userId"
-                }, {
-                    "required": true
-                }]
+			    "type": "string",
+                "minLength": 1,
+				"maxLength": 161,
+				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
             },
-			"phoneNumber": { "$ref": "/bwksDnSchema" },
+			"phoneNumber": {
+			    "type": "string", 
+                "minLength": 1, 
+                "maxLength": 23, 
+                "pattern": "^\\+\\d+-\\d+$"
+		    },
 			"extension": {
 				"type": "string",
 				"minLength": 2,
 				"maxLength": 20,
 				"pattern": "^[0-9]+$"
 			},
-			"CLID": { "$ref": "/bwksDnSchema" },
+			"CLID": {
+			    "type": "string", 
+                "minLength": 1, 
+                "maxLength": 23, 
+                "pattern": "^\\+\\d+-\\d+$"
+			},
 			"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
 			"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
 			"callingLineIdLastName": {
@@ -12718,12 +12808,10 @@ POST /loki/users{?mode}
 						"additionalProperties": false,
 						"properties": {
 							"phoneNumber": {
-								"extends": [ {
-										"$ref": "/bwksDnSchema"
-									}, {
-										"type": [ "string", "null" ] 
-									}
-								]
+								"type": [ "string", "null" ], 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
 							},
 							"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
 							"sendChargeNumberToNetwork": { "type": "boolean" }
@@ -12736,20 +12824,48 @@ POST /loki/users{?mode}
 							"isActive": { "type": "boolean" },
 							"busyRedirectToVoiceMail": { "type": "boolean" },
 							"noAnswerRedirectToVoiceMail": { "type": "boolean" },
-							"noAnswerNumberOfRings": { "$ref": "/numberOfRings" },
+							"noAnswerNumberOfRings": { "enum": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
 							"alwaysRedirectToVoiceMail": { "type": "boolean" },
 							"outOfPrimaryZoneRedirectToVoiceMail": { "type": "boolean" },
 							"serverSelection": { "enum": [ "Group Mail Server", "User Specific Mail Server" ] },
-							"userServer": { "$ref": "/outgoingDnOrSipUri" },
+							"userServer": {
+							    "anyOf": [
+                                    {
+                                        "id": "E.164 DN",
+                                        "type": ["string", "null"],
+                                        "description": "A formatted TN.",
+                                        "pattern": "^\\+\\d+-\\d+$",
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "required": false
+                                    },
+                                    {
+                                        "id": "non-E.164 DN",
+                                        "type": "string",
+                                        "description": "A non-E.164 formatted TN.",
+                                        "pattern": "^[\\d\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "required": false
+                                    },
+                                    {
+                                        "id": "SIP URI",
+                                        "type": "string",
+                                        "description": "SIP URI",
+                                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "required": false
+                                    }
+                                ]
+							},
 							"mailboxIdType": { "enum": [ "User Or Group Phone Number", "URL" ] },
 							"mailboxURL": {
-								"extends": [ {
-										"$ref": "/bwksSipUri"
-									},
-									{
-										"type": [ "string", "null" ]
-									}
-								]
+								"type": [ "string", "null" ],
+                                "description": "SIP URI",
+                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 161
 							}
 						}
 					},
@@ -12758,8 +12874,38 @@ POST /loki/users{?mode}
 						"additionalProperties": false,
 						"properties": {
 							"isActive": { "type": "boolean" },
-							"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
-							"numberOfRings": { "$ref": "/numberOfRings" }
+							"forwardToPhoneNumber": {
+							    "anyOf": [
+                                    {
+                                        "id": "E.164 DN",
+                                        "type": ["string", "null"],
+                                        "description": "A formatted TN.",
+                                        "pattern": "^\\+\\d+-\\d+$",
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "required": false
+                                    },
+                                    {
+                                        "id": "non-E.164 DN",
+                                        "type": "string",
+                                        "description": "A non-E.164 formatted TN.",
+                                        "pattern": "^[\\d\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "required": false
+                                    },
+                                    {
+                                        "id": "SIP URI",
+                                        "type": "string",
+                                        "description": "SIP URI",
+                                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "required": false
+                                    }
+                                ]
+							},
+							"numberOfRings": { "enum": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] }
 						}
 					},
 					"Call Forwarding Not Reachable": {
@@ -12767,7 +12913,37 @@ POST /loki/users{?mode}
 						"additionalProperties": false,
 						"properties": {
 							"isActive": { "type": "boolean", "required": false },
-							"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" }
+							"forwardToPhoneNumber": { 
+							    "anyOf": [
+                                    {
+                                        "id": "E.164 DN",
+                                        "type": ["string", "null"],
+                                        "description": "A formatted TN.",
+                                        "pattern": "^\\+\\d+-\\d+$",
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "required": false
+                                    },
+                                    {
+                                        "id": "non-E.164 DN",
+                                        "type": "string",
+                                        "description": "A non-E.164 formatted TN.",
+                                        "pattern": "^[\\d\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "required": false
+                                    },
+                                    {
+                                        "id": "SIP URI",
+                                        "type": "string",
+                                        "description": "SIP URI",
+                                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "required": false
+                                    }
+                                ]
+							}
 						}
 					}
 				}
@@ -12781,11 +12957,11 @@ POST /loki/users{?mode}
 						"additionalProperties": false,
 						"properties": {
 							"resourceId": {
-                                "extends":[{
-                                    "$ref": "/userId"
-                                }, {
-                                    "required": true
-                                }]
+                                "type": "string",
+                                "minLength": 1,
+                				"maxLength": 161,
+                				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                "required": true
                             }
 						}
 					}
@@ -12800,11 +12976,26 @@ POST /loki/users{?mode}
         "properties": {
             "customerId": {	"type": "string", "minLength": 1, "maxLength": 30 },
 			"siteId": {	"type": "string", "minLength": 1, "maxLength": 30 },
-			"name": {	"$ref": "/userId" },
-			"phoneNumber": { "$ref": "/bwksDnSchema" },
-			"tnRoutine": { "$ref": "/tnRoutineWithNoNumber"	},
+			"name": {
+			    "type": "string",
+                "minLength": 1,
+				"maxLength": 161,
+				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+			},
+			"phoneNumber": {
+			    "type": "string", 
+                "minLength": 1, 
+                "maxLength": 23, 
+                "pattern": "^\\+\\d+-\\d+$"
+			},
+			"tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"]	},
 			"extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20,	"pattern": "^[0-9]+$" },
-			"CLID": { "$ref": "/bwksDnSchema" },
+			"CLID": {
+			    "type": "string", 
+                "minLength": 1, 
+                "maxLength": 23, 
+                "pattern": "^\\+\\d+-\\d+$"
+			},
 			"lastName": { "type": "string",	"minLength": 1,	"maxLength": 30, "required": true },
 			"firstName": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
 			"callingLineIdLastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"	},
@@ -12893,11 +13084,10 @@ POST /loki/users{?mode}
 								"type": "boolean"
 							},
 							"mobilePhoneNumber": {
-                                "extends":[{
-                                    "$ref": "/bwksDnSchema"
-                                }, {
-                                    "type": ["string", "null"]
-                                }]
+                                "type": ["string", "null"], 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
                             },
                             "mobileDevicePassword": { "type": "string", "minLength": 1 },
                             "mobileNetworkName": { "type": "string", "minLength": 1, "maxLength": 80 }
@@ -12924,7 +13114,10 @@ POST /loki/users{?mode}
 								"maxLength": 30
 							},
                             "resourceId": {
-        						"$ref": "/userId"
+                                "type": "string",
+        						"minLength": 1,
+                				"maxLength": 161,
+                				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
         					}
 						}
 					}
@@ -12953,11 +13146,11 @@ POST /loki/users{?mode}
 				}
 			},
 			"userId": {
-                "extends":[{
-                    "$ref": "/userId"
-                }, {
-                    "required": true
-                }]
+                "type": "string",
+                "minLength": 1,
+				"maxLength": 161,
+				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
             },
 			"extension": { "type": "string", "minLength": 2, "maxLength": 20,	"pattern": "^[0-9]+$" },
 			"lastName": { "type": "string",	"minLength": 1,	"maxLength": 30 },
@@ -13006,11 +13199,11 @@ POST /loki/users{?mode}
 						"required": true,
 						"properties": {
                             "resourceId": {
-                                "extends":[{
-                                    "$ref": "/userId"
-                                }, {
-                                    "required": true
-                                }]
+                                "type": "string",
+                                "minLength": 1,
+                				"maxLength": 161,
+                				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                "required": true
                             }
                         }
 					}
@@ -13264,14 +13457,25 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 					"customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
 					"siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
 					"userId": {
+					    "type": "string",
         				"minLength": 1,
         				"maxLength": 161,
         				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
         			},
-					"phoneNumber": { "$ref": "/bwksDnSchema" },
-					"tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+					"phoneNumber": {
+					    "type": "string",
+                        "pattern": "^\\+\\d+-\\d+$",
+                        "minLength": 1,
+                        "maxLength": 23
+					},
+					"tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
 					"extension": { "type": [ "string", "null" ], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-					"CLID": { "$ref": "/bwksDnSchema" },
+					"CLID": {
+					    "type": "string",
+                        "pattern": "^\\+\\d+-\\d+$",
+                        "minLength": 1,
+                        "maxLength": 23
+					},
 					"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
 					"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
 					"callingLineIdLastName": {
@@ -13318,21 +13522,14 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"additionalProperties": false,
 								"properties": {
 									"phoneNumber": {
-										"extends": [
-											{
-												"$ref": "/bwksDnSchema"
-											},
-											{
-												"type": [
-													"string",
-													"null"
-												]
-											}
-										]
+										"type": ["string", "null"],
+                                        "pattern": "^\\+\\d+-\\d+$",
+                                        "minLength": 1,
+                                        "maxLength": 23
 									},
 									"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
 									"sendChargeNumberToNetwork": { "type": "boolean" },
-									"tnRoutine": { "$ref": "/tnRoutine" }
+									"tnRoutine": { "enum": ["", "port-no-temp", "auto"] }
 								}
 							},
 							"Third-Party Voice Mail Support": {
@@ -13342,28 +13539,52 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 									"isActive": { "type": "boolean" },
 									"busyRedirectToVoiceMail": { "type": "boolean" },
 									"noAnswerRedirectToVoiceMail": { "type": "boolean" },
-									"noAnswerNumberOfRings": { "$ref": "/numberOfRings" },
+									"noAnswerNumberOfRings": { "enum": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
 									"alwaysRedirectToVoiceMail": { "type": "boolean" },
 									"outOfPrimaryZoneRedirectToVoiceMail": { "type": "boolean" },
 									"serverSelection": {
 										"enum": [ "Group Mail Server", "User Specific Mail Server" ]
 									},
-									"userServer": { "$ref": "/outgoingDnOrSipUri" },
+									"userServer": {
+									    "anyOf": [
+                                            { 
+                                                "id": "E.164 DN",
+                                                "type": ["string", "null"],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {   
+                                                "id": "non-E.164 DN", 
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            { 
+                                                "id": "SIP URI", 
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
+									},
 									"mailboxIdType": {
 										"enum": [ "User Or Group Phone Number", "URL" ]
 									},
 									"mailboxURL": {
-										"extends": [
-											{
-												"$ref": "/bwksSipUri"
-											},
-											{
-												"type": [
-													"string",
-													"null"
-												]
-											}
-										]
+										"type": ["string", "null"],
+                                        "description": "SIP URI",
+                                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 161
 									}
 								}
 							},
@@ -13372,8 +13593,38 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"additionalProperties": false,
 								"properties": {
 									"isActive": { "type": "boolean" },
-									"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
-									"numberOfRings": { "$ref": "/numberOfRings" }
+									"forwardToPhoneNumber": { 
+									    "anyOf": [
+                                            { 
+                                                "id": "E.164 DN",
+                                                "type": ["string", "null"],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {   
+                                                "id": "non-E.164 DN", 
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            { 
+                                                "id": "SIP URI", 
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
+									},
+									"numberOfRings": { "enum": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] }
 								}
 							},
 							"Call Forwarding Not Reachable": {
@@ -13381,7 +13632,37 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"additionalProperties": false,
 								"properties": {
 									"isActive": { "type": "boolean" },
-									"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" }
+									"forwardToPhoneNumber": { 
+									    "anyOf": [
+                                            { 
+                                                "id": "E.164 DN",
+                                                "type": ["string", "null"],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {   
+                                                "id": "non-E.164 DN", 
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            { 
+                                                "id": "SIP URI", 
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
+									}
 								}
 							}
 						}
@@ -13423,7 +13704,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"enabled": { "$ref": "/requiredBoolean" },
+							"enabled": { "type": "boolean", "required": true },
 							"total": { "type": "integer", "minimum": 0, "maximum": 999999 },
 							"incoming": { "type": "integer", "minimum": 0, "maximum": 999999 },
 							"outgoing": { "type": "integer", "minimum": 0, "maximum": 999999 }
@@ -13434,9 +13715,54 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"action": { "$ref": "/trunkingActions" },
-							"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
-							"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" },
+							"action": { "enum": ["Forward", "Reroute"] },
+							"forwardAddress": {
+							    "anyOf": [
+                                    { 
+                                        "id": "E.164 DN",
+                                        "type": ["string", "null"],
+                                        "description": "A formatted TN.",
+                                        "pattern": "^\\+\\d+-\\d+$",
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "required": false
+                                    },
+                                    {   
+                                        "id": "non-E.164 DN", 
+                                        "type": "string",
+                                        "description": "A non-E.164 formatted TN.",
+                                        "pattern": "^[\\d\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "required": false
+                                    },
+                                    { 
+                                        "id": "SIP URI", 
+                                        "type": "string",
+                                        "description": "SIP URI",
+                                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "required": false
+                                    }
+                                ]
+							},
+							"rerouteTrunkGroup": { 
+							    "type": "object",
+                    			"additionalProperties": false,
+                    			"properties": {
+                    				"siteId": {
+                    					"type": "string",
+                    					"minLength": 1,
+                    					"maxLength": 30
+                    				},
+                    				"trunkGroupName": {
+                    					"type": "string",
+                    					"minLength": 1,
+                    					"maxLength": 30
+                    				}
+                    			}
+							},
 							"initialCalls": { "type": "integer", "minimum": 0, "required": true },
 							"offsetCalls": { "type": "integer", "minimum": 0, "required": true }
 						}
@@ -13449,9 +13775,54 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 				"additionalProperties": false,
 				"properties": {
 					"timeout": { "type": "integer", "minimum": 0, "maximum": 15, "required": true },
-					"action": { "$ref": "/trunkingActions" },
-					"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
-					"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" }
+					"action": { "enum": ["Forward", "Reroute"] },
+					"forwardAddress": {
+					    "anyOf": [
+                            { 
+                                "id": "E.164 DN",
+                                "type": ["string", "null"],
+                                "description": "A formatted TN.",
+                                "pattern": "^\\+\\d+-\\d+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            {   
+                                "id": "non-E.164 DN", 
+                                "type": "string",
+                                "description": "A non-E.164 formatted TN.",
+                                "pattern": "^[\\d\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            { 
+                                "id": "SIP URI", 
+                                "type": "string",
+                                "description": "SIP URI",
+                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 161,
+                                "required": false
+                            }
+                        ]
+					},
+					"rerouteTrunkGroup": { 
+					    "type": "object",
+            			"additionalProperties": false,
+            			"properties": {
+            				"siteId": {
+            					"type": "string",
+            					"minLength": 1,
+            					"maxLength": 30
+            				},
+            				"trunkGroupName": {
+            					"type": "string",
+            					"minLength": 1,
+            					"maxLength": 30
+            				}
+            			}
+					}
 				}
 			},
 			"authentication": {
@@ -13459,7 +13830,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 				"required": true,
 				"additionalProperties": false,
 				"properties": {
-					"enabled": { "$ref": "/requiredBoolean" },
+					"enabled": { "type": "boolean", "required": true },
 					"username": { "type": "string", "minLength": 1, "maxLength": 80 },
 					"password": { "type": "string", "minLength": 1, "maxLength": 60 }
 				}
@@ -13475,10 +13846,16 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"identity": { "$ref": "/bwksSipUri" },
-							"allowTerminationToTrunkGroupIdentity": { "$ref": "/requiredBoolean" },
-							"includeTrunkGroupIdentity": { "$ref": "/requiredBoolean" },
-							"includeTrunkGroupIdentityForNetworkCalls": { "$ref": "/requiredBoolean" }
+							"identity": {
+							    "type": "string",
+                                "description": "SIP URI",
+                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 161
+							},
+							"allowTerminationToTrunkGroupIdentity": { "type": "boolean", "required": true },
+							"includeTrunkGroupIdentity": { "type": "boolean", "required": true },
+							"includeTrunkGroupIdentityForNetworkCalls": { "type": "boolean", "required": true }
 						}
 					},
 					"otgDtgIdentity": {
@@ -13487,16 +13864,16 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"additionalProperties": false,
 						"properties": {
 							"identity": { "type": "string", "minLength": 1, "maxLength": 80 },
-							"allowTerminationToDtgIdentity": { "$ref": "/requiredBoolean" },
-							"includeDtgIdentity": { "$ref": "/requiredBoolean" },
-							"includeOtgIdentityForNetworkCalls": { "$ref": "/requiredBoolean" }
+							"allowTerminationToDtgIdentity": { "type": "boolean", "required": true },
+							"includeDtgIdentity": { "type": "boolean", "required": true },
+							"includeOtgIdentityForNetworkCalls": { "type": "boolean", "required": true }
 						}
 					},
-					"enableNetworkAddressIdentity": { "$ref": "/requiredBoolean" }
+					"enableNetworkAddressIdentity": { "type": "boolean", "required": true }
 				}
 			},
-			"allowUnscreenedCalls": { "$ref": "/requiredBoolean" },
-			"allowUnscreenedEmergencyCalls": { "$ref": "/requiredBoolean" },
+			"allowUnscreenedCalls": { "type": "boolean", "required": true },
+			"allowUnscreenedEmergencyCalls": { "type": "boolean", "required": true },
 			"pilotUserCallingLineIdentityPolicy": {
 				"enum": [ "All Originating Calls", "Unscreened Originating Calls", "No Calls" ],
 				"required": true
@@ -13509,9 +13886,54 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 				"type": "object",
 				"additionalProperties": false,
 				"properties": {
-					"action": { "$ref": "/trunkingActions" },
-					"forwardAddress": { "$ref": "/outgoingDnOrSipUri" },
-					"rerouteTrunkGroup": { "$ref": "/rerouteTrunkGroup" }
+					"action": { "enum": ["Forward", "Reroute"] },
+					"forwardAddress": {
+					    "anyOf": [
+                            { 
+                                "id": "E.164 DN",
+                                "type": ["string", "null"],
+                                "description": "A formatted TN.",
+                                "pattern": "^\\+\\d+-\\d+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            {   
+                                "id": "non-E.164 DN", 
+                                "type": "string",
+                                "description": "A non-E.164 formatted TN.",
+                                "pattern": "^[\\d\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            { 
+                                "id": "SIP URI", 
+                                "type": "string",
+                                "description": "SIP URI",
+                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 161,
+                                "required": false
+                            }
+                        ]
+					},
+					"rerouteTrunkGroup": { 
+					    "type": "object",
+            			"additionalProperties": false,
+            			"properties": {
+            				"siteId": {
+            					"type": "string",
+            					"minLength": 1,
+            					"maxLength": 30
+            				},
+            				"trunkGroupName": {
+            					"type": "string",
+            					"minLength": 1,
+            					"maxLength": 30
+            				}
+            			}
+					}
 				}
 			},
 			"peeringDomain": {
@@ -13520,7 +13942,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 				"additionalProperties": false,
 				"properties": {
 					"domainName": { "type": "string", "minLength": 1, "maxLength": 80 },
-					"routeToPeeringDomain": { "$ref": "/requiredBoolean" }
+					"routeToPeeringDomain": { "type": "boolean", "required": true }
 				}
 			},
 			"trunkGroupPrefix": {
@@ -13528,7 +13950,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 				"required": true,
 				"additionalProperties": false,
 				"properties": {
-					"enabled": { "$ref": "/requiredBoolean" },
+					"enabled": { "type": "boolean", "required": true },
 					"prefix": { "type": "string", "minLength": 1, "maxLength": 15 }
 				}
 			},
@@ -13537,8 +13959,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 				"required": true,
 				"additionalProperties": false,
 				"properties": {
-					"enabled": { "$ref": "/requiredBoolean" },
-					"sendContinuousOptionsMessage": { "$ref": "/requiredBoolean" },
+					"enabled": { "type": "boolean", "required": true },
+					"sendContinuousOptionsMessage": { "type": "boolean", "required": true },
 					"continuousOptionsSendingInterval": {
 						"type": "integer",
 						"minimum": 30,
@@ -13582,7 +14004,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 				"required": true,
 				"additionalProperties": false,
 				"properties": {
-					"useTrunkGroupCallingLineAssertedIdentityPolicy": { "$ref": "/requiredBoolean" },
+					"useTrunkGroupCallingLineAssertedIdentityPolicy": { "type": "boolean", "required": true },
 					"callingLineAssertedIdentityPolicy": {
 						"enum": [ "All Originating Calls", "Unscreened Originating Calls" ],
 						"required": true
@@ -13689,10 +14111,26 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                     			},
                     			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
     							"siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
-    							"userId": { "$ref": "/userId", "required": true },
-    							"phoneNumber": { "$ref": "/bwksDnSchema" },
+    							"userId": { 
+    							    "type": "string",
+                        			"minLength": 1,
+                        			"maxLength": 161,
+                        			"pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+    							    "required": true 
+							    },
+    							"phoneNumber": {
+    							    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 23, 
+                                    "pattern": "^\\+\\d+-\\d+$"
+    							},
     							"extension": { "type": [ "string", "null" ], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-    							"CLID": { "$ref": "/bwksDnSchema" },
+    							"CLID": {
+    							    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 23, 
+                                    "pattern": "^\\+\\d+-\\d+$"
+    							},
     							"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
     							"firstName": { "type": "string", "minLength": 1, "maxLength": 30 },
     							"callingLineIdLastName": {
@@ -13739,72 +14177,149 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
     										"additionalProperties": false,
     										"properties": {
     											"phoneNumber": {
-    												"extends": [
-    													{
-    														"$ref": "/bwksDnSchema"
-    													},
-    													{
-    														"type": [
-    															"string",
-    															"null"
-    														]
-    													}
-    												]
+    												"type": ["string", "null"], 
+                                                    "minLength": 1, 
+                                                    "maxLength": 23, 
+                                                    "pattern": "^\\+\\d+-\\d+$"
     											},
     											"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
     											"sendChargeNumberToNetwork": { "type": "boolean" },
-    											"tnRoutine": { "$ref": "/tnRoutine" }
+    											"tnRoutine": { "enum": ["", "port-no-temp", "auto"] }
     										}
     									},
     									"Third-Party Voice Mail Support": {
-    										"type": "object",
-    										"additionalProperties": false,
-    										"properties": {
-    											"isActive": { "type": "boolean" },
-    											"busyRedirectToVoiceMail": { "type": "boolean" },
-    											"noAnswerRedirectToVoiceMail": { "type": "boolean" },
-    											"noAnswerNumberOfRings": { "$ref": "/numberOfRings" },
-    											"alwaysRedirectToVoiceMail": { "type": "boolean" },
-    											"outOfPrimaryZoneRedirectToVoiceMail": { "type": "boolean" },
-    											"serverSelection": {
-    												"enum": [ "Group Mail Server", "User Specific Mail Server" ]
-    											},
-    											"userServer": { "$ref": "/outgoingDnOrSipUri" },
-    											"mailboxIdType": {
-    												"enum": [ "User Or Group Phone Number", "URL" ]
-    											},
-    											"mailboxURL": {
-    												"extends": [
-    													{
-    														"$ref": "/bwksSipUri"
-    													},
-    													{
-    														"type": [
-    															"string",
-    															"null"
-    														]
-    													}
-    												]
-    											}
-    										}
-    									},
-    									"Call Forwarding No Answer": {
-    										"type": "object",
-    										"additionalProperties": false,
-    										"properties": {
-    											"isActive": { "type": "boolean" },
-    											"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
-    											"numberOfRings": { "$ref": "/numberOfRings" }
-    										}
-    									},
-    									"Call Forwarding Not Reachable": {
-    										"type": "object",
-    										"additionalProperties": false,
-    										"properties": {
-    											"isActive": { "type": "boolean" },
-    											"forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" }
-    										}
-    									}
+            								"type": "object",
+            								"additionalProperties": false,
+            								"properties": {
+            									"isActive": { "type": "boolean" },
+            									"busyRedirectToVoiceMail": { "type": "boolean" },
+            									"noAnswerRedirectToVoiceMail": { "type": "boolean" },
+            									"noAnswerNumberOfRings": { "enum": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
+            									"alwaysRedirectToVoiceMail": { "type": "boolean" },
+            									"outOfPrimaryZoneRedirectToVoiceMail": { "type": "boolean" },
+            									"serverSelection": {
+            										"enum": [ "Group Mail Server", "User Specific Mail Server" ]
+            									},
+            									"userServer": {
+            									    "anyOf": [
+                                                        { 
+                                                            "id": "E.164 DN",
+                                                            "type": ["string", "null"],
+                                                            "description": "A formatted TN.",
+                                                            "pattern": "^\\+\\d+-\\d+$",
+                                                            "minLength": 1,
+                                                            "maxLength": 23,
+                                                            "required": false
+                                                        },
+                                                        {   
+                                                            "id": "non-E.164 DN", 
+                                                            "type": "string",
+                                                            "description": "A non-E.164 formatted TN.",
+                                                            "pattern": "^[\\d\\-]+$",
+                                                            "minLength": 1,
+                                                            "maxLength": 23,
+                                                            "required": false
+                                                        },
+                                                        { 
+                                                            "id": "SIP URI", 
+                                                            "type": "string",
+                                                            "description": "SIP URI",
+                                                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                            "minLength": 1,
+                                                            "maxLength": 161,
+                                                            "required": false
+                                                        }
+                                                    ]
+            									},
+            									"mailboxIdType": {
+            										"enum": [ "User Or Group Phone Number", "URL" ]
+            									},
+            									"mailboxURL": {
+            										"type": ["string", "null"],
+                                                    "description": "SIP URI",
+                                                    "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                    "minLength": 1,
+                                                    "maxLength": 161
+            									}
+            								}
+            							},
+            							"Call Forwarding No Answer": {
+            								"type": "object",
+            								"additionalProperties": false,
+            								"properties": {
+            									"isActive": { "type": "boolean" },
+            									"forwardToPhoneNumber": { 
+            									    "anyOf": [
+                                                        { 
+                                                            "id": "E.164 DN",
+                                                            "type": ["string", "null"],
+                                                            "description": "A formatted TN.",
+                                                            "pattern": "^\\+\\d+-\\d+$",
+                                                            "minLength": 1,
+                                                            "maxLength": 23,
+                                                            "required": false
+                                                        },
+                                                        {   
+                                                            "id": "non-E.164 DN", 
+                                                            "type": "string",
+                                                            "description": "A non-E.164 formatted TN.",
+                                                            "pattern": "^[\\d\\-]+$",
+                                                            "minLength": 1,
+                                                            "maxLength": 23,
+                                                            "required": false
+                                                        },
+                                                        { 
+                                                            "id": "SIP URI", 
+                                                            "type": "string",
+                                                            "description": "SIP URI",
+                                                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                            "minLength": 1,
+                                                            "maxLength": 161,
+                                                            "required": false
+                                                        }
+                                                    ]
+            									},
+            									"numberOfRings": { "enum": [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] }
+            								}
+            							},
+            							"Call Forwarding Not Reachable": {
+            								"type": "object",
+            								"additionalProperties": false,
+            								"properties": {
+            									"isActive": { "type": "boolean" },
+            									"forwardToPhoneNumber": { 
+            									    "anyOf": [
+                                                        { 
+                                                            "id": "E.164 DN",
+                                                            "type": ["string", "null"],
+                                                            "description": "A formatted TN.",
+                                                            "pattern": "^\\+\\d+-\\d+$",
+                                                            "minLength": 1,
+                                                            "maxLength": 23,
+                                                            "required": false
+                                                        },
+                                                        {   
+                                                            "id": "non-E.164 DN", 
+                                                            "type": "string",
+                                                            "description": "A non-E.164 formatted TN.",
+                                                            "pattern": "^[\\d\\-]+$",
+                                                            "minLength": 1,
+                                                            "maxLength": 23,
+                                                            "required": false
+                                                        },
+                                                        { 
+                                                            "id": "SIP URI", 
+                                                            "type": "string",
+                                                            "description": "SIP URI",
+                                                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                            "minLength": 1,
+                                                            "maxLength": 161,
+                                                            "required": false
+                                                        }
+                                                    ]
+            									}
+            								}
+            							}
     								}
     							}
 							}
@@ -14197,11 +14712,10 @@ PUT /loki/users/{+userId}/services/Alternate%20Numbers
                         "id": { "type": "integer", "min": 1, "max": 10, "required": true },
                         "tnRoutine": { "enum": ["", "port-no-temp", "auto"] },
                         "phoneNumber": {
-                            "extends":[{
-                                "$ref": "/bwksDnSchema"
-                            }, {
-                                "type": ["string", "null"]
-                            }]
+                            "type": ["string", "null"], 
+                            "minLength": 1, 
+                            "maxLength": 23, 
+                            "pattern": "^\\+\\d+-\\d+$"
                         },
                         "extension": {
                             "type": ["string", "null"],
@@ -14633,11 +15147,21 @@ POST /loki/auto-attendants{?mode}
                         "properties": {
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
-                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                            "phoneNumber": {
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
+                            }
                         }
                     },
-                    "phoneNumber": { "$ref": "/bwksDnSchema" },
-                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "phoneNumber": {
+                        "type": "string", 
+                        "minLength": 1, 
+                        "maxLength": 23, 
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
                     "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
                     "password": { "type": "string", "minLength": 1, "maxLength": 60 },
                     "department": { "type": "string", "minLength": 1, "maxLength": 50 },
@@ -14646,9 +15170,21 @@ POST /loki/auto-attendants{?mode}
                     "alias": {
                         "type": "array",
                         "maxItems": 3,
-                        "items": { "$ref": "/bwksSipUri" }
+                        "items": { 
+                            "type": "string",
+                			"description": "SIP URI",
+                			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                			"minLength": 1,
+                			"maxLength": 161
+                        }
                     },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+            			"description": "SIP URI",
+            			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+            			"minLength": 1,
+            			"maxLength": 161
+                    }
                 }
             },
             "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 },
@@ -14723,7 +15259,13 @@ POST /loki/auto-attendants{?mode}
                         }
                     },
                     "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+            			"description": "SIP URI",
+            			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+            			"minLength": 1,
+            			"maxLength": 161
+                    }
                 }
             },
             "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
@@ -14797,11 +15339,21 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendan
                         "properties": {
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
-                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                            "phoneNumber": {
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
+                            }
                         }
                     },
-                    "phoneNumber": { "$ref": "/bwksDnSchema" },
-                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "phoneNumber": {
+                        "type": "string", 
+                        "minLength": 1, 
+                        "maxLength": 23, 
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
                     "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
                     "password": { "type": "string", "minLength": 1, "maxLength": 60 },
                     "department": { "type": "string", "minLength": 1, "maxLength": 50 },
@@ -14810,9 +15362,21 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendan
                     "alias": {
                         "type": "array",
                         "maxItems": 3,
-                        "items": { "$ref": "/bwksSipUri" }
+                        "items": {
+                            "type": "string",
+                			"description": "SIP URI",
+                			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                			"minLength": 1,
+                			"maxLength": 161
+                        }
                     },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+            			"description": "SIP URI",
+            			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+            			"minLength": 1,
+            			"maxLength": 161
+                    }
                 }
             },
             "firstDigitTimeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 60 },
@@ -14869,7 +15433,13 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendan
                 "additionalproperties": false,
                 "properties": {
                     "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+                        "description": "SIP URI",
+                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
                 }
             },
             "extensions": {
@@ -14974,20 +15544,29 @@ POST /loki/hunt-groups{?mode}
             "profile": {
                 "type": "object",
                 "additionalproperties": false,
-                "required": true,
                 "properties": {
-                    "name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
                     "callingLineId": {
                         "type": "object",
                         "additionalproperties": false,
                         "properties": {
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
-                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                            "phoneNumber": {
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
+                            }
                         }
                     },
-                    "phoneNumber": { "$ref": "/bwksDnSchema" },
-                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "phoneNumber": {
+                        "type": "string", 
+                        "minLength": 1, 
+                        "maxLength": 23, 
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
                     "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
                     "password": { "type": "string", "minLength": 1, "maxLength": 60 },
                     "department": { "type": "string", "minLength": 1, "maxLength": 50 },
@@ -14996,9 +15575,21 @@ POST /loki/hunt-groups{?mode}
                     "alias": {
                         "type": "array",
                         "maxItems": 3,
-                        "items": { "$ref": "/bwksSipUri" }
+                        "items": {
+                            "type": "string",
+                			"description": "SIP URI",
+                			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                			"minLength": 1,
+                			"maxLength": 161
+                        }
                     },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+            			"description": "SIP URI",
+            			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+            			"minLength": 1,
+            			"maxLength": 161
+                    }
                 }
             },
             "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 },
@@ -15024,7 +15615,12 @@ POST /loki/hunt-groups{?mode}
             },
             "agentUserId": {
                 "type": "array",
-                "items": { "$ref": "/userId" }
+                "items": {
+                    "type": "string", 
+                    "minLength": 1, 
+                    "maxLength": 161,
+                    "pattern": "^\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                }
             },
             "allowCallWaitingForAgents": { "type": "boolean" },
             "callingLineIdSettings": {
@@ -15040,7 +15636,37 @@ POST /loki/hunt-groups{?mode}
                 "additionalProperties": false,
                 "properties": {
                     "enableForwarding": { "type": "boolean" },
-                    "forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
+                    "forwardToPhoneNumber": {
+                        "anyOf": [
+                            { 
+                                "id": "E.164 DN",
+                                "type": ["string", "null"],
+                                "description": "A formatted TN.",
+                                "pattern": "^\\+\\d+-\\d+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            {   
+                                "id": "non-E.164 DN", 
+                                "type": "string",
+                                "description": "A non-E.164 formatted TN.",
+                                "pattern": "^[\\d\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            { 
+                                "id": "SIP URI", 
+                                "type": "string",
+                                "description": "SIP URI",
+                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 161,
+                                "required": false
+                            }
+                        ]
+                    },
                     "makeBusyWhenNotReachable": { "type": "boolean" }
                 }
             },
@@ -15085,7 +15711,12 @@ POST /loki/hunt-groups{?mode}
                         }
                     },
                     "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "description": "SIP URI",
+                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
                 }
             },
             "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
@@ -15159,11 +15790,21 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
                         "properties": {
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
-                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                            "phoneNumber": {
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
+                            }
                         }
                     },
-                    "phoneNumber": { "$ref": "/bwksDnSchema" },
-                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "phoneNumber": {
+                        "type": "string", 
+                        "minLength": 1, 
+                        "maxLength": 23, 
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
                     "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
                     "password": { "type": "string", "minLength": 1, "maxLength": 60 },
                     "department": { "type": "string", "minLength": 1, "maxLength": 50 },
@@ -15172,9 +15813,21 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
                     "alias": {
                         "type": "array",
                         "maxItems": 3,
-                        "items": { "$ref": "/bwksSipUri" }
+                        "items": {
+                            "type": "string",
+                			"description": "SIP URI",
+                			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                			"minLength": 1,
+                			"maxLength": 161
+                        }
                     },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+            			"description": "SIP URI",
+            			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+            			"minLength": 1,
+            			"maxLength": 161
+                    }
                 }
             },
             "policy": { "enum": ["Circular", "Regular", "Simultaneous", "Uniform", "Weighted"] },
@@ -15203,7 +15856,37 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
                 "additionalProperties": false,
                 "properties": {
                     "enableForwarding": { "type": "boolean" },
-                    "forwardToPhoneNumber": { "$ref": "/outgoingDnOrSipUri" },
+                    "forwardToPhoneNumber": {
+                        "anyOf": [
+                            { 
+                                "id": "E.164 DN",
+                                "type": ["string", "null"],
+                                "description": "A formatted TN.",
+                                "pattern": "^\\+\\d+-\\d+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            {   
+                                "id": "non-E.164 DN", 
+                                "type": "string",
+                                "description": "A non-E.164 formatted TN.",
+                                "pattern": "^[\\d\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            { 
+                                "id": "SIP URI", 
+                                "type": "string",
+                                "description": "SIP URI",
+                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 161,
+                                "required": false
+                            }
+                        ]
+                    },
                     "makeBusyWhenNotReachable": { "type": "boolean" }
                 }
             },
@@ -15244,7 +15927,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
                 "additionalproperties": false,
                 "properties": {
                     "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "description": "SIP URI",
+                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
                 }
             },
             "extensions": {
@@ -15349,20 +16037,29 @@ POST /loki/call-centers{?mode}
             "profile": {
                 "type": "object",
                 "additionalproperties": false,
-                "required": true,
                 "properties": {
-                    "name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
                     "callingLineId": {
                         "type": "object",
                         "additionalproperties": false,
                         "properties": {
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
-                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                            "phoneNumber": {
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
+                            }
                         }
                     },
-                    "phoneNumber": { "$ref": "/bwksDnSchema" },
-                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "phoneNumber": {
+                        "type": "string", 
+                        "minLength": 1, 
+                        "maxLength": 23, 
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
                     "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
                     "password": { "type": "string", "minLength": 1, "maxLength": 60 },
                     "department": { "type": "string", "minLength": 1, "maxLength": 50 },
@@ -15371,9 +16068,21 @@ POST /loki/call-centers{?mode}
                     "alias": {
                         "type": "array",
                         "maxItems": 3,
-                        "items": { "$ref": "/bwksSipUri" }
+                        "items": {
+                            "type": "string",
+                			"description": "SIP URI",
+                			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                			"minLength": 1,
+                			"maxLength": 161
+                        }
                     },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+            			"description": "SIP URI",
+            			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+            			"minLength": 1,
+            			"maxLength": 161
+                    }
                 }
             },
             "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 },
@@ -15463,7 +16172,12 @@ POST /loki/call-centers{?mode}
                         }
                     },
                     "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "description": "SIP URI",
+                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
                 }
             },
             "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
@@ -15565,11 +16279,21 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
                         "properties": {
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
-                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                            "phoneNumber": {
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
+                            }
                         }
                     },
-                    "phoneNumber": { "$ref": "/bwksDnSchema" },
-                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "phoneNumber": {
+                        "type": "string", 
+                        "minLength": 1, 
+                        "maxLength": 23, 
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
                     "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
                     "password": { "type": "string", "minLength": 1, "maxLength": 60 },
                     "department": { "type": "string", "minLength": 1, "maxLength": 50 },
@@ -15578,9 +16302,21 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
                     "alias": {
                         "type": "array",
                         "maxItems": 3,
-                        "items": { "$ref": "/bwksSipUri" }
+                        "items": {
+                            "type": "string",
+                			"description": "SIP URI",
+                			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                			"minLength": 1,
+                			"maxLength": 161
+                        }
                     },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+            			"description": "SIP URI",
+            			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+            			"minLength": 1,
+            			"maxLength": 161
+                    }
                 }
             },
             "type": { "enum": ["Basic", "Standard", "Premium"], "required": true },
@@ -15657,7 +16393,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
                 "additionalproperties": false,
                 "properties": {
                     "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "description": "SIP URI",
+                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
                 }
             },
             "extensions": {
@@ -15762,20 +16503,29 @@ POST /loki/instant-group-calls{?mode}
             "profile": {
                 "type": "object",
                 "additionalproperties": false,
-                "required": true,
                 "properties": {
-                    "name": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
                     "callingLineId": {
                         "type": "object",
                         "additionalproperties": false,
                         "properties": {
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
-                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                            "phoneNumber": {
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
+                            }
                         }
                     },
-                    "phoneNumber": { "$ref": "/bwksDnSchema" },
-                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "phoneNumber": {
+                        "type": "string", 
+                        "minLength": 1, 
+                        "maxLength": 23, 
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
                     "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
                     "password": { "type": "string", "minLength": 1, "maxLength": 60 },
                     "department": { "type": "string", "minLength": 1, "maxLength": 50 },
@@ -15784,9 +16534,21 @@ POST /loki/instant-group-calls{?mode}
                     "alias": {
                         "type": "array",
                         "maxItems": 3,
-                        "items": { "$ref": "/bwksSipUri" }
+                        "items": {
+                            "type": "string",
+                			"description": "SIP URI",
+                			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                			"minLength": 1,
+                			"maxLength": 161
+                        }
                     },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+            			"description": "SIP URI",
+            			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+            			"minLength": 1,
+            			"maxLength": 161
+                    }
                 }
             },
             "networkClassOfService": { "type": "string", "minLength": 1, "maxLength": 40 },
@@ -15800,7 +16562,37 @@ POST /loki/instant-group-calls{?mode}
             },
             "destinationPhoneNumber": {
                 "type": "array",
-                "items": { "$ref": "/outgoingDnOrSipUri" }
+                "items": {
+                    "anyOf": [
+                        { 
+                            "id": "E.164 DN",
+                            "type": ["string", "null"],
+                            "description": "A formatted TN.",
+                            "pattern": "^\\+\\d+-\\d+$",
+                            "minLength": 1,
+                            "maxLength": 23,
+                            "required": false
+                        },
+                        {   
+                            "id": "non-E.164 DN", 
+                            "type": "string",
+                            "description": "A non-E.164 formatted TN.",
+                            "pattern": "^[\\d\\-]+$",
+                            "minLength": 1,
+                            "maxLength": 23,
+                            "required": false
+                        },
+                        { 
+                            "id": "SIP URI", 
+                            "type": "string",
+                            "description": "SIP URI",
+                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                            "minLength": 1,
+                            "maxLength": 161,
+                            "required": false
+                        }
+                    ]
+                }
             },
             "isAnswerTimeoutEnabled": { "type": "boolean" },
             "answerTimeoutMinutes": { "type": "integer", "minimum": 1, "maximum": 60 }
@@ -15842,7 +16634,12 @@ POST /loki/instant-group-calls{?mode}
                         }
                     },
                     "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "description": "SIP URI",
+                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
                 }
             },
             "uniqueId": { "type": "string",	"minLength": 18, "maxLength": 18, "pattern": "^\\d+$" },
@@ -15916,11 +16713,21 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
                         "properties": {
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
-                            "phoneNumber": { "$ref": "/bwksDnSchema" }
+                            "phoneNumber": {
+                                "type": "string", 
+                                "minLength": 1, 
+                                "maxLength": 23, 
+                                "pattern": "^\\+\\d+-\\d+$"
+                            }
                         }
                     },
-                    "phoneNumber": { "$ref": "/bwksDnSchema" },
-                    "tnRoutine": { "$ref": "/tnRoutineWithNoNumber" },
+                    "phoneNumber": {
+                        "type": "string", 
+                        "minLength": 1, 
+                        "maxLength": 23, 
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
                     "extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
                     "password": { "type": "string", "minLength": 1, "maxLength": 60 },
                     "department": { "type": "string", "minLength": 1, "maxLength": 50 },
@@ -15929,14 +16736,56 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
                     "alias": {
                         "type": "array",
                         "maxItems": 3,
-                        "items": { "$ref": "/bwksSipUri" }
+                        "items": {
+                            "type": "string",
+                			"description": "SIP URI",
+                			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                			"minLength": 1,
+                			"maxLength": 161
+                        }
                     },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "type": "string",
+            			"description": "SIP URI",
+            			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+            			"minLength": 1,
+            			"maxLength": 161
+                    }
                 }
             },
             "destinationPhoneNumber": {
                 "type": "array",
-                "items": { "$ref": "/outgoingDnOrSipUri" }
+                "items": {
+                    "anyOf": [
+                        { 
+                            "id": "E.164 DN",
+                            "type": ["string", "null"],
+                            "description": "A formatted TN.",
+                            "pattern": "^\\+\\d+-\\d+$",
+                            "minLength": 1,
+                            "maxLength": 23,
+                            "required": false
+                        },
+                        {   
+                            "id": "non-E.164 DN", 
+                            "type": "string",
+                            "description": "A non-E.164 formatted TN.",
+                            "pattern": "^[\\d\\-]+$",
+                            "minLength": 1,
+                            "maxLength": 23,
+                            "required": false
+                        },
+                        { 
+                            "id": "SIP URI", 
+                            "type": "string",
+                            "description": "SIP URI",
+                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                            "minLength": 1,
+                            "maxLength": 161,
+                            "required": false
+                        }
+                    ]
+                }
             },
             "isAnswerTimeoutEnabled": { "type": "boolean" },
             "answerTimeoutMinutes": { "type": "integer", "minimum": 1, "maximum": 60 },
@@ -15974,7 +16823,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
                 "additionalproperties": false,
                 "properties": {
                     "extension": { "type": "string", "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
-                    "publicServiceIdentity": { "$ref": "/bwksSipUri" }
+                    "publicServiceIdentity": {
+                        "description": "SIP URI",
+                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
                 }
             },
             "extensions": {
@@ -16062,11 +16916,10 @@ PUT /loki/users/{+userId}/services/Intercept%20User
                 "properties": {
                     "enabled": { "type": "boolean" },
                     "phoneNumber": {
-                        "extends":[{
-                            "$ref": "/bwksDnSchema"
-                        }, {
-                            "type": ["string", "null"]
-                        }]
+                        "type": ["string", "null"], 
+                        "minLength": 1, 
+                        "maxLength": 23, 
+                        "pattern": "^\\+\\d+-\\d+$"
                     }
                 }
             },
@@ -16105,7 +16958,37 @@ PUT /loki/users/{+userId}/services/Intercept%20User
                 "additionalProperties": false,
                 "properties": {
                     "enabled": { "type": "boolean" },
-                    "phoneNumber": { "$ref": "/outgoingDnOrSipUri" }
+                    "phoneNumber": {
+                        "anyOf": [
+                            { 
+                                "id": "E.164 DN",
+                                "type": ["string", "null"],
+                                "description": "A formatted TN.",
+                                "pattern": "^\\+\\d+-\\d+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            {   
+                                "id": "non-E.164 DN", 
+                                "type": "string",
+                                "description": "A non-E.164 formatted TN.",
+                                "pattern": "^[\\d\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 23,
+                                "required": false
+                            },
+                            { 
+                                "id": "SIP URI", 
+                                "type": "string",
+                                "description": "SIP URI",
+                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                "minLength": 1,
+                                "maxLength": 161,
+                                "required": false
+                            }
+                        ]
+                    }
                 }
             },
             "allowOutboundLocalCalls": { "type": "boolean" },
