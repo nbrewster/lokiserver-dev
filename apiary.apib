@@ -3219,6 +3219,19 @@ Assigns a TN to a Site based on the specified TN management routine.
             <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
             </td>
         </tr>
+    </tbody>
+</table>
+
+##URI Template Parameters
+
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
         <tr>
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
@@ -3331,7 +3344,7 @@ POST /customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
 
 Activate phone number(s) in a Site. The corresponding phone numbers in the underlying BroadWorks group will be set to "activated".
 
-##URI Query Parameters
+##URI Template Parameters
 
 <table border=1>
     <thead>
@@ -3342,10 +3355,16 @@ Activate phone number(s) in a Site. The corresponding phone numbers in the under
     </thead>
     <tbody>
         <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Customer containing the phone numbers(s) to be activated.</td>
+        </tr>
+        <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID of the Site containing the phone numbers(s) to be activated.
+            <td>Loki Server ID (server-generated) of the Site containing the phone numbers(s) to be activated.
             </td>
         </tr>
     </tbody>
@@ -3395,7 +3414,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
 </table>
 
 A request may contain any combination of individual phone numbers and phone number ranges (in any order), as seen in the example.
-POST /sites/{+siteId}/phone-numbers/activate
+POST /customers/{+customerId}/sites/{+siteId}/phone-numbers/activate
 > Content-Type: application/json
 {
     "phoneNumbers" : [
@@ -3418,7 +3437,7 @@ POST /sites/{+siteId}/phone-numbers/activate
 
 Dectivate phone number(s) in a Site. The corresponding phone numbers in the underlying BroadWorks group will be set to "not activated".
 
-##URI Query Parameters
+##URI Template Parameters
 
 <table border=1>
     <thead>
@@ -3429,10 +3448,16 @@ Dectivate phone number(s) in a Site. The corresponding phone numbers in the unde
     </thead>
     <tbody>
         <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Customer containing the phone numbers(s) to be deactivated.</td>
+        </tr>
+        <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID of the Site containing the phone numbers(s) to be deactivated.
+            <td>Loki Server ID (server-generated) of the Site containing the phone numbers(s) to be deactivated.
             </td>
         </tr>
     </tbody>
@@ -3482,7 +3507,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
 </table>
 
 A request may contain any combination of individual phone numbers and phone number ranges (in any order), as seen in the example.
-POST /sites/{+siteId}/phone-numbers/deactivate
+POST /customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
 > Content-Type: application/json
 {
     "phoneNumbers" : [
@@ -11630,7 +11655,8 @@ Changes for S1783: LWS-REST: Site Device creation and TN Assign to a Site:
 Note the change to version numbers compatible with other Loki products.
 
 Changes for S2018 LWS-REST: Add support for Activate/Deactivate TN in BroadWorks:
-* Add POST /sites/{+siteId}/phone-numbers/activate and POST /sites/{+siteId}/phone-numbers/deactivate
+* Added POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate 
+* Added POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
 
 Updates for S1945 LWS-REST: Add User with Trunk Group "None" (POST /loki/users{?mode}):
 
@@ -11879,6 +11905,71 @@ GET /loki/customers/{+customerId}
 			}
         }
 	}
+}
+
+PUT /loki/customers/{+customerId}
+{
+    "requestURITemplate": {
+        "title": "Modify Customer request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "required": true }
+        }
+    },
+    "requestBody": {
+        "title": "Modify Customer request body properties",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "customerName": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "defaultDomain": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 80, 
+                "pattern": "^[a-zA-Z0-9.-]+$"
+            },
+            "supportEmail": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
+            "contact": {
+                "type": "object",
+                "properties": {
+                    "name": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "number": { "type": "string", "minLength": 1, "maxLength": 30 },
+                    "email": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" }
+                }
+            },
+            "address": {
+                "type": "object",
+                "properties": {
+                    "addressLine1": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "addressLine2": { "type": "string", "minLength": 1, "maxLength": 80 },
+                    "city": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "stateOrProvince": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "zipOrPostalCode": { "type": "string", "minLength": 1, "maxLength": 50 },
+                    "country": { "type": "string", "minLength": 1, "maxLength": 50 }
+                }
+            },
+            "useServiceProviderLanguages": { "type": "boolean" },
+            "networkClassesOfService": { 
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "default": { "type": "string", "minLength": 1, "maxLength": 40 }
+                }
+            }
+        }
+    },
+    "response": { }
+}
+
+DELETE /loki/customers/{+customerId}
+{
+    "requestURITemplate": {
+        "title": "Delete Customer request URI template parameters schema",
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "required": true }
+        }
+    },
+    "requestBody": { },
+    "response": { }
 }
 
 GET /loki/customers/{+customerId}/sites/{+siteId}
@@ -13849,107 +13940,252 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 	}
 }
 
-POST /loki/sites/{+siteId}/phone-numbers/activate
+POST /loki/customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
 {
-	"request": {
-		"post": {
-			"body": {
-				"id": "voipTNActivationBody",
+    "requestURIQuery": {
+        "title": "Assigns a TN to a Site request URI Query parameters schema",
+        "properties": {
+			"mode": { "enum": [ "create-only" ], "required": true }
+		}
+	},
+	"requestURITemplate": {
+        "title": "Assigns a TN to a Site request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": {
+        "title": "Assigns a TN to a Site request body properties",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "phoneNumber": { 
+                "type": "string", 
+                "minLength": 1, 
+                "maxLength": 23, 
+                "pattern": "^\\+\\d+-\\d+$",
+                "required": true
+            },
+            "tnRoutine": { "enum": ["port-no-temp", "auto"], "required": true }
+        }
+    },
+    "response": {
+        "title": "Assigns a TN to a Site response properties",
+        "type": "object",
+        "properties": {
+            "_links": {
+				"type": "object",
+				"required": true,
+				"properties": {
+					"self": {
+						"type": "object",
+						"required": true,
+						"properties": {
+							"href": {
+								"type": "string",
+								"required": true
+							}
+						}
+					}
+				}
+			},
+			"curies": {
+				"type": "array",
+				"required": true,
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": { "type": "string", "required": true },
+						"href": { "type": "string", "required": true },
+						"templated": { "type": "boolean", "required": true }
+					}
+				}
+			},
+            "_embedded": {
 				"type": "object",
 				"required": true,
 				"additionalProperties": false,
-				"title": "Post schema, body",
 				"properties": {
-					"phoneNumbers": {
+					"ls:customer-phone-numbers": {
 						"type": "array",
+						"required": true,
 						"items": {
-							"anyOf": [
-								{
-									"id": "E.164 DN",
-									"$ref": "/bwksDnSchema"
-								},
-								{
-									"id": "TN Range",
-									"type": "object",
-									"additionalProperties": false,
-									"properties": {
-										"start": {
-											"$ref": "/bwksDnSchema"
-										},
-										"end": {
-											"$ref": "/bwksDnSchema"
-										}
-									}
-								}
-							]
+						    "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+    							"_links": {
+                    				"type": "object",
+                    				"required": true,
+                    				"properties": {
+                    					"self": {
+                    						"type": "object",
+                    						"required": true,
+                    						"properties": {
+                    							"href": {
+                    								"type": "string",
+                    								"required": true
+                    							}
+                    						}
+                    					}
+                    				}
+                    			},
+                    			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+    							"phoneNumber": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 23, 
+                                    "pattern": "^\\+\\d+-\\d+$",
+                                    "required": true
+                                }
+							}
+						}
+					},
+					"ls:site-phone-numbers": {
+						"type": "array",
+						"required": true,
+						"items": {
+						    "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+    							"_links": {
+                    				"type": "object",
+                    				"required": true,
+                    				"properties": {
+                    					"self": {
+                    						"type": "object",
+                    						"required": true,
+                    						"properties": {
+                    							"href": {
+                    								"type": "string",
+                    								"required": true
+                    							}
+                    						}
+                    					}
+                    				}
+                    			},
+                    			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    			"siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+    							"phoneNumber": { 
+                                    "type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 23, 
+                                    "pattern": "^\\+\\d+-\\d+$",
+                                    "required": true
+                                }
+							}
 						}
 					}
 				}
 			}
-		}
-	},
-	"definitions": {
-		"bwksDnSchema": {
-			"type": "string",
-			"description": "A formatted TN.",
-			"pattern": "^\\+\\d+-\\d+$",
-			"minLength": 1,
-			"maxLength": 23,
-			"required": false
-		}
-	},
+        }
+    }
+}
+
+POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate
+{
+    "requestURITemplate": {
+        "title": "Activate phone number(s) in a Site request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": {
+        "title": "Activate phone number(s) in a Site request body properties",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "phoneNumbers": {
+				"type": "array",
+				"items": {
+					"anyOf": [
+						{
+							"id": "E.164 DN",
+							"type": "string", 
+                            "minLength": 1, 
+                            "maxLength": 23, 
+                            "pattern": "^\\+\\d+-\\d+$"
+						},
+						{
+							"id": "TN Range",
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"start": {
+									"type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 23, 
+                                    "pattern": "^\\+\\d+-\\d+$"
+								},
+								"end": {
+									"type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 23, 
+                                    "pattern": "^\\+\\d+-\\d+$"
+								}
+							}
+						}
+					]
+				}
+			}
+        }
+    },
 	"response": {}
 }
 
-POST /loki/sites/{+siteId}/phone-numbers/deactivate
+POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
 {
-	"request": {
-		"post": {
-			"body": {
-				"id": "voipTNActivationBody",
-				"type": "object",
-				"required": true,
-				"additionalProperties": false,
-				"title": "Post schema, body",
-				"properties": {
-					"phoneNumbers": {
-						"type": "array",
-						"items": {
-							"anyOf": [
-								{
-									"id": "E.164 DN",
-									"$ref": "/bwksDnSchema"
+	"requestURITemplate": {
+        "title": "Deactivate phone number(s) in a Site request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
+        }
+    },
+    "requestBody": {
+        "title": "Deactivate phone number(s) in a Site request body properties",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "phoneNumbers": {
+				"type": "array",
+				"items": {
+					"anyOf": [
+						{
+							"id": "E.164 DN",
+							"type": "string", 
+                            "minLength": 1, 
+                            "maxLength": 23, 
+                            "pattern": "^\\+\\d+-\\d+$"
+						},
+						{
+							"id": "TN Range",
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"start": {
+									"type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 23, 
+                                    "pattern": "^\\+\\d+-\\d+$"
 								},
-								{
-									"id": "TN Range",
-									"type": "object",
-									"additionalProperties": false,
-									"properties": {
-										"start": {
-											"$ref": "/bwksDnSchema"
-										},
-										"end": {
-											"$ref": "/bwksDnSchema"
-										}
-									}
+								"end": {
+									"type": "string", 
+                                    "minLength": 1, 
+                                    "maxLength": 23, 
+                                    "pattern": "^\\+\\d+-\\d+$"
 								}
-							]
+							}
 						}
-					}
+					]
 				}
 			}
-		}
-	},
-	"definitions": {
-		"bwksDnSchema": {
-			"type": "string",
-			"description": "A formatted TN.",
-			"pattern": "^\\+\\d+-\\d+$",
-			"minLength": 1,
-			"maxLength": 23,
-			"required": false
-		}
-	},
+        }
+    },
 	"response": {}
 }
 
