@@ -36,7 +36,7 @@ If LWS-REST is configured in multi cluster mode and you try to access a resource
 Clients of LWS-REST should support both response body formats.
 
 ## Different responses depending on BroadWorks version
-LWS-REST returns different results depending on the BroadWorks version when sending a request which results in an invalid XML request to BroadWorks. 
+LWS-REST returns different results depending on the BroadWorks version when sending a request which results in an invalid XML request to BroadWorks.
 See below for different error responses:
 
 For BroadWorks version 17sp4 with bad patch (preventing return of 6004 BroadWorks response) result is:<br />
@@ -183,7 +183,7 @@ Response code: 422 Unprocessable Entity
 }
 </pre>
 
-Error: The client tried to access a resource on an external network element and the resource doesn’t exist.<br />
+Error: The client tried to access a resource on an external network element and the resource doesn't exist.<br />
 Response code: 404 Not Found
 <pre>{
     "errorCode": "NOT_FOUND",
@@ -211,7 +211,7 @@ Response code: 500 Internal Server Error
 }
 </pre>
 
-Error: Client tried to call a method that isn’t supported for the resource.<br />
+Error: Client tried to call a method that isn't supported for the resource.<br />
 Response code: 405 Method Not Allowed
 
 Error: The client called a resource that does not exist at all.<br />
@@ -1475,8 +1475,8 @@ Extension Keys:
 
 * (none)
 --
- 
- 
+
+
 <!--------------------------------- GET /customers/{+customerId} ------------------------------->
 
 Retrieve the Customer matching a specific customerId.<br/>
@@ -1980,7 +1980,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td style="text-align: center; font-weight:bold">no</td>
             <td>Normal</td>
             <td>Administrator type.<br />
-            <b>Note: “Normal” value for this property resolves to “Service Provider” type in BroadWorks</b>
+            <b>Note: "Normal" value for this property resolves to "Service Provider" type in BroadWorks</b>
             </td>
         </tr>
         <tr>
@@ -2017,7 +2017,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
                             <td>The BroadWorks ID to be set on the new Administrator.<br />
-                            <b>Note: If provided it overrides the value generated from the “name” property.</b>
+                            <b>Note: If provided it overrides the value generated from the "name" property.</b>
                             </td>
                         </tr>
                     </tbody>
@@ -2389,7 +2389,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>name</td>
                             <td style="text-align: center;">no</td>
                             <td>n/a</td>
-                            <td>Calling Line ID Group Name.<br /> 
+                            <td>Calling Line ID Group Name.<br />
                             If not present in the request it will be generated from the name by removing disallowed characters.</td>
                         </tr>
                         <tr>
@@ -2572,7 +2572,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>n/a</td>
                             <td>The groupId of a BroadWorks group that will be used as template.<br />
                             Must be the groupId of a group in the LokiHelper service provider defined in the configuration.<br />
-                            <b>Note:</b> Documentation of how group templating works in LWS-REST is found in the Loki Provisioning Administrator’s Guide.
+                            <b>Note:</b> Documentation of how group templating works in LWS-REST is found in the Loki Provisioning Administrator's Guide.
                             </td>
                         </tr>
                     </tbody>
@@ -2623,9 +2623,9 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
 	        <td>The set of services to configure to the new BroadWorks group.<br />
 	        Each service name must match a valid (configurable) group service in BroadWorks.<br />
 	        <b>Note</b>: The Site Add request does not assign the services from the <code>services</code> section in the request
-	        body; it only configures them.<br /> 
+	        body; it only configures them.<br />
             To ensure the necessary group services are assigned to the BroadWorks group, be sure to select a BroadWorks
-            template that has the desired services assigned.<br /> 
+            template that has the desired services assigned.<br />
             If service configuration settings are included in the request, but the template group doesn't have the
             service(s) assigned (or the template is omitted in the request), the request will fail.<br />
             </td>
@@ -3013,7 +3013,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
                             <td>The BroadWorks ID to be set on the new Administrator.<br />
-                            <b>Note: If provided it overrides the value generated from the “name” property.</b>
+                            <b>Note: If provided it overrides the value generated from the "name" property.</b>
                             </td>
                         </tr>
                     </tbody>
@@ -3396,7 +3396,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             The array entry for a phone number range consists of an object. For ranges, the end value is required to be higher than the start value,
             and both are required to have the same country code.
             See below for additional details of this object's properties.<br />
-            Note that the E.164 format accepted in the LWS-REST API consists of a leading “+”, followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
+            Note that the E.164 format accepted in the LWS-REST API consists of a leading "+", followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
         </tr>
         <tr>
             <td>phoneNumbers[].start</td>
@@ -3489,7 +3489,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             The array entry for a phone number range consists of an object. For ranges, the end value is required to be higher than the start value,
             and both are required to have the same country code.
             See below for additional details of this object's properties.<br />
-            Note that the E.164 format accepted in the LWS-REST API consists of a leading “+”, followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
+            Note that the E.164 format accepted in the LWS-REST API consists of a leading "+", followed by the country code, followed by a hyphen, followed by the national number (subscriber number), e.g. <code>+1-5554161212</code>.</td>
         </tr>
         <tr>
             <td>phoneNumbers[].start</td>
@@ -3575,7 +3575,7 @@ GET /customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
         "callingLineId": {
             "lastName": "Portal",
             "firstName": "Voice",
-            "phoneNumber": "+1-555123456" 
+            "phoneNumber": "+1-555123456"
         },
         "phoneNumber": "+1-555123456",
         "countryCode": "1",
@@ -3687,14 +3687,14 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                                             <td>firstName</td>
                                             <td style="text-align: center;">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID First Name.<br /> 
+                                            <td>Calling Line ID First Name.<br />
                                             If not present in the request it will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
                                             <td>lastName</td>
                                             <td style="text-align: center;">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID Last Name.<br /> 
+                                            <td>Calling Line ID Last Name.<br />
                                             If not present in the request it will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
@@ -3883,7 +3883,7 @@ PUT /customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
             "firstName": "CLID first name",
             "lastName": "CLID last name"
         }
-    }        
+    }
 }
 < 204
 < Transaction-Id: 1380080943120
@@ -3981,13 +3981,13 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>type</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td></td>
-            <td>Device Type – a valid Device Type in BroadWorks.</td>
+            <td>Device Type - a valid Device Type in BroadWorks.</td>
         </tr>
         <tr>
             <td>protocol</td>
             <td style="text-align: center;">no</td>
             <td></td>
-            <td>Protocol – a valid device protocol on BroadWorks, e.g. SIP 2.0</td>
+            <td>Protocol - a valid device protocol on BroadWorks, e.g. SIP 2.0</td>
         </tr>
          <tr>
             <td>hostname</td>
@@ -4134,31 +4134,31 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>provisioningURL</td>
                             <td style="text-align: center;">varies</td>
                             <td>n/a</td>
-                            <td>Required if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true..</td>
+                            <td>Required if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true..</td>
                         </tr>
                         <tr>
                             <td>provisioningUserName</td>
                             <td style="text-align: center;">varies</td>
                             <td>n/a</td>
-                            <td>Required if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true..</td>
+                            <td>Required if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true..</td>
                         </tr>
                         <tr>
                             <td>provisioningPassword</td>
                             <td style="text-align: center;">varies</td>
                             <td>n/a</td>
-                            <td>Required if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true.</td>
+                            <td>Required if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true.</td>
                         </tr>
                         <tr>
                             <td>defaultOriginatingServiceKey</td>
                             <td style="text-align: center;">varies</td>
                             <td>n/a</td>
-                            <td>Not valid if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true.</td>
+                            <td>Not valid if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true.</td>
                         </tr>
                         <tr>
                             <td>defaultTerminatingServiceKey</td>
                             <td style="text-align: center;">varies</td>
                             <td>n/a</td>
-                            <td>Not valid if “type” corresponds to a BroadWorks device type where “Mobility Manager Device” is true.</td>
+                            <td>Not valid if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true.</td>
                         </tr>
                 </table>
             </td>
@@ -4407,7 +4407,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <tr><td>capacityManagement. burstingMaxActiveCalls. incoming</td><td>no</td><td>n/a</td><td>Bursting Maximum Active Calls / Incoming Calls</td></tr>
     <tr><td>capacityManagement. burstingMaxActiveCalls. outgoing</td><td>no</td><td>n/a</td><td>Bursting Maximum Active Calls / Outgoing Calls</td></tr>
     <tr><td>capacityManagement. incomingCapacityExceeded</td><td>yes</td><td>n/a</td><td>Incoming Capacity Exceeded settings</td></tr>
-    <tr><td>capacityManagement. incomingCapacityExceeded. action</td><td>no</td><td>n/a</td><td>Incoming Capacity Exceeded Action – one of {'Forward'|'Reroute'}</td></tr>
+    <tr><td>capacityManagement. incomingCapacityExceeded. action</td><td>no</td><td>n/a</td><td>Incoming Capacity Exceeded Action - one of {'Forward'|'Reroute'}</td></tr>
     <tr><td>capacityManagement. incomingCapacityExceeded. forwardAddress</td><td>(see notes)</td><td>n/a</td><td>Forward to Phone Number / SIP-URI.
         Must be a valid phone number or SIP URI.
         Required if "capacityManagement. incomingCapacityExceeded. action" is "Forward".
@@ -4422,7 +4422,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <tr><td>capacityManagement. incomingCapacityExceeded. offsetCalls</td><td>yes</td><td>n/a</td><td>Capacity Exceeded Offset Value</td></tr>
     <tr><td>unreachableDestination</td><td>yes</td><td>n/a</td><td>Unreachable Destination settings</td></tr>
     <tr><td>unreachableDestination. timeout</td><td>yes</td><td>n/a</td><td>Unreachable Destination Timeout (seconds)</td></tr>
-    <tr><td>unreachableDestination. action</td><td>no</td><td>n/a</td><td>Unreachable Destination Action – one of {'Forward'|'Reroute'}</td></tr>
+    <tr><td>unreachableDestination. action</td><td>no</td><td>n/a</td><td>Unreachable Destination Action - one of {'Forward'|'Reroute'}</td></tr>
     <tr><td>unreachableDestination. forwardAddress</td><td>(see notes)</td><td>n/a</td><td>Forward to Phone Number / SIP-URI.
         Must be a valid phone number or SIP URI.
         Required if "unreachableDestination. action" is "Forward".
@@ -4439,7 +4439,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <tr><td>authentication. password</td><td>(see notes)</td><td>n/a</td><td>Authentication password. Required if "authentication. enabled" is true.<br />
     If present, the password will be validated against the sipPassword rules configured in the server.
     </td></tr>
-    <tr><td>hostedUsers</td><td>no</td><td>n/a</td><td>Not implemented – will be ignored if present in request.</td></tr>
+    <tr><td>hostedUsers</td><td>no</td><td>n/a</td><td>Not implemented - will be ignored if present in request.</td></tr>
     <tr><td>identity</td><td>yes</td><td>n/a</td><td>Identity settings</td></tr>
     <tr><td>identity. trunkGroupIdentity</td><td>yes</td><td>n/a</td><td>Trunk Group Identity settings</td></tr>
     <tr><td>identity. trunkGroupIdentity. identity</td><td>no</td><td>n/a</td><td>Trunk Group Identity, including @domain. Required to be a valid SIP URI.</td></tr>
@@ -4454,10 +4454,10 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <tr><td>identity. enableNetworkAddressIdentity</td><td>yes</td><td>n/a</td><td>Enable Network Address Identity</td></tr>
     <tr><td>allowUnscreenedCalls</td><td>yes</td><td>n/a</td><td>Allow Unscreened Calls</td></tr>
     <tr><td>allowUnscreenedEmergencyCalls</td><td>yes</td><td>n/a</td><td>Allow Unscreened Emergency Calls</td></tr>
-    <tr><td>pilotUserCallingLineIdentityPolicy</td><td>yes</td><td>n/a</td><td>Pilot User Calling Line Asserted Identity Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
-    <tr><td>pilotUserChargeNumberPolicy</td><td>yes</td><td>n/a</td><td>Pilot User Charge Number Usage Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
+    <tr><td>pilotUserCallingLineIdentityPolicy</td><td>yes</td><td>n/a</td><td>Pilot User Calling Line Asserted Identity Usage Policy - one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
+    <tr><td>pilotUserChargeNumberPolicy</td><td>yes</td><td>n/a</td><td>Pilot User Charge Number Usage Policy - one of {'All Originating Calls'|'Unscreened Originating Calls'|'No Calls'}</td></tr>
     <tr><td>callForwardingAlways</td><td>no</td><td>n/a</td><td>Call Forwarding Always settings</td></tr>
-    <tr><td>callForwardingAlways. action</td><td>no</td><td>n/a</td><td>Call Forwarding Always Action – one of {'Forward'|'Reroute'}</td></tr>
+    <tr><td>callForwardingAlways. action</td><td>no</td><td>n/a</td><td>Call Forwarding Always Action - one of {'Forward'|'Reroute'}</td></tr>
     <tr><td>callForwardingAlways. forwardAddress</td><td>(see notes)</td><td>n/a</td><td>Forward to Phone Number / SIP-URI.
         Must be a valid phone number or SIP URI.
         Required if "callForwardingAlways. action" is "Forward".
@@ -4482,7 +4482,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
     <tr><td>advancedReroute. inviteFailureThresholdWindow</td><td>yes</td><td>n/a</td><td>Invite Failure Threshold Window</td></tr>
     <tr><td>pilotUserCallingLineAssertedIdentityPolicy</td><td>yes</td><td>n/a</td><td>Pilot User Calling Line Asserted Identity Policy settings</td></tr>
     <tr><td>pilotUserCallingLineAssertedIdentityPolicy. useTrunkGroupCallingLineAssertedIdentityPolicy</td><td>yes</td><td>n/a</td><td>If true, use Trunk Group's Pilot User Calling Line Asserted Identity Policy. Otherwise, use the Customer's policy.</td></tr>
-    <tr><td>pilotUserCallingLineAssertedIdentityPolicy.  callingLineAssertedIdentityPolicy</td><td>yes</td><td>n/a</td><td>Use this Trunk Group Policy – one of {'All Originating Calls'|'Unscreened Originating Calls'}</td></tr>
+    <tr><td>pilotUserCallingLineAssertedIdentityPolicy.  callingLineAssertedIdentityPolicy</td><td>yes</td><td>n/a</td><td>Use this Trunk Group Policy - one of {'All Originating Calls'|'Unscreened Originating Calls'}</td></tr>
     <tr>
         <td>extensions</td>
         <td>no</td>
@@ -4879,7 +4879,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>name</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>(varies)</td>
-            <td>The clients suggested name for the resource. <br /> 
+            <td>The clients suggested name for the resource. <br />
             It is used for constructing the BroadWorks User ID.<br />
             <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the User ID will be auto-generated.</b><br />
             The following table describes the differences in User ID generation between the two ways of adding a User in LWS-REST:
@@ -4921,7 +4921,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>userType</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td></td>
-            <td>Identifies the user type, which is one of “trunking”, "ATA", “businessLine”, “hostedPbx”, “systemDevice”, “noDevice”.<br />
+            <td>Identifies the user type, which is one of "trunking", "ATA", "businessLine", "hostedPbx", "systemDevice", "noDevice".<br />
             The following table describes the differences in validation between the two ways of adding a User in LWS-REST:
             <table border=1>
                 <thead>
@@ -4930,8 +4930,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Initially only “trunking” and “businessLine” are supported, and other values will result in an 501 NOT_IMPLEMENTED error.</td>
-                    <td>All values are supported with the exception of “systemDevice” value, which will result in a 501 NOT_IMPLEMENTED error.</td>
+                    <td>Initially only "trunking" and "businessLine" are supported, and other values will result in an 501 NOT_IMPLEMENTED error.</td>
+                    <td>All values are supported with the exception of "systemDevice" value, which will result in a 501 NOT_IMPLEMENTED error.</td>
                 </tr>
                 <tbody>
             </table>
@@ -4941,7 +4941,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>accessDevice</td>
             <td style="text-align: center; font-weight:bold">(varies)</td>
             <td></td>
-            <td>Required when userType is “businessLine” or "hostedPbx" (ignored otherwise).
+            <td>Required when userType is "businessLine" or "hostedPbx" (ignored otherwise).
                 <table border=1>
                 <thead>
                     <th>Property</th>
@@ -4956,7 +4956,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td>existing</td>
                     <td>
                          Device adding routine.<br />
-                         <i>Note: This property applies only for userType “ATA”, otherwise it is ignored.</i>
+                         <i>Note: This property applies only for userType "ATA", otherwise it is ignored.</i>
                          <table border=1>
                             <thead>
                                 <th>Default/Legacy</th>
@@ -4976,12 +4976,12 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td style="text-align: center; font-weight:bold">(varies)</td>
                     <td></td>
                     <td>Access device name.<br />
-                    When userType is “businessLine” this property is required and must contain the name of an existing Site-level device (group-level device in BroadWorks).<br />
+                    When userType is "businessLine" this property is required and must contain the name of an existing Site-level device (group-level device in BroadWorks).<br />
                     When userType is "ATA" and accessDevice.deviceManagementRoutine has "existing" value (or it is omitted) this property is required and must match an existing Site-level device (group-level device in BroadWorks).<br />
-                    When userType is “hostedPbx”, if present this property must be a valid deviceName that doesn't match an existing device in BroadWorks.<br />
-                    If this property is omitted, it will be auto generated in the following cases:<br /> 
-                    •	userType is “hostedPbx”<br /> 
-                    •	userType is “ATA” and accessDevice. deviceManagementRoutine is “create”
+                    When userType is "hostedPbx", if present this property must be a valid deviceName that doesn't match an existing device in BroadWorks.<br />
+                    If this property is omitted, it will be auto generated in the following cases:<br />
+                    &bull; userType is "hostedPbx"<br />
+                    &bull; userType is "ATA" and accessDevice. deviceManagementRoutine is "create"
                     </td>
                 </tr>
                 <tr>
@@ -4990,8 +4990,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td></td>
                     <td>
                         Access device type.<br />
-                        This property is required when userType is “hostedPbx” or userType is "ATA" and accessDevice.deviceManagementRoutine is “create”.<br />
-                        <i>Applicable only for userType “hostedPbx” and “ATA”, otherwise it is ignored.</i>
+                        This property is required when userType is "hostedPbx" or userType is "ATA" and accessDevice.deviceManagementRoutine is "create".<br />
+                        <i>Applicable only for userType "hostedPbx" and "ATA", otherwise it is ignored.</i>
                         </td>
                 </tr>
                 <tr>
@@ -5000,7 +5000,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td></td>
                     <td>
                         Device Model<br />
-                        <i>Applicable only for userType “hostedPbx”, otherwise it is ignored.</i>
+                        <i>Applicable only for userType "hostedPbx", otherwise it is ignored.</i>
                     </td>
                 </tr>
                 <tr>
@@ -5009,8 +5009,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td></td>
                     <td>
                         MAC address of the device.<br />
-                        This property is required when userType is “hostedPbx” or userType is "ATA" and accessDevice.deviceManagementRoutine is “create”.<br />
-                        <i>Applicable only for userType “hostedPbx” and “ATA”, otherwise it is ignored.</i>
+                        This property is required when userType is "hostedPbx" or userType is "ATA" and accessDevice.deviceManagementRoutine is "create".<br />
+                        <i>Applicable only for userType "hostedPbx" and "ATA", otherwise it is ignored.</i>
                     </td>
                 </tr>
                 <tr>
@@ -5019,8 +5019,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td></td>
                     <td>
                         LinePort of the user using the device.<br />
-                        If omitted, it will be auto-generated for userType “hostedPbx”, “buinessLine” or “ATA”.<br />
-                        <i>Applicable only for userType “hostedPbx” and “ATA”, otherwise it is ignored.</i>
+                        If omitted, it will be auto-generated for userType "hostedPbx", "buinessLine" or "ATA".<br />
+                        <i>Applicable only for userType "hostedPbx" and "ATA", otherwise it is ignored.</i>
                     </td>
                 </tr>
                 <tbody>
@@ -5031,10 +5031,10 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>trunkGroup</td>
             <td style="text-align: center">no</td>
             <td></td>
-            <td>Ignored when userType is not “trunking”.<br />
+            <td>Ignored when userType is not "trunking".<br />
                 Note that if this entire object is omitted, the user will be created as a trunking user with no assigned trunk group. For the underlying BroadWorks user,
-                omitting this property corresponds to selecting device choice “Trunking” but leaving the Trunking settings blank or “None”, on the User > Profile > Addresses page in the CommPortal.<br />
-                Note that at this time, the Loki Server does not manage the “Alternate Trunk Identity” or “Enterprise Trunk” settings in the “Trunking” section of that page.
+                omitting this property corresponds to selecting device choice "Trunking" but leaving the Trunking settings blank or "None", on the User > Profile > Addresses page in the CommPortal.<br />
+                Note that at this time, the Loki Server does not manage the "Alternate Trunk Identity" or "Enterprise Trunk" settings in the "Trunking" section of that page.
                 <table border=1>
                 <thead>
                     <th>Property</th>
@@ -5048,8 +5048,8 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
                     <td>If present, must contain the name of an existing VoIP Trunk Group in the Site (trunk group in the BroadWorks group).<br />
-                        If omitted (when userType is “trunking”), the trunking user will be created with no assigned trunk group. For the underlying BroadWorks user,
-                        omitting this property corresponds to selecting device choice “Trunking” but leaving the Trunking / Trunk Group set to “None”, on the User > Profile > Addresses page in the CommPortal.</td>
+                        If omitted (when userType is "trunking"), the trunking user will be created with no assigned trunk group. For the underlying BroadWorks user,
+                        omitting this property corresponds to selecting device choice "Trunking" but leaving the Trunking / Trunk Group set to "None", on the User > Profile > Addresses page in the CommPortal.</td>
                 </tr>
                 <tr>
                     <td>linePort</td>
@@ -5174,7 +5174,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Not required.<br /> 
+                    <td>Not required.<br />
                     If omitted, will be autopopulated with the 4th through the last digits of phoneNumber, after stripping the country code.</td>
                     <td>Required</td>
                 </tr>
@@ -5195,7 +5195,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Not required.<br /> 
+                    <td>Not required.<br />
                     If omitted, will be autopopulated with the 1st 3 digits of phoneNumber, after stripping the country code.</td>
                     <td>Required</td>
                 </tr>
@@ -5359,7 +5359,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td></td>
             <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
             Configuration settings for the Call Forwarding No Answer user service. The table below describes the supported settings.
-            <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>            
+            <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i>
             <table border=1>
             <thead>
                 <th>Property</th>
@@ -5588,7 +5588,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td></td>
             <td>The ID to be set on the new User. <br />
         	<b>Note: If provided it overrides the value generated from the "name" property.</b><br />
-        	<b>If both "name" and "extensions.broadworks.resourceId" are omitted then the User ID will be auto-generated 
+        	<b>If both "name" and "extensions.broadworks.resourceId" are omitted then the User ID will be auto-generated
         	as described in the "name" property description.</b>
         	</td>
         </tr>
@@ -5633,47 +5633,47 @@ Note: The default (legacy) request response contains all the properties sent in 
        </tr>
        <tr>
             <td>firstName</td>
-            <td>User’s first name.</td>
+            <td>User's first name.</td>
             <td>no</td>
        </tr>
        <tr>
             <td>lastName</td>
-            <td>User’s last name.</td>
+            <td>User's last name.</td>
             <td>no</td>
        </tr>
        <tr>
             <td>publicUserIdentities</td>
-            <td>User’s public identities entries.</td>
+            <td>User's public identities entries.</td>
             <td>no</td>
        </tr>
        <tr>
             <td>services Authentication. username</td>
-            <td>User’s username for Authentication service.</td>
+            <td>User's username for Authentication service.</td>
             <td>no</td>
        </tr>
        <tr>
             <td>services. Authentication. password</td>
-            <td>User’s password for Authentication service.</td>
+            <td>User's password for Authentication service.</td>
             <td>no</td>
        </tr>
        <tr>
             <td>accessDevice. deviceCredentials. username</td>
-            <td>User’s device username credential.</td>
+            <td>User's device username credential.</td>
             <td>no</td>
        </tr>
        <tr>
             <td>accessDevice. deviceCredentials. password</td>
-            <td>User’s device password credential.</td>
+            <td>User's device password credential.</td>
             <td>no</td>
        </tr>
        <tr>
             <td>accessDevice. name</td>
-            <td>User’s device name.</td>
+            <td>User's device name.</td>
             <td>no</td>
        </tr>
        <tr>
             <td>accessDevice. linePort</td>
-            <td>User’s device lineport.</td>
+            <td>User's device lineport.</td>
             <td>no</td>
        </tr>
        <tr>
@@ -5708,7 +5708,7 @@ Note: The default (legacy) request response contains all the properties sent in 
     </tbody>
 </table>
 
-For the “hostedPbx”, "businessLine" and "ATA" user type the response has an _embedded.ls:site-devices property that contains a 
+For the "hostedPbx", "businessLine" and "ATA" user type the response has an _embedded.ls:site-devices property that contains a
 HAL representation of the created device with the following properties described in the table below.<br />
 <b>Note</b>: _embedded.ls:site-devices property is present in the response only when using "Alternate" process of POST /loki/users{?mode}.
 <table border=1>
@@ -6525,7 +6525,7 @@ DELETE /users/{+userId}{?keepMailbox}
 
 
 
-Reset the device credentials on a VoIP User’s primary device.
+Reset the device credentials on a VoIP User's primary device.
 
 ##URI Template Parameters
 
@@ -6597,8 +6597,8 @@ POST /users/{+userId}/resetDeviceCredentials
 
 Process name: Swap User Device via LWS SOAP (VoIP Entity)<br />
 Rollback-enabled: No<br />
-It will swap the user’s device. In current implementation this request uses both BroadWorks Entity and LWS-SOAP API.
-Additionally the user’s old device may be deleted depending on inputs.
+It will swap the user's device. In current implementation this request uses both BroadWorks Entity and LWS-SOAP API.
+Additionally the user's old device may be deleted depending on inputs.
 
 <b>Note</b>: Any shared call appearances on the old device will be lost (LWS-REST will not re-create the SCAs on the new device).<br />
 <b>Note</b>: The target user must exist with a device assigned.
@@ -6662,8 +6662,8 @@ Additionally the user’s old device may be deleted depending on inputs.
                             <td>see notes</td>
                             <td>n/a</td>
                             <td>Access device name.<br />
-                                If omitted when the deviceManagementRoutine is “create” it will be auto-generated.<br />
-                                Required, if the deviceManagementRoutine is “existing”.
+                                If omitted when the deviceManagementRoutine is "create" it will be auto-generated.<br />
+                                Required, if the deviceManagementRoutine is "existing".
                             </td>
                         </tr>
                         <tr>
@@ -6671,8 +6671,8 @@ Additionally the user’s old device may be deleted depending on inputs.
                             <td>see notes</td>
                             <td>n/a</td>
                             <td>Access device Type.<br />
-                                <b>Note</b>: It will be ignored if the deviceManagementRoutine is “existing”.<br />
-                                Required, if the deviceManagementRoutine is “create”.
+                                <b>Note</b>: It will be ignored if the deviceManagementRoutine is "existing".<br />
+                                Required, if the deviceManagementRoutine is "create".
                             </td>
                         </tr>
                         <tr>
@@ -6681,14 +6681,15 @@ Additionally the user’s old device may be deleted depending on inputs.
                             <td>n/a</td>
                             <td>Access device Model.
                                 Custom tag to be set to the device in BroadWorks.
-                                Note: It will be ignored if the deviceManagementRoutine is “existing”.
+                                Note: It will be ignored if the deviceManagementRoutine is "existing".
                             </td>
                         </tr>
                         <tr>
                             <td>keepDevice</td>
                             <td>no</td>
                             <td>false</td>
-                            <td>Boolean which controls wheather to keep the user’s current device.</td>
+                            <td>Boolean which controls wheather to keep the user's current device.
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -6748,20 +6749,19 @@ For the "Swap User Device via LWS SOAP (VoIP Entity) " besides the properties li
             <td>accessDevice.deviceCredentials.username</td>
             <td>yes</td>
             <td>n/a</td>
-            <td>User’s device username credential.</td>
+            <td>User's device username credential.</td>
         </tr>
         <tr>
             <td>accessDevice.deviceCredentials.password</td>
             <td>yes</td>
             <td>n/a</td>
-            <td>User’s device password credential.</td>
+            <td>User's device password credential.</td>
         </tr>
     </tbody>
 </table>
 
 POST /users/{+userId}/swapDevice
 > Content-Type: application/json
->
 {
 	"accessDevice": {
 	        "deviceManagementRoutine": "create",
@@ -6814,7 +6814,7 @@ POST /users/{+userId}/swapDevice
 {
     "errorCode": "SEMANTIC_ERROR",
     "summary": "The server was unable to process your request",
-    "detail": "The accessDevice.type is required when accessDevice.deviceManagementRoutine equals ‘create’"
+    "detail": "The accessDevice.type is required when accessDevice.deviceManagementRoutine equals ‘create'"
 }
 
 
@@ -6877,7 +6877,7 @@ Modify VoIP User's assigned services.
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: The service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
             Loki Server will not pre-validate service name correctness. Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
         <tr>
@@ -6898,10 +6898,10 @@ Modify VoIP User's assigned services.
 
 PUT /users/{+userId}/services/assigned-services
 > Content-Type: application/json
-{ 
-    "services": ["Authentication", "Alternate Numbers"] , 
-    "servicePacks": ["Executive"] 
-} 
+{
+    "services": ["Authentication", "Alternate Numbers"] ,
+    "servicePacks": ["Executive"]
+}
 < 204
 < Transaction-Id: 1380080943120
 +++++
@@ -6971,7 +6971,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>id</td>
                             <td>yes</td>
                             <td></td>
-                            <td>Alternate Number ID – number of Alt. Num entry in the list.
+                            <td>Alternate Number ID - number of Alt. Num entry in the list.
                                 <br/>Allowed values: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].
                                 <br/><b>Note:</b> The IDs must be provided in ascending order in the request, providing
                                 the IDs in a random order will cause the request to fail.
@@ -7036,7 +7036,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td>no</td>
                             <td></td>
                             <td>
-                                Ring pattern.<br/>Allowed values: [ null, "Normal", "Long-Long", "Short-Short-Long", "Short-Long-Short" ]. Null is equal to “Normal”.<br/>
+                                Ring pattern.<br/>Allowed values: [ null, "Normal", "Long-Long", "Short-Short-Long", "Short-Long-Short" ]. Null is equal to "Normal".<br/>
                                 <b>Note:</b> Ring pattern does not have meaning when phone number and extension are both empty, and will be ignored in this case.
                             </td>
                         </tr>
@@ -7056,12 +7056,12 @@ PUT /users/{+userId}/services/Alternate%20Numbers
             "id": 1,
             "phoneNumber": "+1-4125553000",
             "extension": "3000",
-            "ringPattern": "Long-Long" 
-        }, 
+            "ringPattern": "Long-Long"
+        },
         {
-            "id": 5, 
+            "id": 5,
             "extension": "3005",
-            "ringPattern": "Long-Long" 
+            "ringPattern": "Long-Long"
         }
     ]
 }
@@ -7187,7 +7187,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>announcementSelection</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Announcement Selection, “Default” or “Personal”.<br />
+            <td>Announcement Selection, "Default" or "Personal".<br />
             <b>Not Implemented.</b>
             </td>
         </tr>
@@ -7379,10 +7379,10 @@ Extension Keys:
 --
 
 Create a BroadWorks Mobility Mobile Identity for the specified VoIP User.<br />
-The underlying LWS-SOAP implementation supports only a single mobile identity per user. 
+The underlying LWS-SOAP implementation supports only a single mobile identity per user.
 If the user already has a mobile identity, this request will delete their primary mobile identity and replace it
-with a new one for the phone number from the inputs, rather than adding an additional mobile identity to the user. 
-The Phone Number is automatically added (by LWS-SOAP) to the Enterprise and/or Group MSDN Pool, if needed, 
+with a new one for the phone number from the inputs, rather than adding an additional mobile identity to the user.
+The Phone Number is automatically added (by LWS-SOAP) to the Enterprise and/or Group MSDN Pool, if needed,
 before creating the mobile identity.<br />
 Process name: Create BroadWorks Mobility Mobile Identity via LWS-SOAP (VoIP Entity)<br />
 Rollback-enabled: No
@@ -7450,7 +7450,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
                             <td>BroadWorks mobile phone number.<br />
-                            <b>Note</b>: If present, it overrides the the generated value from the “name” property.
+                            <b>Note</b>: If present, it overrides the the generated value from the "name" property.
                             </td>
                         </tr>
                     </tbody>
@@ -7761,7 +7761,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
 	        <td>Name of a BroadWorks Mobility Mobile Network.<br />
-            <b>Note:</b> If the "mobileNetworkName" is omitted from the request the config value broadworks / userServices / service (where name is “BroadWorks Mobility”) / settings / mobileNetworkName, if not empty, is used.</td>
+            <b>Note:</b> If the "mobileNetworkName" is omitted from the request the config value broadworks / userServices / service (where name is "BroadWorks Mobility") / settings / mobileNetworkName, if not empty, is used.</td>
         </tr>
     </tbody>
 </table>
@@ -7851,7 +7851,7 @@ POST /users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
             "templated": true
         }
     ],
-    "userId": "2005553001@example.com"
+    "userId": "2005553001@example.com",
     "mobileIdentityId": "+1-9876543210",
     "mobileNetworkName": "Example Network Name",
     "extensions": {
@@ -7863,9 +7863,9 @@ POST /users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
 
 Delete the specified BroadWorks Mobility Mobile Identity of the specified VoIP User.<br />
 Initial implementation will not check if the requested Mobile Identity exists.<br />
-The underlying LWS-SOAP request supports only a single mobile identity per user. 
-Thus this request will always delete the user's primary mobile identity, whether or not it matches the 
-phone number from the inputs. The Phone Number is automatically removed (by LWS-SOAP) from the 
+The underlying LWS-SOAP request supports only a single mobile identity per user.
+Thus this request will always delete the user's primary mobile identity, whether or not it matches the
+phone number from the inputs. The Phone Number is automatically removed (by LWS-SOAP) from the
 Enterprise and/or Group MSDN Pools.<br />
 Process name: Delete BroadWorks Mobility Mobile Identity via LWS-SOAP (VoIP Entity)<br />
 Rollback-enabled: No
@@ -7983,7 +7983,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>name</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>The clients suggested name for the resource. <br /> 
+            <td>The clients suggested name for the resource. <br />
             It is used for constructing the BroadWorks Auto Attendant ID.<br />
             <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
             </td>
@@ -8029,14 +8029,14 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                                             <td>firstName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID First Name.<br /> 
+                                            <td>Calling Line ID First Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
                                             <td>lastName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID Last Name.<br /> 
+                                            <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
@@ -8260,7 +8260,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
             <td>The configuration of the automated receptionist greeting prompt and dialing menu to be used during the holiday.<br />
-            Note: This element is valid only for “Standard” Auto Attendands.<br />
+            Note: This element is valid only for "Standard" Auto Attendands.<br />
             <b>Not Implemented</b></td>
         </tr>
         <tr>
@@ -8382,13 +8382,13 @@ For the Create Auto Attendant process besides the properties listed in the table
                                         <tr>
                                             <td>firstName</td>
                                             <td style="text-align: center; font-weight:bold">yes</td>
-                                            <td>Calling Line ID First Name.<br /> 
+                                            <td>Calling Line ID First Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
                                             <td>lastName</td>
                                             <td style="text-align: center; font-weight:bold">yes</td>
-                                            <td>Calling Line ID Last Name.<br /> 
+                                            <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                     </tbody>
@@ -8614,7 +8614,7 @@ Rollback-enabled:  No<br />
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
             Loki Server will not pre-validate service name correctness.
 Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
@@ -8857,7 +8857,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>name</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>The clients suggested name for the resource. <br /> 
+            <td>The clients suggested name for the resource. <br />
             It is used for constructing the BroadWorks Hunt Group ID.<br />
             <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
             </td>
@@ -8903,14 +8903,14 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                                             <td>firstName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID First Name.<br /> 
+                                            <td>Calling Line ID First Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
                                             <td>lastName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID Last Name.<br /> 
+                                            <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
@@ -9298,13 +9298,13 @@ For the Create Hunt Group process besides the properties listed in the table bel
                                         <tr>
                                             <td>firstName</td>
                                             <td style="text-align: center; font-weight:bold">yes</td>
-                                            <td>Calling Line ID First Name.<br /> 
+                                            <td>Calling Line ID First Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
                                             <td>lastName</td>
                                             <td style="text-align: center; font-weight:bold">yes</td>
-                                            <td>Calling Line ID Last Name.<br /> 
+                                            <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                     </tbody>
@@ -9407,9 +9407,9 @@ POST /hunt-groups{?mode}
             "firstName": "My Hunt group"
         },
         "publicServiceIdentity": "5551239876@example.com",
-        "extension": "9876" 
+        "extension": "9876"
     },
-    "uniqueId": "138008094312037582"
+    "uniqueId": "138008094312037582",
     "extensions" : {
         "broadworks": {
             "resourceId": "5551239876@example.com"
@@ -9529,7 +9529,7 @@ Rollback-enabled:  No<br />
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
             Loki Server will not pre-validate service name correctness.
 Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
@@ -9785,7 +9785,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>name</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>The clients suggested name for the resource. <br /> 
+            <td>The clients suggested name for the resource. <br />
             It is used for constructing the BroadWorks Call Center ID.<br />
             <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
             </td>
@@ -9831,14 +9831,14 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                                             <td>firstName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID First Name.<br /> 
+                                            <td>Calling Line ID First Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
                                             <td>lastName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID Last Name.<br /> 
+                                            <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
@@ -9950,7 +9950,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td style="text-align: center; font-weight:bold">no</td>
             <td>Priority Based</td>
             <td>Call Center Routing type for distributing calls within a call center.
-            Note: Applies only to “Premium” call centers.<br />
+            Note: Applies only to "Premium" call centers.<br />
             <b>Not Implemented</b></td>
         </tr>
         <tr>
@@ -10056,49 +10056,49 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>false</td>
                             <td>Enable calls to agents in wrap-up state.
-                            Note: Applies only for “Standard” and “Premium.</td>
+                            Note: Applies only for "Standard" and "Premium.</td>
                         </tr>
                         <tr>
                             <td>overrideAgentWrapUpTime</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>false</td>
                             <td>Enable maximum ACD wrap-up timer.
-                            Note: Applies only for “Standard” and “Premium.</td>
+                            Note: Applies only for "Standard" and "Premium.</td>
                         </tr>
                         <tr>
                             <td>wrapUpSeconds</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
                             <td>Wrap up time.
-                            Note: Applies only for “Standard” and “Premium.</td>
+                            Note: Applies only for "Standard" and "Premium.</td>
                         </tr>
                         <tr>
                             <td>enableAutomaticStateChangeForAgents</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>false</td>
                             <td>Enable automatic agent state
-                            Note: Applies only for “Standard” and “Premium.”</td>
+                            Note: Applies only for "Standard" and "Premium."</td>
                         </tr>
                         <tr>
                             <td>agentStateAfterCall</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
                             <td>Agent Automatic Call Distribution (ACD) State. States available for Wrap-Up agent state management.
-                            Note: Applies only for “Standard” and “Premium.”</td>
+                            Note: Applies only for "Standard" and "Premium."</td>
                         </tr>
                         <tr>
                             <td>forceDeliveryOfCalls</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>false</td>
                             <td>Enable automatic call answer after a number of seconds
-                            Note: Applies only for “Premium.”</td>
+                            Note: Applies only for "Premium."</td>
                         </tr>
                         <tr>
                             <td>forceDeliveryWaitTimeSeconds</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>n/a</td>
                             <td>Number of seconds to automatically answer call if enabled.
-                            Note: Applies only for “Premium.”</td>
+                            Note: Applies only for "Premium."</td>
                         </tr>
                     </tbody>
                 </table>
@@ -10261,13 +10261,13 @@ For the Create Call Center process besides the properties listed in the table be
                                         <tr>
                                             <td>firstName</td>
                                             <td style="text-align: center; font-weight:bold">yes</td>
-                                            <td>Calling Line ID First Name.<br /> 
+                                            <td>Calling Line ID First Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
                                             <td>lastName</td>
                                             <td style="text-align: center; font-weight:bold">yes</td>
-                                            <td>Calling Line ID Last Name.<br /> 
+                                            <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                     </tbody>
@@ -10372,19 +10372,19 @@ For the Create Call Center process besides the properties listed in the table be
                             <td>allowCallsToAgentsInWrapUp</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>Enable calls to agents in wrap-up state.
-                            Note: Applies only for “Standard” and “Premium.</td>
+                            Note: Applies only for "Standard" and "Premium.</td>
                         </tr>
                         <tr>
                             <td>overrideAgentWrapUpTime</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>Enable maximum ACD wrap-up timer.
-                            Note: Applies only for “Standard” and “Premium.</td>
+                            Note: Applies only for "Standard" and "Premium.</td>
                         </tr>
                         <tr>
                             <td>forceDeliveryOfCalls</td>
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>Enable automatic call answer after a number of seconds
-                            Note: Applies only for “Premium.”</td>
+                            Note: Applies only for "Premium."</td>
                         </tr>
                     </tbody>
                 </table>
@@ -10628,7 +10628,7 @@ Rollback-enabled:  No<br />
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
             Loki Server will not pre-validate service name correctness.
 Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
@@ -10891,7 +10891,7 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
             <td>name</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>The clients suggested name for the resource. <br /> 
+            <td>The clients suggested name for the resource. <br />
             It is used for constructing the BroadWorks Instant Group Call ID.<br />
             <b>Note: If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
             </td>
@@ -10937,14 +10937,14 @@ Note: See the JSON Schema (**link TBD) for data types, format, length restrictio
                                             <td>firstName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID First Name.<br /> 
+                                            <td>Calling Line ID First Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
                                             <td>lastName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
                                             <td>n/a</td>
-                                            <td>Calling Line ID Last Name.<br /> 
+                                            <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
@@ -11185,13 +11185,13 @@ For the Create Instant Group Call process besides the properties listed in the t
                                         <tr>
                                             <td>firstName</td>
                                             <td style="text-align: center; font-weight:bold">yes</td>
-                                            <td>Calling Line ID First Name.<br /> 
+                                            <td>Calling Line ID First Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                         <tr>
                                             <td>lastName</td>
                                             <td style="text-align: center; font-weight:bold">yes</td>
-                                            <td>Calling Line ID Last Name.<br /> 
+                                            <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
                                     </tbody>
@@ -11416,7 +11416,7 @@ Rollback-enabled:  No<br />
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, “BroadTouch Business Communicator Desktop – Audio” is label and corresponding service name is “Client License 18”). See “BroadWorks Reverse License Mapping” document for details. <br />
+            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
             Loki Server will not pre-validate service name correctness.
 Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
@@ -11586,7 +11586,7 @@ General
  * Added GET /loki/customers/{+customerId}/sites/{+siteId}
  * Removed GET /loki/customers{?extensions.broadworks.serviceProviderId}
  * Removed GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
- * Updated the Virtual User Add requests to expose a "name" property 
+ * Updated the Virtual User Add requests to expose a "name" property
  * Updated the POST /loki/users{?mode} request
 
 Changes for S2294: LWS-REST: VoIP User BroadWorks Mobility Support (LWS-SOAP-backed)
@@ -11614,11 +11614,11 @@ Changes for S2275 LWS-REST VoIP Virtual User Delete
  * Added DELETE /loki/hunt-groups/{+huntGroupId}
  * Added DELETE /loki/call-centers/{+callCenterId}
  * Added DELETE /loki/instant-group-calls/{+instantGroupCallId}
- 
+
 Changes for S2292  LWS-REST: User Device Swap
- 
+
   * Added POST /loki/users/{+userId}/swapDevice
-  
+
 Changes for S2374 LWS-REST VoIP Virtual User Service (Un-)Assignment
  * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}/services/assigned-services
  * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/services/assigned-services
@@ -11676,7 +11676,7 @@ Changes for S2313 LWS-REST: Enhance LWS-SOAP-backed VoIP User Add to Support ATA
 #2.40
 
 General:
-* Added section "Single vs Multi cluster BroadWorks behaviour", to clarify 404 Not Found response body format. 
+* Added section "Single vs Multi cluster BroadWorks behaviour", to clarify 404 Not Found response body format.
 
 Changes for S2183: Loki REST: Initial Site Add Support:
 
@@ -11695,7 +11695,7 @@ Changes for S1783: LWS-REST: Site Device creation and TN Assign to a Site:
 Note the change to version numbers compatible with other Loki products.
 
 Changes for S2018 LWS-REST: Add support for Activate/Deactivate TN in BroadWorks:
-* Added POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate 
+* Added POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate
 * Added POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
 
 Updates for S1945 LWS-REST: Add User with Trunk Group "None" (POST /loki/users{?mode}):
@@ -11747,7 +11747,7 @@ General:
 * POST /loki/users: note that the "no-number" tnRoutine is not allowed for Charge Number.
 
 #1.6
-Changes for *Functional Description: VoIP Entity Service – Enhancements for BroadWorks Multi-Cluster Support*:
+Changes for *Functional Description: VoIP Entity Service - Enhancements for BroadWorks Multi-Cluster Support*:
 
 * removed support for POST /loki/voip-users; replaced with POST /loki/users
 * customerId and siteId moved from URI template into request body
@@ -11868,7 +11868,7 @@ POST /loki/routes
 
 GET /loki/customers/{+customerId}
 {
-    "requestURITemplate": {
+    "parameters": {
         "title": "Retrieve Customer request URI template parameters schema",
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "required": true }
@@ -11955,16 +11955,16 @@ PUT /loki/customers/{+customerId}
             "customerId": { "type": "string", "minLength": 1, "required": true }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Modify Customer request body properties",
         "type": "object",
         "additionalProperties": false,
         "properties": {
             "customerName": { "type": "string", "minLength": 1, "maxLength": 80 },
-            "defaultDomain": { 
-                "type": "string", 
-                "minLength": 1, 
-                "maxLength": 80, 
+            "defaultDomain": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
                 "pattern": "^[a-zA-Z0-9.-]+$"
             },
             "supportEmail": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
@@ -11988,7 +11988,7 @@ PUT /loki/customers/{+customerId}
                 }
             },
             "useServiceProviderLanguages": { "type": "boolean" },
-            "networkClassesOfService": { 
+            "networkClassesOfService": {
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
@@ -12008,7 +12008,7 @@ DELETE /loki/customers/{+customerId}
             "customerId": { "type": "string", "minLength": 1, "required": true }
         }
     },
-    "requestBody": { },
+    "request": { },
     "response": { }
 }
 
@@ -12112,7 +12112,7 @@ GET /loki/customers/{+customerId}/sites/{+siteId}
 }
 
 POST /loki/customers/{+customerId}/sites{?mode}
-{   
+{
     "requestURITemplate": {
         "title": "Create Site request request URI template parameters schema",
         "properties": {
@@ -12125,7 +12125,7 @@ POST /loki/customers/{+customerId}/sites{?mode}
 			"mode": { "enum": [ "create-only" ], "required": true }
 		}
 	},
-    "requestBody": { 
+    "request": {
         "title": "Create Site request body parameters schema",
         "type": "object",
         "additionalProperties": false,
@@ -12179,11 +12179,11 @@ POST /loki/customers/{+customerId}/sites{?mode}
                         "type": "object",
                         "additionalProperties": false,
                         "properties": {
-                            "resourceId": { 
-                                "type": "string", 
-                                "minLength": 1, 
-                                "maxLength": 30, 
-                                "pattern": "^[^%+/;:\\'\"]+$" 
+                            "resourceId": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 30,
+                                "pattern": "^[^%+/;:\\'\"]+$"
                             },
                             "templateGroupId": { "type": "string", "minLength": 1, "maxLength": 30 }
                         }
@@ -12225,7 +12225,7 @@ POST /loki/customers/{+customerId}/sites{?mode}
                         "properties": {
                             "isActive": { "type": "boolean" },
                             "groupServer": { "id": "OutgoingDNorSIPURI", "anyOf": [
-                                { 
+                                {
                                     "id": "E.164 DN",
                                     "type": ["string", "null"],
                                     "description": "A formatted TN.",
@@ -12234,8 +12234,8 @@ POST /loki/customers/{+customerId}/sites{?mode}
                                     "maxLength": 23,
                                     "required": false
                                 },
-                                {   
-                                    "id": "non-E.164 DN", 
+                                {
+                                    "id": "non-E.164 DN",
                                     "type": "string",
                                     "description": "A non-E.164 formatted TN.",
                                     "pattern": "^[\\d\\-]+$",
@@ -12243,8 +12243,8 @@ POST /loki/customers/{+customerId}/sites{?mode}
                                     "maxLength": 23,
                                     "required": false
                                 },
-                                { 
-                                    "id": "SIP URI", 
+                                {
+                                    "id": "SIP URI",
                                     "type": "string",
                                     "description": "SIP URI",
                                     "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -12758,9 +12758,9 @@ POST /loki/users{?mode}
                 "required": true
             },
 			"phoneNumber": {
-			    "type": "string", 
-                "minLength": 1, 
-                "maxLength": 23, 
+			    "type": "string",
+                "minLength": 1,
+                "maxLength": 23,
                 "pattern": "^\\+\\d+-\\d+$"
 		    },
 			"extension": {
@@ -12770,9 +12770,9 @@ POST /loki/users{?mode}
 				"pattern": "^[0-9]+$"
 			},
 			"CLID": {
-			    "type": "string", 
-                "minLength": 1, 
-                "maxLength": 23, 
+			    "type": "string",
+                "minLength": 1,
+                "maxLength": 23,
                 "pattern": "^\\+\\d+-\\d+$"
 			},
 			"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
@@ -12808,9 +12808,9 @@ POST /loki/users{?mode}
 						"additionalProperties": false,
 						"properties": {
 							"phoneNumber": {
-								"type": [ "string", "null" ], 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+								"type": [ "string", "null" ],
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
 							},
 							"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
@@ -12913,7 +12913,7 @@ POST /loki/users{?mode}
 						"additionalProperties": false,
 						"properties": {
 							"isActive": { "type": "boolean", "required": false },
-							"forwardToPhoneNumber": { 
+							"forwardToPhoneNumber": {
 							    "anyOf": [
                                     {
                                         "id": "E.164 DN",
@@ -12969,7 +12969,7 @@ POST /loki/users{?mode}
 			}
 		}
 	},
-	"requestBodyAlternate": { 
+	"requestBodyAlternate": {
         "title": "Create User Alternate process request body parameters schema",
         "type": "object",
         "additionalProperties": false,
@@ -12983,17 +12983,17 @@ POST /loki/users{?mode}
 				"pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
 			},
 			"phoneNumber": {
-			    "type": "string", 
-                "minLength": 1, 
-                "maxLength": 23, 
+			    "type": "string",
+                "minLength": 1,
+                "maxLength": 23,
                 "pattern": "^\\+\\d+-\\d+$"
 			},
 			"tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"]	},
 			"extension": { "type": ["string", "null"], "minLength": 2, "maxLength": 20,	"pattern": "^[0-9]+$" },
 			"CLID": {
-			    "type": "string", 
-                "minLength": 1, 
-                "maxLength": 23, 
+			    "type": "string",
+                "minLength": 1,
+                "maxLength": 23,
                 "pattern": "^\\+\\d+-\\d+$"
 			},
 			"lastName": { "type": "string",	"minLength": 1,	"maxLength": 30, "required": true },
@@ -13084,9 +13084,9 @@ POST /loki/users{?mode}
 								"type": "boolean"
 							},
 							"mobilePhoneNumber": {
-                                "type": ["string", "null"], 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+                                "type": ["string", "null"],
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
                             },
                             "mobileDevicePassword": { "type": "string", "minLength": 1 },
@@ -13165,8 +13165,8 @@ POST /loki/users{?mode}
 				"properties": {
 					"name": { "type": "string",	"minLength": 1,	"maxLength": 40 },
 					"linePort": { "type": "string", "minLength": 1, "maxLength": 161 },
-					"deviceCredentials": { 
-					    "type": "object", 
+					"deviceCredentials": {
+					    "type": "object",
 					    "additionalProperties": false,
 					    "properties": {
 					        "username": { "type": "string", "minLength": 1 },
@@ -13289,16 +13289,16 @@ PUT /loki/users/{+userId}
         "title": "Modify User request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { 
-                "type": "string", 
-                "minLength": 1, 
+            "userId": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                "required": true 
+                "required": true
             }
         }
     },
-    "requestBody": { 
+    "request": {
         "title": "Modify User request body parameters schema",
         "type": "object",
         "additionalProperties": false,
@@ -13358,12 +13358,12 @@ PUT /loki/users/{+userId}
 					}
 				}
 			},
-			"userId": { 
-                "type": "string", 
-                "minLength": 1, 
+			"userId": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                "required": true 
+                "required": true
             },
 			"extensions": {
 				"type": "object",
@@ -13373,12 +13373,12 @@ PUT /loki/users/{+userId}
 						"type": "object",
 						"additionalProperties": false,
 						"properties": {
-							"resourceId": { 
-                                "type": "string", 
-                                "minLength": 1, 
+							"resourceId": {
+                                "type": "string",
+                                "minLength": 1,
                                 "maxLength": 161,
                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                "required": true 
+                                "required": true
                             }
 						}
 					}
@@ -13431,7 +13431,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
-	"requestBody": {
+	"request": {
 	    "title": "VoIP Trunk Group create request body properties",
         "type": "object",
         "additionalProperties": false,
@@ -13547,7 +13547,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 									},
 									"userServer": {
 									    "anyOf": [
-                                            { 
+                                            {
                                                 "id": "E.164 DN",
                                                 "type": ["string", "null"],
                                                 "description": "A formatted TN.",
@@ -13556,8 +13556,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                 "maxLength": 23,
                                                 "required": false
                                             },
-                                            {   
-                                                "id": "non-E.164 DN", 
+                                            {
+                                                "id": "non-E.164 DN",
                                                 "type": "string",
                                                 "description": "A non-E.164 formatted TN.",
                                                 "pattern": "^[\\d\\-]+$",
@@ -13565,8 +13565,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                 "maxLength": 23,
                                                 "required": false
                                             },
-                                            { 
-                                                "id": "SIP URI", 
+                                            {
+                                                "id": "SIP URI",
                                                 "type": "string",
                                                 "description": "SIP URI",
                                                 "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -13593,9 +13593,9 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"additionalProperties": false,
 								"properties": {
 									"isActive": { "type": "boolean" },
-									"forwardToPhoneNumber": { 
+									"forwardToPhoneNumber": {
 									    "anyOf": [
-                                            { 
+                                            {
                                                 "id": "E.164 DN",
                                                 "type": ["string", "null"],
                                                 "description": "A formatted TN.",
@@ -13604,8 +13604,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                 "maxLength": 23,
                                                 "required": false
                                             },
-                                            {   
-                                                "id": "non-E.164 DN", 
+                                            {
+                                                "id": "non-E.164 DN",
                                                 "type": "string",
                                                 "description": "A non-E.164 formatted TN.",
                                                 "pattern": "^[\\d\\-]+$",
@@ -13613,8 +13613,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                 "maxLength": 23,
                                                 "required": false
                                             },
-                                            { 
-                                                "id": "SIP URI", 
+                                            {
+                                                "id": "SIP URI",
                                                 "type": "string",
                                                 "description": "SIP URI",
                                                 "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -13632,9 +13632,9 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 								"additionalProperties": false,
 								"properties": {
 									"isActive": { "type": "boolean" },
-									"forwardToPhoneNumber": { 
+									"forwardToPhoneNumber": {
 									    "anyOf": [
-                                            { 
+                                            {
                                                 "id": "E.164 DN",
                                                 "type": ["string", "null"],
                                                 "description": "A formatted TN.",
@@ -13643,8 +13643,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                 "maxLength": 23,
                                                 "required": false
                                             },
-                                            {   
-                                                "id": "non-E.164 DN", 
+                                            {
+                                                "id": "non-E.164 DN",
                                                 "type": "string",
                                                 "description": "A non-E.164 formatted TN.",
                                                 "pattern": "^[\\d\\-]+$",
@@ -13652,8 +13652,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                 "maxLength": 23,
                                                 "required": false
                                             },
-                                            { 
-                                                "id": "SIP URI", 
+                                            {
+                                                "id": "SIP URI",
                                                 "type": "string",
                                                 "description": "SIP URI",
                                                 "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -13718,7 +13718,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 							"action": { "enum": ["Forward", "Reroute"] },
 							"forwardAddress": {
 							    "anyOf": [
-                                    { 
+                                    {
                                         "id": "E.164 DN",
                                         "type": ["string", "null"],
                                         "description": "A formatted TN.",
@@ -13727,8 +13727,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                         "maxLength": 23,
                                         "required": false
                                     },
-                                    {   
-                                        "id": "non-E.164 DN", 
+                                    {
+                                        "id": "non-E.164 DN",
                                         "type": "string",
                                         "description": "A non-E.164 formatted TN.",
                                         "pattern": "^[\\d\\-]+$",
@@ -13736,8 +13736,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                         "maxLength": 23,
                                         "required": false
                                     },
-                                    { 
-                                        "id": "SIP URI", 
+                                    {
+                                        "id": "SIP URI",
                                         "type": "string",
                                         "description": "SIP URI",
                                         "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -13747,7 +13747,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                     }
                                 ]
 							},
-							"rerouteTrunkGroup": { 
+							"rerouteTrunkGroup": {
 							    "type": "object",
                     			"additionalProperties": false,
                     			"properties": {
@@ -13778,7 +13778,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 					"action": { "enum": ["Forward", "Reroute"] },
 					"forwardAddress": {
 					    "anyOf": [
-                            { 
+                            {
                                 "id": "E.164 DN",
                                 "type": ["string", "null"],
                                 "description": "A formatted TN.",
@@ -13787,8 +13787,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                 "maxLength": 23,
                                 "required": false
                             },
-                            {   
-                                "id": "non-E.164 DN", 
+                            {
+                                "id": "non-E.164 DN",
                                 "type": "string",
                                 "description": "A non-E.164 formatted TN.",
                                 "pattern": "^[\\d\\-]+$",
@@ -13796,8 +13796,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                 "maxLength": 23,
                                 "required": false
                             },
-                            { 
-                                "id": "SIP URI", 
+                            {
+                                "id": "SIP URI",
                                 "type": "string",
                                 "description": "SIP URI",
                                 "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -13807,7 +13807,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                             }
                         ]
 					},
-					"rerouteTrunkGroup": { 
+					"rerouteTrunkGroup": {
 					    "type": "object",
             			"additionalProperties": false,
             			"properties": {
@@ -13889,7 +13889,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 					"action": { "enum": ["Forward", "Reroute"] },
 					"forwardAddress": {
 					    "anyOf": [
-                            { 
+                            {
                                 "id": "E.164 DN",
                                 "type": ["string", "null"],
                                 "description": "A formatted TN.",
@@ -13898,8 +13898,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                 "maxLength": 23,
                                 "required": false
                             },
-                            {   
-                                "id": "non-E.164 DN", 
+                            {
+                                "id": "non-E.164 DN",
                                 "type": "string",
                                 "description": "A non-E.164 formatted TN.",
                                 "pattern": "^[\\d\\-]+$",
@@ -13907,8 +13907,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                 "maxLength": 23,
                                 "required": false
                             },
-                            { 
-                                "id": "SIP URI", 
+                            {
+                                "id": "SIP URI",
                                 "type": "string",
                                 "description": "SIP URI",
                                 "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -13918,7 +13918,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                             }
                         ]
 					},
-					"rerouteTrunkGroup": { 
+					"rerouteTrunkGroup": {
 					    "type": "object",
             			"additionalProperties": false,
             			"properties": {
@@ -14071,11 +14071,11 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 						"required": true,
 						"additionalProperties": false,
 						"properties": {
-							"resourceId": { 
-                                "type": "string", 
-                                "minLength": 1, 
+							"resourceId": {
+                                "type": "string",
+                                "minLength": 1,
                                 "maxLength": 30,
-                                "required": true 
+                                "required": true
                             }
 						}
 					}
@@ -14111,24 +14111,24 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                     			},
                     			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
     							"siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
-    							"userId": { 
+    							"userId": {
     							    "type": "string",
                         			"minLength": 1,
                         			"maxLength": 161,
                         			"pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-    							    "required": true 
+    							    "required": true
 							    },
     							"phoneNumber": {
-    							    "type": "string", 
-                                    "minLength": 1, 
-                                    "maxLength": 23, 
+    							    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 23,
                                     "pattern": "^\\+\\d+-\\d+$"
     							},
     							"extension": { "type": [ "string", "null" ], "minLength": 2, "maxLength": 20, "pattern": "^[0-9]+$" },
     							"CLID": {
-    							    "type": "string", 
-                                    "minLength": 1, 
-                                    "maxLength": 23, 
+    							    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 23,
                                     "pattern": "^\\+\\d+-\\d+$"
     							},
     							"lastName": { "type": "string", "minLength": 1, "maxLength": 30 },
@@ -14177,9 +14177,9 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
     										"additionalProperties": false,
     										"properties": {
     											"phoneNumber": {
-    												"type": ["string", "null"], 
-                                                    "minLength": 1, 
-                                                    "maxLength": 23, 
+    												"type": ["string", "null"],
+                                                    "minLength": 1,
+                                                    "maxLength": 23,
                                                     "pattern": "^\\+\\d+-\\d+$"
     											},
     											"useChargeNumberForEnhancedTranslations": { "type": "boolean" },
@@ -14202,7 +14202,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
             									},
             									"userServer": {
             									    "anyOf": [
-                                                        { 
+                                                        {
                                                             "id": "E.164 DN",
                                                             "type": ["string", "null"],
                                                             "description": "A formatted TN.",
@@ -14211,8 +14211,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                             "maxLength": 23,
                                                             "required": false
                                                         },
-                                                        {   
-                                                            "id": "non-E.164 DN", 
+                                                        {
+                                                            "id": "non-E.164 DN",
                                                             "type": "string",
                                                             "description": "A non-E.164 formatted TN.",
                                                             "pattern": "^[\\d\\-]+$",
@@ -14220,8 +14220,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                             "maxLength": 23,
                                                             "required": false
                                                         },
-                                                        { 
-                                                            "id": "SIP URI", 
+                                                        {
+                                                            "id": "SIP URI",
                                                             "type": "string",
                                                             "description": "SIP URI",
                                                             "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -14248,9 +14248,9 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
             								"additionalProperties": false,
             								"properties": {
             									"isActive": { "type": "boolean" },
-            									"forwardToPhoneNumber": { 
+            									"forwardToPhoneNumber": {
             									    "anyOf": [
-                                                        { 
+                                                        {
                                                             "id": "E.164 DN",
                                                             "type": ["string", "null"],
                                                             "description": "A formatted TN.",
@@ -14259,8 +14259,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                             "maxLength": 23,
                                                             "required": false
                                                         },
-                                                        {   
-                                                            "id": "non-E.164 DN", 
+                                                        {
+                                                            "id": "non-E.164 DN",
                                                             "type": "string",
                                                             "description": "A non-E.164 formatted TN.",
                                                             "pattern": "^[\\d\\-]+$",
@@ -14268,8 +14268,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                             "maxLength": 23,
                                                             "required": false
                                                         },
-                                                        { 
-                                                            "id": "SIP URI", 
+                                                        {
+                                                            "id": "SIP URI",
                                                             "type": "string",
                                                             "description": "SIP URI",
                                                             "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -14287,9 +14287,9 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
             								"additionalProperties": false,
             								"properties": {
             									"isActive": { "type": "boolean" },
-            									"forwardToPhoneNumber": { 
+            									"forwardToPhoneNumber": {
             									    "anyOf": [
-                                                        { 
+                                                        {
                                                             "id": "E.164 DN",
                                                             "type": ["string", "null"],
                                                             "description": "A formatted TN.",
@@ -14298,8 +14298,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                             "maxLength": 23,
                                                             "required": false
                                                         },
-                                                        {   
-                                                            "id": "non-E.164 DN", 
+                                                        {
+                                                            "id": "non-E.164 DN",
                                                             "type": "string",
                                                             "description": "A non-E.164 formatted TN.",
                                                             "pattern": "^[\\d\\-]+$",
@@ -14307,8 +14307,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
                                                             "maxLength": 23,
                                                             "required": false
                                                         },
-                                                        { 
-                                                            "id": "SIP URI", 
+                                                        {
+                                                            "id": "SIP URI",
                                                             "type": "string",
                                                             "description": "SIP URI",
                                                             "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -14347,15 +14347,15 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Assigns a TN to a Site request body properties",
         "type": "object",
         "additionalProperties": false,
         "properties": {
-            "phoneNumber": { 
-                "type": "string", 
-                "minLength": 1, 
-                "maxLength": 23, 
+            "phoneNumber": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 23,
                 "pattern": "^\\+\\d+-\\d+$",
                 "required": true
             },
@@ -14423,10 +14423,10 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
                     				}
                     			},
                     			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
-    							"phoneNumber": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
-                                    "maxLength": 23, 
+    							"phoneNumber": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 23,
                                     "pattern": "^\\+\\d+-\\d+$",
                                     "required": true
                                 }
@@ -14458,10 +14458,10 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
                     			},
                     			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
                     			"siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
-    							"phoneNumber": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
-                                    "maxLength": 23, 
+    							"phoneNumber": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 23,
                                     "pattern": "^\\+\\d+-\\d+$",
                                     "required": true
                                 }
@@ -14484,7 +14484,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Activate phone number(s) in a Site request body properties",
         "type": "object",
         "additionalProperties": false,
@@ -14495,9 +14495,9 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate
 					"anyOf": [
 						{
 							"id": "E.164 DN",
-							"type": "string", 
-                            "minLength": 1, 
-                            "maxLength": 23, 
+							"type": "string",
+                            "minLength": 1,
+                            "maxLength": 23,
                             "pattern": "^\\+\\d+-\\d+$"
 						},
 						{
@@ -14506,15 +14506,15 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate
 							"additionalProperties": false,
 							"properties": {
 								"start": {
-									"type": "string", 
-                                    "minLength": 1, 
-                                    "maxLength": 23, 
+									"type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 23,
                                     "pattern": "^\\+\\d+-\\d+$"
 								},
 								"end": {
-									"type": "string", 
-                                    "minLength": 1, 
-                                    "maxLength": 23, 
+									"type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 23,
                                     "pattern": "^\\+\\d+-\\d+$"
 								}
 							}
@@ -14537,7 +14537,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Deactivate phone number(s) in a Site request body properties",
         "type": "object",
         "additionalProperties": false,
@@ -14548,9 +14548,9 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
 					"anyOf": [
 						{
 							"id": "E.164 DN",
-							"type": "string", 
-                            "minLength": 1, 
-                            "maxLength": 23, 
+							"type": "string",
+                            "minLength": 1,
+                            "maxLength": 23,
                             "pattern": "^\\+\\d+-\\d+$"
 						},
 						{
@@ -14559,15 +14559,15 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
 							"additionalProperties": false,
 							"properties": {
 								"start": {
-									"type": "string", 
-                                    "minLength": 1, 
-                                    "maxLength": 23, 
+									"type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 23,
                                     "pattern": "^\\+\\d+-\\d+$"
 								},
 								"end": {
-									"type": "string", 
-                                    "minLength": 1, 
-                                    "maxLength": 23, 
+									"type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 23,
                                     "pattern": "^\\+\\d+-\\d+$"
 								}
 							}
@@ -14596,7 +14596,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/devices{?mode}
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Create a new VoIP Site Device request body properties",
         "type": "object",
         "additionalProperties": false,
@@ -14680,21 +14680,21 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/devices{?mode}
 }
 
 PUT /loki/users/{+userId}/services/Alternate%20Numbers
-{   
+{
     "requestURITemplate": {
         "title": "User Alternate Numbers Modify request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { 
-                "type": "string", 
-                "minLength": 1, 
+            "userId": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                "required": true 
+                "required": true
             }
         }
     },
-    "requestBody": { 
+    "request": {
         "title": "User Alternate Numbers Modify request body parameters schema",
         "type": "object",
         "additionalProperties": false,
@@ -14712,9 +14712,9 @@ PUT /loki/users/{+userId}/services/Alternate%20Numbers
                         "id": { "type": "integer", "min": 1, "max": 10, "required": true },
                         "tnRoutine": { "enum": ["", "port-no-temp", "auto"] },
                         "phoneNumber": {
-                            "type": ["string", "null"], 
-                            "minLength": 1, 
-                            "maxLength": 23, 
+                            "type": ["string", "null"],
+                            "minLength": 1,
+                            "maxLength": 23,
                             "pattern": "^\\+\\d+-\\d+$"
                         },
                         "extension": {
@@ -14740,12 +14740,12 @@ DELETE /loki/users/{+userId}{?keepMailbox}
         "title": "Delete User request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { 
-                "type": "string", 
-                "minLength": 1, 
+            "userId": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                "required": true 
+                "required": true
             }
         }
     },
@@ -14755,7 +14755,7 @@ DELETE /loki/users/{+userId}{?keepMailbox}
             "keepMailbox": { "enum": [ "true", "false"] }
         }
     },
-    "requestBody": {},
+    "request": {},
     "response": {}
 }
 
@@ -14765,16 +14765,16 @@ POST /loki/users/{+userId}/resetDeviceCredentials
         "title": "Reset User Device Credentials request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { 
-                "type": "string", 
-                "minLength": 1, 
+            "userId": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                "required": true 
+                "required": true
             }
         }
     },
-    "requestBody": {},
+    "request": {},
     "response": {
         "title": "Reset User Device Credentials response body parameters schema",
 	    "type": "object",
@@ -14828,11 +14828,11 @@ POST /loki/users/{+userId}/swapDevice
             }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Swap User Device request body parameters schema",
         "type": "object",
         "additionalProperties": false,
-        "properties": {            
+        "properties": {
             "accessDevice": {
                 "type": "object",
                 "additionalProperties": false,
@@ -14914,15 +14914,15 @@ PUT /loki/users/{+userId}/services/assigned-services
         "title": "Modify User assigned services request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { 
-                "type": "string", 
-                "minLength": 1, 
+            "userId": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
             }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Modify User assigned services request body schema",
         "type": "object",
         "properties": {
@@ -14957,8 +14957,8 @@ GET /loki/customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
-    "requestBody": { },
-    "response": { 
+    "request": { },
+    "response": {
         "title": "VoIP Entity - Retrieve Site Voice Portal service settings response body schema",
         "type": "object",
         "properties": {
@@ -14980,9 +14980,9 @@ GET /loki/customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
 			},
 			"customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
-            "voicePortalId": { 
-                "type": "string", 
-                "minLength": 1, 
+            "voicePortalId": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
             },
@@ -15049,7 +15049,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "VoIP Entity - Modify Site Voice Portal service settings request body schema",
         "type": "object",
         "properties": {
@@ -15095,23 +15095,23 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal
 }
 
 POST /loki/auto-attendants{?mode}
-{   
+{
     "requestURIQuery": {
         "title": "Create Site Auto Attendant request URI Query parameters schema",
         "properties": {
 			"mode": { "enum": [ "create-only" ], "required": true }
 		}
 	},
-    "requestBody": { 
+    "request": {
         "title": "Create Site Auto Attendant request body parameters schema",
         "type": "object",
         "additionalProperties": false,
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
-            "name": { 
-                "type": "string", 
-                "minLength": 1, 
+            "name": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
             },
@@ -15125,9 +15125,9 @@ POST /loki/auto-attendants{?mode}
                         "properties": {
                             "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
                             "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
-                            "resourceId": { 
-                                "type": "string", 
-                                "minLength": 1, 
+                            "resourceId": {
+                                "type": "string",
+                                "minLength": 1,
                                 "maxLength": 161,
                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
                             }
@@ -15148,17 +15148,17 @@ POST /loki/auto-attendants{?mode}
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "phoneNumber": {
-                                "type": "string", 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
                             }
                         }
                     },
                     "phoneNumber": {
-                        "type": "string", 
-                        "minLength": 1, 
-                        "maxLength": 23, 
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
                         "pattern": "^\\+\\d+-\\d+$"
                     },
                     "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
@@ -15170,7 +15170,7 @@ POST /loki/auto-attendants{?mode}
                     "alias": {
                         "type": "array",
                         "maxItems": 3,
-                        "items": { 
+                        "items": {
                             "type": "string",
                 			"description": "SIP URI",
                 			"pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -15280,12 +15280,12 @@ POST /loki/auto-attendants{?mode}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
+                                "resourceId": {
+                                    "type": "string",
+                                    "minLength": 1,
                                     "maxLength": 161,
                                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                    "required": true 
+                                    "required": true
                                 }
                             }
                         }
@@ -15309,7 +15309,7 @@ POST /loki/auto-attendants{?mode}
 }
 
 PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}
-{   
+{
     "requestURITemplate": {
         "title": "Modify Auto Attendant request URI template parameters schema",
         "properties": {
@@ -15323,7 +15323,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendan
             }
         }
     },
-    "requestBody": { 
+    "request": {
         "title": "Modify Auto Attendant request body parameters schema",
         "type": "object",
         "additionalProperties": false,
@@ -15340,17 +15340,17 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendan
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "phoneNumber": {
-                                "type": "string", 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
                             }
                         }
                     },
                     "phoneNumber": {
-                        "type": "string", 
-                        "minLength": 1, 
-                        "maxLength": 23, 
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
                         "pattern": "^\\+\\d+-\\d+$"
                     },
                     "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
@@ -15453,12 +15453,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendan
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
+                                "resourceId": {
+                                    "type": "string",
+                                    "minLength": 1,
                                     "maxLength": 161,
                                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                    "required": true 
+                                    "required": true
                                 }
                             }
                         }
@@ -15487,37 +15487,37 @@ DELETE /loki/auto-attendants/{+autoAttendantId}
         "title": "Delete Auto Attendant request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "autoAttendantId": { 
-                "type": "string", 
+            "autoAttendantId": {
+                "type": "string",
                 "description": "The Auto Attendant Id must have the domain, but that is not enforced by validation",
-                "minLength": 1, 
+                "minLength": 1,
                 "maxLength": 161,
-                "required": true 
+                "required": true
             }
         }
     },
-    "requestBody": {},
+    "request": {},
     "response": {}
 }
 
 POST /loki/hunt-groups{?mode}
-{   
+{
     "requestURIQuery": {
         "title": "Create Site Hunt Group request URI Query parameters schema",
         "properties": {
 			"mode": { "enum": [ "create-only" ], "required": true }
 		}
 	},
-    "requestBody": { 
+    "request": {
         "title": "Create Site Hunt Group request body parameters schema",
         "type": "object",
         "additionalProperties": false,
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
-            "name": { 
-                "type": "string", 
-                "minLength": 1, 
+            "name": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
             },
@@ -15531,9 +15531,9 @@ POST /loki/hunt-groups{?mode}
                         "properties": {
                             "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
                             "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
-                            "resourceId": { 
-                                "type": "string", 
-                                "minLength": 1, 
+                            "resourceId": {
+                                "type": "string",
+                                "minLength": 1,
                                 "maxLength": 161,
                                 "pattern": "^\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
                             }
@@ -15553,17 +15553,17 @@ POST /loki/hunt-groups{?mode}
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "phoneNumber": {
-                                "type": "string", 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
                             }
                         }
                     },
                     "phoneNumber": {
-                        "type": "string", 
-                        "minLength": 1, 
-                        "maxLength": 23, 
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
                         "pattern": "^\\+\\d+-\\d+$"
                     },
                     "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
@@ -15616,8 +15616,8 @@ POST /loki/hunt-groups{?mode}
             "agentUserId": {
                 "type": "array",
                 "items": {
-                    "type": "string", 
-                    "minLength": 1, 
+                    "type": "string",
+                    "minLength": 1,
                     "maxLength": 161,
                     "pattern": "^\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
                 }
@@ -15638,7 +15638,7 @@ POST /loki/hunt-groups{?mode}
                     "enableForwarding": { "type": "boolean" },
                     "forwardToPhoneNumber": {
                         "anyOf": [
-                            { 
+                            {
                                 "id": "E.164 DN",
                                 "type": ["string", "null"],
                                 "description": "A formatted TN.",
@@ -15647,8 +15647,8 @@ POST /loki/hunt-groups{?mode}
                                 "maxLength": 23,
                                 "required": false
                             },
-                            {   
-                                "id": "non-E.164 DN", 
+                            {
+                                "id": "non-E.164 DN",
                                 "type": "string",
                                 "description": "A non-E.164 formatted TN.",
                                 "pattern": "^[\\d\\-]+$",
@@ -15656,8 +15656,8 @@ POST /loki/hunt-groups{?mode}
                                 "maxLength": 23,
                                 "required": false
                             },
-                            { 
-                                "id": "SIP URI", 
+                            {
+                                "id": "SIP URI",
                                 "type": "string",
                                 "description": "SIP URI",
                                 "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -15731,12 +15731,12 @@ POST /loki/hunt-groups{?mode}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
+                                "resourceId": {
+                                    "type": "string",
+                                    "minLength": 1,
                                     "maxLength": 161,
                                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                    "required": true 
+                                    "required": true
                                 }
                             }
                         }
@@ -15760,7 +15760,7 @@ POST /loki/hunt-groups{?mode}
 }
 
 PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
-{   
+{
     "requestURITemplate": {
         "title": "Modify Hunt Group request URI template parameters schema",
         "properties": {
@@ -15774,7 +15774,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
             }
         }
     },
-    "requestBody": { 
+    "request": {
         "title": "Modify Hunt Group request body parameters schema",
         "type": "object",
         "additionalProperties": false,
@@ -15791,17 +15791,17 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "phoneNumber": {
-                                "type": "string", 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
                             }
                         }
                     },
                     "phoneNumber": {
-                        "type": "string", 
-                        "minLength": 1, 
-                        "maxLength": 23, 
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
                         "pattern": "^\\+\\d+-\\d+$"
                     },
                     "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
@@ -15858,7 +15858,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
                     "enableForwarding": { "type": "boolean" },
                     "forwardToPhoneNumber": {
                         "anyOf": [
-                            { 
+                            {
                                 "id": "E.164 DN",
                                 "type": ["string", "null"],
                                 "description": "A formatted TN.",
@@ -15867,8 +15867,8 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
                                 "maxLength": 23,
                                 "required": false
                             },
-                            {   
-                                "id": "non-E.164 DN", 
+                            {
+                                "id": "non-E.164 DN",
                                 "type": "string",
                                 "description": "A non-E.164 formatted TN.",
                                 "pattern": "^[\\d\\-]+$",
@@ -15876,8 +15876,8 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
                                 "maxLength": 23,
                                 "required": false
                             },
-                            { 
-                                "id": "SIP URI", 
+                            {
+                                "id": "SIP URI",
                                 "type": "string",
                                 "description": "SIP URI",
                                 "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -15946,12 +15946,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
+                                "resourceId": {
+                                    "type": "string",
+                                    "minLength": 1,
                                     "maxLength": 161,
                                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                    "required": true 
+                                    "required": true
                                 }
                             }
                         }
@@ -15980,37 +15980,37 @@ DELETE /loki/hunt-groups/{+huntGroupId}
         "title": "Delete Hunt Group request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "huntGroupId": { 
-                "type": "string", 
+            "huntGroupId": {
+                "type": "string",
                 "description": "The Hunt Group Id must have the domain, but that is not enforced by validation",
-                "minLength": 1, 
+                "minLength": 1,
                 "maxLength": 161,
-                "required": true 
+                "required": true
             }
         }
     },
-    "requestBody": {},
+    "request": {},
     "response": {}
 }
 
 POST /loki/call-centers{?mode}
-{   
+{
     "requestURIQuery": {
         "title": "Create Site Call Center request URI Query parameters schema",
         "properties": {
 			"mode": { "enum": [ "create-only" ], "required": true }
 		}
 	},
-    "requestBody": { 
+    "request": {
         "title": "Create Site Call Center request body parameters schema",
         "type": "object",
         "additionalProperties": false,
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
-            "name": { 
-                "type": "string", 
-                "minLength": 1, 
+            "name": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
             },
@@ -16024,9 +16024,9 @@ POST /loki/call-centers{?mode}
                         "properties": {
                             "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
                             "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
-                            "resourceId": { 
-                                "type": "string", 
-                                "minLength": 1, 
+                            "resourceId": {
+                                "type": "string",
+                                "minLength": 1,
                                 "maxLength": 161,
                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
                             }
@@ -16046,17 +16046,17 @@ POST /loki/call-centers{?mode}
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "phoneNumber": {
-                                "type": "string", 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
                             }
                         }
                     },
                     "phoneNumber": {
-                        "type": "string", 
-                        "minLength": 1, 
-                        "maxLength": 23, 
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
                         "pattern": "^\\+\\d+-\\d+$"
                     },
                     "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
@@ -16192,12 +16192,12 @@ POST /loki/call-centers{?mode}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
+                                "resourceId": {
+                                    "type": "string",
+                                    "minLength": 1,
                                     "maxLength": 161,
                                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                    "required": true 
+                                    "required": true
                                 }
                             }
                         }
@@ -16249,7 +16249,7 @@ POST /loki/call-centers{?mode}
 }
 
 PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
-{   
+{
     "requestURITemplate": {
         "title": "Modify Call Center request URI template parameters schema",
         "properties": {
@@ -16263,7 +16263,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
             }
         }
     },
-    "requestBody": { 
+    "request": {
         "title": "Modify Call Center request body parameters schema",
         "type": "object",
         "additionalProperties": false,
@@ -16280,17 +16280,17 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "phoneNumber": {
-                                "type": "string", 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
                             }
                         }
                     },
                     "phoneNumber": {
-                        "type": "string", 
-                        "minLength": 1, 
-                        "maxLength": 23, 
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
                         "pattern": "^\\+\\d+-\\d+$"
                     },
                     "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
@@ -16412,12 +16412,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
+                                "resourceId": {
+                                    "type": "string",
+                                    "minLength": 1,
                                     "maxLength": 161,
                                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                    "required": true 
+                                    "required": true
                                 }
                             }
                         }
@@ -16446,37 +16446,37 @@ DELETE /loki/call-centers/{+callCenterId}
         "title": "Delete Call Center request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "callCenterId": { 
-                "type": "string", 
+            "callCenterId": {
+                "type": "string",
                 "description": "The Call Center Id must have the domain, but that is not enforced by validation",
-                "minLength": 1, 
+                "minLength": 1,
                 "maxLength": 161,
-                "required": true 
+                "required": true
             }
         }
     },
-    "requestBody": {},
+    "request": {},
     "response": {}
 }
 
 POST /loki/instant-group-calls{?mode}
-{   
+{
     "requestURIQuery": {
         "title": "Create Site Instant Group Call request URI Query parameters schema",
         "properties": {
 			"mode": { "enum": [ "create-only" ], "required": true }
 		}
 	},
-    "requestBody": { 
+    "request": {
         "title": "Create Site Instant Group Call request body parameters schema",
         "type": "object",
         "additionalProperties": false,
         "properties": {
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30 },
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30 },
-            "name": { 
-                "type": "string", 
-                "minLength": 1, 
+            "name": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
             },
@@ -16490,9 +16490,9 @@ POST /loki/instant-group-calls{?mode}
                         "properties": {
                             "serviceProviderId": { "type": "string", "minLength": 1, "maxLength": 30 },
                             "groupId": { "type": "string", "minLength": 1, "maxLength": 30 },
-                            "resourceId": { 
-                                "type": "string", 
-                                "minLength": 1, 
+                            "resourceId": {
+                                "type": "string",
+                                "minLength": 1,
                                 "maxLength": 161,
                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
                             }
@@ -16512,17 +16512,17 @@ POST /loki/instant-group-calls{?mode}
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "phoneNumber": {
-                                "type": "string", 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
                             }
                         }
                     },
                     "phoneNumber": {
-                        "type": "string", 
-                        "minLength": 1, 
-                        "maxLength": 23, 
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
                         "pattern": "^\\+\\d+-\\d+$"
                     },
                     "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
@@ -16564,7 +16564,7 @@ POST /loki/instant-group-calls{?mode}
                 "type": "array",
                 "items": {
                     "anyOf": [
-                        { 
+                        {
                             "id": "E.164 DN",
                             "type": ["string", "null"],
                             "description": "A formatted TN.",
@@ -16573,8 +16573,8 @@ POST /loki/instant-group-calls{?mode}
                             "maxLength": 23,
                             "required": false
                         },
-                        {   
-                            "id": "non-E.164 DN", 
+                        {
+                            "id": "non-E.164 DN",
                             "type": "string",
                             "description": "A non-E.164 formatted TN.",
                             "pattern": "^[\\d\\-]+$",
@@ -16582,8 +16582,8 @@ POST /loki/instant-group-calls{?mode}
                             "maxLength": 23,
                             "required": false
                         },
-                        { 
-                            "id": "SIP URI", 
+                        {
+                            "id": "SIP URI",
                             "type": "string",
                             "description": "SIP URI",
                             "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -16654,12 +16654,12 @@ POST /loki/instant-group-calls{?mode}
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
+                                "resourceId": {
+                                    "type": "string",
+                                    "minLength": 1,
                                     "maxLength": 161,
                                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                    "required": true 
+                                    "required": true
                                 }
                             }
                         }
@@ -16683,7 +16683,7 @@ POST /loki/instant-group-calls{?mode}
 }
 
 PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}
-{   
+{
     "requestURITemplate": {
         "title": "Modify Instant Group Call request URI template parameters schema",
         "properties": {
@@ -16697,7 +16697,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
             }
         }
     },
-    "requestBody": { 
+    "request": {
         "title": "Modify Instant Group Call request body parameters schema",
         "type": "object",
         "additionalProperties": false,
@@ -16714,17 +16714,17 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
                             "lastName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "firstName": { "type": "string", "minLength": 1, "maxLength": 30, "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$" },
                             "phoneNumber": {
-                                "type": "string", 
-                                "minLength": 1, 
-                                "maxLength": 23, 
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 23,
                                 "pattern": "^\\+\\d+-\\d+$"
                             }
                         }
                     },
                     "phoneNumber": {
-                        "type": "string", 
-                        "minLength": 1, 
-                        "maxLength": 23, 
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
                         "pattern": "^\\+\\d+-\\d+$"
                     },
                     "tnRoutine": { "enum": ["", "port-no-temp", "auto", "no-number"] },
@@ -16757,7 +16757,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
                 "type": "array",
                 "items": {
                     "anyOf": [
-                        { 
+                        {
                             "id": "E.164 DN",
                             "type": ["string", "null"],
                             "description": "A formatted TN.",
@@ -16766,8 +16766,8 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
                             "maxLength": 23,
                             "required": false
                         },
-                        {   
-                            "id": "non-E.164 DN", 
+                        {
+                            "id": "non-E.164 DN",
                             "type": "string",
                             "description": "A non-E.164 formatted TN.",
                             "pattern": "^[\\d\\-]+$",
@@ -16775,8 +16775,8 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
                             "maxLength": 23,
                             "required": false
                         },
-                        { 
-                            "id": "SIP URI", 
+                        {
+                            "id": "SIP URI",
                             "type": "string",
                             "description": "SIP URI",
                             "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -16842,12 +16842,12 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
                             "required": true,
                             "additionalProperties": false,
                             "properties": {
-                                "resourceId": { 
-                                    "type": "string", 
-                                    "minLength": 1, 
+                                "resourceId": {
+                                    "type": "string",
+                                    "minLength": 1,
                                     "maxLength": 161,
                                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                    "required": true 
+                                    "required": true
                                 }
                             }
                         }
@@ -16876,35 +16876,35 @@ DELETE /loki/instant-group-calls/{+instantGroupCallId}
         "title": "Delete Instant Group Call request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "instantGroupCallId": { 
-                "type": "string", 
+            "instantGroupCallId": {
+                "type": "string",
                 "description": "The Instant Group Call Id must have the domain, but that is not enforced by validation",
-                "minLength": 1, 
+                "minLength": 1,
                 "maxLength": 161,
-                "required": true 
+                "required": true
             }
         }
     },
-    "requestBody": {},
+    "request": {},
     "response": {}
 }
 
 PUT /loki/users/{+userId}/services/Intercept%20User
-{   
+{
     "requestURITemplate": {
         "title": "User Intercept Modify request URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { 
-                "type": "string", 
-                "minLength": 1, 
+            "userId": {
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                "required": true 
+                "required": true
             }
         }
     },
-    "requestBody": { 
+    "request": {
         "title": "User Intercept User Modify request body parameters schema",
         "type": "object",
         "additionalProperties": false,
@@ -16916,9 +16916,9 @@ PUT /loki/users/{+userId}/services/Intercept%20User
                 "properties": {
                     "enabled": { "type": "boolean" },
                     "phoneNumber": {
-                        "type": ["string", "null"], 
-                        "minLength": 1, 
-                        "maxLength": 23, 
+                        "type": ["string", "null"],
+                        "minLength": 1,
+                        "maxLength": 23,
                         "pattern": "^\\+\\d+-\\d+$"
                     }
                 }
@@ -16960,7 +16960,7 @@ PUT /loki/users/{+userId}/services/Intercept%20User
                     "enabled": { "type": "boolean" },
                     "phoneNumber": {
                         "anyOf": [
-                            { 
+                            {
                                 "id": "E.164 DN",
                                 "type": ["string", "null"],
                                 "description": "A formatted TN.",
@@ -16969,8 +16969,8 @@ PUT /loki/users/{+userId}/services/Intercept%20User
                                 "maxLength": 23,
                                 "required": false
                             },
-                            {   
-                                "id": "non-E.164 DN", 
+                            {
+                                "id": "non-E.164 DN",
                                 "type": "string",
                                 "description": "A non-E.164 formatted TN.",
                                 "pattern": "^[\\d\\-]+$",
@@ -16978,8 +16978,8 @@ PUT /loki/users/{+userId}/services/Intercept%20User
                                 "maxLength": 23,
                                 "required": false
                             },
-                            { 
-                                "id": "SIP URI", 
+                            {
+                                "id": "SIP URI",
                                 "type": "string",
                                 "description": "SIP URI",
                                 "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
@@ -17001,22 +17001,22 @@ PUT /loki/users/{+userId}/services/Intercept%20User
 
 POST /loki/customers{?mode}
 {
-    "requestURIQuery": {
+    "parameters": {
         "title": "Create Customer request URI Query parameters schema",
         "properties": {
 			"mode": { "enum": [ "create-only" ], "required": true }
 		}
 	},
-    "requestBody": {
+    "request": {
         "title": "Create Customer request body properties",
         "type": "object",
         "additionalProperties": false,
         "properties": {
             "name": { "type": "string", "minLength": 1, "maxLength": 80, "required": true },
-            "defaultDomain": { 
-                "type": "string", 
-                "minLength": 1, 
-                "maxLength": 80, 
+            "defaultDomain": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
                 "pattern": "^[a-zA-Z0-9.-]+$"
             },
             "supportEmail": { "type": "string", "minLength": 1, "maxLength": 80, "format": "email" },
@@ -17039,7 +17039,7 @@ POST /loki/customers{?mode}
                     "country": { "type": "string", "minLength": 1, "maxLength": 50 }
                 }
             },
-            "networkClassesOfService": { 
+            "networkClassesOfService": {
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
@@ -17053,8 +17053,8 @@ POST /loki/customers{?mode}
                     "broadworks": {
                         "type": "object",
                         "additionalProperties": false,
-                        "properties": { 
-                            "resourceId": { 
+                        "properties": {
+                            "resourceId": {
                                 "type": "string",
                                 "minLength": 1,
                                 "maxLength": 30,
@@ -17109,9 +17109,9 @@ POST /loki/customers{?mode}
                     "broadworks": {
                         "type": "object",
                         "properties": {
-                            "resourceId": { 
-                                "type": "string", 
-                                "minLength": 1, 
+                            "resourceId": {
+                                "type": "string",
+                                "minLength": 1,
                                 "maxLength": 30,
                                 "pattern": "^[^%+/#:\\'\"]+$",
                                 "required": true
@@ -17141,7 +17141,7 @@ POST /loki/customers/{+customerId}/administrators{?mode}
             "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Create Customer Administrator request body properties",
         "type": "object",
         "additionalProperties": false,
@@ -17166,8 +17166,8 @@ POST /loki/customers/{+customerId}/administrators{?mode}
                     "broadworks": {
                         "type": "object",
                         "additionalProperties": false,
-                        "properties": { 
-                            "resourceId": { 
+                        "properties": {
+                            "resourceId": {
                                 "type": "string",
                                 "minLength": 6,
                                 "maxLength": 80,
@@ -17233,8 +17233,8 @@ POST /loki/customers/{+customerId}/administrators{?mode}
                         "type": "object",
                         "additionalProperties": false,
                         "required": true,
-                        "properties": { 
-                            "resourceId": { 
+                        "properties": {
+                            "resourceId": {
                                 "type": "string",
                                 "minLength": 6,
                                 "maxLength": 80,
@@ -17265,7 +17265,7 @@ DELETE /loki/customers/{+customerId}/administrators/{+customerAdministratorId}
             }
         }
     },
-    "requestBody": { },
+    "request": { },
     "response": { }
 }
 
@@ -17285,7 +17285,7 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/administrators{?mode}
             "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Create Site Administrator request body properties",
         "type": "object",
         "additionalProperties": false,
@@ -17309,8 +17309,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/administrators{?mode}
                     "broadworks": {
                         "type": "object",
                         "additionalProperties": false,
-                        "properties": { 
-                            "resourceId": { 
+                        "properties": {
+                            "resourceId": {
                                 "type": "string",
                                 "minLength": 1,
                                 "maxLength": 161,
@@ -17373,8 +17373,8 @@ POST /loki/customers/{+customerId}/sites/{+siteId}/administrators{?mode}
                         "type": "object",
                         "additionalProperties": false,
                         "required": true,
-                        "properties": { 
-                            "resourceId": { 
+                        "properties": {
+                            "resourceId": {
                                 "type": "string",
                                 "minLength": 1,
                                 "maxLength": 161,
@@ -17406,7 +17406,7 @@ DELETE /loki/customers/{+customerId}/sites/{+siteId}/administrators/{+siteAdmini
             }
         }
     },
-    "requestBody": { },
+    "request": { },
     "response": { }
 }
 
@@ -17425,7 +17425,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendan
             }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "User services assignment request body schema",
         "type": "object",
         "properties": {
@@ -17457,7 +17457,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/ser
             }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "User services assignment request body schema",
         "type": "object",
         "properties": {
@@ -17489,7 +17489,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/s
             }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "User services assignment request body schema",
         "type": "object",
         "properties": {
@@ -17521,7 +17521,7 @@ PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantG
             }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "User services assignment request body schema",
         "type": "object",
         "properties": {
@@ -17544,7 +17544,7 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
         "title": "Create a BroadWorks Mobility Mobile Identity for the specified VoIP User URI template properties",
         "additionalProperties": false,
         "properties": {
-            "userId": { 
+            "userId": {
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 161,
@@ -17553,7 +17553,7 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
             }
         }
     },
-    "requestBody": {
+    "request": {
         "title": "Create a BroadWorks Mobility Mobile Identity for the specified VoIP User request body properties",
         "type": "object",
         "additionalProperties": false,
@@ -17574,8 +17574,8 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
                     "broadworks": {
                         "type": "object",
                         "additionalProperties": false,
-                        "properties": { 
-                            "resourceId": { 
+                        "properties": {
+                            "resourceId": {
                                 "id": "E.164 DN",
                                 "type": "string",
                                 "description": "A formatted TN.",
@@ -17641,7 +17641,7 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
                             "scheduleType": { "enum": [ "Holiday", "Time" ] }
                         }
                     },
-                    "scheduleLevel": { "enum": [ "Service Provider”, “Group”, “User" ] }
+                    "scheduleLevel": { "enum": [ "Service Provider", "Group", "User" ] }
                 }
             },
             "holidaySchedule": {
@@ -17656,7 +17656,7 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
                             "scheduleType": { "enum": [ "Holiday", "Time" ] }
                         }
                     },
-                    "scheduleLevel": { "enum": [ "Service Provider”, “Group”, “User" ] }
+                    "scheduleLevel": { "enum": [ "Service Provider", "Group", "User" ] }
                 }
             }
         }
@@ -17693,7 +17693,7 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
 					}
 				}
 			},
-			"userId": { 
+			"userId": {
 			    "type": "string",
                 "minLength": 1,
                 "maxLength": 161,
@@ -17719,8 +17719,8 @@ POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
                         "type": "object",
                         "additionalProperties": false,
                         "required": true,
-                        "properties": { 
-                            "resourceId": { 
+                        "properties": {
+                            "resourceId": {
                                 "id": "E.164 DN",
                                 "type": "string",
                                 "description": "A formatted TN.",
@@ -17743,7 +17743,7 @@ DELETE /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+
         "title": "Delete the specified User BroadWorks Mobility Mobile Identity URI template parameters schema",
         "additionalProperties": false,
         "properties": {
-            "userId": { 
+            "userId": {
                 "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
@@ -17760,6 +17760,6 @@ DELETE /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+
             }
         }
     },
-    "requestBody": { },
+    "request": { },
     "response": { }
 }
