@@ -1,5 +1,4 @@
 FORMAT: 1A
-HOST: http://private-6de4-lokidev.apiary.io/loki
 
 # LWS-REST (dev)
 # This documentation is for the public API, pre-release (dev) version
@@ -1515,7 +1514,7 @@ no support for wildcards or partial values).
 * A "null" value can be searched for by explicitly including the parameter with no value,
 e.g. "...&callProcessingElement1Id=".
 * If no match is found, the response will be 404 Not Found
-* When one or more matches or found, they will be included in the embedded array \_embedded."ls:routes"[].
+* When one or more matches or found, they will be included in the embedded array `_embedded["ls:routes"][]`.
 
 To retrieve a single route resource given all elements of the key, include **all** of (and only) the following
 parameters in the request (even if some have null values):
@@ -3826,7 +3825,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             </td>
         </tr>
         <tr>
-            <td>services.'Voice Portal'.\*</td>
+            <td>services.'Voice Portal'.*</td>
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td>Configuration settings for the Voice Portal service. The table below describes the supported settings.
@@ -3892,7 +3891,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             </td>
         </tr>
         <tr>
-            <td>services.'Third-Party Voice Mail Support'.\*</td>
+            <td>services.'Third-Party Voice Mail Support'.*</td>
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td>Configuration settings for the Third-Party Voice Mail Support service. The table below describes the supported settings.
@@ -9434,7 +9433,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             </td>
         </tr>
         <tr>
-            <td>services.'Authentication'.\*</td>
+            <td>services.'Authentication'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Configuration settings for the Authentication user service. The table below describes the supported settings.
@@ -9466,7 +9465,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             </td>
         </tr>
         <tr>
-            <td>services.'Charge Number'.\*</td>
+            <td>services.'Charge Number'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
@@ -9516,7 +9515,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             </td>
         </tr>
         <tr>
-            <td>services.'Call Forwarding No Answer'.\*</td>
+            <td>services.'Call Forwarding No Answer'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
@@ -9554,7 +9553,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             </td>
         </tr>
         <tr>
-            <td>services.'Call Forwarding Not Reachable'.\*</td>
+            <td>services.'Call Forwarding Not Reachable'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
@@ -9585,7 +9584,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             </td>
         </tr>
         <tr>
-            <td>services.'Third-Party Voice Mail Support'.\*</td>
+            <td>services.'Third-Party Voice Mail Support'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
@@ -9672,7 +9671,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             </td>
         </tr>
         <tr>
-            <td>services.'BroadWorks Mobility'.\*</td>
+            <td>services.'BroadWorks Mobility'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td><b>Note: In the default (legacy) process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
