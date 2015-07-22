@@ -9759,7 +9759,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 ### Response Properties - 201 Created
 
 For the alternative User Add process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.<br />
-Note: The default (legacy) request response contains all the properties sent in the request body and also the normal HAL `_links` and `curies` properties..
+Note: The default (legacy) request response contains all the properties sent in the request body and also the normal HAL `_links` and `curies` properties.
 <table border=1>
     <thead>
     <th>Parameter</th>
@@ -10066,1366 +10066,454 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
     + Schema
 
             {
-                "requestURIQuery": {
-                    "title": "Create Site request URI Query parameters schema",
-                    "properties": {
-                        "mode": {
-                            "enum": [
-                                "create-only"
-                            ],
-                            "required": true
-                        }
-                    }
-                },
-                "requestBodyLegacy": {
-                    "post": {
-                        "body": {
-                            "id": "voipUsersBody",
-                            "type": "object",
-                            "additionalProperties": false,
-                            "title": "Schema for the legacy(default) User Add request body",
-                            "properties": {
-                                "customerId": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 30
-                                },
-                                "siteId": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 30
-                                },
-                                "name": {
-                                    "minLength": 1,
-                                    "maxLength": 161,
-                                    "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
-                                },
-                                "phoneNumber": {
-                                    "type": "string",
-                                    "pattern": "^\\+\\d+-\\d+$",
-                                    "minLength": 1,
-                                    "maxLength": 23
-                                },
-                                "tnRoutine": {
-                                    "enum": [
-                                        "",
-                                        "port-no-temp",
-                                        "auto",
-                                        "no-number"
-                                    ]
-                                },
-                                "extension": {
-                                    "type": [
-                                        "string",
-                                        "null"
-                                    ],
-                                    "minLength": 2,
-                                    "maxLength": 20,
-                                    "pattern": "^[0-9]+$"
-                                },
-                                "CLID": {
-                                    "type": "string",
-                                    "pattern": "^\\+\\d+-\\d+$",
-                                    "minLength": 1,
-                                    "maxLength": 23
-                                },
-                                "lastName": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 30
-                                },
-                                "firstName": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 30
-                                },
-                                "callingLineIdLastName": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 30,
-                                    "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-                                },
-                                "callingLineIdFirstName": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 30,
-                                    "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-                                },
-                                "email": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 80,
-                                    "format": "email"
-                                },
-                                "timeZone": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 127
-                                },
-                                "language": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 40
-                                },
-                                "role": {
-                                    "type": "any"
-                                },
-                                "userType": {
-                                    "enum": [
-                                        "trunking",
-                                        "ATA",
-                                        "businessLine",
-                                        "hostedPbx",
-                                        "systemDevice",
-                                        "noDevice"
-                                    ],
-                                    "required": true
-                                },
-                                "accessDevice": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
-                                    "properties": {
-                                        "deviceManagementRoutine": {
-                                            "type": "any"
-                                        },
-                                        "name": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 40,
-                                            "required": true
-                                        },
-                                        "type": {
-                                            "type": "any"
-                                        },
-                                        "model": {
-                                            "type": "any"
-                                        },
-                                        "macAddress": {
-                                            "type": "any"
-                                        },
-                                        "linePort": {
-                                            "type": "any"
-                                        }
-                                    }
-                                },
-                                "trunkGroup": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "description": "Details of the user's trunk group(s), for Trunking users.",
-                                    "properties": {
-                                        "name": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 30
-                                        },
-                                        "linePort": {
-                                            "type": "any"
-                                        }
-                                    }
-                                },
-                                "servicePacks": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "description": "Service Packs that will be assigned to User",
-                                    "properties": {
-                                        "base": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 80
-                                        },
-                                        "add-on": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "maxLength": 80
-                                            }
-                                        }
-                                    }
-                                },
-                                "services": {
-                                    "type": "object",
-                                    "properties": {
-                                        "Authentication": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "username": {
-                                                    "type": "string",
-                                                    "minLength": 1,
-                                                    "maxLength": 80
-                                                },
-                                                "password": {
-                                                    "type": "string",
-                                                    "minLength": 1,
-                                                    "maxLength": 60
-                                                }
-                                            }
-                                        },
-                                        "Charge Number": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "phoneNumber": {
-                                                    "type": [
-                                                        "string",
-                                                        "null"
-                                                    ],
-                                                    "pattern": "^\\+\\d+-\\d+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 23
-                                                },
-                                                "useChargeNumberForEnhancedTranslations": {
-                                                    "type": "boolean"
-                                                },
-                                                "sendChargeNumberToNetwork": {
-                                                    "type": "boolean"
-                                                },
-                                                "tnRoutine": {
-                                                    "enum": [
-                                                        "",
-                                                        "port-no-temp",
-                                                        "auto"
-                                                    ]
-                                                }
-                                            }
-                                        },
-                                        "Third-Party Voice Mail Support": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "isActive": {
-                                                    "type": "boolean"
-                                                },
-                                                "busyRedirectToVoiceMail": {
-                                                    "type": "boolean"
-                                                },
-                                                "noAnswerRedirectToVoiceMail": {
-                                                    "type": "boolean"
-                                                },
-                                                "noAnswerNumberOfRings": {
-                                                    "enum": [
-                                                        0,
-                                                        2,
-                                                        3,
-                                                        4,
-                                                        5,
-                                                        6,
-                                                        7,
-                                                        8,
-                                                        9,
-                                                        10,
-                                                        11,
-                                                        12,
-                                                        13,
-                                                        14,
-                                                        15,
-                                                        16,
-                                                        17,
-                                                        18,
-                                                        19,
-                                                        20
-                                                    ]
-                                                },
-                                                "alwaysRedirectToVoiceMail": {
-                                                    "type": "boolean"
-                                                },
-                                                "outOfPrimaryZoneRedirectToVoiceMail": {
-                                                    "type": "boolean"
-                                                },
-                                                "serverSelection": {
-                                                    "enum": [
-                                                        "Group Mail Server",
-                                                        "User Specific Mail Server"
-                                                    ]
-                                                },
-                                                "userServer": {
-                                                    "anyOf": [
-                                                        {
-                                                            "id": "E.164 DN",
-                                                            "type": [
-                                                                "string",
-                                                                "null"
-                                                            ],
-                                                            "description": "A formatted TN.",
-                                                            "pattern": "^\\+\\d+-\\d+$",
-                                                            "minLength": 1,
-                                                            "maxLength": 23,
-                                                            "required": false
-                                                        },
-                                                        {
-                                                            "id": "non-E.164 DN",
-                                                            "type": "string",
-                                                            "description": "A non-E.164 formatted TN.",
-                                                            "pattern": "^[\\d\\-]+$",
-                                                            "minLength": 1,
-                                                            "maxLength": 23,
-                                                            "required": false
-                                                        },
-                                                        {
-                                                            "id": "SIP URI",
-                                                            "type": "string",
-                                                            "description": "SIP URI",
-                                                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-                                                            "minLength": 1,
-                                                            "maxLength": 161,
-                                                            "required": false
-                                                        }
-                                                    ]
-                                                },
-                                                "mailboxIdType": {
-                                                    "enum": [
-                                                        "User Or Group Phone Number",
-                                                        "URL"
-                                                    ]
-                                                },
-                                                "mailboxURL": {
-                                                    "type": [
-                                                        "string",
-                                                        "null"
-                                                    ],
-                                                    "description": "SIP URI",
-                                                    "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 161
-                                                }
-                                            }
-                                        },
-                                        "Call Forwarding No Answer": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "isActive": {
-                                                    "type": "boolean"
-                                                },
-                                                "forwardToPhoneNumber": {
-                                                    "anyOf": [
-                                                        {
-                                                            "id": "E.164 DN",
-                                                            "type": [
-                                                                "string",
-                                                                "null"
-                                                            ],
-                                                            "description": "A formatted TN.",
-                                                            "pattern": "^\\+\\d+-\\d+$",
-                                                            "minLength": 1,
-                                                            "maxLength": 23,
-                                                            "required": false
-                                                        },
-                                                        {
-                                                            "id": "non-E.164 DN",
-                                                            "type": "string",
-                                                            "description": "A non-E.164 formatted TN.",
-                                                            "pattern": "^[\\d\\-]+$",
-                                                            "minLength": 1,
-                                                            "maxLength": 23,
-                                                            "required": false
-                                                        },
-                                                        {
-                                                            "id": "SIP URI",
-                                                            "type": "string",
-                                                            "description": "SIP URI",
-                                                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-                                                            "minLength": 1,
-                                                            "maxLength": 161,
-                                                            "required": false
-                                                        }
-                                                    ]
-                                                },
-                                                "numberOfRings": {
-                                                    "enum": [
-                                                        0,
-                                                        2,
-                                                        3,
-                                                        4,
-                                                        5,
-                                                        6,
-                                                        7,
-                                                        8,
-                                                        9,
-                                                        10,
-                                                        11,
-                                                        12,
-                                                        13,
-                                                        14,
-                                                        15,
-                                                        16,
-                                                        17,
-                                                        18,
-                                                        19,
-                                                        20
-                                                    ]
-                                                }
-                                            }
-                                        },
-                                        "Call Forwarding Not Reachable": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "isActive": {
-                                                    "type": "boolean",
-                                                    "required": false
-                                                },
-                                                "forwardToPhoneNumber": {
-                                                    "anyOf": [
-                                                        {
-                                                            "id": "E.164 DN",
-                                                            "type": [
-                                                                "string",
-                                                                "null"
-                                                            ],
-                                                            "description": "A formatted TN.",
-                                                            "pattern": "^\\+\\d+-\\d+$",
-                                                            "minLength": 1,
-                                                            "maxLength": 23,
-                                                            "required": false
-                                                        },
-                                                        {
-                                                            "id": "non-E.164 DN",
-                                                            "type": "string",
-                                                            "description": "A non-E.164 formatted TN.",
-                                                            "pattern": "^[\\d\\-]+$",
-                                                            "minLength": 1,
-                                                            "maxLength": 23,
-                                                            "required": false
-                                                        },
-                                                        {
-                                                            "id": "SIP URI",
-                                                            "type": "string",
-                                                            "description": "SIP URI",
-                                                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-                                                            "minLength": 1,
-                                                            "maxLength": 161,
-                                                            "required": false
-                                                        }
-                                                    ]
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "extensions": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "broadworks": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "serviceProviderId": {
-                                                    "type": "string",
-                                                    "minLength": 1,
-                                                    "maxLength": 30
-                                                },
-                                                "groupId": {
-                                                    "type": "string",
-                                                    "minLength": 1,
-                                                    "maxLength": 30
-                                                },
-                                                "resourceId": {
-                                                    "type": "string",
-                                                    "minLength": 1,
-                                                    "maxLength": 161,
-                                                    "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                "id": "voipUsersBody",
+                "type": "object",
+                "additionalProperties": false,
+                "title": "Schema for the legacy(default) User Add request body",
+                "properties": {
+                    "customerId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "siteId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "name": {
+                        "minLength": 1,
+                        "maxLength": 161,
+                        "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "pattern": "^\\+\\d+-\\d+$",
+                        "minLength": 1,
+                        "maxLength": 23
+                    },
+                    "tnRoutine": {
+                        "enum": [
+                            "",
+                            "port-no-temp",
+                            "auto",
+                            "no-number"
+                        ]
+                    },
+                    "extension": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "minLength": 2,
+                        "maxLength": 20,
+                        "pattern": "^[0-9]+$"
+                    },
+                    "CLID": {
+                        "type": "string",
+                        "pattern": "^\\+\\d+-\\d+$",
+                        "minLength": 1,
+                        "maxLength": 23
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "callingLineIdLastName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+                    },
+                    "callingLineIdFirstName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+                    },
+                    "email": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 80,
+                        "format": "email"
+                    },
+                    "timeZone": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 127
+                    },
+                    "language": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 40
+                    },
+                    "role": {
+                        "type": "any"
+                    },
+                    "userType": {
+                        "enum": [
+                            "trunking",
+                            "ATA",
+                            "businessLine",
+                            "hostedPbx",
+                            "systemDevice",
+                            "noDevice"
+                        ],
+                        "required": true
+                    },
+                    "accessDevice": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
+                        "properties": {
+                            "deviceManagementRoutine": {
+                                "type": "any"
+                            },
+                            "name": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 40,
+                                "required": true
+                            },
+                            "type": {
+                                "type": "any"
+                            },
+                            "model": {
+                                "type": "any"
+                            },
+                            "macAddress": {
+                                "type": "any"
+                            },
+                            "linePort": {
+                                "type": "any"
                             }
                         }
-                    }
-                },
-                "responseLegacy": {
-                    "title": "Create User response body parameters schema",
-                    "type": "object",
-                    "properties": {
-                        "_links": {
-                            "type": "object",
-                            "required": true,
-                            "properties": {
-                                "self": {
-                                    "type": "object",
-                                    "required": true,
-                                    "properties": {
-                                        "href": {
-                                            "type": "string",
-                                            "required": true
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "curies": {
-                            "type": "array",
-                            "required": true,
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "required": true
-                                    },
-                                    "href": {
-                                        "type": "string",
-                                        "required": true
-                                    },
-                                    "templated": {
-                                        "type": "boolean",
-                                        "required": true
-                                    }
-                                }
-                            }
-                        },
-                        "customerId": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30,
-                            "required": true
-                        },
-                        "siteId": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30,
-                            "required": true
-                        },
-                        "userId": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 161,
-                            "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                            "required": true
-                        },
-                        "phoneNumber": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 23,
-                            "pattern": "^\\+\\d+-\\d+$"
-                        },
-                        "extension": {
-                            "type": "string",
-                            "minLength": 2,
-                            "maxLength": 20,
-                            "pattern": "^[0-9]+$"
-                        },
-                        "CLID": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 23,
-                            "pattern": "^\\+\\d+-\\d+$"
-                        },
-                        "lastName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30
-                        },
-                        "firstName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30
-                        },
-                        "callingLineIdLastName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30,
-                            "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-                        },
-                        "callingLineIdFirstName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30,
-                            "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-                        },
-                        "email": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 80,
-                            "format": "email"
-                        },
-                        "timeZone": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 127
-                        },
-                        "language": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 40
-                        },
-                        "services": {
-                            "type": "object",
-                            "properties": {
-                                "Authentication": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "username": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 80
-                                        },
-                                        "password": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 60
-                                        }
-                                    }
-                                },
-                                "Charge Number": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "phoneNumber": {
-                                            "type": [
-                                                "string",
-                                                "null"
-                                            ],
-                                            "minLength": 1,
-                                            "maxLength": 23,
-                                            "pattern": "^\\+\\d+-\\d+$"
-                                        },
-                                        "useChargeNumberForEnhancedTranslations": {
-                                            "type": "boolean"
-                                        },
-                                        "sendChargeNumberToNetwork": {
-                                            "type": "boolean"
-                                        }
-                                    }
-                                },
-                                "Third-Party Voice Mail Support": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "isActive": {
-                                            "type": "boolean"
-                                        },
-                                        "busyRedirectToVoiceMail": {
-                                            "type": "boolean"
-                                        },
-                                        "noAnswerRedirectToVoiceMail": {
-                                            "type": "boolean"
-                                        },
-                                        "noAnswerNumberOfRings": {
-                                            "enum": [
-                                                0,
-                                                2,
-                                                3,
-                                                4,
-                                                5,
-                                                6,
-                                                7,
-                                                8,
-                                                9,
-                                                10,
-                                                11,
-                                                12,
-                                                13,
-                                                14,
-                                                15,
-                                                16,
-                                                17,
-                                                18,
-                                                19,
-                                                20
-                                            ]
-                                        },
-                                        "alwaysRedirectToVoiceMail": {
-                                            "type": "boolean"
-                                        },
-                                        "outOfPrimaryZoneRedirectToVoiceMail": {
-                                            "type": "boolean"
-                                        },
-                                        "serverSelection": {
-                                            "enum": [
-                                                "Group Mail Server",
-                                                "User Specific Mail Server"
-                                            ]
-                                        },
-                                        "userServer": {
-                                            "anyOf": [
-                                                {
-                                                    "id": "E.164 DN",
-                                                    "type": [
-                                                        "string",
-                                                        "null"
-                                                    ],
-                                                    "description": "A formatted TN.",
-                                                    "pattern": "^\\+\\d+-\\d+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 23,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "id": "non-E.164 DN",
-                                                    "type": "string",
-                                                    "description": "A non-E.164 formatted TN.",
-                                                    "pattern": "^[\\d\\-]+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 23,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "id": "SIP URI",
-                                                    "type": "string",
-                                                    "description": "SIP URI",
-                                                    "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 161,
-                                                    "required": false
-                                                }
-                                            ]
-                                        },
-                                        "mailboxIdType": {
-                                            "enum": [
-                                                "User Or Group Phone Number",
-                                                "URL"
-                                            ]
-                                        },
-                                        "mailboxURL": {
-                                            "type": [
-                                                "string",
-                                                "null"
-                                            ],
-                                            "description": "SIP URI",
-                                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-                                            "minLength": 1,
-                                            "maxLength": 161
-                                        }
-                                    }
-                                },
-                                "Call Forwarding No Answer": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "isActive": {
-                                            "type": "boolean"
-                                        },
-                                        "forwardToPhoneNumber": {
-                                            "anyOf": [
-                                                {
-                                                    "id": "E.164 DN",
-                                                    "type": [
-                                                        "string",
-                                                        "null"
-                                                    ],
-                                                    "description": "A formatted TN.",
-                                                    "pattern": "^\\+\\d+-\\d+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 23,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "id": "non-E.164 DN",
-                                                    "type": "string",
-                                                    "description": "A non-E.164 formatted TN.",
-                                                    "pattern": "^[\\d\\-]+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 23,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "id": "SIP URI",
-                                                    "type": "string",
-                                                    "description": "SIP URI",
-                                                    "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 161,
-                                                    "required": false
-                                                }
-                                            ]
-                                        },
-                                        "numberOfRings": {
-                                            "enum": [
-                                                0,
-                                                2,
-                                                3,
-                                                4,
-                                                5,
-                                                6,
-                                                7,
-                                                8,
-                                                9,
-                                                10,
-                                                11,
-                                                12,
-                                                13,
-                                                14,
-                                                15,
-                                                16,
-                                                17,
-                                                18,
-                                                19,
-                                                20
-                                            ]
-                                        }
-                                    }
-                                },
-                                "Call Forwarding Not Reachable": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "isActive": {
-                                            "type": "boolean",
-                                            "required": false
-                                        },
-                                        "forwardToPhoneNumber": {
-                                            "anyOf": [
-                                                {
-                                                    "id": "E.164 DN",
-                                                    "type": [
-                                                        "string",
-                                                        "null"
-                                                    ],
-                                                    "description": "A formatted TN.",
-                                                    "pattern": "^\\+\\d+-\\d+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 23,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "id": "non-E.164 DN",
-                                                    "type": "string",
-                                                    "description": "A non-E.164 formatted TN.",
-                                                    "pattern": "^[\\d\\-]+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 23,
-                                                    "required": false
-                                                },
-                                                {
-                                                    "id": "SIP URI",
-                                                    "type": "string",
-                                                    "description": "SIP URI",
-                                                    "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-                                                    "minLength": 1,
-                                                    "maxLength": 161,
-                                                    "required": false
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "extensions": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
-                                    }
-                                }
+                    },
+                    "trunkGroup": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "description": "Details of the user's trunk group(s), for Trunking users.",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 30
+                            },
+                            "linePort": {
+                                "type": "any"
                             }
                         }
-                    }
-                },
-                "requestBodyAlternate": {
-                    "title": "Create User Alternate process request body parameters schema",
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "customerId": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30
-                        },
-                        "siteId": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30
-                        },
-                        "name": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 161,
-                            "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
-                        },
-                        "phoneNumber": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 23,
-                            "pattern": "^\\+\\d+-\\d+$"
-                        },
-                        "tnRoutine": {
-                            "enum": [
-                                "",
-                                "port-no-temp",
-                                "auto",
-                                "no-number"
-                            ]
-                        },
-                        "extension": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "minLength": 2,
-                            "maxLength": 20,
-                            "pattern": "^[0-9]+$"
-                        },
-                        "CLID": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 23,
-                            "pattern": "^\\+\\d+-\\d+$"
-                        },
-                        "lastName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30,
-                            "required": true
-                        },
-                        "firstName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30,
-                            "required": true
-                        },
-                        "callingLineIdLastName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30,
-                            "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-                        },
-                        "callingLineIdFirstName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30,
-                            "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
-                        },
-                        "email": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 80,
-                            "format": "email"
-                        },
-                        "timeZone": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 127
-                        },
-                        "language": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 40
-                        },
-                        "role": {
-                            "type": "any"
-                        },
-                        "userType": {
-                            "enum": [
-                                "ATA",
-                                "trunking",
-                                "businessLine",
-                                "hostedPbx",
-                                "systemDevice",
-                                "noDevice"
-                            ],
-                            "required": true
-                        },
-                        "accessDevice": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
-                            "properties": {
-                                "deviceManagementRoutine": {
-                                    "enum": [
-                                        "create",
-                                        "existing"
-                                    ]
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 40,
-                                    "required": true
-                                },
-                                "type": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 40
-                                },
-                                "model": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 256
-                                },
-                                "macAddress": {
-                                    "type": "string",
-                                    "minLength": 12,
-                                    "maxLength": 12,
-                                    "pattern": "^[0-9A-Fa-f]{12}$"
-                                },
-                                "linePort": {
-                                    "type": "string",
-                                    "pattern": "^(\\+|[\\w\\-\\.\\!~\\*\\'\\(\\)])[\\w\\-\\.\\!~\\*\\'\\(\\)]{0,79}(@[a-zA-Z\\d\\.\\-]{1,80})?$",
-                                    "minLength": 1,
-                                    "maxLength": 161
-                                }
-                            }
-                        },
-                        "trunkGroup": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "description": "Details of the user's trunk group(s), for Trunking users.",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 30
-                                },
-                                "linePort": {
-                                    "type": "string",
-                                    "pattern": "^(\\+|[\\w\\-\\.\\!~\\*\\'\\(\\)])[\\w\\-\\.\\!~\\*\\'\\(\\)]{0,79}(@[a-zA-Z\\d\\.\\-]{1,80})?$",
-                                    "minLength": 1,
-                                    "maxLength": 161
-                                }
-                            }
-                        },
-                        "servicePacks": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "description": "Service Packs that will be assigned to User",
-                            "properties": {
-                                "base": {
+                    },
+                    "servicePacks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "description": "Service Packs that will be assigned to User",
+                        "properties": {
+                            "base": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 80
+                            },
+                            "add-on": {
+                                "type": "array",
+                                "items": {
                                     "type": "string",
                                     "minLength": 1,
                                     "maxLength": 80
-                                },
-                                "add-on": {
-                                    "type": "array",
-                                    "items": {
+                                }
+                            }
+                        }
+                    },
+                    "services": {
+                        "type": "object",
+                        "properties": {
+                            "Authentication": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "username": {
                                         "type": "string",
                                         "minLength": 1,
                                         "maxLength": 80
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 60
                                     }
                                 }
-                            }
-                        },
-                        "services": {
-                            "type": "object",
-                            "properties": {
-                                "Authentication": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "username": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 80
-                                        },
-                                        "password": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 60
-                                        }
-                                    }
-                                },
-                                "BroadWorks Mobility": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "isActive": {
-                                            "type": "boolean"
-                                        },
-                                        "mobilePhoneNumber": {
-                                            "type": [
-                                                "string",
-                                                "null"
-                                            ],
-                                            "minLength": 1,
-                                            "maxLength": 23,
-                                            "pattern": "^\\+\\d+-\\d+$"
-                                        },
-                                        "mobileDevicePassword": {
-                                            "type": "string",
-                                            "minLength": 1
-                                        },
-                                        "mobileNetworkName": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 80
-                                        }
+                            },
+                            "Charge Number": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "phoneNumber": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "pattern": "^\\+\\d+-\\d+$",
+                                        "minLength": 1,
+                                        "maxLength": 23
+                                    },
+                                    "useChargeNumberForEnhancedTranslations": {
+                                        "type": "boolean"
+                                    },
+                                    "sendChargeNumberToNetwork": {
+                                        "type": "boolean"
+                                    },
+                                    "tnRoutine": {
+                                        "enum": [
+                                            "",
+                                            "port-no-temp",
+                                            "auto"
+                                        ]
                                     }
                                 }
-                            }
-                        },
-                        "extensions": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "serviceProviderId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 30
-                                        },
-                                        "groupId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 30
-                                        },
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
-                                        }
+                            },
+                            "Third-Party Voice Mail Support": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "isActive": {
+                                        "type": "boolean"
+                                    },
+                                    "busyRedirectToVoiceMail": {
+                                        "type": "boolean"
+                                    },
+                                    "noAnswerRedirectToVoiceMail": {
+                                        "type": "boolean"
+                                    },
+                                    "noAnswerNumberOfRings": {
+                                        "enum": [
+                                            0,
+                                            2,
+                                            3,
+                                            4,
+                                            5,
+                                            6,
+                                            7,
+                                            8,
+                                            9,
+                                            10,
+                                            11,
+                                            12,
+                                            13,
+                                            14,
+                                            15,
+                                            16,
+                                            17,
+                                            18,
+                                            19,
+                                            20
+                                        ]
+                                    },
+                                    "alwaysRedirectToVoiceMail": {
+                                        "type": "boolean"
+                                    },
+                                    "outOfPrimaryZoneRedirectToVoiceMail": {
+                                        "type": "boolean"
+                                    },
+                                    "serverSelection": {
+                                        "enum": [
+                                            "Group Mail Server",
+                                            "User Specific Mail Server"
+                                        ]
+                                    },
+                                    "userServer": {
+                                        "anyOf": [
+                                            {
+                                                "id": "E.164 DN",
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "non-E.164 DN",
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "SIP URI",
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
+                                    },
+                                    "mailboxIdType": {
+                                        "enum": [
+                                            "User Or Group Phone Number",
+                                            "URL"
+                                        ]
+                                    },
+                                    "mailboxURL": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "description": "SIP URI",
+                                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 161
+                                    }
+                                }
+                            },
+                            "Call Forwarding No Answer": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "isActive": {
+                                        "type": "boolean"
+                                    },
+                                    "forwardToPhoneNumber": {
+                                        "anyOf": [
+                                            {
+                                                "id": "E.164 DN",
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "non-E.164 DN",
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "SIP URI",
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
+                                    },
+                                    "numberOfRings": {
+                                        "enum": [
+                                            0,
+                                            2,
+                                            3,
+                                            4,
+                                            5,
+                                            6,
+                                            7,
+                                            8,
+                                            9,
+                                            10,
+                                            11,
+                                            12,
+                                            13,
+                                            14,
+                                            15,
+                                            16,
+                                            17,
+                                            18,
+                                            19,
+                                            20
+                                        ]
+                                    }
+                                }
+                            },
+                            "Call Forwarding Not Reachable": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "isActive": {
+                                        "type": "boolean",
+                                        "required": false
+                                    },
+                                    "forwardToPhoneNumber": {
+                                        "anyOf": [
+                                            {
+                                                "id": "E.164 DN",
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "non-E.164 DN",
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "SIP URI",
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
                                     }
                                 }
                             }
                         }
-                    }
-                },
-                "responseAlternate": {
-                    "title": "Create User response body parameters schema",
-                    "type": "object",
-                    "properties": {
-                        "_links": {
-                            "type": "object",
-                            "required": true,
-                            "properties": {
-                                "self": {
-                                    "type": "object",
-                                    "required": true,
-                                    "properties": {
-                                        "href": {
-                                            "type": "string",
-                                            "required": true
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "userId": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 161,
-                            "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                            "required": true
-                        },
-                        "extension": {
-                            "type": "string",
-                            "minLength": 2,
-                            "maxLength": 20,
-                            "pattern": "^[0-9]+$"
-                        },
-                        "lastName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30
-                        },
-                        "firstName": {
-                            "type": "string",
-                            "minLength": 1,
-                            "maxLength": 30
-                        },
-                        "portalPassword": {
-                            "type": "string",
-                            "minLength": 1
-                        },
-                        "passcode": {
-                            "type": "string",
-                            "minLength": 1
-                        },
-                        "publicUserIdentities": {
-                            "type": "array"
-                        },
-                        "accessDevice": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 40
-                                },
-                                "linePort": {
-                                    "type": "string",
-                                    "minLength": 1,
-                                    "maxLength": 161
-                                },
-                                "deviceCredentials": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "username": {
-                                            "type": "string",
-                                            "minLength": 1
-                                        },
-                                        "password": {
-                                            "type": "string",
-                                            "minLength": 1
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "services": {
-                            "type": "object",
-                            "properties": {
-                                "Authentication": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "username": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 80
-                                        },
-                                        "password": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 60
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "extensions": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "required": true,
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "required": true,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "uniqueId": {
-                            "type": "string",
-                            "minLength": 18,
-                            "maxLength": 18,
-                            "pattern": "^\\d+$"
-                        },
-                        "_embedded": {
-                            "type": "object",
-                            "properties": {
-                                "ls:site-devices": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "properties": {
-                                            "_links": {
-                                                "type": "object",
-                                                "required": true,
-                                                "properties": {
-                                                    "self": {
-                                                        "type": "object",
-                                                        "required": true,
-                                                        "properties": {
-                                                            "href": {
-                                                                "type": "string",
-                                                                "required": true
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            },
-                                            "customerId": {
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "maxLength": 30,
-                                                "required": true
-                                            },
-                                            "siteId": {
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "maxLength": 30,
-                                                "required": true
-                                            },
-                                            "deviceId": {
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "maxLength": 30,
-                                                "required": true
-                                            },
-                                            "linePort": {
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "maxLength": 161
-                                            },
-                                            "extensions": {
-                                                "type": "object",
-                                                "additionalProperties": false,
-                                                "properties": {
-                                                    "broadworks": {
-                                                        "type": "object",
-                                                        "additionalProperties": false,
-                                                        "properties": {
-                                                            "resourceId": {
-                                                                "type": "string",
-                                                                "minLength": 1,
-                                                                "maxLength": 40,
-                                                                "required": true
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "_warnings": {
-                            "type": "array",
-                            "items": {
+                    },
+                    "extensions": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "broadworks": {
                                 "type": "object",
+                                "additionalProperties": false,
                                 "properties": {
-                                    "code": {
-                                        "type": "string"
-                                    },
-                                    "summary": {
-                                        "type": "string"
-                                    },
-                                    "details": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        },
-                        "curies": {
-                            "type": "array",
-                            "required": true,
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
+                                    "serviceProviderId": {
                                         "type": "string",
-                                        "required": true
+                                        "minLength": 1,
+                                        "maxLength": 30
                                     },
-                                    "href": {
+                                    "groupId": {
                                         "type": "string",
-                                        "required": true
+                                        "minLength": 1,
+                                        "maxLength": 30
                                     },
-                                    "templated": {
-                                        "type": "boolean",
-                                        "required": true
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
                                     }
                                 }
                             }
@@ -11532,6 +10620,400 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                 }
             }
 
+    + Schema
+
+            {
+                "title": "Create User response body parameters schema",
+                "type": "object",
+                "properties": {
+                    "_links": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "self": {
+                                "type": "object",
+                                "required": true,
+                                "properties": {
+                                    "href": {
+                                        "type": "string",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "curies": {
+                        "type": "array",
+                        "required": true,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "href": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "templated": {
+                                    "type": "boolean",
+                                    "required": true
+                                }
+                            }
+                        }
+                    },
+                    "customerId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "required": true
+                    },
+                    "siteId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "required": true
+                    },
+                    "userId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 161,
+                        "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                        "required": true
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "extension": {
+                        "type": "string",
+                        "minLength": 2,
+                        "maxLength": 20,
+                        "pattern": "^[0-9]+$"
+                    },
+                    "CLID": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "callingLineIdLastName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+                    },
+                    "callingLineIdFirstName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+                    },
+                    "email": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 80,
+                        "format": "email"
+                    },
+                    "timeZone": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 127
+                    },
+                    "language": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 40
+                    },
+                    "services": {
+                        "type": "object",
+                        "properties": {
+                            "Authentication": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 80
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 60
+                                    }
+                                }
+                            },
+                            "Charge Number": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "phoneNumber": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "pattern": "^\\+\\d+-\\d+$"
+                                    },
+                                    "useChargeNumberForEnhancedTranslations": {
+                                        "type": "boolean"
+                                    },
+                                    "sendChargeNumberToNetwork": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            },
+                            "Third-Party Voice Mail Support": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "isActive": {
+                                        "type": "boolean"
+                                    },
+                                    "busyRedirectToVoiceMail": {
+                                        "type": "boolean"
+                                    },
+                                    "noAnswerRedirectToVoiceMail": {
+                                        "type": "boolean"
+                                    },
+                                    "noAnswerNumberOfRings": {
+                                        "enum": [
+                                            0,
+                                            2,
+                                            3,
+                                            4,
+                                            5,
+                                            6,
+                                            7,
+                                            8,
+                                            9,
+                                            10,
+                                            11,
+                                            12,
+                                            13,
+                                            14,
+                                            15,
+                                            16,
+                                            17,
+                                            18,
+                                            19,
+                                            20
+                                        ]
+                                    },
+                                    "alwaysRedirectToVoiceMail": {
+                                        "type": "boolean"
+                                    },
+                                    "outOfPrimaryZoneRedirectToVoiceMail": {
+                                        "type": "boolean"
+                                    },
+                                    "serverSelection": {
+                                        "enum": [
+                                            "Group Mail Server",
+                                            "User Specific Mail Server"
+                                        ]
+                                    },
+                                    "userServer": {
+                                        "anyOf": [
+                                            {
+                                                "id": "E.164 DN",
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "non-E.164 DN",
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "SIP URI",
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
+                                    },
+                                    "mailboxIdType": {
+                                        "enum": [
+                                            "User Or Group Phone Number",
+                                            "URL"
+                                        ]
+                                    },
+                                    "mailboxURL": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "description": "SIP URI",
+                                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                        "minLength": 1,
+                                        "maxLength": 161
+                                    }
+                                }
+                            },
+                            "Call Forwarding No Answer": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "isActive": {
+                                        "type": "boolean"
+                                    },
+                                    "forwardToPhoneNumber": {
+                                        "anyOf": [
+                                            {
+                                                "id": "E.164 DN",
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "non-E.164 DN",
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "SIP URI",
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
+                                    },
+                                    "numberOfRings": {
+                                        "enum": [
+                                            0,
+                                            2,
+                                            3,
+                                            4,
+                                            5,
+                                            6,
+                                            7,
+                                            8,
+                                            9,
+                                            10,
+                                            11,
+                                            12,
+                                            13,
+                                            14,
+                                            15,
+                                            16,
+                                            17,
+                                            18,
+                                            19,
+                                            20
+                                        ]
+                                    }
+                                }
+                            },
+                            "Call Forwarding Not Reachable": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "isActive": {
+                                        "type": "boolean",
+                                        "required": false
+                                    },
+                                    "forwardToPhoneNumber": {
+                                        "anyOf": [
+                                            {
+                                                "id": "E.164 DN",
+                                                "type": [
+                                                    "string",
+                                                    "null"
+                                                ],
+                                                "description": "A formatted TN.",
+                                                "pattern": "^\\+\\d+-\\d+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "non-E.164 DN",
+                                                "type": "string",
+                                                "description": "A non-E.164 formatted TN.",
+                                                "pattern": "^[\\d\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 23,
+                                                "required": false
+                                            },
+                                            {
+                                                "id": "SIP URI",
+                                                "type": "string",
+                                                "description": "SIP URI",
+                                                "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*\\'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                                                "minLength": 1,
+                                                "maxLength": 161,
+                                                "required": false
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "extensions": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "broadworks": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
 + Response 424 (application/json)
 
         {
@@ -11582,6 +11064,695 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                 "errorCode": "FORMAT_ERROR",
                 "summary": "Input validation failure",
                 "detail": "Request validation failed: phoneNumber does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
+            }
+
+### Create a VoIP User - Alternative [POST]
+This section contains request and response JSON schemas for alternative process when user is created via LWS-SOAP.
+
++ Request (application/json)
+    + Body
+
+            {
+                "customerId": "a-server-generated-ID",
+                "siteId": "another-server-generated-ID",
+                "name": "2005553001@example.com",
+                "userType": "businessLine",
+                "phoneNumber": "+1-2005553001",
+                "tnRoutine": "auto",
+                "CLID": "+1-2005553001",
+                "extension": "3001",
+                "lastName": "Smith",
+                "firstName": "John",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "email": "jsmith@example.com",
+                "timeZone": "America\/New_York",
+                "language": "English",
+                "accessDevice": {
+                    "name": "exampleComIad001"
+                },
+                "servicePacks": {
+                    "base": "Standard",
+                    "add-on": [
+                        "Executive"
+                    ]
+                },
+                "role": "Executive",
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    },
+                    "Charge Number": {
+                        "phoneNumber": "+1-2005554321",
+                        "tnRoutine": "",
+                        "useChargeNumberForEnhancedTranslations": false,
+                        "sendChargeNumberToNetwork": true
+                    },
+                    "Third-Party Voice Mail Support": {
+                        "isActive": true,
+                        "busyRedirectToVoiceMail": true,
+                        "noAnswerRedirectToVoiceMail": true,
+                        "serverSelection": "User Specific Mail Server",
+                        "userServer": "4165557000",
+                        "mailboxIdType": "URL",
+                        "mailboxURL": "2005553001@sip.example.com",
+                        "noAnswerNumberOfRings": 4,
+                        "alwaysRedirectToVoiceMail": false,
+                        "outOfPrimaryZoneRedirectToVoiceMail": false
+                    },
+                    "Call Forwarding No Answer": {
+                        "isActive": true,
+                        "forwardToPhoneNumber": "+1-2005553101",
+                        "numberOfRings": 4
+                    },
+                    "Call Forwarding Not Reachable": {
+                        "isActive": true,
+                        "forwardToPhoneNumber": "+1-2005553101"
+                    },
+                    "BroadWorks Mobility": {
+                        "isActive": false,
+                        "mobilePhoneNumber": "+1-2005553101",
+                        "mobileDevicePassword": "Fg%3fg56",
+                        "mobileNetworkName": "Example"
+                    },
+                    "Remote Office": []
+                },
+                "extensions": {
+                    "broadworks": {
+                        "serviceProviderId": "Example Com",
+                        "groupId": "Example Com - North",
+                        "resourceId": "2005553001@example.com"
+                    }
+                }
+            }
+
+    + Schema
+
+            {
+                "title": "Create User Alternate process request body parameters schema",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "customerId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "siteId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "name": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 161,
+                        "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "tnRoutine": {
+                        "enum": [
+                            "",
+                            "port-no-temp",
+                            "auto",
+                            "no-number"
+                        ]
+                    },
+                    "extension": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "minLength": 2,
+                        "maxLength": 20,
+                        "pattern": "^[0-9]+$"
+                    },
+                    "CLID": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 23,
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "required": true
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "required": true
+                    },
+                    "callingLineIdLastName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+                    },
+                    "callingLineIdFirstName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30,
+                        "pattern": "^[\\x20-\\x21\\x23-\\x24\\x26-\\x2A\\x2C-\\x2E\\x30-\\x7F]+$"
+                    },
+                    "email": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 80,
+                        "format": "email"
+                    },
+                    "timeZone": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 127
+                    },
+                    "language": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 40
+                    },
+                    "role": {
+                        "type": "any"
+                    },
+                    "userType": {
+                        "enum": [
+                            "ATA",
+                            "trunking",
+                            "businessLine",
+                            "hostedPbx",
+                            "systemDevice",
+                            "noDevice"
+                        ],
+                        "required": true
+                    },
+                    "accessDevice": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
+                        "properties": {
+                            "deviceManagementRoutine": {
+                                "enum": [
+                                    "create",
+                                    "existing"
+                                ]
+                            },
+                            "name": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 40,
+                                "required": true
+                            },
+                            "type": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 40
+                            },
+                            "model": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 256
+                            },
+                            "macAddress": {
+                                "type": "string",
+                                "minLength": 12,
+                                "maxLength": 12,
+                                "pattern": "^[0-9A-Fa-f]{12}$"
+                            },
+                            "linePort": {
+                                "type": "string",
+                                "pattern": "^(\\+|[\\w\\-\\.\\!~\\*\\'\\(\\)])[\\w\\-\\.\\!~\\*\\'\\(\\)]{0,79}(@[a-zA-Z\\d\\.\\-]{1,80})?$",
+                                "minLength": 1,
+                                "maxLength": 161
+                            }
+                        }
+                    },
+                    "trunkGroup": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "description": "Details of the user's trunk group(s), for Trunking users.",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 30
+                            },
+                            "linePort": {
+                                "type": "string",
+                                "pattern": "^(\\+|[\\w\\-\\.\\!~\\*\\'\\(\\)])[\\w\\-\\.\\!~\\*\\'\\(\\)]{0,79}(@[a-zA-Z\\d\\.\\-]{1,80})?$",
+                                "minLength": 1,
+                                "maxLength": 161
+                            }
+                        }
+                    },
+                    "servicePacks": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "description": "Service Packs that will be assigned to User",
+                        "properties": {
+                            "base": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 80
+                            },
+                            "add-on": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 80
+                                }
+                            }
+                        }
+                    },
+                    "services": {
+                        "type": "object",
+                        "properties": {
+                            "Authentication": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 80
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 60
+                                    }
+                                }
+                            },
+                            "BroadWorks Mobility": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "isActive": {
+                                        "type": "boolean"
+                                    },
+                                    "mobilePhoneNumber": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "minLength": 1,
+                                        "maxLength": 23,
+                                        "pattern": "^\\+\\d+-\\d+$"
+                                    },
+                                    "mobileDevicePassword": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "mobileNetworkName": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 80
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "extensions": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "broadworks": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "serviceProviderId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 30
+                                    },
+                                    "groupId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 30
+                                    },
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
++ Response 201 (application/hal+json)
+    + Headers
+
+            Location: http://lokiserver.apiary.io/loki/users/2005553001%40example.com
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/2005553001%40example.com"
+                    }
+                },
+                "curies": [
+                    {
+                        "name": "ls",
+                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
+                        "templated": true
+                    }
+                ],
+                "customerId": "Example Com",
+                "siteId": "Example Com - North",
+                "phoneNumber": "+1-2005553001",
+                "extension": "3001",
+                "CLID": "+1-2005553001",
+                "userId": "2005553001@example.com",
+                "portalPassword": "s8F!9ggo",
+                "firstName": "John",
+                "lastName": "Smith",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "timeZone": "America\/New_York",
+                "language": "English",
+                "uniqueId": "138008094312048295",
+                "_embedded": {
+                    "ls:site-devices": [
+                        {
+                            "_links": {
+                                "self": {
+                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20-%20North\/devices\/exampleComIad001"
+                                }
+                            },
+                            "customerId": "Example Com",
+                            "siteId": "Example Com - North",
+                            "deviceId": "exampleComIad001",
+                            "extensions": {
+                                "broadworks": {
+                                    "resourceId": "exampleComIad001"
+                                }
+                            },
+                            "deviceCredentials": {
+                                "username": "16502342235",
+                                "password": "{3qT8L"
+                            }
+                        }
+                    ]
+                },
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    },
+                    "Charge Number": {
+                        "phoneNumber": "+1-2005554321",
+                        "useChargeNumberForEnhancedTranslations": false,
+                        "sendChargeNumberToNetwork": true
+                    },
+                    "Third-Party Voice Mail Support": {
+                        "isActive": true,
+                        "busyRedirectToVoiceMail": true,
+                        "noAnswerRedirectToVoiceMail": true,
+                        "serverSelection": "User Specific Mail Server",
+                        "userServer": "4165557000",
+                        "mailboxIdType": "URL",
+                        "mailboxURL": "2005553001@sip.example.com",
+                        "noAnswerNumberOfRings": 4,
+                        "alwaysRedirectToVoiceMail": false,
+                        "outOfPrimaryZoneRedirectToVoiceMail": false
+                    },
+                    "Call Forwarding No Answer": {
+                        "isActive": true,
+                        "forwardToPhoneNumber": "+1-2005553101",
+                        "numberOfRings": 4
+                    },
+                    "Call Forwarding Not Reachable": {
+                        "isActive": true,
+                        "forwardToPhoneNumber": "+1-2005553101"
+                    },
+                    "Remote Office": []
+                },
+                "extensions": {
+                    "broadworks": {
+                        "resourceId": "2005553001@example.com"
+                    }
+                }
+            }
+
+    + Schema
+
+            {
+                "title": "Create User alternate response body parameters schema",
+                "type": "object",
+                "properties": {
+                    "_links": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "self": {
+                                "type": "object",
+                                "required": true,
+                                "properties": {
+                                    "href": {
+                                        "type": "string",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "userId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 161,
+                        "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                        "required": true
+                    },
+                    "extension": {
+                        "type": "string",
+                        "minLength": 2,
+                        "maxLength": 20,
+                        "pattern": "^[0-9]+$"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "portalPassword": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "passcode": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "publicUserIdentities": {
+                        "type": "array"
+                    },
+                    "accessDevice": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "description": "Details of the user's device, for Business Line, IP Centrex, and System Device users.",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 40
+                            },
+                            "linePort": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 161
+                            },
+                            "deviceCredentials": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "services": {
+                        "type": "object",
+                        "properties": {
+                            "Authentication": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 80
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 60
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "extensions": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": true,
+                        "properties": {
+                            "broadworks": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": true,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "uniqueId": {
+                        "type": "string",
+                        "minLength": 18,
+                        "maxLength": 18,
+                        "pattern": "^\\d+$"
+                    },
+                    "_embedded": {
+                        "type": "object",
+                        "properties": {
+                            "ls:site-devices": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_links": {
+                                            "type": "object",
+                                            "required": true,
+                                            "properties": {
+                                                "self": {
+                                                    "type": "object",
+                                                    "required": true,
+                                                    "properties": {
+                                                        "href": {
+                                                            "type": "string",
+                                                            "required": true
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "customerId": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 30,
+                                            "required": true
+                                        },
+                                        "siteId": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 30,
+                                            "required": true
+                                        },
+                                        "deviceId": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 30,
+                                            "required": true
+                                        },
+                                        "linePort": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 161
+                                        },
+                                        "extensions": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "broadworks": {
+                                                    "type": "object",
+                                                    "additionalProperties": false,
+                                                    "properties": {
+                                                        "resourceId": {
+                                                            "type": "string",
+                                                            "minLength": 1,
+                                                            "maxLength": 40,
+                                                            "required": true
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "_warnings": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "code": {
+                                    "type": "string"
+                                },
+                                "summary": {
+                                    "type": "string"
+                                },
+                                "details": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "curies": {
+                        "type": "array",
+                        "required": true,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "href": {
+                                    "type": "string",
+                                    "required": true
+                                },
+                                "templated": {
+                                    "type": "boolean",
+                                    "required": true
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
 ## VoIP User [/loki/users/{+userId}]
