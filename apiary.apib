@@ -4402,6 +4402,415 @@ Besides the properties listed in the table below, the response also contains the
                 }
             }
 
+<!-- -------------------------- Site Users ---------------------- -->
+
+# Group Site Users
+Supported network elements:
+
+* BroadWorks Application Server
+
+Keys:
+
+* customerId
+* siteId
+
+Extension Keys:
+
+* (none)
+
+## Site Users Collection [/loki/customers/{+customerId}/sites/{+siteId}/users]
+### Retrieve Users list  [GET]
+Retrieve the list of Users in Site.<br />
+In the initial implementation a User is composed of a single BroadWorks User.<br />
+Process name: Retrieve List of Users in Site (VoIP Entity)<br />
+Rollback-enabled: No
+
+### URI Template Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the Site is located.
+            </td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server siteId (server-generated) of the Site in which the Users are located.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+### JSON Schema for URI Template Parameters
+
+    {
+        "title": "Request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30,
+                "required": true
+            },
+            "siteId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30,
+                "required": true
+            }
+        }
+    }
+
+### Response Properties - 200 OK
+For the Retrieve list of Users in Site request besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Mandatory</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Loki Server customerId (server-generated) of the Customer in which the Site is located.
+            </td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Loki Server siteId (server-generated) of the Site in which the Users are located.
+            </td>
+        </tr>
+        <tr>
+            <td>_embedded</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>Container for _embedded resources</td>
+        </tr>
+        <tr>
+            <td>_embedded.ls:users</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>
+                Array containing the Users in Site.<br />
+                <b>Note</b>: If no Users are found in the Site the array will be empty.<br />
+                The following table describes the properties of an element in the list (array).<br />
+                Besides the properties listed in the table below, an item also contains the normal HAL `_links` properties.
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Mandatory</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>userId</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>Loki Server User ID</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>User type<br />
+                                <b>Note</b>: In the initial implementation only the eFax Users will be identified with the “type” property if the 
+                                "Retrieve List of Users in Site (VoIP Entity)" alternate process is enabled.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>lastName</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>User last name</td>
+                        </tr>
+                        <tr>
+                            <td>firstName</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>User first name.</td>
+                        </tr>
+                        <tr>
+                            <td>department</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>User department</td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>User phone number</td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumberActivated</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>Flag that specifies if the user’s phone number is activated.</td>
+                        </tr>
+                        <tr>
+                            <td>email</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>User email address</td>
+                        </tr>
+                        <tr>
+                            <td>extension</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>User extension</td>
+                        </tr>
+                        <tr>
+                            <td>extensions.broadworks</td>
+                            <td style="text-align: center; font-weight:bold">yes</td>
+                            <td>
+                                Container for BroadWorks-specific properties.<br />
+                                Details of the BroadWorks-specific properties:
+                                <table border=1>
+                                    <thead>
+                                    <th>Property</th>
+                                    <th>Required?</th>
+                                    <th>Description</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>resourceId</td>
+                                            <td style="text-align: center; font-weight:bold">no</td>
+                                            <td>The BroadWorks ID of the User</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
++ Response 200 (application/hal+json)
+    + Headers
+
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+                "_links": {
+                    "self": {
+                        "href": "http://loki3services.apiary.io/loki/customers/Example%20Com/sites/Example%20Com%20North/users"
+                    }
+                },
+                "_embedded": {
+                    "ls:users": [
+                        {
+                            "_links" : {
+                                "self" : {
+                                    "href" : "http://loki3services.apiary.io/loki/users/5003000001@example.com"
+                                }
+                            }, 
+                            "userId": "5003000001@example.com",
+                            "lastName": "Smith",
+                            "firstName": "John",
+                            "department": "Department Example (Example Com - North)",
+                            "phoneNumber": "+1-5003000001",
+                            "phoneNumberActivated": true,
+                            "email": "jsmith@example.com",
+                            "extension": "5301",
+                            "extensions": {
+                                "broadworks": { 
+                                    "resourceId": "5003000001@example.com"
+                                }
+                            }
+                        },
+                        {
+                            "_links" : {
+                                "self" : {
+                                    "href" : "http://loki3services.apiary.io/loki/users/5003000002@example.com"
+                                }
+                            }, 
+                            "userId": "5003000002@example.com",
+                            "lastName": "Smith",
+                            "firstName": "Johnnie",
+                            "department": "Department Example (Example Com - North)",
+                            "phoneNumber": "+1-5003000002",
+                            "phoneNumberActivated": false,
+                            "email": "jsmith@example.com",
+                            "extension": "5302",
+                            "extensions": {
+                                "broadworks": { 
+                                    "resourceId": "5003000002@example.com"
+                                }
+                            }
+                        },
+                        {
+                            "_links" : {
+                                "self" : {
+                                    "href" : "http://loki3services.apiary.io/loki/users/_efax_5003000003@example.com"
+                                }
+                            }, 
+                            "userId": "_efax_5003000003@example.com",
+                            "type": "eFax",
+                            "lastName": "Smith",
+                            "firstName": "John (eFax)",
+                            "department": "Department Example (Example Com - North)",
+                            "phoneNumber": "+1-5003000003",
+                            "phoneNumberActivated": true,
+                            "email": "jsmith3@example.com",
+                            "extension": "5303",
+                            "extensions": {
+                                "broadworks": { 
+                                    "resourceId": "_efax_5003000003@example.com"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "customerId": "Example Com",
+                "siteId": "Example Com - North
+            }
+
+
+    + Schema
+
+            {
+                "title": "Response Body Parameters Schema",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "_links": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "self": {
+                                "type": "object",
+                                "required": true,
+                                "properties": {
+                                    "href": {
+                                        "type": "string",
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    "siteId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+                    "_embedded": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": true,
+                        "properties": {
+                            "ls:users": {
+                                "type": "array",
+                                "required": true,
+                                "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "_links": {
+                                            "type": "object",
+                                            "required": true,
+                                            "properties": {
+                                                "self": {
+                                                    "type": "object",
+                                                    "required": true,
+                                                    "properties": {
+                                                        "href": {
+                                                            "type": "string",
+                                                            "required": true
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "userId": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 161,
+                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                            "required": true
+                                        },
+                                        "type": { 
+                                            "enum": ["eFax"], 
+                                            "required": false 
+                                        },
+                                        "lastName": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 30,
+                                            "required": true
+                                        },
+                                        "firstName": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxLength": 30,
+                                            "required": true
+                                        },
+                                        "department": {
+                                            "type": ["string", "null"],
+                                            "minLength": 1,
+                                            "maxLength": 50,
+                                            "required": true
+                                        },
+                                        "phoneNumber": {
+                                            "type": ["string", "null"],
+                                            "minLength": 1,
+                                            "maxLength": 23,
+                                            "pattern": "^\\+\\d+-\\d+$",
+                                            "required": true
+                                        },
+                                        "phoneNumberActivated": {
+                                            "type": ["boolean", "null"],
+                                            "required": true
+                                        },
+                                        "email": {
+                                            "type": ["string", "null"],
+                                            "minLength": 1,
+                                            "maxLength": 80,
+                                            "format": "email",
+                                            "required": true
+                                        },
+                                        "extension": {
+                                            "type": ["string", "null"],
+                                            "minLength": 2,
+                                            "maxLength": 20,
+                                            "pattern": "^[0-9]+$",
+                                            "required": true
+                                        },
+                                        "extensions": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "required": true,
+                                            "properties": {
+                                                "broadworks": {
+                                                    "type": "object",
+                                                    "additionalProperties": false,
+                                                    "required": true,
+                                                    "properties": {
+                                                        "resourceId": {
+                                                            "type": "string",
+                                                            "minLength": 1,
+                                                            "maxLength": 161,
+                                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                                            "required": true
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
 <!-- -------------------------- Site Administrators ---------------------- -->
 
 # Group Site Administrators
@@ -21762,6 +22171,12 @@ Rollback-enabled: No
 <!-- ==================================== FOOTER ================================= -->
 
 # Group CHANGELOG
+
+#2.43
+
+General
+
+ * Added GET /loki/customers/{+customerId}/sites/{+siteId}/users
 
 #2.42
 
