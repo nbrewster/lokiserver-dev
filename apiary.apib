@@ -13129,6 +13129,49 @@ Even if user does not exists, success response is returned.
         }
     }
 
+### Request Properties
+Note: See the JSON Schema for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>email</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Email Address.</td>
+        </tr>
+    </tbody>
+</table>
+
++ Request (application/json)
+    + Body
+
+            {
+                "email": "example@example.com"
+            }
+
+    + Schema
+
+            {
+                "title": "Request Body Parameters Schema",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 80,
+                        "format": "email"
+                    }
+                }
+            }
+
 + Response 204 (application/json)
     + Headers
 
