@@ -13,6 +13,8 @@ At this time, the application/hal+json content type is supported in request and 
 **Note: all references to <code>lokiserver.apiary.io</code> are for example purposes only. In a deployed Loki Server
 these will be references to the LWS-REST API host.**
 
+**Note: Curies will be added in the responses in a future release.**
+
 ## Single vs Multi cluster BroadWorks behaviour
 If LWS-REST is configured in single cluster mode and you try to access a resource that does not exist you will receive a 404 Not Found response with the body in the following format:
 <pre>{
@@ -411,13 +413,6 @@ Create a new Number Translation.
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/number-translations"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:number-translations": {
                         "_links": {
@@ -542,13 +537,6 @@ representation.]
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/number-translations?sourceDn=%2B1-8665554321&attributes=0&callProcessingElement1Id=978&callProcessingElement2Id=&callProcessingElement3Id=&callProcessingElement4Id=&callProcessingElementType=5"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:number-translations": [
                         {
@@ -773,13 +761,6 @@ Create a new Subscriber.
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/subscribers"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:subscribers": {
                         "_links": {
@@ -891,13 +872,6 @@ Query Subscribers. Responses will include (at a minimum) they fields comprising 
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/subscribers?subscriberDn=%2B1-2005553001&owningCarrierId=16"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:subscribers": [
                         {
@@ -1133,13 +1107,6 @@ Create a new Destination.
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/destinations"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:destinations": {
                         "_links": {
@@ -1227,13 +1194,6 @@ Query Destinations. Responses will include (at a minimum) they fields comprising
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/destinations?destinationDn=%2B1-2005553001"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:destinations": [
                         {
@@ -1437,13 +1397,6 @@ Create a new Route.
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/routes"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:routes": {
                         "_links": {
@@ -1561,13 +1514,6 @@ parameters in the request:
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/routes?destinationDn=%2B1-2005553001&callProcessingElement1Id=&callProcessingElement2Id=&callProcessingElement3Id=&callProcessingElement4Id=&callProcessingElementType=0&routingType=3&partitionId=EXAMPLE_PARTITION&calltype=0&transmissionMedium=0&userCallType=0&digitType=2147483647&timeRangeProfileId=ALL&callParamFilterProfileId=&domainName="
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:routes": [
                         {
@@ -2022,13 +1968,6 @@ In multi-cluster BroadWorks configuration, entity will be added on the default c
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "customerId": "Example Com",
                 "defaultDomain": "voip.example.net",
                 "extensions": {
@@ -2058,27 +1997,6 @@ In multi-cluster BroadWorks configuration, entity will be added on the default c
                                         "type": "string",
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -2233,14 +2151,7 @@ Process Name: Retrieve Customer (VoIP Entity)
                         "isEnterprise": true,
                         "resourceId": "Example Com"
                     }
-                },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ]
+                }
             }
 
     + Schema
@@ -2365,27 +2276,6 @@ Process Name: Retrieve Customer (VoIP Entity)
                                         "maxLength": 30,
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -2793,7 +2683,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
 ### Response Properties - 201 Created
 
-For the Create Customer Administrator process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+For the Create Customer Administrator process besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 
 <table border=1>
     <thead>
@@ -2968,13 +2858,6 @@ For the Create Customer Administrator process besides the properties listed in t
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/administrators\/wsmith"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "customerId": "Example Com",
                 "customerAdministratorId": "wsmith",
                 "firstName": "Will",
@@ -3007,27 +2890,6 @@ For the Create Customer Administrator process besides the properties listed in t
                                         "type": "string",
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -3265,14 +3127,7 @@ Rollback-enabled: No.
                     "broadworks": {
                         "resourceId": "ExampleCom"
                     }
-                },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ]
+                }
             }
 
     + Schema
@@ -3430,27 +3285,6 @@ Rollback-enabled: No.
                                         "maxLength": 30,
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -3941,7 +3775,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 </table>
 
 ### Response Properties - 201 Created
-Besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+Besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 <table border=1>
     <thead>
     <th>Parameter</th>
@@ -4294,13 +4128,6 @@ Besides the properties listed in the table below, the response also contains the
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20-%20North"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "customerId": "Example Com",
                 "siteId": "Example Com - North",
                 "callingLineId": {
@@ -4374,27 +4201,6 @@ Besides the properties listed in the table below, the response also contains the
                                         "maxLength": 30,
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -5007,7 +4813,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 </table>
 
 ### Response Properties - 201 Created
-For the Create Site Administrator process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+For the Create Site Administrator process besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 
 <table border=1>
     <thead>
@@ -5159,13 +4965,6 @@ For the Create Site Administrator process besides the properties listed in the t
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20North\/administrators\/wsmith@example.com"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "customerId": "Example Com",
                 "siteId": "Example Com North",
                 "siteAdministratorId": "wsmith@example.com",
@@ -5195,27 +4994,6 @@ For the Create Site Administrator process besides the properties listed in the t
                                         "type": "string",
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -5545,13 +5323,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20-%20North\/assignPhoneNumber"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:customer-phone-numbers": [
                         {
@@ -5597,27 +5368,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                         "type": "string",
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -6096,13 +5846,6 @@ Retrieve the Voice Portal service settings of a Site.
                         "href": "http:\/\/lokiserver.example.com\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20North\/services\/Voice%20Portal"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "customerId": "Example Com",
                 "siteId": "Example Com North",
                 "voicePortalId": "VoicePortalId",
@@ -6178,27 +5921,6 @@ Retrieve the Voice Portal service settings of a Site.
                         "minLength": 1,
                         "maxLength": 161,
                         "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
-                                }
-                            }
-                        }
                     },
                     "profile": {
                         "type": "object",
@@ -7078,7 +6800,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
 ### Response Properties - 201 Created
 
-Besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+Besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 <table border=1>
     <thead>
     <th>Parameter</th>
@@ -7280,14 +7002,7 @@ Besides the properties listed in the table below, the response also contains the
                         "serviceProviderId": "ExampleCom",
                         "groupId": "ExampleCom"
                     }
-                },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/localhost\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ]
+                }
             }
 
     + Schema
@@ -7308,27 +7023,6 @@ Besides the properties listed in the table below, the response also contains the
                                         "type": "string",
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -7659,7 +7353,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
 ### Response Properties - 201 Created
 
-For the Trunk Group Add process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.<br />
+For the Trunk Group Add process besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.<br />
 <table border=1>
     <thead>
     <th>Parameter</th>
@@ -8869,14 +8563,7 @@ For the Trunk Group Add process besides the properties listed in the table below
                     "broadworks": {
                         "resourceId": "ExampleCom Trunk 3001"
                     }
-                },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ]
+                }
             }
 
     + Schema
@@ -8897,27 +8584,6 @@ For the Trunk Group Add process besides the properties listed in the table below
                                         "type": "string",
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -10168,8 +9834,8 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
 ### Response Properties - 201 Created
 
-For the alternative User Add process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.<br />
-Note: The default (legacy) request response contains all the properties sent in the request body and also the normal HAL `_links` and `curies` properties.
+For the alternative User Add process besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.<br />
+Note: The default (legacy) request response contains all the properties sent in the request body and also the normal HAL `_links` properties.
 <table border=1>
     <thead>
     <th>Parameter</th>
@@ -10946,13 +10612,6 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/2005553001%40example.com"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "customerId": "Example Com",
                 "siteId": "Example Com - North",
                 "phoneNumber": "+1-2005553001",
@@ -11048,27 +10707,6 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                                         "type": "string",
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -11835,13 +11473,6 @@ This section contains request and response JSON schemas for alternative process 
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/2005553001%40example.com"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "customerId": "Example Com",
                 "siteId": "Example Com - North",
                 "phoneNumber": "+1-2005553001",
@@ -12140,27 +11771,6 @@ This section contains request and response JSON schemas for alternative process 
                                 }
                             }
                         }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -12382,7 +11992,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 </table>
 
 ### Response Properties - 200 OK
-Besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.<br />
+Besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.<br />
 <table border=1>
     <thead>
     <th>Parameter</th>
@@ -12556,13 +12166,6 @@ Besides the properties listed in the table below, the response also contains the
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/6502342177%40example.com"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "userId": "6502342177@example.com",
                 "extensions": {
                     "broadworks": {
@@ -12615,27 +12218,6 @@ Besides the properties listed in the table below, the response also contains the
                                         "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -12844,13 +12426,6 @@ In addition to the standard error codes, this will return 404 Not Found if the u
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/4155551212%20example.com\/call-processing-policy"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "_embedded": {
                     "ls:users": [
                         {
@@ -13030,14 +12605,7 @@ Reset the device credentials on a VoIP User's primary device.
                     }
                 },
                 "username": "12147483642",
-                "password": "Mu+7*+",
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ]
+                "password": "Mu+7*+"
             }
 
     + Schema
@@ -13073,27 +12641,6 @@ Reset the device credentials on a VoIP User's primary device.
                         "minLength": 1,
                         "maxLength": 60,
                         "required": true
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -13345,7 +12892,7 @@ Additionally the user's old device may be deleted depending on inputs.
 </table>
 
 ### Response Properties - 200 OK
-For the "Swap User Device via LWS SOAP (VoIP Entity)" besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+For the "Swap User Device via LWS SOAP (VoIP Entity)" besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 <table border=1>
     <thead>
         <th>Property</th>
@@ -13481,14 +13028,7 @@ For the "Swap User Device via LWS SOAP (VoIP Entity)" besides the properties lis
                         "username": "example",
                         "password": "eX@mp1e"
                     }
-                },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ]
+                }
             }
 
     + Schema
@@ -13557,27 +13097,6 @@ For the "Swap User Device via LWS SOAP (VoIP Entity)" besides the properties lis
                                         "type": "string",
                                         "minLength": 1
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -14960,7 +14479,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 </table>
 
 ### Response Properties - 201 Created
-For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 
 <table border=1>
     <thead>
@@ -15233,13 +14752,6 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
                         "href": "http:\/\/lokiserver.example.com\/loki\/users\/2005553001%40example.com\/BroadWorks%20Mobility\/mobile-identities\/%2B1-9876543210"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "userId": "2005553001@example.com",
                 "mobileIdentityId": "+1-9876543210",
                 "mobileNetworkName": "Example Network Name",
@@ -15268,27 +14780,6 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
                                         "type": "string",
                                         "required": true
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -15860,7 +15351,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
 ### Response Properties - 201 Created
 Note: The Create Auto Attendant process will return a 502 response when LWS-SOAP is misconfigured ("enhancedLwsSoapResponsesEnable" config parameter is set to false).<br />
-For the Create Auto Attendant process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+For the Create Auto Attendant process besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 
 <table border=1>
     <thead>
@@ -16256,13 +15747,6 @@ For the Create Auto Attendant process besides the properties listed in the table
                         "href": "http:\/\/lokiserver.example.com\/loki\/auto-attendants\/5551239876%40example.com"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "autoAttendantId": "5551239876@example.com",
                 "profile": {
                     "callingLineId": {
@@ -16374,27 +15858,6 @@ For the Create Auto Attendant process besides the properties listed in the table
                                             "required": true
                                         }
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -16944,13 +16407,6 @@ Rollback-enabled: No
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Site\/auto-attendants\/4151002300"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "autoAttendantId": "4151002300",
                 "profile": {
                     "extension": "2300",
@@ -17029,27 +16485,6 @@ Rollback-enabled: No
                                             "required": true
                                         }
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -17537,7 +16972,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
 ### Response Properties - 201 Created
 Note: The Create Hunt Group process will return a 502 response when LWS-SOAP is misconfigured ("enhancedLwsSoapResponsesEnable" config parameter is set to false).<br />
-For the Create Hunt Group process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+For the Create Hunt Group process besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 
 <table border=1>
     <thead>
@@ -17959,13 +17394,6 @@ For the Create Hunt Group process besides the properties listed in the table bel
                         "href": "http:\/\/lokiserver.example.com\/loki\/hunt-groups\/5551239876%40example.com"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "huntGroupId": "5551239876@example.com",
                 "profile": {
                     "callingLineId": {
@@ -18076,27 +17504,6 @@ For the Create Hunt Group process besides the properties listed in the table bel
                                             "required": true
                                         }
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -18701,13 +18108,6 @@ Rollback-enabled: No
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Site\/hunt-groups\/4151002300"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "huntGroupId": "4151002300",
                 "profile": {
                     "extension": "2300",
@@ -18785,27 +18185,6 @@ Rollback-enabled: No
                                             "required": true
                                         }
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -19331,7 +18710,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 </table>
 
 ### Response Properties - 201 Created
-For the Create Call Center process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+For the Create Call Center process besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 
 <table border=1>
     <thead>
@@ -19896,13 +19275,6 @@ For the Create Call Center process besides the properties listed in the table be
                         "href": "http:\/\/lokiserver.example.com\/loki\/call-centers\/5551239876%40example.com"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "callCenterId": "5551239876@example.com",
                 "profile": {
                     "callingLineId": {
@@ -20105,27 +19477,6 @@ For the Create Call Center process besides the properties listed in the table be
                                     "AMR",
                                     "AMR-WB"
                                 ]
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
-                                }
                             }
                         }
                     }
@@ -20746,13 +20097,6 @@ Rollback-enabled: No
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Site\/call-centers\/4151002300"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "callCenterId": "4151002300",
                 "profile": {
                     "extension": "2300",
@@ -20830,27 +20174,6 @@ Rollback-enabled: No
                                             "required": true
                                         }
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -21194,7 +20517,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
 ### Response Properties - 201 Created
 Note: The Create Instant Group Call process will return a 502 response when LWS-SOAP is misconfigured ("enhancedLwsSoapResponsesEnable" config parameter is set to false).<br />
-For the Create Instant Group Call process besides the properties listed in the table below, the response also contains the normal HAL `_links` and `curies` properties.
+For the Create Instant Group Call process besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.
 
 <table border=1>
     <thead>
@@ -21546,13 +20869,6 @@ For the Create Instant Group Call process besides the properties listed in the t
                         "href": "http:\/\/lokiserver.example.com\/loki\/instant-group-calls\/5551239876%40example.com"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "instantGroupCallId": "5551239876@example.com",
                 "profile": {
                     "callingLineId": {
@@ -21663,27 +20979,6 @@ For the Create Instant Group Call process besides the properties listed in the t
                                             "required": true
                                         }
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
@@ -22200,13 +21495,6 @@ Rollback-enabled: No
                         "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Site\/instant-group-calls\/4151002300"
                     }
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
-                        "templated": true
-                    }
-                ],
                 "instantGroupCallId": "4151002300",
                 "profile": {
                     "extension": "2300",
@@ -22284,27 +21572,6 @@ Rollback-enabled: No
                                             "required": true
                                         }
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "curies": {
-                        "type": "array",
-                        "required": true,
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "href": {
-                                    "type": "string",
-                                    "required": true
-                                },
-                                "templated": {
-                                    "type": "boolean",
-                                    "required": true
                                 }
                             }
                         }
