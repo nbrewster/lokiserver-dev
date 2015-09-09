@@ -13629,7 +13629,43 @@ Extension Keys:
 
 ## User's Assigned Services [/loki/users/{+userId}/services/assigned-services]
 ### Update Assigned Services [PUT]
-Modify VoIP User's assigned services.
+Modify VoIP User's assigned services.<br />
+Rollback-enabled: No.<br />
+Processes backing the Modify VoIP User's assigned services request:
+<table border=1>
+    <thead>
+    <th>Process Name</th>
+    <th>Process Type</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Set User Services (VoIP Entity)</td>
+            <td>Base process</td>
+            <td>This process is used when the alternate processes are not enabled.<br />
+            In the initial implementation the process will always return a 501 Not Implemented response.
+            </td>
+        </tr>
+        <tr>
+            <td>Set User Services via LWS-SOAP (VoIP Entity)</td>
+            <td>Alternate process</td>
+            <td>This process is enabled by default when the alternate processes are enabled.<br />
+            In current implementation the VoIP User's services/service packs assignment status are updated using LWS-SOAP API calls.
+            </td>
+        </tr>
+        <tr>
+            <td>eFax Integrated Set User Services (VoIP Entity)</td>
+            <td>Alternate process</td>
+            <td>To enable this process the alternate processes need to be enabled and the "Set User Services via LWS-SOAP (VoIP Entity)" 
+            process needs to be disabled.<br />
+            This alternate process is used in the Wit eFax solution component.<br /> 
+            Besides updating services/service packs assignment status, if the Fax Messaging a la carte service was unassigned, 
+            it will also perform the additional actions of deleting the eFax User from BroadWorks system and the Wit eFax User from Wit system.<br />
+            <b>Note</b>: If the Fax Messaging service was unassigned via Service Pack unassignment, additional actions will not be triggered.
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ### URI Template Parameters
 <table border=1>
@@ -13760,6 +13796,19 @@ Modify VoIP User's assigned services.
                 "externalErrorSummary": "[Error 4008] User not found: JohnDoe",
                 "externalErrorDetail": "[Error 4008] User not found: JohnDoe."
             }
+            
++ Response 501 (application/json)
+    + Headers
+
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+                "errorCode": "NOT_IMPLEMENTED",
+                "summary": "The requested functionality is not implemented.",
+                "detail": "The 'Set User Services' default functionality is not implemented."
+            }            
 
 ## User's Alternate Numbers Service Settings [/loki/users/{+userId}/services/Alternate%20Numbers]
 ### Modify Alternate Numbers Service Settings [PUT]
