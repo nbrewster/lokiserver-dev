@@ -12684,7 +12684,43 @@ Besides the properties listed in the table below, the response also contains the
             }
 
 ### Delete a VoIP User [DELETE /loki/users/{+userId}{?keepMailbox}]
-Delete a VoIP User.
+Delete a VoIP User.<br />
+Rollback-enabled: No.<br />
+Processes backing the Delete VoIP User request:
+<table border=1>
+    <thead>
+    <th>Process Name</th>
+    <th>Process Type</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Delete User (VoIP Entity)</td>
+            <td>Base process</td>
+            <td>This process is used when the alternate processes are not enabled.<br />
+            In the initial implementation the process will always return a 501 Not Implemented response.
+            </td>
+        </tr>
+        <tr>
+            <td>Delete User via LWS-SOAP (VoIP Entity)</td>
+            <td>Alternate process</td>
+            <td>This process is enabled by default when the alternate processes are enabled.<br />
+            In current implementation the VoIP User is deleted using LWS-SOAP UserDeleteRequest API call.
+            </td>
+        </tr>
+        <tr>
+            <td>eFax Integrated Delete User (VoIP Entity)</td>
+            <td>Alternate process</td>
+            <td>To enable this process the alternate processes need to be enabled and the "Delete User via LWS-SOAP (VoIP Entity)" 
+            process needs to be disabled.<br />
+            This alternate process is used in the Wit eFax solution component.<br /> 
+            Besides deleting the specified user, if the user has Fax Messaging a la carte service assigned, 
+            it will also perform the additional actions of deleting the eFax User from BroadWorks system and the Wit eFax User from Wit system.<br />
+            <b>Note</b>: If the Fax Messaging service is assigned via Service Pack, additional actions will not be triggered.
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ### URI Query Parameters
 <table border=1>
@@ -12698,8 +12734,10 @@ Delete a VoIP User.
         <tr>
             <td>keepMailbox</td>
             <td style="text-align: center; font-weight:bold">no</td>
-            <td>true</td>
-            <td>Flag that controls whether the Message Store user account is kept or deleted along with the BroadWorks user.</td>
+            <td>n/a</td>
+            <td>Flag that controls whether the Message Store user account is kept or deleted along with the BroadWorks user.<br />
+            If the query parameter is not sent the value of the voip.lws.user.keepMailbox config parameter will be used.
+            </td>
         </tr>
     </tbody>
 </table>
@@ -12769,6 +12807,19 @@ Delete a VoIP User.
                 "externalErrorCode": "4008",
                 "externalErrorSummary": "Error: [Error 4008] User not found: JohnDoe",
                 "externalErrorDetail": "User Delete Failed. Error: [Error 4008] User not found: JohnDoe"
+            }
+
++ Response 501 (application/json)
+    + Headers
+
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+                "errorCode": "NOT_IMPLEMENTED",
+                "summary": "The requested functionality is not implemented.",
+                "detail": "The 'Delete User' default functionality is not implemented."
             }
 
 ## User's Call Processing Policies [/loki/users/{+userId}/call-processing-policy]
