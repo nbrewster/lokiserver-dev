@@ -11778,9 +11778,42 @@ This section contains request and response JSON schemas for alternative process 
 ## VoIP User [/loki/users/{+userId}]
 ### Modify a VoIP User [PUT]
 Modify a VoIP User.<br />
-In current implementation the VoIP User is updated using LWS-SOAP UserModifyRequest API call.<br />
-Process name: Modify User via LWS SOAP (VoIP Entity)<br />
 Rollback-enabled: No.
+
+Processes backing the Modify VoIP User request:
+<table border=1>
+    <thead>
+    <th>Process Name</th>
+    <th>Process Type</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Modify User(VoIP Entity)</td>
+            <td>Base process</td>
+            <td>This process is used when the alternate processes are not enabled.<br />
+            In the initial implementation the process will always return a 501 Not Implemented response.
+            </td>
+        </tr>
+        <tr>
+            <td>Modify User via LWS SOAP (VoIP Entity)</td>
+            <td>Alternate process</td>
+            <td>This process is enabled by default when the alternate processes are enabled.<br />
+            In current implementation the VoIP User is updated using LWS-SOAP UserModifyRequest API call.
+            </td>
+        </tr>
+        <tr>
+            <td>eFax Integrated Modify User via LWS-SOAP (VoIP Entity)</td>
+            <td>Alternate process</td>
+            <td>To enable this process the alternate processes need to be enabled and the "Modify User via LWS SOAP (VoIP Entity)" 
+            process needs to be disabled.<br />
+            This alternate process is used in the Wit eFax solution component.<br /> 
+            This process will update the primary user, check if the primary user has the Fax Messaging assigned and will update the Wit eFax account’s email address and/or first name and/or last name if they were changed for the primary user. It will also update the secondary BroadWorks user’s first name and/or last name if they were changed.<br />
+            <b>Note</b>: If the Fax Messaging service is assigned via Service Pack, additional actions will not be triggered.
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 ### URI Template Parameters
 <table border=1>
@@ -11917,7 +11950,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>callingLineIdLastName</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Calling Line ID Last Name..</td>
+            <td>Calling Line ID Last Name.</td>
         </tr>
         <tr>
             <td>callingLineIdFirstName</td>
@@ -16137,14 +16170,42 @@ Rollback-enabled: No
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
     <tr><td>name</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td><table border=1>
-    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
-    <tbody>
-    <tr><td>lastName</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>firstName</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
-    </tbody>
-</table></td></tr>
+    <tr>
+        <td>callingLineId</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>
+            <table border=1>
+                <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+                <tbody>
+                    <tr>
+                        <td>lastName</td>
+                        <td>no</td>
+                        <td>n/a</td>
+                        <td>Calling line Id last name.<br />
+                            <b>Note:</b> The callingLineId last name will be updated with the name value 
+                            if the name is present in the request and the callingLineId last name is not.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>firstName</td>
+                        <td>no</td>
+                        <td>n/a</td>
+                        <td>Calling line Id first name.<br />
+                            <b>Note:</b> The callingLineId first name will be updated with the name value 
+                            if the name is present in the request and the callingLineId first name is not.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>phoneNumber</td>
+                        <td>no</td>
+                        <td>n/a</td>
+                        <td>An E.164-formatted TN</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
     <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
     <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td></td></tr>
     <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
@@ -17783,14 +17844,32 @@ Rollback-enabled: No
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
     <tr><td>name</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td>Container for Calling Line Id settings<table border=1>
-    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
-    <tbody>
-    <tr><td>lastName</td><td>no</td><td>n/a</td><td>Calling Line Id last name</td></tr>
-    <tr><td>firstName</td><td>no</td><td>n/a</td><td>Calling Line Id first name</td></tr>
-    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
-    </tbody>
-</table></td></tr>
+    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td>Container for Calling Line Id settings
+    <table border=1>
+        <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+        <tbody>
+            <tr>
+                <td>lastName</td>
+                <td>no</td>
+                <td>n/a</td>
+                <td>Calling line Id last name.<br />
+                    <b>Note:</b> The callingLineId last name will be updated with the name value 
+                    if the name is present in the request and the callingLineId last name is not.
+                </td>
+            </tr>
+            <tr>
+                <td>firstName</td>
+                <td>no</td>
+                <td>n/a</td>
+                <td>Calling line Id first name.<br />
+                    <b>Note:</b> The callingLineId first name will be updated with the name value 
+                    if the name is present in the request and the callingLineId first name is not.
+                </td>
+            </tr>
+            <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
+        </tbody>
+    </table>
+    </td></tr>
     <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
     <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td>Phone Number add routine to apply. Allowed values: ["", "no-number", "port-no-temp", "auto"]<br>Note: "auto" and "no-number" values will not be implemented in initial release</td></tr>
     <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
@@ -19742,14 +19821,32 @@ Rollback-enabled: No
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
     <tr><td>name</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td>Container for Calling Line Id settings<table border=1>
-    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
-    <tbody>
-    <tr><td>lastName</td><td>no</td><td>n/a</td><td>Calling Line Id last name</td></tr>
-    <tr><td>firstName</td><td>no</td><td>n/a</td><td>Calling Line Id first name</td></tr>
-    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
-    </tbody>
-</table></td></tr>
+    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td>Container for Calling Line Id settings
+    <table border=1>
+        <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+        <tbody>
+            <tr>
+                <td>lastName</td>
+                <td>no</td>
+                <td>n/a</td>
+                <td>Calling line Id last name.<br />
+                    <b>Note:</b> The callingLineId last name will be updated with the name value 
+                    if the name is present in the request and the callingLineId last name is not.
+                </td>
+            </tr>
+            <tr>
+                <td>firstName</td>
+                <td>no</td>
+                <td>n/a</td>
+                <td>Calling line Id first name.<br />
+                    <b>Note:</b> The callingLineId first name will be updated with the name value 
+                    if the name is present in the request and the callingLineId first name is not.
+                </td>
+            </tr>
+            <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
+        </tbody>
+    </table>
+    </td></tr>
     <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
     <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td>Phone Number add routine to apply. Allowed values: ["", "no-number", "port-no-temp", "auto"]<br>Note: "auto" and "no-number" values will not be implemented in initial release</td></tr>
     <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
@@ -21258,14 +21355,32 @@ Rollback-enabled: No
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
     <tr><td>name</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td>Container for Calling Line Id settings<table border=1>
-    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
-    <tbody>
-    <tr><td>lastName</td><td>no</td><td>n/a</td><td>Calling Line Id last name</td></tr>
-    <tr><td>firstName</td><td>no</td><td>n/a</td><td>Calling Line Id first name</td></tr>
-    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
-    </tbody>
-</table></td></tr>
+    <tr><td>callingLineId</td><td>no</td><td>n/a</td><td>Container for Calling Line Id settings
+    <table border=1>
+        <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+        <tbody>
+            <tr>
+                <td>lastName</td>
+                <td>no</td>
+                <td>n/a</td>
+                <td>Calling line Id last name.<br />
+                    <b>Note:</b> The callingLineId last name will be updated with the name value 
+                    if the name is present in the request and the callingLineId last name is not.
+                </td>
+            </tr>
+            <tr>
+                <td>firstName</td>
+                <td>no</td>
+                <td>n/a</td>
+                <td>Calling line Id first name.<br />
+                    <b>Note:</b> The callingLineId first name will be updated with the name value 
+                    if the name is present in the request and the callingLineId first name is not.
+                </td>
+            </tr>
+            <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
+        </tbody>
+    </table>
+    </td></tr>
     <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
     <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td>Phone Number add routine to apply. Allowed values: ["", "no-number", "port-no-temp", "auto"]<br>Note: "auto" and "no-number" values will not be implemented in initial release</td></tr>
     <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
