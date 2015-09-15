@@ -11950,13 +11950,17 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>callingLineIdLastName</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Calling Line ID Last Name.</td>
+            <td>Calling Line ID Last Name.<br />
+                <b>Note:</b> The callingLineIdLastName will be updated with the lastName value if the lastName is present in the request and the callingLineIdLastName is not.
+            </td>
         </tr>
         <tr>
             <td>callingLineIdFirstName</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>no</td>
-            <td>Calling Line ID First Name.</td>
+            <td>Calling Line ID First Name.<br />
+                <b>Note:</b> The callingLineIdFirstName will be updated with the firstName value if the firstName is present in the request and the callingLineIdFirstName is not.
+            </td>
         </tr>
         <tr>
             <td>timeZone</td>
@@ -14088,6 +14092,378 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 "externalErrorCode": null,
                 "externalErrorSummary": "Error modifying user: JohnDoe.",
                 "externalErrorDetail": "User Modify Failed. Intercept User pre-validation error:Error updating service: Intercept User. User [JohnDoe] does not have Intercept User service assigned."
+            }
+            
+            
+## User's Fax Messaging Service Settings [/loki/users/{+userId}/services/Fax%20Messaging]
+### Retrieve Fax Messaging Service Settings [GET]
+Retrieve a BroadWorks User's Fax Messaging service settings. <br />
+Rollback-enabled: No
+
+Processes backing the Retrieve User Fax Messaging request:
+<table border=1>
+    <thead>
+    <th>Process Name</th>
+    <th>Process Type</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Retrieve User Fax Messaging (VoIP Entity)</td>
+            <td>Base process</td>
+            <td>This process is used when the alternate processes are not enabled.<br />
+            In the initial implementation the process will always return a 501 Not Implemented response.
+            </td>
+        </tr>
+        <tr>
+            <td>eFax Integrated Retrieve User Fax Messaging (VoIP Entity)</td>
+            <td>Alternate process</td>
+            <td>This process is enabled by default when the alternate processes are enabled.<br />
+            This alternate process is used in the Wit eFax solution component.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+### URI Template Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server userId (server-generated) of the user whose Intercept User service will be updated.</td>
+        </tr>
+    </tbody>
+</table>
+
+### JSON Schema for URI Template Parameters
+
+    {
+        "title": "User Retrieve Fax Messaging settings request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "userId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            }
+        }
+    }
+
+### Response Properties - 200 OK
+
+<table border=1>
+    <thead>
+        <th>Parameter</th>
+        <th>Required?</th>
+        <th>Default</th>
+        <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td>yes</td>
+            <td>n/a</td>
+            <td>The Loki Server ID of the User.</td>
+        </tr>
+        <tr>
+            <td>isActive</td>
+            <td>yes</td>
+            <td>n/a</td>
+            <td>On/Off.</td>
+        </tr>
+        <tr>
+            <td>phoneNumber</td>
+            <td>yes</td>
+            <td>n/a</td>
+            <td>Phone Number.</td>
+        </tr>
+        <tr>
+            <td>extension</td>
+            <td>no</td>
+            <td>n/a</td>
+            <td>Extension.<br/><b>None: Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>alias</td>
+            <td>no</td>
+            <td>n/a</td>
+            <td>List of aliases.<br/><b>None: Not Implemented</b></td>
+        </tr>
+    </tbody>
+</table>
+
++ Response 200 (application/json)
+    
+    + Headers
+    
+            Transaction-Id: 1380080943120
+    
+    + Body
+    
+            {
+                "_links": {
+                    "self": {
+                        "href": "http://lokiserver.apiary.io/loki/users/142662607678932343%40example.com/services/Fax%20Messaging"
+                    }
+                },
+                "userId": "142662607678932343@example.com",
+                "isActive": true,
+                "phoneNumber": "+1-2005553001"
+            }
+
+    + Schema
+
+            {
+                "title": "Response Body Parameters Schema",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "_links": {
+                        "type": "object",
+                        "properties": {
+                            "self": {
+                                "type": "object",
+                                "properties": {
+                                    "href": { "type": "string" }
+                                },
+                                "required": ["href"]
+                            }
+                        },
+                        "required": ["self"]
+                    },
+                    "userId": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 161,
+                        "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                    },
+                    "isActive": { "type": "boolean" },
+                    "phoneNumber": {
+                        "type": ["string", "null"],
+                        "minLength": 1,
+                        "maxLength": 23,
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "extension": {
+                        "type": ["string", "null"],
+                        "minLength": 2,
+                        "maxLength": 20,
+                        "pattern": "^[0-9]+$"
+                    },
+                    "alias": {
+                        "type": ["array", "null"],
+                        "maxItems": 3,
+                        "items": {
+                            "type": "string",
+                            "description": "SIP URI",
+                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                            "minLength": 1,
+                            "maxLength": 161
+                        }
+                    }
+                },
+                "required": ["_links", "userId", "isActive", "phoneNumber"]
+            }
+        
++ Response 404 (application/json)
+    
+    + Headers
+
+            Transaction-Id: 1380080943120    
+
+    + Body
+    
+            {
+                "errorCode": "NOT_FOUND",
+                "summary": "The requested resource does not exist",
+                "detail": "The 'Fax Messaging' service is not assigned to the User"
+            }
+        
+        
++ Response 502 (application/json)
+    
+    + Headers
+
+            Transaction-Id: 1380080943120    
+
+    + Body
+    
+            {
+                "errorCode": "EXTERNAL_API_INVALID_STATE",
+                "summary": "External API resource is in an invalid state.",
+                "detail": "The eFax user is in an invalid state (it does not have a phone number)."
+            }
+            
+### Modify Fax Messaging Service Settings [PUT]
+Modify BroadWorks User's Fax Messaging service settings. <br />
+Rollback-enabled: Yes (only the alternate process)
+
+Processes backing the Modify User Fax Messaging request:
+<table border=1>
+    <thead>
+    <th>Process Name</th>
+    <th>Process Type</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Modify User Fax Messaging (VoIP Entity)</td>
+            <td>Base process</td>
+            <td>This process is used when the alternate processes are not enabled.<br />
+            In the initial implementation the process will always return a 501 Not Implemented response.
+            </td>
+        </tr>
+        <tr>
+            <td>eFax Integrated Modify User Fax Messaging (VoIP Entity)</td>
+            <td>Alternate process</td>
+            <td>This process is enabled by default when the alternate processes are enabled.<br />
+            This alternate process is used in the Wit eFax solution component.
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+### URI Template Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>userId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server userId (server-generated) of the user whose Intercept User service will be updated.</td>
+        </tr>
+    </tbody>
+</table>
+
+### JSON Schema for URI Template Parameters
+
+    {
+        "title": "User Modify Fax Messaging settings request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "userId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                "required": true
+            }
+        }
+    }
+
+### Request Properties
+
+<table border=1>
+    <thead>
+        <th>Parameter</th>
+        <th>Required?</th>
+        <th>Default</th>
+        <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>isActive</td>
+            <td>no</td>
+            <td>n/a</td>
+            <td>On/Off.<br/><b>None: Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>phoneNumber</td>
+            <td>no</td>
+            <td>n/a</td>
+            <td>Phone Number.<br/><b>None: Null value is not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>extension</td>
+            <td>no</td>
+            <td>n/a</td>
+            <td>Extension.<br/><b>None: Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>alias</td>
+            <td>no</td>
+            <td>n/a</td>
+            <td>List of aliases.<br/><b>None: Not Implemented</b></td>
+        </tr>
+    </tbody>
+</table>
+
++ Request (application/json)
+    
+    + Body
+    
+            {
+                "phoneNumber": "+1-2005553001"
+            }
+
+    + Schema
+
+            {
+                "title": "Request Body Parameters Schema",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "isActive": { "type": "boolean" },
+                    "phoneNumber": {
+                        "type": ["string", "null"],
+                        "minLength": 1,
+                        "maxLength": 23,
+                        "pattern": "^\\+\\d+-\\d+$"
+                    },
+                    "extension": {
+                        "type": ["string", "null"],
+                        "minLength": 2,
+                        "maxLength": 20,
+                        "pattern": "^[0-9]+$"
+                    },
+                    "alias": {
+                        "type": ["array", "null"],
+                        "maxItems": 3,
+                        "items": {
+                            "type": "string",
+                            "description": "SIP URI",
+                            "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                            "minLength": 1,
+                            "maxLength": 161
+                        }
+                    }
+                }
+            }
+        
++ Response 204
+    
+    + Headers
+
+            Transaction-Id: 1380080943120    
+        
++ Response 404 (application/json)
+    
+    + Headers
+
+            Transaction-Id: 1380080943120    
+
+    + Body
+    
+            {
+                "errorCode": "NOT_FOUND",
+                "summary": "The server was unable to process your request",
+                "detail": "The 'Fax Messaging' service is not assigned to the User"
             }
 
 <!-- ------------------- VoIP User BroadWorks Mobility Mobile Identity ------------------ -->
