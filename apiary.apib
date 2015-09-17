@@ -36,10 +36,10 @@ If LWS-REST is configured in multi cluster mode and you try to access a resource
 Clients of LWS-REST should support both response body formats.
 
 ## Different responses depending on BroadWorks version
-LWS-REST returns different results depending on the BroadWorks version when sending a request which results in an invalid XML request to BroadWorks.
+LWS-REST returns different results depending on the BroadWorks version and patch level when sending a request which results in an invalid XML request to BroadWorks.
 See below for different error responses:
 
-For BroadWorks version 17sp4 with bad patch (preventing return of 6004 BroadWorks response) result is:<br />
+For some BroadWorks versions that have issue preventing return of 6004 BroadWorks response, result is:<br />
 Response code: 502
 <pre>{
     "errorCode": "CLIENT_ERROR",
@@ -57,7 +57,7 @@ Response code: 504
 }
 </pre>
 
-For BroadWorks version > 17sp4 result is:<br />
+For BroadWorks version without mentioned issue the result is:<br />
 Response code: 500
 <pre>{
     "errorCode": "EXTERNAL_API_SERVER",
@@ -1685,7 +1685,7 @@ Process Name: Create Customer (VoIP Entity)
     </tbody>
 </table>
 
-### JSON Schema URI Query Parameters
+### JSON Schema for URI Query Parameters
 
     {
         "title": "Create Customer URI Query Parameters",
@@ -1974,7 +1974,7 @@ In multi-cluster BroadWorks configuration, entity will be added on the default c
                     "broadworks": {
                         "resourceId": "Example Com",
                         "isEnterprise": true,
-                        "hostingNe": "REL17AS"
+                        "hostingNe": "REL21AS"
                     }
                 }
             }
@@ -2296,7 +2296,7 @@ Process Name: Modify Customer (VoIP Entity)
     </tbody>
 </table>
 
-### JSON Schema URI Parameters:
+### JSON Schema for URI Template Parameters:
 
     {
         "title": "Update Customer URI Template Parameters",
@@ -2995,20 +2995,20 @@ Rollback-enabled: No
 
 ### JSON Schema for URI Template Parameters
 
-  {
-      "title": "Delete Customer Administrator request URI template parameters schema",
-      "additionalProperties": false,
-      "properties": {
-          "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
-          "customerAdministratorId": {
-              "type": "string",
-              "minLength": 6,
-              "maxLength": 80,
-              "pattern": "^[\\w\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}]+$",
-              "required": true
-          }
-      }
-  }
+    {
+        "title": "Delete Customer Administrator request URI template parameters schema",
+        "additionalProperties": false,
+        "properties": {
+            "customerId": { "type": "string", "minLength": 1, "maxLength": 30, "required": true },
+            "customerAdministratorId": {
+                "type": "string",
+                "minLength": 6,
+                "maxLength": 80,
+                "pattern": "^[\\w\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}]+$",
+                "required": true
+            }
+        }
+    }
 
 + Response 204
     + Headers
@@ -7115,6 +7115,18 @@ will be rolled back.
             <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
             </td>
         </tr>
+    </tbody>
+</table>
+
+### URI Template Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
         <tr>
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
