@@ -230,6 +230,10 @@ This applies for ALL LWS-REST requests.<br/>
 #Limitations
 1. LWS-REST will not convert BroadWorks callingLineIdPhoneNumber (CLID) into E.164 format when retrieving information from BroadWorks.
 
+## GET + PUT behaviour
+The client must remove _links and _embedded (and any immutable properties, e.g. userId) from a GET response before submitting it as a PUT request. 
+In other words, a PUT only accepts the documented properties (which is not necessarily every property of the corresponding GET response), and the PUT will error if you include additional properties.
+
 
 ## URI Templates
 Refer to https://tools.ietf.org/html/rfc6570 for details on URI Templates. Not that LWS-REST
