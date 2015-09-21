@@ -2269,9 +2269,9 @@ Process Name: Retrieve Customer (VoIP Entity)
                     "extensions": {
                         "type": "object",
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
+                            "broadworks": {
+                                "type": "object",
+                                "properties": {
                                     "isEnterprise": {
                                         "type": "boolean"
                                     },
@@ -2909,7 +2909,7 @@ For the Create Customer Administrator process besides the properties listed in t
                         "type": "string",
                         "minLength": 6,
                         "maxLength": 80,
-                        "pattern": "^[\\w\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}]+$",
+                        "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}]+$",
                         "required": true
                     },
                     "firstName": {
@@ -3009,7 +3009,7 @@ Rollback-enabled: No
                 "type": "string",
                 "minLength": 6,
                 "maxLength": 80,
-                "pattern": "^[\\w\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}]+$",
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}]+$",
                 "required": true
             }
         }
@@ -3281,9 +3281,9 @@ Rollback-enabled: No.
                     "extensions": {
                         "type": "object",
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
+                            "broadworks": {
+                                "type": "object",
+                                "properties": {
                                     "resourceId": {
                                         "type": "string",
                                         "minLength": 1,
@@ -4197,9 +4197,9 @@ Besides the properties listed in the table below, the response also contains the
                     "extensions": {
                         "type": "object",
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
+                            "broadworks": {
+                                "type": "object",
+                                "properties": {
                                     "resourceId": {
                                         "type": "string",
                                         "minLength": 1,
@@ -7051,9 +7051,9 @@ Besides the properties listed in the table below, the response also contains the
                     "extensions": {
                         "type": "object",
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
+                            "broadworks": {
+                                "type": "object",
+                                "properties": {
                                     "serviceProviderId": {
                                         "type": "string",
                                         "minLength": 1,
@@ -16269,20 +16269,17 @@ For the Create Auto Attendant process besides the properties listed in the table
                         "type": "object",
                         "required": true,
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "required": true,
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
+                            "broadworks": {
+                                "type": "object",
+                                "required": true,
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
                                     }
                                 }
                             }
@@ -16924,20 +16921,17 @@ Rollback-enabled: No
                         "type": "object",
                         "required": true,
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "required": true,
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
+                            "broadworks": {
+                                "type": "object",
+                                "required": true,
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
                                     }
                                 }
                             }
@@ -17943,20 +17937,17 @@ For the Create Hunt Group process besides the properties listed in the table bel
                         "type": "object",
                         "required": true,
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "required": true,
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
+                            "broadworks": {
+                                "type": "object",
+                                "required": true,
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
                                     }
                                 }
                             }
@@ -18642,20 +18633,17 @@ Rollback-enabled: No
                         "type": "object",
                         "required": true,
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "required": true,
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
+                            "broadworks": {
+                                "type": "object",
+                                "required": true,
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
                                     }
                                 }
                             }
@@ -19858,20 +19846,17 @@ For the Create Call Center process besides the properties listed in the table be
                         "type": "object",
                         "required": true,
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "required": true,
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
+                            "broadworks": {
+                                "type": "object",
+                                "required": true,
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
                                     }
                                 }
                             }
@@ -20649,20 +20634,17 @@ Rollback-enabled: No
                         "type": "object",
                         "required": true,
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "required": true,
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
+                            "broadworks": {
+                                "type": "object",
+                                "required": true,
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
                                     }
                                 }
                             }
@@ -21454,20 +21436,17 @@ For the Create Instant Group Call process besides the properties listed in the t
                         "type": "object",
                         "required": true,
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "required": true,
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
+                            "broadworks": {
+                                "type": "object",
+                                "required": true,
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
                                     }
                                 }
                             }
@@ -22065,20 +22044,17 @@ Rollback-enabled: No
                         "type": "object",
                         "required": true,
                         "properties": {
-                            "type": "object",
-                            "properties": {
-                                "broadworks": {
-                                    "type": "object",
-                                    "required": true,
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "resourceId": {
-                                            "type": "string",
-                                            "minLength": 1,
-                                            "maxLength": 161,
-                                            "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
-                                            "required": true
-                                        }
+                            "broadworks": {
+                                "type": "object",
+                                "required": true,
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 161,
+                                        "pattern": "^[\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$",
+                                        "required": true
                                     }
                                 }
                             }
