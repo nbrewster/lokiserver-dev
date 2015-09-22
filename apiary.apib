@@ -234,11 +234,14 @@ This applies for ALL LWS-REST requests.<br/>
 The client must remove _links and _embedded (and any immutable properties, e.g. userId) from a GET response before submitting it as a PUT request. 
 In other words, a PUT only accepts the documented properties (which is not necessarily every property of the corresponding GET response), and the PUT will error if you include additional properties.
 
-
 ## URI Templates
 Refer to https://tools.ietf.org/html/rfc6570 for details on URI Templates. Not that LWS-REST
 uses reserved characters (i.e. ":") in some URI Template variables, thus the request templates
 use the "{+id}" format - see additional detail at https://tools.ietf.org/html/rfc6570#section-3.2.3.
+
+## JSON Schemas
+Provided JSON schemas should be used as a source of information about URI template, URI query, request body, and response body parameters: possible data type, if parameter is required, etc.
+All JSON schemas have [draft-v4](http://tools.ietf.org/html/draft-zyp-json-schema-04) format.
 
 ## Collections
 Unless otherwise noted, Collection resources support standard REST request methods:
@@ -22702,6 +22705,7 @@ Rollback-enabled: No
 General
 
  * Added GET /loki/customers/{+customerId}/sites/{+siteId}/users
+ * JSON schemas are formatted to [draft-v4 version](http://tools.ietf.org/html/draft-zyp-json-schema-04)
 
 #2.42
 
