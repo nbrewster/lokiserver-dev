@@ -16972,7 +16972,12 @@ Rollback-enabled: No
     <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for Virtual User Profile settings:<table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>name</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr>
+        <td>name</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>The profile name of the virtual user.</td>
+    </tr>
     <tr>
         <td>callingLineId</td>
         <td>no</td>
@@ -17003,42 +17008,144 @@ Rollback-enabled: No
                         <td>phoneNumber</td>
                         <td>no</td>
                         <td>n/a</td>
-                        <td>An E.164-formatted TN</td>
+                        <td>An E.164-formatted TN<br />
+                            <b>Not Implemented</b></td>
                     </tr>
                 </tbody>
             </table>
         </td>
     </tr>
-    <tr><td>phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
-    <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
-    <tr><td>password</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>department</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>language</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>timeZone</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>alias</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>publicServiceIdentity</td><td>no</td><td>n/a</td><td>SIP URI</td></tr>
+    <tr>
+        <td>phoneNumber</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>An E.164-formatted TN</td>
+    </tr>
+    <tr>
+        <td>tnRoutine</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Phone Number add routine to apply.<br />
+        <b>Note:</b> “auto” and “no-number” values will not be implemented in initial release
+        </td>
+    </tr>
+    <tr>
+        <td>extension</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Extension</td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Password for virtual user.<br />
+            <b>Not Implemented</b></td>
+    </tr>
+    <tr>
+        <td>department</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Department<br />
+            <b>Not Implemented</b></td>
+    </tr>
+    <tr>
+        <td>language</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Language<br />
+            <b>Not Implemented</b></td>
+    </tr>
+    <tr>
+        <td>timeZone</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Timezone<br />
+            <b>Not Implemented</b></td>
+    </tr>
+    <tr>
+        <td>alias</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Virtual user aliases<br />
+            <b>Not Implemented</b></td>
+    </tr>
+    <tr>
+        <td>publicServiceIdentity</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Public user identity<br />
+            <b>Not Implemented</b></td>
+    </tr>
     </tbody>
 </table></td></tr>
-    <tr><td>firstDigitTimeoutSeconds</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>enableVideo</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>businessHours</td><td>no</td><td>n/a</td><td><table border=1>
-    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
-    <tbody>
-    <tr><td>type</td><td>yes</td><td>n/a</td><td></td></tr>
-    <tr><td>name</td><td>yes</td><td>n/a</td><td></td></tr>
-    </tbody>
-</table></td></tr>
-    <tr><td>holidaySchedule</td><td>no</td><td>n/a</td><td><table border=1>
-    <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
-    <tbody>
-    <tr><td>type</td><td>yes</td><td>n/a</td><td></td></tr>
-    <tr><td>name</td><td>yes</td><td>n/a</td><td></td></tr>
-    </tbody>
-</table></td></tr>
-    <tr><td>extensionDialingScope</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>nameDialingScope</td><td>no</td><td>n/a</td><td></td></tr>
-    <tr><td>nameDialingEntries</td><td>no</td><td>n/a</td><td></td></tr>
+    <tr>
+        <td>firstDigitTimeoutSeconds</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Time allowed for initial user input to Auto Attendant main menu.<br />
+            <b>Not Implemented</b></td>
+    </tr>
+    <tr>
+        <td>enableVideo</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>Enable video<br />
+            <b>Not Implemented</b></td>
+    </tr>
+    <tr>
+        <td>businessHours</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>
+            Container for business hours settings.<br />
+            <b>Not Implemented</b>
+            <table border=1>
+                <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+                <tbody>
+                <tr><td>type</td><td>yes</td><td>n/a</td><td>Schedule access level</td></tr>
+                <tr><td>name</td><td>yes</td><td>n/a</td><td>Schedule name</td></tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>holidaySchedule</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>
+            Container for holiday schedule settings.<br />
+            <b>Not Implemented</b>
+            <table border=1>
+                <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
+                <tbody>
+                <tr><td>type</td><td>yes</td><td>n/a</td><td>Schedule access level</td></tr>
+                <tr><td>name</td><td>yes</td><td>n/a</td><td>Schedule name</td></tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>extensionDialingScope</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>The scope of extension or name dialing.<br />
+            <b>Not Implemented</b></td>
+    </tr>
+    <tr>
+        <td>nameDialingScope</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>The name of dialing scope.<br />
+            <b>Not Implemented</b></td>
+    </tr>
+    <tr>
+        <td>nameDialingEntries</td>
+        <td>no</td>
+        <td>n/a</td>
+        <td>The format callers should use when dialing by name.<br />
+            <b>Not Implemented</b></td>
+    </tr>
     </tbody>
 </table>
 
