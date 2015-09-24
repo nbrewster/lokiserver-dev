@@ -653,8 +653,8 @@ Update a number translation. All fields are optional.
             {
                "type": "object",
                "properties": {
-                  "translatedDn": [],
-                  "extensions": []
+                  "translatedDn": {},
+                  "extensions": {}
                },
                "additionalProperties": false
             }
@@ -1033,7 +1033,7 @@ Update a subscriber. All fields are optional.
             {
                "type": "object",
                "properties": {
-                  "extensions": []
+                  "extensions": {}
                },
                "additionalProperties": false
             }
@@ -2895,7 +2895,7 @@ For the Create Customer Administrator process besides the properties listed in t
                      "type": "string",
                      "minLength": 6,
                      "maxLength": 80,
-                     "pattern": "^[w'#$%&-/=?;.|~!`^{}+]+$"
+                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                   },
                   "firstName": {
                      "type": "string",
@@ -2942,7 +2942,7 @@ For the Create Customer Administrator process besides the properties listed in t
                                  "type": "string",
                                  "minLength": 6,
                                  "maxLength": 80,
-                                 "pattern": "^[w'#$%&-/=?;.|~!`^{}+]+$"
+                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                               }
                            }
                         }
@@ -3016,7 +3016,7 @@ For the Create Customer Administrator process besides the properties listed in t
                      "type": "string",
                      "minLength": 6,
                      "maxLength": 80,
-                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}]+$"
+                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                   },
                   "firstName": {
                      "type": "string",
@@ -3057,7 +3057,7 @@ For the Create Customer Administrator process besides the properties listed in t
                                  "type": "string",
                                  "minLength": 6,
                                  "maxLength": 80,
-                                 "pattern": "^[w'#$%&-/=?;.|~!`^{}+]+$"
+                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                               }
                            },
                            "required": [
@@ -3128,7 +3128,7 @@ Rollback-enabled: No
                 "type": "string",
                 "minLength": 6,
                 "maxLength": 80,
-                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}]+$"
+                "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
             }
         },
         "required": [
@@ -3243,7 +3243,7 @@ Rollback-enabled: No.
                 "siteName": "ExampleCom",
                 "callingLineId": {
                     "name": "ExampleCom",
-                    "phoneNumber": "+12025555003"
+                    "phoneNumber": "+1-2025555003"
                 },
                 "timeZone": "US\/Eastern",
                 "locationDialingCode": "1",
@@ -3999,11 +3999,8 @@ Besides the properties listed in the table below, the response also contains the
                     },
                     "Third-Party Voice Mail Support": {
                         "isActive": true,
-                        "groupServer": "mail.example.com"
+                        "groupServer": "+1-4157770010"
                     }
-                },
-                "networkClassesOfService": {
-                    "default": "Standard"
                 },
                 "extensions": {
                     "broadworks": {
@@ -4145,7 +4142,7 @@ Besides the properties listed in the table below, the response also contains the
                                  "type": "string",
                                  "minLength": 1,
                                  "maxLength": 30,
-                                 "pattern": "^[^%+/;:\\'\"]+$"
+                                 "pattern": "^[^\\%\\+\\/;:\\\\'\"]+$"
                               },
                               "templateGroupId": {
                                  "type": "string",
@@ -4254,6 +4251,17 @@ Besides the properties listed in the table below, the response also contains the
                            }
                         }
                      }
+                  },
+                  "networkClassesOfService": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                          "default": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 40
+                          }
+                      }
                   }
                },
                "required": [
@@ -4381,7 +4389,7 @@ Extension Keys:
 * (none)
 
 ## Site Users Collection [/loki/customers/{+customerId}/sites/{+siteId}/users]
-### Retrieve Users list  [GET]
+### Retrieve Users list [GET]
 Retrieve the list of Users in Site.<br />
 In the initial implementation a User is composed of a single BroadWorks User.<br />
 Process name: Retrieve List of Users in Site (VoIP Entity)<br />
@@ -6119,7 +6127,7 @@ Retrieve the Voice Portal service settings of a Site.
                     "alias": [
                         "voiceportal@example.com"
                     ],
-                    "publicUserIdentity": "VoicePortalId"
+                    "publicUserIdentity": "+1-555123456@example.com"
                 },
                 "isActive": true,
                 "enableExtendedScope": true,
@@ -6173,7 +6181,7 @@ Retrieve the Voice Portal service settings of a Site.
                      "type": "string",
                      "minLength": 1,
                      "maxLength": 161,
-                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                   },
                   "profile": {
                      "type": "object",
@@ -6200,7 +6208,7 @@ Retrieve the Voice Portal service settings of a Site.
                                  "type": "string",
                                  "minLength": 1,
                                  "maxLength": 23,
-                                 "pattern": "^[\\d\\-]+$"
+                                 "pattern": "^[\\+\\d\\-]+$"
                               }
                            }
                         },
@@ -6208,13 +6216,13 @@ Retrieve the Voice Portal service settings of a Site.
                            "type": "string",
                            "minLength": 1,
                            "maxLength": 23,
-                           "pattern": "^[\\d\\-]+$"
+                           "pattern": "^\\+\\d+-\\d+$"
                         },
                         "extension": {
                            "type": "string",
                            "minLength": 1,
                            "maxLength": 20,
-                           "pattern": "^[\\d\\-]+$"
+                           "pattern": "^[0-9]+$"
                         },
                         "countryCode": {
                            "type": "string"
@@ -6638,20 +6646,15 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                  "minLength": 1,
                                  "maxLength": 30
                               },
-                              "phoneNumber": {
-                                 "type": "string",
-                                 "minLength": 1,
-                                 "maxLength": 23,
-                                 "pattern": "^[\\d\\-]+$"
-                              }
+                              "phoneNumber": {}
                            }
                         },
                         "phoneNumber": {
-                           "type": "string",
-                           "minLength": 1,
-                           "maxLength": 23,
-                           "pattern": "^[\\d\\-]+$"
-                        },
+                             "type": ["string", "null"],
+                             "minLength": 1,
+                             "maxLength": 23,
+                             "pattern": "^\\+\\d+-\\d+$"
+                          },
                         "tnRoutine": {
                            "enum": [
                               null,
@@ -7121,22 +7124,6 @@ Besides the properties listed in the table below, the response also contains the
                     "enabled": true,
                     "username": "4165551212",
                     "password": "4D0fj$&zJ"
-                },
-                "sacGroupName": "Primary",
-                "customTags": {
-                    "logo": "http:\/\/images.example.com\/logo.png",
-                    "ntpServer": "tick.example.com"
-                },
-                "extensions": {
-                    "broadworks": {
-                        "mobilityManager": {
-                            "provisioningURL": "http:\/\/provisioning.example.com",
-                            "provisioningUserName": "ExampleCom_1234",
-                            "provisioningPassword": "2394SfaE",
-                            "defaultOriginatingServiceKey": 42,
-                            "defaultTerminatingServiceKey": 767
-                        }
-                    }
                 }
             }
 
@@ -8807,7 +8794,6 @@ For the Trunk Group Add process besides the properties listed in the table below
                             "CLID": "+1-2405553001",
                             "email": "jsmith@example.com",
                             "userId": "2405553001@example.com",
-                            "portalPassword": "DkztwCAp",
                             "firstName": "John",
                             "lastName": "Smith",
                             "callingLineIdLastName": "Smith",
@@ -10433,7 +10419,7 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                         "mobileDevicePassword": "Fg%3fg56",
                         "mobileNetworkName": "Example"
                     },
-                    "Remote Office": []
+                    "Remote Office": {}
                 },
                 "extensions": {
                     "broadworks": {
@@ -10965,7 +10951,7 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                         "isActive": true,
                         "forwardToPhoneNumber": "+1-2005553101"
                     },
-                    "Remote Office": []
+                    "Remote Office": {}
                 },
                 "extensions": {
                     "broadworks": {
@@ -11467,7 +11453,7 @@ This section contains request and response JSON schemas for alternative process 
                         "mobileDevicePassword": "Fg%3fg56",
                         "mobileNetworkName": "Example"
                     },
-                    "Remote Office": []
+                    "Remote Office": {}
                 },
                 "extensions": {
                     "broadworks": {
@@ -11826,7 +11812,7 @@ This section contains request and response JSON schemas for alternative process 
                         "isActive": true,
                         "forwardToPhoneNumber": "+1-2005553101"
                     },
-                    "Remote Office": []
+                    "Remote Office": {}
                 },
                 "extensions": {
                     "broadworks": {
@@ -12884,20 +12870,6 @@ In addition to the standard error codes, this will return 404 Not Found if the u
                         }
                     }
                 }
-            }
-
-    + Schema
-
-            {
-               "type": "object",
-               "properties": {
-                  "extensions": {
-                     "type": "object",
-                     "properties": {
-                        "broadworks": []
-                     }
-                  }
-               }
             }
 
 + Response 204
@@ -16287,8 +16259,8 @@ For the Create Auto Attendant process besides the properties listed in the table
                 },
                 "type": "Standard",
                 "services": {
-                    "Alternate Numbers": [],
-                    "Basic Call Logs": []
+                    "Alternate Numbers": {},
+                    "Basic Call Logs": {}
                 }
             }
 
@@ -17425,7 +17397,7 @@ Rollback-enabled: No
                   "autoAttendantId": {
                      "minLength": 1,
                      "maxLength": 161,
-                     "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                   },
                   "profile": {
                      "type": "object",
@@ -17457,7 +17429,7 @@ Rollback-enabled: No
                                  "type": "string",
                                  "minLength": 1,
                                  "maxLength": 161,
-                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                               }
                            },
                            "required": [
@@ -18086,8 +18058,8 @@ For the Create Hunt Group process besides the properties listed in the table bel
                     "timeZone": " America\/New_York"
                 },
                 "services": {
-                    "Alternate Numbers": [],
-                    "Basic Call Logs": []
+                    "Alternate Numbers": {},
+                    "Basic Call Logs": {}
                 }
             }
 
@@ -18136,7 +18108,7 @@ For the Create Hunt Group process besides the properties listed in the table bel
                                  "type": "string",
                                  "minLength": 1,
                                  "maxLength": 161,
-                                 "pattern": "^\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
                               }
                            }
                         }
@@ -19168,7 +19140,7 @@ Rollback-enabled: No
                   "huntGroupId": {
                      "minLength": 1,
                      "maxLength": 161,
-                     "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                   },
                   "profile": {
                      "type": "object",
@@ -19199,7 +19171,7 @@ Rollback-enabled: No
                                  "type": "string",
                                  "minLength": 1,
                                  "maxLength": 161,
-                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                               }
                            },
                            "required": [
@@ -19980,6 +19952,7 @@ For the Create Call Center process besides the properties listed in the table be
                 "customerId": "Example Com",
                 "siteId": "Example Com - North",
                 "name": "5551239876@example.com",
+                "type": "Basic",
                 "extensions": {
                     "broadworks": {
                         "resourceId": "5551239876@example.com"
@@ -19993,8 +19966,8 @@ For the Create Call Center process besides the properties listed in the table be
                     "timeZone": " America\/New_York"
                 },
                 "services": {
-                    "Alternate Numbers": [],
-                    "Basic Call Logs": []
+                    "Alternate Numbers": {},
+                    "Basic Call Logs": {}
                 }
             }
 
@@ -20320,7 +20293,7 @@ For the Create Call Center process besides the properties listed in the table be
                     "enableVideo": false,
                     "queueLength": 0,
                     "allowCallerToDialEscapeDigit": true,
-                    "escapeDigit": 0,
+                    "escapeDigit": "0",
                     "playRingingWhenOfferingCall": true
                 },
                 "agentSettings": {
@@ -20472,7 +20445,7 @@ For the Create Call Center process besides the properties listed in the table be
                            "type": "string",
                            "minLength": 1,
                            "maxLength": 1,
-                           "pattern": "^[0-9]+$"
+                           "pattern": "^[0-9#\\*]+$"
                         }
                      }
                   },
@@ -21062,7 +21035,7 @@ Rollback-enabled: No
                            "type": "string",
                            "minLength": 1,
                            "maxLength": 1,
-                           "pattern": "^[0-9]+$"
+                           "pattern": "^[0-9#\\*]+$"
                         },
                         "resetCallStatisticsUponEntryInQueue": {
                            "type": "boolean"
@@ -21148,10 +21121,7 @@ Rollback-enabled: No
                      "minLength": 1,
                      "maxLength": 40
                   }
-               },
-               "required": [
-                  "type"
-               ]
+               }
             }
 
 + Response 200 (application/hal+json)
@@ -21207,7 +21177,7 @@ Rollback-enabled: No
                   "callCenterId": {
                      "minLength": 1,
                      "maxLength": 161,
-                     "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                   },
                   "profile": {
                      "type": "object",
@@ -21238,7 +21208,7 @@ Rollback-enabled: No
                                  "type": "string",
                                  "minLength": 1,
                                  "maxLength": 161,
-                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                               }
                            },
                            "required": [
@@ -21721,8 +21691,8 @@ For the Create Instant Group Call process besides the properties listed in the t
                     "timeZone": " America\/New_York"
                 },
                 "services": {
-                    "Alternate Numbers": [],
-                    "Basic Call Logs": []
+                    "Alternate Numbers": {},
+                    "Basic Call Logs": {}
                 }
             }
 
@@ -22645,7 +22615,7 @@ Rollback-enabled: No
                   "instantGroupCallId": {
                      "minLength": 1,
                      "maxLength": 161,
-                     "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                   },
                   "profile": {
                      "type": "object",
@@ -22676,7 +22646,7 @@ Rollback-enabled: No
                                  "type": "string",
                                  "minLength": 1,
                                  "maxLength": 161,
-                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
                               }
                            },
                            "required": [
