@@ -22675,8 +22675,14 @@ Rollback-enabled: No
 
 General
 
+ * Added GET/PUT /loki/users/{+userId}/services/Fax%20Messaging
  * Added GET /loki/customers/{+customerId}/sites/{+siteId}/users
+ * Updated POST /users/{+userId}/resetDeviceCredentials; LWS-SOAP and eFAX alternate processes added
+ * Updated PUT /loki/users/{+userId}/services/assigned-services; LWS-SOAP and eFAX alternate processes added
+ * Updated POST /loki/users/{+userId}/reInvite; `email` body parameter added
+ * Updated PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}; fixed request parameters description
  * JSON schemas are formatted to [draft-v4 version](http://tools.ietf.org/html/draft-zyp-json-schema-04)
+
 
 #2.42
 
