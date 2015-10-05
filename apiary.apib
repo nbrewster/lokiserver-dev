@@ -3301,7 +3301,7 @@ Rollback-enabled: No.
                      "minLength": 1
                   },
                   "siteName": {
-                     "type": "string",
+                     "type": ["string", "null"],
                      "minLength": 1,
                      "maxLength": 80
                   },
@@ -3310,13 +3310,13 @@ Rollback-enabled: No.
                      "additionalProperties": false,
                      "properties": {
                         "name": {
-                           "type": "string",
+                           "type": ["string", "null"],
                            "minLength": 1,
                            "maxLength": 80
                         },
                         "phoneNumber": {
                            "id": "E.164 DN",
-                           "type": "string",
+                           "type": ["string", "null"],
                            "description": "A formatted TN.",
                            "pattern": "^\\+\\d+-\\d+$",
                            "minLength": 1,
@@ -3336,9 +3336,7 @@ Rollback-enabled: No.
                      "maximum": 999999
                   },
                   "userCount": {
-                     "type": "integer",
-                     "minimum": 1,
-                     "maximum": 999999
+                     "type": "integer"
                   },
                   "timeZone": {
                      "type": "string",
@@ -3346,13 +3344,13 @@ Rollback-enabled: No.
                      "maxLength": 127
                   },
                   "locationDialingCode": {
-                     "type": "string",
+                     "type": ["string", "null"],
                      "minLength": 1,
                      "maxLength": 15,
                      "pattern": "^[0-9]+$"
                   },
                   "contact": {
-                     "type": "object",
+                     "type": ["object", "null"],
                      "additionalProperties": false,
                      "properties": {
                         "name": {
@@ -3374,7 +3372,7 @@ Rollback-enabled: No.
                      }
                   },
                   "address": {
-                     "type": "object",
+                     "type": ["object", "null"],
                      "additionalProperties": false,
                      "properties": {
                         "addressLine1": {
@@ -7762,7 +7760,7 @@ For the Trunk Group Add process besides the properties listed in the table below
                     "callingLineAssertedIdentityPolicy": "Unscreened Originating Calls"
                 },
                 "pilotUser": {
-                    "userId": "2405553001@example.com",
+                    "name": "2405553001@example.com",
                     "phoneNumber": "+1-2405553001",
                     "tnRoutine": "auto",
                     "CLID": "+1-2405553001",
@@ -7882,7 +7880,7 @@ For the Trunk Group Add process besides the properties listed in the table below
                            "minLength": 1,
                            "maxLength": 30
                         },
-                        "userId": {
+                        "name": {
                            "type": "string",
                            "minLength": 1,
                            "maxLength": 161,
@@ -9035,6 +9033,24 @@ For the Trunk Group Add process besides the properties listed in the table below
                                           }
                                        }
                                     }
+                                 },
+                                 "portalPassword": {
+                                    "type": "string"
+                                 },
+                                 "extensions": {
+                                   "type": "object",
+                                   "additionalProperties": false,
+                                   "properties": {
+                                      "broadworks": {
+                                         "type": "object",
+                                         "additionalProperties": false,
+                                         "properties": {
+                                            "resourceId": {
+                                               "type": "string"
+                                            }
+                                         }
+                                      }
+                                   }
                                  },
                                  "services": {
                                     "type": "object",
@@ -10546,10 +10562,7 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                         "model": {},
                         "macAddress": {},
                         "linePort": {}
-                     },
-                     "required": [
-                        "name"
-                     ]
+                     }
                   },
                   "trunkGroup": {
                      "type": "object",
@@ -13337,10 +13350,7 @@ For the "Swap User Device via LWS SOAP (VoIP Entity)" besides the properties lis
                         "keepDevice": {
                            "type": "boolean"
                         }
-                     },
-                     "required": [
-                        "name"
-                     ]
+                     }
                   }
                }
             }
@@ -17397,8 +17407,7 @@ Rollback-enabled: No
                   },
                   "autoAttendantId": {
                      "minLength": 1,
-                     "maxLength": 161,
-                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
+                     "maxLength": 161
                   },
                   "profile": {
                      "type": "object",
@@ -19140,8 +19149,7 @@ Rollback-enabled: No
                   },
                   "huntGroupId": {
                      "minLength": 1,
-                     "maxLength": 161,
-                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
+                     "maxLength": 161
                   },
                   "profile": {
                      "type": "object",
@@ -20447,6 +20455,9 @@ For the Create Call Center process besides the properties listed in the table be
                            "minLength": 1,
                            "maxLength": 1,
                            "pattern": "^[0-9#\\*]+$"
+                        },
+                        "resetCallStatisticsUponEntryInQueue": {
+                           "type": "boolean"
                         }
                      }
                   },
@@ -20458,6 +20469,15 @@ For the Create Call Center process besides the properties listed in the table be
                            "type": "boolean"
                         },
                         "allowCallWaitingForAgents": {
+                           "type": "boolean"
+                        },
+                        "allowCallsToAgentsInWrapUp": {
+                           "type": "boolean"
+                        },
+                        "overrideAgentWrapUpTime": {
+                           "type": "boolean"
+                        },
+                        "forceDeliveryOfCalls": {
                            "type": "boolean"
                         }
                      }
@@ -20745,7 +20765,7 @@ Rollback-enabled: No
                 "minLength": 1,
                 "maxLength": 30
             },
-            "autoAttendantId": {
+            "callCenterId": {
                 "minLength": 1,
                 "maxLength": 161,
                 "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
@@ -20754,7 +20774,7 @@ Rollback-enabled: No
         "required": [
             "customerId",
             "siteId",
-            "autoAttendantId"
+            "callCenterId"
         ]
     }
 
@@ -21177,8 +21197,7 @@ Rollback-enabled: No
                   },
                   "callCenterId": {
                      "minLength": 1,
-                     "maxLength": 161,
-                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
+                     "maxLength": 161
                   },
                   "profile": {
                      "type": "object",
@@ -22615,8 +22634,7 @@ Rollback-enabled: No
                   },
                   "instantGroupCallId": {
                      "minLength": 1,
-                     "maxLength": 161,
-                     "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
+                     "maxLength": 161
                   },
                   "profile": {
                      "type": "object",
