@@ -3318,7 +3318,7 @@ Rollback-enabled: No.
                            "id": "E.164 DN",
                            "type": ["string", "null"],
                            "description": "A formatted TN.",
-                           "pattern": "^\\+\\d+-\\d+$",
+                           "pattern": "^\\+\\d+-?\\d+$",
                            "minLength": 1,
                            "maxLength": 23
                         }
@@ -11102,6 +11102,13 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                                  "maxLength": 23,
                                  "pattern": "^\\+\\d+-\\d+$"
                               },
+                              "tnRoutine": {
+                                 "enum": [
+                                    "",
+                                    "port-no-temp",
+                                    "auto"
+                                 ]
+                              },
                               "useChargeNumberForEnhancedTranslations": {
                                  "type": "boolean"
                               },
@@ -11338,8 +11345,6 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                },
                "required": [
                   "_links",
-                  "customerId",
-                  "siteId",
                   "userId"
                ]
             }
@@ -17438,8 +17443,7 @@ Rollback-enabled: No
                               "resourceId": {
                                  "type": "string",
                                  "minLength": 1,
-                                 "maxLength": 161,
-                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
+                                 "maxLength": 161
                               }
                            },
                            "required": [
@@ -18468,8 +18472,7 @@ For the Create Hunt Group process besides the properties listed in the table bel
                               "resourceId": {
                                  "type": "string",
                                  "minLength": 1,
-                                 "maxLength": 161,
-                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+                                 "maxLength": 161
                               }
                            },
                            "required": [
@@ -19179,8 +19182,7 @@ Rollback-enabled: No
                               "resourceId": {
                                  "type": "string",
                                  "minLength": 1,
-                                 "maxLength": 161,
-                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
+                                 "maxLength": 161
                               }
                            },
                            "required": [
@@ -22664,8 +22666,7 @@ Rollback-enabled: No
                               "resourceId": {
                                  "type": "string",
                                  "minLength": 1,
-                                 "maxLength": 161,
-                                 "pattern": "^[\\w'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]+$"
+                                 "maxLength": 161
                               }
                            },
                            "required": [
