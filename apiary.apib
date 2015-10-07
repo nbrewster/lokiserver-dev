@@ -12280,6 +12280,38 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             </td>
         </tr>
         <tr>
+            <td>nameDialingName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                <b>Not Implemented</b><br>
+                Container for name dialing information.<br />
+                Details of the nameDialingName properties:
+                <table border=1>
+                    <thead>
+                    <th>Property</th>
+                    <th>Required?</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>lastName</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Last name for the user's enhanced name dialing feature.<br><b>Not Implemented</b></td>
+                        </tr>
+                        <tr>
+                            <td>firstName</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>First name for the user's enhanced name dialing feature.<br><b>Not Implemented</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
             <td>address</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
@@ -12294,6 +12326,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                     <th>Description</th>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>location</td>
+                            <td style="text-align: center; font-weight:bold">no</td>
+                            <td>n/a</td>
+                            <td>Location.<br><b>Not Implemented</b></td>
+                        </tr>
                         <tr>
                             <td>addressLine1</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -12333,6 +12371,60 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                     </tbody>
                 </table>
             </td>
+        </tr>
+        <tr>
+            <td>defaultAlias</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Default Alias.<br><b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>alias</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Array of aliases, up to 3 aliases.<br><b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>pagerPhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Pager Phone Number (informational).<br><b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>mobilePhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Mobile Phone Number (informational).<br><b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>yahooId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Yahoo ID.<br><b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>networkClassOfService</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Network class of service.<br><b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>officeZoneName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Office zone for location-based restrictions service. Only valid when "Location-Based Calling Restrictions" service is assigned.<br><b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>primaryZoneName</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Primary zone for location-based restriction service. Only valid when "Location-Based Calling Restrictions" service is assigned.<br><b>Not Implemented</b></td>
+        </tr>
+        <tr>
+            <td>impId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>IM&P ID. Only valid when "Third-Party IM&P" service is assigned.<br><b>Not Implemented</b></td>
         </tr>
     </tbody>
 </table>
