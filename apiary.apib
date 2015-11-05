@@ -10136,6 +10136,30 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             as described in the "name" property description.</b>
             </td>
         </tr>
+        <tr>
+            <td>smsPhoneNumber</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td></td>
+            <td>User sms phone number.<br />
+            <b>Note:</b> The new SMS TN property has no meaning in BroadWorks, 
+            it is separate from the BroadWorks Mobility phone number and also separate 
+            from the mobile phone number on the user profile in BroadWorks. 
+            However there is no restriction that it must be different from these phone numbers.<br />
+            The following table describes the differences in validation between the two ways of adding a User in LWS-REST:
+            <table border=1>
+                <thead>
+                    <th>Default/Legacy</th>
+                    <th>Alternative</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Not Supported</td>
+                    <td>Supported</td>
+                </tr>
+                <tbody>
+            </table>
+            </td>
+        </tr>
     </tbody>
 </table>
 
@@ -11426,6 +11450,7 @@ This section contains request and response JSON schemas for alternative process 
                 "accessDevice": {
                     "name": "exampleComIad001"
                 },
+                "smsPhoneNumber": "+1-2345679789",
                 "servicePacks": {
                     "base": "Standard",
                     "add-on": [
@@ -11510,6 +11535,11 @@ This section contains request and response JSON schemas for alternative process 
                      "minLength": 1,
                      "maxLength": 23,
                      "pattern": "^\\+\\d+-\\d+$"
+                  },
+                  "smsPhoneNumber": {
+                     "type": "string",
+                     "minLength": 1,
+                     "maxLength": 30
                   },
                   "tnRoutine": {
                      "enum": [
