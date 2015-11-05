@@ -14958,6 +14958,7 @@ If the user already has a mobile identity, this request will delete their primar
 with a new one for the phone number from the inputs, rather than adding an additional mobile identity to the user.
 The Phone Number is automatically added (by LWS-SOAP) to the Enterprise and/or Group MSDN Pool, if needed,
 before creating the mobile identity.<br />
+Note: This request also enables / disables the BroadWorks Mobility Service for the user according to the "isActive" property from config section: broadworks/userServices/service[name=“BroadWorks Mobility”]/settings.<br />
 Process name: Create BroadWorks Mobility Mobile Identity via LWS-SOAP (VoIP Entity)<br />
 Rollback-enabled: No
 
