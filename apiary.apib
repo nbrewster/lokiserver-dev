@@ -17590,6 +17590,327 @@ Rollback-enabled: No
                ]
             }
 
+## Auto Attendant's Alternate Numbers Service Settings [/api/customers/{+customerId}/sites{+siteId}/auto-attendants/{+autoAttendantId}/services/Alternate%20Numbers]
+### Modify Alternate Numbers Service Settings [PUT]
+Update a BroadWorks Auto Attendant's Alternate Numbers service settings.<br />
+
+<table border=1>
+    <thead>
+    <th>Process Name</th>
+    <th>Process Type</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Modify Auto Attendant Alternate Numbers(VoIP Entity)</td>
+            <td>Base process</td>
+            <td>This process is used when the alternate processes are not enabled. In the initial implementation the process will always return a 501 Not Implemented response.</td>
+        </tr>
+        <tr>
+            <td>Modify Auto Attendant Alternate Numbers via LWS-SOAP (VoIP Entity)</td>
+            <td>Alternate Process</td>
+            <td>This process is enabled by default when the alternate processes are enabled. In current implementation Auto Attendant's Alternate Numbers service Ssttings are updated using LWS-SOAP ServiceUserAlternateNumbersModifyRequest API call.</td>
+        </tr>
+    </tbody>
+</table>
+
+### URI Template Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Customer.</td>
+        </tr>
+        <tr>
+            <td>siteId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Site.</td>
+        </tr>
+        <tr>
+            <td>autoAttendantId</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Loki Server ID (server-generated) of the Auto Attendant to be updated.</td>
+        </tr>
+    </tbody>
+</table>
+
+### JSON Schema for URI Template Parameters
+
+    {
+        "title": "request URI template parameters schema",
+        "properties": {
+            "customerId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30
+            },
+            "siteId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30
+            },
+            "autoAttendantId": {
+                "minLength": 1,
+                "maxLength": 161,
+                "pattern": "^[\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}][\\w\\'#\\$\\%&\\-\\/=\\?;\\.\\|~\\!`\\^\\{\\}\\+]{5,79}@[a-zA-Z\\d\\.\\-]{2,80}$"
+            }
+        },
+        "required": [
+            "customerId",
+            "siteId",
+            "autoAttendantId"
+        ]
+    }
+
+### Request Properties
+Note: See the JSON Schema for data types, format, length restrictions, etc.
+
+<table border=1>
+    <thead>
+    <th>Property</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>distinctiveRing</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td></td>
+            <td>Distinctive ring setting.</td>
+        </tr>
+        <tr>
+            <td>alternateNumbers</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td></td>
+            <td>Container for alternate numbers information. Alternate numbers is an array of entries. Details of the alternate number entry properties:
+                <table border=1>
+                    <thead>
+                        <th>Property</th>
+                        <th>Required?</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>yes</td>
+                            <td></td>
+                            <td>Alternate Number ID - number of Alt. Num entry in the list.
+                                <br/>Allowed values: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].
+                                <br/><b>Note:</b> The IDs must be provided in ascending order in the request, providing
+                                the IDs in a random order will cause the request to fail.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>tnRoutine</td>
+                            <td>no</td>
+                            <td></td>
+                            <td>
+                                TN management routine for provided phone number.<br />
+                                <b>Note: at this time only ""(empty string) is allowed.</b><br/>
+                                Supported values and impact on other required properties:
+                                <table border=1>
+                                <thead>
+                                    <th>tnRoutine</th>
+                                    <th>Description</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>port-no-temp</b></td>
+                                        <td>
+                                            TN does not exist in the system; will attempt to assign at both the Customer and Site levels.<br/>
+                                            <b>Not Implemented</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>auto</b></td>
+                                        <td>TN may or may not already exist in the system; will be assigned automatically to either/both as needed.<br />
+                                        <b>Not Implemented</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>""</b>(empty string)</td>
+                                        <td>TN must already be available for use; no assignment will be performed.</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                Omitted tnRoutine parameter is same as ""(empty string) tnRoutine value.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>phoneNumber</td>
+                            <td>no</td>
+                            <td></td>
+                            <td>
+                                Alternate phone number.<br/>
+                                Must be E.164 formatted, e.g. +1-2005553001 (the dash is required, after the country code).<br/>
+                                Accepts also null value. Submitting null will erase phone number in the alternate number entry specified with "id".
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>extension</td>
+                            <td>no</td>
+                            <td></td>
+                            <td>
+                                Alternate extension.<br/>
+                                Accepts also null value. Submitting null will erase extension in the alternate number entry specified with "id".
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>rignPattern</td>
+                            <td>no</td>
+                            <td></td>
+                            <td>
+                                Ring pattern.<br/>Allowed values: [ null, "Normal", "Long-Long", "Short-Short-Long", "Short-Long-Short" ]. Null is equal to "Normal".<br/>
+                                <b>Note:</b> Ring pattern does not have meaning when phone number and extension are both empty, and will be ignored in this case.
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>description</td>
+                            <td>no</td>
+                            <td></td>
+                            <td>
+                                Alternate number entity description.<br/>
+                                <b>Not Implemented</b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
++ Request (application/json)
+    + Body
+
+            {
+                "distinctiveRing": false,
+                "alternateNumbers": [
+                    {
+                        "id": 1,
+                        "tnRoutine": "",
+                        "phoneNumber": "+1-4125553000",
+                        "extension": "3000",
+                        "ringPattern": "Long-Long"
+                    },
+                    {
+                        "id": 5,
+                        "extension": "3005",
+                        "ringPattern": "Long-Long"
+                    }
+                ]
+            }
+
+    + Schema
+
+            {
+               "title": "User Alternate Numbers Modify request body parameters schema",
+               "type": "object",
+               "additionalProperties": false,
+               "properties": {
+                  "distinctiveRing": {
+                     "type": "boolean"
+                  },
+                  "alternateNumbers": {
+                     "type": "array",
+                     "maxItems": 10,
+                     "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                           "id": {
+                              "type": "integer",
+                              "min": 1,
+                              "max": 10
+                           },
+                           "tnRoutine": {
+                              "enum": [
+                                 "",
+                                 "port-no-temp",
+                                 "auto"
+                              ]
+                           },
+                           "phoneNumber": {
+                              "type": [
+                                 "string",
+                                 "null"
+                              ],
+                              "minLength": 1,
+                              "maxLength": 23,
+                              "pattern": "^\\+\\d+-\\d+$"
+                           },
+                           "extension": {
+                              "type": [
+                                 "string",
+                                 "null"
+                              ],
+                              "minLength": 2,
+                              "maxLength": 20,
+                              "pattern": "^[0-9]+$"
+                           },
+                           "ringPattern": {
+                              "enum": [
+                                 null,
+                                 "Normal",
+                                 "Long-Long",
+                                 "Short-Short-Long",
+                                 "Short-Long-Short"
+                              ]
+                           }
+                        },
+                        "required": [
+                           "id"
+                        ]
+                     }
+                  }
+               }
+            }
+
++ Response 200
+    + Headers
+
+            Transaction-Id: 1380080943120
+    
+    + Body
+
+            {
+                "_links": {
+                    "self": {
+                        "href": "http://ucserver.example.net/api/customers/Example%20Com/sites/Example%20Site/auto-attendants/4151002300/services/Alternate%20Numbers"
+                    }
+                },
+                "customerId": "Example Com",
+                "siteId": "Example Site",
+                "autoAttendantId": "4151002300"
+            }
+
+
++ Response 424 (application/json)
+    + Headers
+
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+                "errorCode": "EXTERNAL_API_ERROR",
+                "externalErrorCode": "4410",
+                "externalErrorSummary": "Alternate Numbers error",
+                "externalErrorDetail": "[Error 4410] Service is not assigned to this subscriber: Alternate Numbers"
+            }
+
+
 <!-- -------------------------- VoIP Site Hunt Group ------------------------ -->
 
 # Group VoIP Site Hunt Group
