@@ -20043,6 +20043,39 @@ Besides the properties listed in the table below, the response also contains the
                 "huntGroupId": "4151002300"
             }
 
+    + Schema
+    
+            {
+                "title": "Hunt Group’s Alternate Number settings modify response body parameters",
+                "required": ["_links", "customerId", "siteId", "huntGroupId"],
+                "properties": {
+                    "_links": {
+                        "required": ["self"]
+                    },
+                    "customerId": {
+                        "title": "Customer ID",
+                        "description": "Uniquely identifies a service provider. NOTE: The service provider id has a maximum length of 30 bytes, not 30 characters.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "siteId": {
+                        "title": "Site ID",
+                        "description": "Site Id identifies a group within a customer.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "huntGroupId": {
+                        "title": "User ID",
+                        "description": "A user id consists of a user-portion optionally followed by an @ sign and a domain name. If the domain is not specified, it is assumed to be the system default domain. The domain is required when adding normal users and virtual users, i.e. Auto Attendants, Hunt Groups, Call Centers.... The domain must not be specified for system-level and service-provider-level administrators.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
+                }
+            }
+
 
 + Response 424 (application/json)
     + Headers
@@ -22438,6 +22471,38 @@ Besides the properties listed in the table below, the response also contains the
                 "callCenterId": "4151002300"
             }
 
+    + Schema
+    
+            {
+                "title": "Call Center’s Alternate Number settings modify response body parameters",
+                "required": ["_links", "customerId", "siteId", "callCenterId"],
+                "properties": {
+                    "_links": {
+                        "required": ["self"]
+                    },
+                    "customerId": {
+                        "title": "Customer ID",
+                        "description": "Uniquely identifies a service provider. NOTE: The service provider id has a maximum length of 30 bytes, not 30 characters.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "siteId": {
+                        "title": "Site ID",
+                        "description": "Site Id identifies a group within a customer.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "callCenterId": {
+                        "title": "User ID",
+                        "description": "A user id consists of a user-portion optionally followed by an @ sign and a domain name. If the domain is not specified, it is assumed to be the system default domain. The domain is required when adding normal users and virtual users, i.e. Auto Attendants, Hunt Groups, Call Centers.... The domain must not be specified for system-level and service-provider-level administrators.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
+                }
+            }
 
 + Response 424 (application/json)
     + Headers
@@ -24220,6 +24285,39 @@ Besides the properties listed in the table below, the response also contains the
                 "customerId": "Example Com",
                 "siteId": "Example Site",
                 "instantGroupCallId": "4151002300"
+            }
+            
+    + Schema
+    
+            {
+                "title": "Instant Group Call’s Alternate Number settings modify response body parameters",
+                "required": ["_links", "customerId", "siteId", "instantGroupCallId"],
+                "properties": {
+                    "_links": {
+                        "required": ["self"]
+                    },
+                    "customerId": {
+                        "title": "Customer ID",
+                        "description": "Uniquely identifies a service provider. NOTE: The service provider id has a maximum length of 30 bytes, not 30 characters.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "siteId": {
+                        "title": "Site ID",
+                        "description": "Site Id identifies a group within a customer.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "instantGroupCallId": {
+                        "title": "User ID",
+                        "description": "A user id consists of a user-portion optionally followed by an @ sign and a domain name. If the domain is not specified, it is assumed to be the system default domain. The domain is required when adding normal users and virtual users, i.e. Auto Attendants, Hunt Groups, Call Centers.... The domain must not be specified for system-level and service-provider-level administrators.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
+                }
             }
 
 
