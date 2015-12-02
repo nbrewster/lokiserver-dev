@@ -17791,6 +17791,33 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
     </tbody>
 </table>
 
+### Response Properties - 200 OK
+Besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.<br />
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Mandatory</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td>Customer Id.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>siteId</td>
+            <td>Site Id.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>autoAttendantId</td>
+            <td>Auto Attendant Id.</td>
+            <td>Yes</td>
+       </tr>
+    </tbody>
+</table>
+
 + Request (application/json)
     + Body
 
@@ -17894,6 +17921,40 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 "siteId": "Example Site",
                 "autoAttendantId": "4151002300"
             }
+            
+    + Schema
+    
+            {
+                "title": "Auto Attendant’s Alternate Number settings modify response body parameters",
+                "required": ["_links", "customerId", "siteId", "autoAttendantId"],
+                "properties": {
+                    "_links": {
+                        "required": ["self"]
+                    },
+                    "customerId": {
+                        "title": "Customer ID",
+                        "description": "Uniquely identifies a service provider. NOTE: The service provider id has a maximum length of 30 bytes, not 30 characters.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "siteId": {
+                        "title": "Site ID",
+                        "description": "Site Id identifies a group within a customer.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 30
+                    },
+                    "autoAttendantId": {
+                        "title": "User ID",
+                        "description": "A user id consists of a user-portion optionally followed by an @ sign and a domain name. If the domain is not specified, it is assumed to be the system default domain. The domain is required when adding normal users and virtual users, i.e. Auto Attendants, Hunt Groups, Call Centers.... The domain must not be specified for system-level and service-provider-level administrators.",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 161
+                    }
+                }
+            }
+
 
 
 + Response 424 (application/json)
@@ -19848,6 +19909,33 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 </table>
             </td>
         </tr>
+    </tbody>
+</table>
+
+### Response Properties - 200 OK
+Besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.<br />
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Mandatory</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td>Customer Id.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>siteId</td>
+            <td>Site Id.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>huntGroupId</td>
+            <td>Hunt Group Id.</td>
+            <td>Yes</td>
+       </tr>
     </tbody>
 </table>
 
@@ -22219,6 +22307,33 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
     </tbody>
 </table>
 
+### Response Properties - 200 OK
+Besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.<br />
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Mandatory</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td>Customer Id.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>siteId</td>
+            <td>Site Id.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>callCenterId</td>
+            <td>Call Center Id.</td>
+            <td>Yes</td>
+       </tr>
+    </tbody>
+</table>
+
 + Request (application/json)
     + Body
 
@@ -23973,6 +24088,33 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 </table>
             </td>
         </tr>
+    </tbody>
+</table>
+
+### Response Properties - 200 OK
+Besides the properties listed in the table below, the response also contains the normal HAL `_links` properties.<br />
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Mandatory</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>customerId</td>
+            <td>Customer Id.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>siteId</td>
+            <td>Site Id.</td>
+            <td>Yes</td>
+       </tr>
+       <tr>
+            <td>instantGroupCallId</td>
+            <td>Instant Group Call Id.</td>
+            <td>Yes</td>
+       </tr>
     </tbody>
 </table>
 
