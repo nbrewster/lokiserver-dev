@@ -14,6 +14,10 @@ these will be references to the LWS-REST API host.**
 
 **Note: Curies will be added in the responses in a future release.**
 
+**Note: The property name in request/response is not enough to figure out the type. The JSON Schema needs to be checked for each property.**
+
+**Note: For properties that are phone numbers, be aware that they’re not always the same. They might be formatted E.164 TNs, they might be free-form strings, they might be either TN or SIP URI, etc. Check the JSON Schema to figure out the correct type.**
+
 ## Single vs Multi cluster BroadWorks behaviour
 If LWS-REST is configured in single cluster mode and you try to access a resource that does not exist you will receive a 404 Not Found response with the body in the following format:
 <pre>{
