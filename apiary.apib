@@ -538,6 +538,15 @@ representation.]
     </tbody>
 </table>
 
++ Parameters
+    + sourceDn: `sourceDnExample` (string, required)
+    + attributes: `attributesExample` (string, required)
+    + callProcessingElement1Id: `callProcessingElement1Example` (string, required)
+    + callProcessingElement2Id: `callProcessingElement2Example` (string, required)
+    + callProcessingElement3Id: `callProcessingElement3Example` (string, required)
+    + callProcessingElementType: `callProcessingElementTypeExample` (string, required)
+
+
 + Response 200 (application/hal+json)
     + Headers
 
@@ -621,7 +630,11 @@ representation.]
                 "detail": "Request validation failed: params.sourceDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-## Number Translation [/loki/number-translations/{+id}]
+## Number Translation [/loki/number-translations/{id}]
+
++ Parameters
+    + id: `idExample` (string, required)
+
 ### Update a Number Translation [PUT]
 Update a number translation. All fields are optional.
 
@@ -887,6 +900,10 @@ Query Subscribers. Responses will include (at a minimum) they fields comprising 
     </tbody>
 </table>
 
++ Parameters
+    + subscriberDn: `subscriberDnExample` (string, required)
+    + owningCarrierId: `owningCarrierExample` (string, required)
+
 + Response 200 (application/hal+json)
     + Headers
 
@@ -983,7 +1000,11 @@ Query Subscribers. Responses will include (at a minimum) they fields comprising 
                 "detail": "Request validation failed: params.subscriberDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-## Subscriber [/loki/subscribers/{+id}]
+## Subscriber [/loki/subscribers/{id}]
+
++ Parameters
+    + id: `idExample` (string, required)
+
 ### Update a Subscriber [PUT]
 Update a subscriber. All fields are optional.
 
@@ -1223,6 +1244,9 @@ Query Destinations. Responses will include (at a minimum) they fields comprising
     </tbody>
 </table>
 
++ Parameters
+    + destinationDn: `+1555444332` (string, required)
+
 + Response 200 (application/hal+json)
     + Headers
 
@@ -1300,7 +1324,11 @@ Query Destinations. Responses will include (at a minimum) they fields comprising
                 "detail": "Request validation failed: params.destinationDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-## Destination [/loki/destinations/{+id}]
+## Destination [/loki/destinations/{id}]
+
++ Parameters
+    + id: `idExample` (string, required)
+
 ### Update a Destination [PUT]
 Update a destination. All fields are optional.
 
@@ -1678,7 +1706,11 @@ parameters in the request:
                 "detail": "Request validation failed: params.destinationDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-## Route [/loki/routes/{+id}]
+## Route [/loki/routes/{id}]
+
++ Parameters
+    + id: (string, required)
+
 ### Update a Route [PUT]
 Update a route. All fields are optional.
 
@@ -1734,6 +1766,12 @@ Extension Keys:
 
 
 ## Customers Collection [/loki/customers{?mode}]
+
++ Parameters
+    + mode: `create-only` (string, required)
+         + Members
+            + `create-only`
+
 
 <!-- ----------------------- POST /customers{?mode} ------------------ -->
 ### Create a Customer [POST]
@@ -2093,7 +2131,10 @@ In multi-cluster BroadWorks configuration, entity will be added on the default c
                ]
             }
 
-## Customer [/loki/customers/{+customerId}]
+## Customer [/loki/customers/{customerId}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
 
 <!-- ------------ GET /customers/{+customerId} ------------------ -->
 ### Retrieve a Customer [GET]
@@ -2379,7 +2420,6 @@ Process Name: Modify Customer (VoIP Entity)
     <tr><td>useServiceProviderLanguages</td><td>no</td><td>n/a</td><td></td></tr>
     <tr><td>networkClassesOfService</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b> Container for Network Classes of Service specific properties</td></tr>
     <tr><td>networkClassesOfService.default</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b> Group's default Network Class of Service</td></tr>
-
     </tbody>
 </table>
 
@@ -2559,7 +2599,17 @@ Extension Keys:
 
 * (none)
 
-## Customer Administrators Collection [/loki/customers/{+customerId}/administrators{?mode}]
+## Customer Administrators Collection [/loki/customers/{customerId}/administrators{?mode}]
+
++ Parameters
+    + customerId: `customerExample` (required, string)
+    + mode: `create-only` (required, enum[string])
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
+
 ### Create an Administrator [POST]
 Create a new Administrator in the specified VoIP Customer.<br />
 In the initial implementation a Customer Administrator is composed of a single BroadWorks Service Provider/Enterprise Administrator.<br />
@@ -2643,10 +2693,10 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
 <table border=1>
     <thead>
-    <th>Property</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
+        <th>Property</th>
+        <th>Required?</th>
+        <th>Default</th>
+        <th>Description</th>
     </thead>
     <tbody>
         <tr>
@@ -2708,16 +2758,18 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
             <td>
-                Container for BroadWorks-specific properties.</td></tr>
-                        <tr>
-                            <td>extensions.broadworks.resourceId</td>
-                            <td style="text-align: center; font-weight:bold">no</td>
-                            <td>n/a</td>
-                            <td>The BroadWorks ID to be set on the new Administrator.<br />
-                            <b>Note: If provided it overrides the value generated from the "name" property.</b>
-                            </td>
-                        </tr>
-                    
+                Container for BroadWorks-specific properties.
+            </td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks.resourceId</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>
+                The BroadWorks ID to be set on the new Administrator.<br />
+                <b>Note: If provided it overrides the value generated from the "name" aaa property.</b>
+            </td>
+        </tr>
     </tbody>
 </table>
 
@@ -2776,14 +2828,12 @@ For the Create Customer Administrator process besides the properties listed in t
         <tr>
             <td>extensions.broadworks</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>
-                Container for BroadWorks-specific properties.</td></tr>
+            <td>Container for BroadWorks-specific properties.</td></tr>
                         <tr>
                             <td>extensions.broadworks.resourceId</td>
                             <td style="text-align: center; font-weight:bold">yes</td>
                             <td>The BroadWorks ID set on the new Administrator.</td>
                         </tr>
-                    
     </tbody>
 </table>
 
@@ -3002,7 +3052,12 @@ For the Create Customer Administrator process besides the properties listed in t
                ]
             }
 
-## Customer Administrator [/loki/customers/{+customerId}/administrators/{+customerAdministratorId}]
+## Customer Administrator [/loki/customers/{customerId}/administrators/{customerAdministratorId}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + customerAdministratorId: `customerAdministratorExample` (string, required)
+
 ### Delete an Administrator [DELETE]
 Delete a Customer Administrator.<br />
 Process name: Delete Customer Administrator via LWS SOAP(VoIP Entity)<br />
@@ -3093,7 +3148,12 @@ Extension Keys:
 
 * (none)
 
-## Site [/loki/customers/{+customerId}/sites/{+siteId}]
+## Site [/loki/customers/{customerId}/sites/{siteId}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+	+ siteId: `siteExample` (string, required)
+
 ### Retrieve a Site [GET]
 Retrieve a Site.<br />
 Process name: Retrieve Site (VoIP Entity Service).<br />
@@ -3357,7 +3417,16 @@ Rollback-enabled: No.
             }
 
 
-## Sites Collection [/loki/customers/{+customerId}/sites{?mode}]
+## Sites Collection [/loki/customers/{customerId}/sites{?mode}]
+
++ Parameters
+     + customerId: `customerExample` (string, required)
+     + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Create a Site [POST]
 Create a new Site.<br />
 Process name: Create Site (VoIP Entity)<br />
@@ -3491,7 +3560,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>n/a</td>
                             <td>Calling Line ID Group Phone Number (TN) assignment routine.<br />
                                 Supported values and impact on other required properties:
-        
                             <ul>
                                 <li><b>port-no-temp</b> - TN does not exist in the system; will attempt to assign at both the Customer and Site levels</li>
                                 <li><b>auto</b>- TN may or may not already exist in the system; will be assigned automatically to either/both as needed.</li>
@@ -3500,7 +3568,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             </ul>
                             </td>
                         </tr>
-                   
             </td>
         </tr>
          <tr>
@@ -3527,7 +3594,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
     <tr><td>address.stateOrProvince</td><td>no</td><td>n/a</td><td>State or Province</td></tr>
     <tr><td>address.zipOrPostalCode</td><td>no</td><td>n/a</td><td>Zip or Postal Code</td></tr>
     <tr><td>address.country</td><td>no</td><td>n/a</td><td>Country</td></tr>
-            
         </tr>
         <tr>
             <td>extensions</td>
@@ -3557,7 +3623,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <b>Note:</b> Documentation of how group templating works in LWS-REST is found in the Loki Provisioning Administrator's Guide.
                             </td>
                         </tr>
-
             </td>
         </tr>
         <tr>
@@ -3653,7 +3718,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <td>n/a</td>
                 <td>Third-Party Voice Mail Server.</td>
             </tr>
- 
         <tr>
             <td>networkClassesOfService</td>
             <td style="text-align: center;">no</td>
@@ -4140,7 +4204,12 @@ Extension Keys:
 
 * (none)
 
-## Site Users Collection [/loki/customers/{+customerId}/sites/{+siteId}/users]
+## Site Users Collection [/loki/customers/{customerId}/sites/{siteId}/users]
+
++ Parameters
+     + customerId: `customerExample` (string, required)
+     + siteId: `siteExample` (string, required)
+
 ### Retrieve Users list [GET]
 Retrieve the list of Users in Site.<br />
 In the initial implementation a User is composed of a single BroadWorks User.<br />
@@ -4232,7 +4301,6 @@ For the Retrieve list of Users in Site request besides the properties listed in 
                 <b>Note</b>: If no Users are found in the Site the array will be empty.<br />
                 The following rows describe the properties of an element in the list (array).<br />
                 Besides the properties listed in the table below, an item also contains the normal HAL `_links` properties.</td></tr>
-                
                         <tr>
                             <td>_embedded.ls:users.userId</td>
                             <td style="text-align: center; font-weight:bold">yes</td>
@@ -4290,10 +4358,8 @@ For the Retrieve list of Users in Site request besides the properties listed in 
                                             <td style="text-align: center; font-weight:bold">no</td>
                                             <td>The BroadWorks ID of the User</td>
                                         </tr>
-                              
                             </td>
                         </tr>
-                   
         </tr>
     </tbody>
 </table>
@@ -4580,7 +4646,17 @@ Extension Keys:
 
 * (none)
 
-## Site Administrators Collection [/loki/customers/{+customerId}/sites/{+siteId}/administrators{?mode}]
+## Site Administrators Collection [/loki/customers/{customerId}/sites/{siteId}/administrators{?mode}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Create an Administrator [POST]
 Create a new Administrator in the specified VoIP Site.<br />
 In the initial implementation a Site Administrator is composed of a single BroadWorks Group Administrator.<br />
@@ -4983,7 +5059,13 @@ For the Create Site Administrator process besides the properties listed in the t
                ]
             }
 
-## Site Administrator [/loki/customers/{+customerId}/sites/{+siteId}/administrators/{+siteAdministratorId}]
+## Site Administrator [/loki/customers/{customerId}/sites/{siteId}/administrators/{siteAdministratorId}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + siteAdministratorId: `siteAdministratorExample` (string, required)
+
 ### Delete an Administrator [DELETE]
 Delete a Site Administrator.<br />
 Process name: Delete Site Administrator via LWS SOAP (VoIP Entity)<br />
@@ -5087,7 +5169,17 @@ Extension Keys:
 
 * (none)
 
-## Assign Phone Number Action [/loki/customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}]
+## Assign Phone Number Action [/loki/customers/{customerId}/sites/{siteId}/assignPhoneNumber{?mode}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Assign a Phone Number [POST]
 Assigns a TN to a Site based on the specified TN management routine.
 
@@ -5418,7 +5510,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                ]
             }
 
-## Activate Phone Number Action [/loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate]
+## Activate Phone Number Action [/loki/customers/{customerId}/sites/{siteId}/phone-numbers/activate]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+
 ### Activate a Phone Number [POST]
 Activate phone number(s) in a Site. The corresponding phone numbers in the underlying BroadWorks group will be set to "activated".
 
@@ -5581,7 +5678,12 @@ A request may contain any combination of individual phone numbers and phone numb
 
             Transaction-Id: 1380080943120
 
-## Deactivate Phone Number Action [/loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate]
+## Deactivate Phone Number Action [/loki/customers/{customerId}/sites/{siteId}/phone-numbers/deactivate]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+
 ### Deactivate a Phone Number [POST]
 Deactivate phone number(s) in a Site. The corresponding phone numbers in the underlying BroadWorks group will be set to "not activated".
 
@@ -5762,7 +5864,13 @@ Extension Keys:
 
 * (none)
 
-## Site's Voice Portal Service [/loki/customers/{+customerId}/sites/{+siteId}/services/Voice%20Portal]
+## Site's Voice Portal Service [/loki/customers/{customerId}/sites/{siteId}/services/Voice%20Portal]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+
+
 ### Retrieve Voice Portal Settings [GET]
 Retrieve the Voice Portal service settings of a Site.
 
@@ -6232,7 +6340,17 @@ Extension Keys:
 
 * (none)
 
-## VoIP Site Devices Collection [/loki/customers/{+customerId}/sites/{+siteId}/devices{?mode}]
+## VoIP Site Devices Collection [/loki/customers/{customerId}/sites/{siteId}/devices{?mode}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Create a VoIP Site Device [POST]
 Create a new VoIP Site Device.
 
@@ -6330,10 +6448,10 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
 <table border=1>
     <thead>
-    <th>Property</th>
-    <th>Required?</th>
-    <th>Default</th>
-    <th>Description</th>
+        <th>Property</th>
+        <th>Required?</th>
+        <th>Default</th>
+        <th>Description</th>
     </thead>
     <tbody>
         <tr>
@@ -6412,27 +6530,26 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>deviceCredentials</td>
             <td style="text-align: center;">no</td>
             <td></td>
-            <td>
-                Container for access device credentials information.</td></tr>
-                        <tr>
-                            <td>deviceCredentials.enabled</td>
-                            <td style="text-align: center; font-weight:bold">yes</td>
-                            <td>n/a</td>
-                            <td>Enable access device credentials.</td>
-                        </tr>
-                        <tr>
-                            <td>deviceCredentials.username</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Access device userId. Required only when enabled is set to true.</td>
-                        </tr>
-                        <tr>
-                            <td>password</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Access device password. Will be validated against device access password complexity rules. Required only when enabled is set to true.</td>
-                        </tr>
-    
+            <td> Container for access device credentials information.</td>
+        </tr>
+        <tr>
+            <td>deviceCredentials.enabled</td>
+            <td style="text-align: center; font-weight:bold">yes</td>
+            <td>n/a</td>
+            <td>Enable access device credentials.</td>
+        </tr>
+        <tr>
+            <td>deviceCredentials.username</td>
+            <td style="text-align: center;">varies</td>
+            <td>n/a</td>
+            <td>Access device userId. Required only when enabled is set to true.</td>
+        </tr>
+        <tr>
+            <td>password</td>
+            <td style="text-align: center;">varies</td>
+            <td>n/a</td>
+            <td>Access device password. Will be validated against device access password complexity rules. Required only when enabled is set to true.</td>
+        </tr>
         <tr>
             <td>sacGroupName</td>
             <td style="text-align: center;">no</td>
@@ -6475,39 +6592,39 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td></td>
             <td>
                 <b>Not Implemented</b><br />
-                Container for BroadWorks Mobility Manager propreties.</td></tr>
-            
-                        <tr>
-                            <td>extensions.broadworks.mobilityManager.provisioningURL</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Required if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true..</td>
-                        </tr>
-                        <tr>
-                            <td>extensions.broadworks.mobilityManager.provisioningUserName</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Required if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true..</td>
-                        </tr>
-                        <tr>
-                            <td>extensions.broadworks.mobilityManager.provisioningPassword</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Required if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true.</td>
-                        </tr>
-                        <tr>
-                            <td>extensions.broadworks.mobilityManager.defaultOriginatingServiceKey</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Not valid if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true.</td>
-                        </tr>
-                        <tr>
-                            <td>extensions.broadworks.mobilityManager.defaultTerminatingServiceKey</td>
-                            <td style="text-align: center;">varies</td>
-                            <td>n/a</td>
-                            <td>Not valid if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true.</td>
-                        </tr>
-       
+                Container for BroadWorks Mobility Manager propreties.
+            </td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks.mobilityManager.provisioningURL</td>
+            <td style="text-align: center;">varies</td>
+            <td>n/a</td>
+            <td>Required if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true..</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks.mobilityManager.provisioningUserName</td>
+            <td style="text-align: center;">varies</td>
+            <td>n/a</td>
+            <td>Required if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true..</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks.mobilityManager.provisioningPassword</td>
+            <td style="text-align: center;">varies</td>
+            <td>n/a</td>
+            <td>Required if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true.</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks.mobilityManager.defaultOriginatingServiceKey</td>
+            <td style="text-align: center;">varies</td>
+            <td>n/a</td>
+            <td>Not valid if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true.</td>
+        </tr>
+        <tr>
+            <td>extensions.broadworks.mobilityManager.defaultTerminatingServiceKey</td>
+            <td style="text-align: center;">varies</td>
+            <td>n/a</td>
+            <td>Not valid if "type" corresponds to a BroadWorks device type where "Mobility Manager Device" is true.</td>
+        </tr>
     </tbody>
 </table>
 
@@ -6792,7 +6909,17 @@ Extension Keys:
 
 * (none)
 
-## VoIP Trunk Groups Collection [/loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}]
+## VoIP Trunk Groups Collection [/loki/customers/{customerId}/sites/{siteId}/trunk-groups{?mode}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Create a VoIP Trunk Group [POST]
 Create a new VoIP Trunk Group.<br />
 Process name: Create VoIP Trunk Group (VoIP Entity Service)<br />
@@ -6814,8 +6941,8 @@ will be rolled back.
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>prevalidate-and-create</td>
             <td>Controls execution mode.<br />
-            Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
-            <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
+                Allowed values: [ "prevalidate-only", "prevalidate-and-create", "create-only" ].<br />
+                <b>NOTE: at this time only "create-only" (attempts to create the resource, with no pre-validation) is allowed.</b>
             </td>
         </tr>
     </tbody>
@@ -6920,7 +7047,8 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <td>n/a</td>
                 <td>Device type.
                     Required when deviceManagementRoutine is "create".
-                    Required to be a valid Device Type defined in the BroadWorks system (not validated).</td>
+                    Required to be a valid Device Type defined in the BroadWorks system (not validated).
+                </td>
             </tr>
             <tr>
                 <td>accessDevice.deviceName</td>
@@ -6934,7 +7062,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <td>n/a</td>
                 <td>Device IP address or hostname</td>
             </tr>
-        
     <tr><td>pilotUser</td><td>yes</td><td>n/a</td><td>Required to contain the properties of a POST /loki/users request with the exception of the following properties: accessDevice, trunkGroup and userType which are disallowed in this request.
     </td></tr>
     <tr><td>department</td><td>no</td><td>n/a</td><td>Department name (only Site-level departments are supported, initially).</td></tr>
@@ -8770,6 +8897,14 @@ Extension Keys:
 * (none)
 
 ## VoIP Users Collection [/loki/users{?mode}]
+
++ Parameters
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Create a VoIP User [POST]
 Create a new VoIP User.
 
@@ -8857,7 +8992,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <li>Default/Legacy - Generated as [phoneNumber]@[Site default domain]</li>
                 <li>Alternative - Generated following config pattern.</li>
                 </ul>
-         
             </td>
         </tr>
         <tr>
@@ -8870,7 +9004,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <li>Default/Legacy - Not Implemented</li>
                 <li>Alternative - Supported</li>
                 </ul>
-               
             </td>
         </tr>
         <tr>
@@ -8883,8 +9016,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <li>Default/Legacy - Initially only "trunking" and "businessLine" are supported, and other values will result in an 501 NOT_IMPLEMENTED error.</li>
                 <li>Alternative - All values are supported with the exception of "systemDevice" value, which will result in a 501 NOT_IMPLEMENTED error.</li>
                 </ul>
-                
-           
             </td>
         </tr>
         <tr>
@@ -8899,12 +9030,10 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                     <td>
                          Device adding routine.<br />
                          <i>Note: This property applies only for userType "ATA", otherwise it is ignored.</i>
-                        
                 <ul>
                     <li>Default/Legacy - Ignored</li>
                     <li>Alternative -Supported</li>
                 </ul>
-                     
                     </td>
                 </tr>
                 <tr>
@@ -8959,7 +9088,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                         <i>Applicable only for userType "hostedPbx" and "ATA", otherwise it is ignored.</i>
                     </td>
                 </tr>
-              
         <tr>
             <td>trunkGroup</td>
             <td style="text-align: center">no</td>
@@ -8968,7 +9096,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 Note that if this entire object is omitted, the user will be created as a trunking user with no assigned trunk group. For the underlying BroadWorks user,
                 omitting this property corresponds to selecting device choice "Trunking" but leaving the Trunking settings blank or "None", on the User > Profile > Addresses page in the CommPortal.<br />
                 Note that at this time, the Loki Server does not manage the "Alternate Trunk Identity" or "Enterprise Trunk" settings in the "Trunking" section of that page.</td</tr>
-             
                 <tr>
                     <td>trunkGroup.name</td>
                     <td style="text-align: center; font-weight:bold">no</td>
@@ -8982,16 +9109,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                     <td style="text-align: center; font-weight:bold">no</td>
                     <td></td>
                     <td>The following list describes the differences in validation between the two ways of adding a User in LWS-REST:
-                        
                      <ul>
                     <li>Default/Legacy - Ignored</li>
                     <li>Alternative - Supported</li>
                 </ul>
-                        
-                 
                     </td>
                 </tr>
-               
         <tr>
             <td>phoneNumber</td>
             <td style="text-align: center">(varies)</td>
@@ -9006,7 +9129,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td></td>
             <td>Phone Number (TN) assignment routine.<br />
             Supported values and impact on other required properties:
-                
                 <ul>
                     <li><b>"" (empty string)</b> - TN must already be available for use; no assignment will be performed.</li>
                     <li><b>port-no-temp</b> - TN does not exist in the system, and will be assigned automatically at both the Customer and Site levels.</li>
@@ -9017,8 +9139,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 </ul></li>
                     <li><b>(default when tnRoutine is empty or omitted)</b> - TN must already be available for use; no assignment will be performed.</li>
                     <li><b>no-number</b> - User will have no TN (extension-only user); phoneNumber must <i>not</i> be present.</li>
-                </ul> 
-                
+                </ul>
             </td>
         </tr>
         <tr>
@@ -9045,13 +9166,10 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>(varies)</td>
             <td>Last Name. <br />
             The following list describes the differences in validation between the two ways of adding a User in LWS-REST:
-                
                 <ul>
                     <li>Default/Legacy - Not required. If omitted, will be autopopulated with the 4th through the last digits of phoneNumber, after stripping the country code.</li>
                     <li>Alternative - Required</li>
                 </ul>
-                
-           
             </td>
         </tr>
         <tr>
@@ -9140,7 +9258,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td></td>
             <td>Configuration settings for the Authentication user service. The table below describes the supported settings.
                 <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i></td></tr>
-       
             <tr>
                 <td>services.'Authentication'.*.username</td>
                 <td style="text-align: center; font-weight:bold">no</td>
@@ -9155,7 +9272,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 If present, the password will be validated against the sipPassword rules configured in the server.
                 </td>
             </tr>
-           
         <tr>
             <td>services.'Charge Number'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -9163,7 +9279,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
             Configuration settings for the Charge Number user service. The table below describes the supported settings.
                 <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i></td></tr>
-            
             <tr>
                 <td>services.'Charge Number'.*.phoneNumber</td>
                 <td style="text-align: center; font-weight:bold">no</td>
@@ -9195,7 +9310,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <td>true</td>
                 <td></td>
             </tr>
-           
         <tr>
             <td>services.'Call Forwarding No Answer'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -9203,7 +9317,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
             Configuration settings for the Call Forwarding No Answer user service. The table below describes the supported settings.
             <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i></td></tr>
-           
             <tr>
                 <td>services.'Call Forwarding No Answer'.*.isActive</td>
                 <td style="text-align: center; font-weight:bold">no</td>
@@ -9223,7 +9336,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <td>Set to 0 for "None".<br />
                 <i>Note that this value will override services.'Third-Party Voice Mail Support'.noAnswerNumberOfRings if both are present.</td>
             </tr>
-            
         <tr>
             <td>services.'Call Forwarding Not Reachable'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -9231,7 +9343,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td><b>Note: In the alternative process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
             Configuration settings for the Call Forwarding Not Reachable user service. The table below describes the supported settings.
                 <i>Note: the default values can be overridden by the server configuration, and may not match the values shown below.</i></td></tr>
-           
             <tr>
                 <td>services.'Call Forwarding Not Reachable'.*.isActive</td>
                 <td style="text-align: center; font-weight:bold">no</td>
@@ -9244,7 +9355,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <td>null</td>
                 <td>Set to null when an empty value is desired.</td>
             </tr>
-           
         <tr>
             <td>services.'Third-Party Voice Mail Support'.*</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -9326,7 +9436,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td></td>
             <td><b>Note: In the default (legacy) process trying to configure this service will result in a 501 NOT_IMPLEMENTED response.</b><br />
                 Configuration settings for the BroadWorks Mobility user service. The table below describes the supported settings.</td></tr>
-           
             <tr>
                 <td>services.'BroadWorks Mobility'.*.isActive</td>
                 <td style="text-align: center; font-weight:bold">no</td>
@@ -9406,7 +9515,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                     <li>Default/Legacy - Not Supported</li>
                     <li>Alternative - Supported</li>
                 </ul>
-           
             </td>
         </tr>
     </tbody>
@@ -11361,7 +11469,11 @@ This section contains request and response JSON schemas for alternative process 
                ]
             }
 
-## VoIP User [/loki/users/{+userId}]
+## VoIP User [/loki/users/{userId}]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Modify a VoIP User [PUT]
 Modify a VoIP User.<br />
 Rollback-enabled: No.
@@ -11466,14 +11578,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>""(empty string)</td>
             <td>Phone Number (TN) assignment routine.<br />
             Supported values and impact on other required properties:
-                
                 <ul>
                     <li><b>""(empty string)</b> - TN must already be available for use; no assignment will be performed.</li>
                     <li><b>port-no-temp</b> - TN does not exist in the system, and will be assigned automatically at both the Customer and Site levels.</li>
                     <li><b>auto</b> - TN may or may not already exist in the system, and will be assigned automatically only as needed. <b>Not Implemented</b></li>
                     <li><b>no-number</b> - User will have no TN (extension-only user); phoneNumber must <i>not</i> be present. <b>Not Implemented</b></li>
                 </ul>
-              
         </tr>
         <tr>
             <td>extension</td>
@@ -11951,7 +12061,7 @@ Besides the properties listed in the table below, the response also contains the
                 "detail": "body.phoneNumber does not match pattern^\\+\\d+-\\d+$: was processing value \"+1-\""
             }
 
-### Delete a VoIP User [DELETE /loki/users/{+userId}{?keepMailbox}]
+### Delete a VoIP User [DELETE /loki/users/{userId}{?keepMailbox}]
 Delete a VoIP User.<br />
 Rollback-enabled: No.<br />
 Processes backing the Delete VoIP User request:
@@ -12060,6 +12170,10 @@ Processes backing the Delete VoIP User request:
         ]
     }
 
++ Parameters
+    + userId: `userExample` (string, required)
+    + keepMailbox:  `true` (boolean, optional)
+
 + Response 204
     + Headers
 
@@ -12092,7 +12206,11 @@ Processes backing the Delete VoIP User request:
                 "detail": "The 'Delete User' default functionality is not implemented."
             }
 
-## User's Call Processing Policies [/loki/users/{+userId}/call-processing-policy]
+## User's Call Processing Policies [/loki/users/{userId}/call-processing-policy]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Retrieve Call Processing Policies [GET]
 Fetch a BroadWorks User's Call Processing Policies settings.
 Refer to BroadWorks documentation for specifics of the properties under `extensions.broadworks`.
@@ -12227,7 +12345,11 @@ In addition to the standard error codes, this will return 404 Not Found if the u
 
             Transaction-Id: 1380080943120
 
-## Reset User's Device Credentials Action [/loki/users/{+userId}/resetDeviceCredentials]
+## Reset User's Device Credentials Action [/loki/users/{userId}/resetDeviceCredentials]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Reset Credentials [POST]
 Reset the device credentials on a VoIP User's primary device.
 
@@ -12367,7 +12489,11 @@ Reset the device credentials on a VoIP User's primary device.
                 "detail": "Resetting device credentials for user without phone number is not supported."
             }
 
-## Re-Invite User Action [/loki/users/{+userId}/reInvite]
+## Re-Invite User Action [/loki/users/{userId}/reInvite]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Re-Invite User [POST]
 Re-invite a user to activate their account in the SSO system.
 Internally this call executes LWS-SOAP `UserNotifyRequest` request submitting `userId` value and `reInvite` flag.
@@ -12459,7 +12585,11 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
             Transaction-Id: 1380080943120
 
-## Swap User's Device Action [/loki/users/{+userId}/swapDevice]
+## Swap User's Device Action [/loki/users/{userId}/swapDevice]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Swap Device [POST]
 Process name: Swap User Device via LWS SOAP (VoIP Entity)<br />
 Rollback-enabled: No<br />
@@ -12520,7 +12650,6 @@ Additionally the user's old device may be deleted depending on inputs.
             <td>n/a</td>
             <td>
                 Container for the device to be assigned to the User.</td></tr>
-              
                         <tr>
                             <td>accessDevice.deviceManagementRoutine</td>
                             <td>no</td>
@@ -12563,7 +12692,6 @@ Additionally the user's old device may be deleted depending on inputs.
                             <td>false</td>
                             <td>Boolean which controls wheather to keep the user's current device.</td>
                         </tr>
-     
     </tbody>
 </table>
 
@@ -12829,7 +12957,11 @@ Extension Keys:
 
 * (none)
 
-## User's Assigned Services [/loki/users/{+userId}/services/assigned-services]
+## User's Assigned Services [/loki/users/{userId}/services/assigned-services]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Update Assigned Services [PUT]
 Modify VoIP User's assigned services.<br />
 Rollback-enabled: No.<br />
@@ -13014,7 +13146,11 @@ Processes backing the Modify VoIP User's assigned services request:
                 "detail": "The 'Set User Services' default functionality is not implemented."
             }            
 
-## User's Alternate Numbers Service Settings [/loki/users/{+userId}/services/Alternate%20Numbers]
+## User's Alternate Numbers Service Settings [/loki/users/{userId}/services/Alternate%20Numbers]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Modify Alternate Numbers Service Settings [PUT]
 Update a BroadWorks User's Alternate Numbers service settings.<br />
 In current implementation, services are updated on BroadWorks user using LWS-SOAP UserModifyRequest API call.
@@ -13077,7 +13213,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Container for alternate numbers information. Alternate numbers is an array of entries. </td></tr>
-              
                         <tr>
                             <td>alternateNumbers.id</td>
                             <td>yes</td>
@@ -13096,16 +13231,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                 TN management routine for provided phone number.<br />
                                 <b>Note: at this time only ""(empty string) is allowed.</b><br/>
                                 Supported values and impact on other required properties:
-                                
                                 <ul>
                                     <li><b>port-no-temp</b> - TN does not exist in the system; will attempt to assign at both the Customer and Site levels. Not Implemented</li>
                                     <li><b>auto</b> - TN may or may not already exist in the system; will be assigned automatically to either/both as needed. <b>Not Implemented</b></li>
                                     <li><b>"" (empty string) </b>- TN must already be available for use; no assignment will be</li>
                                     <li>Omitted tnRoutine parameter is same as "" (empty string) tnRoutine value.</li>
                                 </ul>
-                                
-                                
-                               
                                         <td></td>
                                     </tr>
                                     <tr>
@@ -13113,7 +13244,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                     </tr>
                                 </tbody>
                                 </table>
-                                
                             </td>
                         </tr>
                         <tr>
@@ -13251,7 +13381,11 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 "externalErrorDetail": "User Modify Failed. Alternate Numbers pre-validation error:Error updating service: Alternate Numbers. User [JohnDoe] does not have Alternate Numbers service assigned."
             }
 
-## User's Intercept User Service Settings [/loki/users/{+userId}/services/Intercept%20User]
+## User's Intercept User Service Settings [/loki/users/{userId}/services/Intercept%20User]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Modify Intercept User Service Settings [PUT]
 Update a BroadWorks User's Intercept User service settings. <br />
 In current implementation, services are updated on BroadWorks user using LWS-SOAP UserModifyRequest API call.<br />
@@ -13345,7 +13479,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>n/a</td>
                             <td>Phone number to be transferred to when transferOnZeroToPhoneNumber.enabled is true</td>
                         </tr>
-                  
         <tr>
             <td>routeToVoiceMail</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -13365,7 +13498,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
             <td>Container for audio file settings.<br /><b>Not Implemented.</b></td></tr>
-               
                         <tr>
                             <td>audioFile.description</td>
                             <td>yes</td>
@@ -13395,7 +13527,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
             <td>Container for video file settings.<br /><b>Not Implemented.</b></td</tr>
-
                         <tr>
                             <td>videoFile.description</td>
                             <td>yes</td>
@@ -13672,7 +13803,11 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             }
             
             
-## User's Fax Messaging Service Settings [/loki/users/{+userId}/services/Fax%20Messaging]
+## User's Fax Messaging Service Settings [/loki/users/{userId}/services/Fax%20Messaging]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Retrieve Fax Messaging Service Settings [GET]
 Retrieve a BroadWorks User's Fax Messaging service settings. <br />
 Rollback-enabled: No
@@ -14098,7 +14233,11 @@ Extension Keys:
 
 * (none)
 
-## User's BroadWorks Mobility Mobile Identities Collection [/loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities]
+## User's BroadWorks Mobility Mobile Identities Collection [/loki/users/{userId}/services/BroadWorks%20Mobility/mobile-identities]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
 ### Create a Mobile Identity [POST]
 Create a BroadWorks Mobility Mobile Identity for the specified VoIP User.<br />
 The underlying LWS-SOAP implementation supports only a single mobile identity per user.
@@ -14265,7 +14404,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
             <td></td></tr>
-               
                         <tr>
                             <td>deny.callOriginations</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -14280,7 +14418,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Deny Call Terminations.<br />
                             <b>Not Implemented</b></td>
                         </tr>
-                    
         <tr>
             <td>devicesToRing</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -14296,7 +14433,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 Container for inclusion properties.<br />
                 <b>Not Implemented</b><br />
                 Details of the inslusion properties:</td></tr>
-              
                         <tr>
                             <td>include.sharedCallAppearance</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -14339,7 +14475,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>
                 Container for Time Schedule properties.<br />
                 <b>Not Implemented</b></td></tr>
-              
                         <tr>
                             <td>timeSchedule.scheduleKey</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -14347,8 +14482,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>
                                 Container for a Schedule Key properties.<br />
                                 <b>Not Implemented</b></td></tr>
-                               
-                         
                                         <tr>
                                             <td>timeSchedule.scheduleKey.scheduleName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
@@ -14363,7 +14496,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                             <td>Time Schedule Type.<br />
                                             <b>Not Implemented</b></td>
                                         </tr>
-                                  
                         <tr>
                             <td>timeSchedule.scheduleLevel</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -14371,7 +14503,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Time Schedule Level.<br />
                             <b>Not Implemented</b></td>
                         </tr>
-                   
         <tr>
             <td>holidaySchedule</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -14379,7 +14510,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>
                 Container for Holiday Schedule properties.<br />
                 <b>Not Implemented</b></td></tr>
-              
                         <tr>
                             <td>holidaySchedule.scheduleKey</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -14401,7 +14531,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                             <td>Holiday Schedule Type.<br />
                                             <b>Not Implemented</b></td>
                                         </tr>
-                                   
                         <tr>
                             <td>holidaySchedule.scheduleLevel</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -14409,7 +14538,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Holiday Schedule Level.<br />
                             <b>Not Implemented</b></td>
                         </tr>
-                   
         <tr>
             <td>mobileDevicePassword</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -14467,7 +14595,6 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
                             <td style="text-align: center; font-weight:bold">yes</td>
                             <td>BroadWorks mobile phone number.</td>
                         </tr>
-         
     </tbody>
 </table>
 
@@ -14782,7 +14909,12 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
                ]
             }
 
-## User's BroadWorks Mobility Mobile Identity [/loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobileIdentityId}]
+## User's BroadWorks Mobility Mobile Identity [/loki/users/{userId}/services/BroadWorks%20Mobility/mobile-identities/{mobileIdentityId}]
+
++ Parameters
+    + userId: `userExample` (string, required)
+    + mobileIdentityId: `mobileIdentityExample` (string, required)
+
 ### Delete a Mobile Identity [DELETE]
 Delete the specified BroadWorks Mobility Mobile Identity of the specified VoIP User.<br />
 Initial implementation will not check if the requested Mobile Identity exists.<br />
@@ -14879,6 +15011,14 @@ Extension Keys:
 * (none)
 
 ## VoIP Auto Attendants Collection [/loki/auto-attendants{?mode}]
+
++ Parameters
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Create a VoIP Auto Attendant [POST]
 Create a new VoIP Auto Attendant.<br />
 Process name: Create Auto Attendant (VoIP Entity)<br />
@@ -14959,8 +15099,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>profile</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>
-                Container for Profile information.</td></tr>
+            <td>Container for Profile information.</td></tr>
                         <tr>
                             <td>profile.name</td>
                             <td style="text-align: center;">yes</td>
@@ -14974,7 +15113,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>
                                 Container for Calling Line ID information.<br />
                                 <b>Not Implemented</b></td></tr>
-                               
                                         <tr>
                                             <td>profile.callingLineId.firstName</td>
                                             <td style="text-align: center; font-weight:bold">no</td>
@@ -14995,7 +15133,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                             <td>n/a</td>
                                             <td>Calling Line ID Phone Number.</td>
                                         </tr>
-                                   
                         <tr>
                             <td>profile.phoneNumber</td>
                             <td style="text-align: center;">no</td>
@@ -15008,13 +15145,11 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>"" (empty string)</td>
                             <td>Phone Number (TN) assignment routine.<br />
                             Supported values and impact on other required properties:
-                            
                                   <ul>
                                     <li><b>port-no-temp</b> - TN does not exist in the system; will attempt to assign at both the Customer and Site levels. </li>
                                     <li><b>auto</b> - TN may or may not already exist in the system; will be assigned automatically to either/both as needed.</li>
                                     <li><b>"" (empty string) </b>- TN will not be assigned automatically</li>
                                  </ul>
-                                
                                </td>
                         </tr>
                         <tr>
@@ -15063,7 +15198,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Public User Identity SIP URI for the Virtual User.<br />
                             <b>Not Implemented</b></td>
                         </tr>
-                   
         <tr>
             <td>type</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -15101,14 +15235,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>n/a</td>
                             <td>Schedule name.</td>
                         </tr>
-                  
         <tr>
             <td>holidaySchedule</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
             <td>
                 Container for holiday schedule settings. <b>Not Implemented</b></td></tr>
-            
                         <tr>
                             <td>holidaySchedule.type</td>
                             <td style="text-align: center; font-weight:bold">yes</td>
@@ -15121,7 +15253,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>n/a</td>
                             <td>Schedule name.</td>
                         </tr>
-                    
         <tr>
             <td>extensionDialingScope</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -15194,7 +15325,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>n/a</td>
             <td>
                 Container for BroadWorks-specific properties.</td></tr>
-             
                         <tr>
                             <td>extensions.broadworks.serviceProviderId</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -15223,7 +15353,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <b>If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
                             </td>
                         </tr>
-                    
     </tbody>
 </table>
 
@@ -15265,7 +15394,6 @@ For the Create Auto Attendant process besides the properties listed in the table
                                             <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
-                                   
                         <tr>
                             <td>profile.extension</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -15276,7 +15404,6 @@ For the Create Auto Attendant process besides the properties listed in the table
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>Public User Identity SIP URI for the Virtual User.</td>
                         </tr>
-      
         <tr>
             <td>uniqueId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
@@ -15297,7 +15424,6 @@ For the Create Auto Attendant process besides the properties listed in the table
                             <td style="text-align: center; font-weight:bold">yes</td>
                             <td>The ID set on the new virtual user.</td>
                         </tr>
-                   
     </tbody>
 </table>
 
@@ -15755,7 +15881,11 @@ For the Create Auto Attendant process besides the properties listed in the table
                 "detail": "LWS-SOAP: Received unexpected response: 'SuccessResponse'"
             }
 
-## VoIP Auto Attendant [/loki/auto-attendants/{+autoAttendantId}]
+## VoIP Auto Attendant [/loki/auto-attendants/{autoAttendantId}]
+
++ Parameters
+    + autoAttendantId: `autoAttendantExample` (string, required)
+
 ### Delete a VoIP Auto Attendant [DELETE]
 Delete a VoIP Auto Attendant.<br />
 Process name: Delete Auto Attendant (VoIP Entity)<br />
@@ -15816,7 +15946,13 @@ Rollback-enabled: No
                 "externalErrorDetail": "[Error 4008] User not found: autoAttendantTest"
             }
 
-## VoIP Auto Attendant's Assigned Services [/loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}/services/assigned-services]
+## VoIP Auto Attendant's Assigned Services [/loki/customers/{customerId}/sites/{siteId}/auto-attendants/{autoAttendantId}/services/assigned-services]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + autoAttendantId: `autoAttendantExample` (string, required)
+    + siteId: `siteExample` (string, required)
+
 ### Update Assigned Services [PUT]
 Request modifies list of assigned services on specified Auto Attendant.<br />
 Process Name: Set Auto Attendant Services (VoIP Entity)<br />
@@ -15957,7 +16093,13 @@ Providing invalid service name will result in LWS-SOAP request validation error.
                 "externalErrorDetail": "Authentication: Service is not assignable."
             }
 
-## Site's VoIP Auto Attendant [/loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}]
+## Site's VoIP Auto Attendant [/loki/customers/{customerId}/sites/{siteId}/auto-attendants/{autoAttendantId}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + autoAttendantId: `autoAttendantExample` (string, required)
+
 ### Modify a VoIP Auto Attendant [PUT]
 Update Auto Attendant instance.<br/>
 Process Name: Modify Auto Attendant via LWS-SOAP (VoIP Entity)<br/>
@@ -16019,7 +16161,6 @@ Rollback-enabled: No
         <td>no</td>
         <td>n/a</td>
         <td></td></tr>
-            
                     <tr>
                         <td>profile.callingLineId.lastName</td>
                         <td>no</td>
@@ -16045,7 +16186,6 @@ Rollback-enabled: No
                         <td>An E.164-formatted TN<br />
                             <b>Not Implemented</b></td>
                     </tr>
-               
     <tr>
         <td>profile.phoneNumber</td>
         <td>no</td>
@@ -16108,7 +16248,6 @@ Rollback-enabled: No
         <td>Public user identity<br />
             <b>Not Implemented</b></td>
     </tr>
-   
         <td>firstDigitTimeoutSeconds</td>
         <td>no</td>
         <td>n/a</td>
@@ -16129,10 +16268,8 @@ Rollback-enabled: No
         <td>
             Container for business hours settings.<br />
             <b>Not Implemented</b></td></tr>
-          
                 <tr><td>businessHours.type</td><td>yes</td><td>n/a</td><td>Schedule access level</td></tr>
                 <tr><td>businessHours.name</td><td>yes</td><td>n/a</td><td>Schedule name</td></tr>
-                
     </tr>
     <tr>
         <td>holidaySchedule</td>
@@ -16141,10 +16278,8 @@ Rollback-enabled: No
         <td>
             Container for holiday schedule settings.<br />
             <b>Not Implemented</b></td></tr>
-           
                 <tr><td>holidaySchedule.type</td><td>yes</td><td>n/a</td><td>Schedule access level</td></tr>
                 <tr><td>holidaySchedule.name</td><td>yes</td><td>n/a</td><td>Schedule name</td></tr>
-                
     <tr>
         <td>extensionDialingScope</td>
         <td>no</td>
@@ -16177,11 +16312,9 @@ Rollback-enabled: No
         <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings</td></tr>
     <tr><td>profile.extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
     <tr><td>profile.publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
-    
         <tr><td>extensions</td><td>yes</td><td>n/a</td><td>Container for network-element specific properties</td></tr>
         <tr><td>extensions.broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.</td></tr>
     <tr><td>extensions.broadworks.resourceId</td><td>yes</td><td>n/a</td><td></td></tr>
-   
     </tbody>
 </table>
 
@@ -16482,7 +16615,13 @@ Rollback-enabled: No
                ]
             }
 
-## Auto Attendant's Alternate Numbers Service Settings [/api/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}/services/Alternate%20Numbers]
+## Auto Attendant's Alternate Numbers Service Settings [/api/customers/{customerId}/sites/{siteId}/auto-attendants/{autoAttendantId}/services/Alternate%20Numbers]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + autoAttendantId: `autoAttendantExample` (string, required)
+
 ### Modify Alternate Numbers Service Settings [PUT]
 Update a BroadWorks Auto Attendant's Alternate Numbers service settings.<br />
 
@@ -16586,7 +16725,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Container for alternate numbers information. Alternate numbers is an array of entries. </td></tr>
-                
                         <tr>
                             <td>alternateNumbers.id</td>
                             <td>yes</td>
@@ -16605,16 +16743,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                 TN management routine for provided phone number.<br />
                                 <b>Note: at this time only ""(empty string) is allowed.</b><br/>
                                 Supported values and impact on other required properties:
-                                
                                      <ul>
                                     <li><b>port-no-temp</b> - TN does not exist in the system; will attempt to assign at both the Customer and Site levels. <b>Not Implemented</b></li>
                                     <li><b>auto</b> - TN may or may not already exist in the system; will be assigned automatically to either/both as needed. <b>Not Implemented</b></li>
                                     <li><b>"" (empty string) </b>- TN must already be available for use; no assignment will be performed.</li>
                                          <li>Omitted tnRoutine parameter is same as ""(empty string) tnRoutine value.</li>
                                  </ul>
-                                
-                                
-                                
                             </td>
                         </tr>
                         <tr>
@@ -16654,7 +16788,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                 <b>Not Implemented</b>
                             </td>
                         </tr>
-     
     </tbody>
 </table>
 
@@ -16856,6 +16989,14 @@ Extension Keys:
 * (none)
 
 ## VoIP Hunt Groups Collection [/loki/hunt-groups{?mode}]
+
++ Parameters
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Create a VoIP Hunt Group [POST]
 Create a new VoIP Hunt Group.<br />
 Process name: Create Hunt Group (VoIP Entity)<br />
@@ -16970,7 +17111,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                             <td>n/a</td>
                                             <td>Calling Line ID Phone Number.</td>
                                         </tr>
-                                   
                         <tr>
                             <td>profile.phoneNumber</td>
                             <td style="text-align: center;">no</td>
@@ -16983,14 +17123,11 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>"" (empty string)</td>
                             <td>Phone Number (TN) assignment routine.<br />
                             Supported values and impact on other required properties:
-                                
                         <ul>
                                     <li><b>port-no-temp</b> - TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</li>
                                     <li><b>auto</b> - TN may or may not already exist in the system; will be assigned automatically to either/both as needed. <b>Not Implemented</b></li>
                                     <li><b>"" (empty string) </b>- TN will not be assigned automatically</li>
-                            
-                                 </ul>    
-                                
+                                 </ul>
                               </td>
                         </tr>
                         <tr>
@@ -17039,7 +17176,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Public User Identity SIP URI for the Virtual User.<br />
                             <b>Not Implemented</b></td>
                         </tr>
-                    
         <tr>
             <td>policy</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -17086,7 +17222,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>n/a</td>
                             <td>An outgoing phone number or a number meant to be dialed.</td>
                         </tr>
-                    
         <tr>
             <td>agentUserId</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -17121,7 +17256,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Include the Hunt Group Name in the CLID.
                             Maps to includeHuntGroupNameInCLID in OCI.</td>
                         </tr>
-                    
         <tr>
             <td>notReachableSettings</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -17150,7 +17284,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Make Hunt Group busy when all available agents are not reachable.
                             Maps to makeBusyWhenNotReachable in OCI.</td>
                         </tr>
-                  
         <tr>
             <td>allowMembersToControlGroupBusy</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -17199,8 +17332,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>extensions.broadworks</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>
-                Container for BroadWorks-specific properties.</td></tr>
+            <td> Container for BroadWorks-specific properties.</td></tr>
                         <tr>
                             <td>extensions.broadworks.serviceProviderId</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -17229,7 +17361,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <b>If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
                             </td>
                         </tr>
-
     </tbody>
 </table>
 
@@ -17252,13 +17383,11 @@ For the Create Hunt Group process besides the properties listed in the table bel
         <tr>
             <td>profile</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>
-                Container for Profile information.</td></tr>
+            <td> Container for Profile information.</td></tr>
                         <tr>
                             <td>profile.callingLineId</td>
                             <td style="text-align: center; font-weight:bold">yes</td>
-                            <td>
-                                Container for Calling Line ID information.</td></tr>
+                            <td>Container for Calling Line ID information.</td></tr>
                                         <tr>
                                             <td>profile.callingLineId.firstName</td>
                                             <td style="text-align: center; font-weight:bold">yes</td>
@@ -17271,7 +17400,6 @@ For the Create Hunt Group process besides the properties listed in the table bel
                                             <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
-                                    
                         <tr>
                             <td>profile.extension</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -17282,7 +17410,6 @@ For the Create Hunt Group process besides the properties listed in the table bel
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>Public User Identity SIP URI for the Virtual User.</td>
                         </tr>
-                   
         <tr>
             <td>uniqueId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
@@ -17296,14 +17423,12 @@ For the Create Hunt Group process besides the properties listed in the table bel
         <tr>
             <td>extensions.broadworks</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>
-                Container for BroadWorks-specific properties.</td></tr>
+            <td>Container for BroadWorks-specific properties.</td></tr>
                         <tr>
                             <td>extensions.broadworks.resourceId</td>
                             <td style="text-align: center; font-weight:bold">yes</td>
                             <td>The ID set on the new virtual user.</td>
                         </tr>
-                    
     </tbody>
 </table>
 
@@ -17774,7 +17899,11 @@ For the Create Hunt Group process besides the properties listed in the table bel
                 "detail": "LWS-SOAP: Received unexpected response: 'SuccessResponse'"
             }
 
-## VoIP Hunt Group [/loki/hunt-groups/{+huntGroupId}]
+## VoIP Hunt Group [/loki/hunt-groups/{huntGroupId}]
+
++ Parameters
+    + huntGroupId: `huntGroupExample` (string, required)
+
 ### Delete a VoIP Hunt Group [DELETE]
 Delete a VoIP Hunt Group.<br />
 Process name: Delete Hunt Group (VoIP Entity)<br />
@@ -17835,7 +17964,13 @@ Rollback-enabled: No
                 "externalErrorDetail": "[Error 4008] User not found: huntGroupTest"
             }
 
-## Hunt Group's Assigned Services [/loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/services/assigned-services]
+## Hunt Group's Assigned Services [/loki/customers/{customerId}/sites/{siteId}/hunt-groups/{huntGroupId}/services/assigned-services]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + huntGroupId: `huntGroupExample` (string, required)
+
 ### Update Assigned Services [PUT]
 Request modifies list of assigned services on specified Hunt Group.<br />
 Process Name: Set Hunt Group Services (VoIP Entity)<br />
@@ -17976,7 +18111,13 @@ Providing invalid service name will result in LWS-SOAP request validation error.
                 "externalErrorDetail": "Authentication: Service is not assignable."
             }
 
-## Site's Voip Hunt Group [/loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}]
+## Site's Voip Hunt Group [/loki/customers/{customerId}/sites/{siteId}/hunt-groups/{huntGroupId}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + huntGroupId: `huntGroupExample` (string, required)
+
 ### Modify a Hunt Group [PUT]
 Update Hunt Group instance.<br/>
 Process Name: Modify Hunt Group via LWS-SOAP (VoIP Entity)<br/>
@@ -18047,7 +18188,6 @@ Rollback-enabled: No
                 </td>
             </tr>
             <tr><td>profile.callingLineId.phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
-      
     <tr><td>profile.phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
     <tr><td>profile.tnRoutine</td><td>no</td><td>n/a</td><td>Phone Number add routine to apply. Allowed values: ["", "no-number", "port-no-temp", "auto"]<br>Note: "auto" and "no-number" values will not be implemented in initial release</td></tr>
     <tr><td>profile.extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
@@ -18088,11 +18228,9 @@ Rollback-enabled: No
         <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings</td></tr>
     <tr><td>profile.extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
     <tr><td>profile.publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
-   
         <tr><td>extensions</td><td>yes</td><td>n/a</td><td>Container for network-element specific properties</td></tr>
         <tr><td>extensions.broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.</td></tr>
     <tr><td>extensions.broadworks.resourceId</td><td>yes</td><td>n/a</td><td>Hunt Group instance ID in the BroadWorks</td></tr>
-   
     </tbody>
 </table>
 
@@ -18428,7 +18566,13 @@ Rollback-enabled: No
                ]
             }
 
-## Hunt Group's Alternate Numbers Service Settings [/api/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/services/Alternate%20Numbers]
+## Hunt Group's Alternate Numbers Service Settings [/api/customers/{customerId}/sites/{siteId}/hunt-groups/{huntGroupId}/services/Alternate%20Numbers]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + huntGroupId: `huntGroupExample` (string, required)
+
 ### Modify Alternate Numbers Service Settings [PUT]
 Update a BroadWorks Hunt Group's Alternate Numbers service settings.<br />
 
@@ -18550,17 +18694,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                 TN management routine for provided phone number.<br />
                                 <b>Note: at this time only ""(empty string) is allowed.</b><br/>
                                 Supported values and impact on other required properties:
-                              
                                             <ul>
                                     <li><b>port-no-temp</b> - TN does not exist in the system; will attempt to assign at both the Customer and Site levels. <b>Not Implemented</b></li>
                                     <li><b>auto</b> - TN may or may not already exist in the system; will be assigned automatically to either/both as needed. <b>Not Implemented</b></li>
                                     <li><b>"" (empty string) </b>- TN must already be available for use; no assignment will be performed.</li>
                                          <li>Omitted tnRoutine parameter is same as ""(empty string) tnRoutine value.</li>
                                  </ul>
-                                
-                                
-                                
-                                
                             </td>
                         </tr>
                         <tr>
@@ -18600,7 +18739,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                 <b>Not Implemented</b>
                             </td>
                         </tr>
-                   
     </tbody>
 </table>
 
@@ -18801,6 +18939,14 @@ Extension Keys:
 * (none)
 
 ## VoIP Call Centers Collection [/loki/call-centers{?mode}]
+
++ Parameters
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Create a VoIP Call Center [POST]
 Create a new VoIP Call Center.<br />
 Process name: Create Call Center (VoIP Entity)<br />
@@ -18881,8 +19027,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>profile</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>
-                Container for Profile information.</td></tr>
+            <td>Container for Profile information.</td></tr>
                         <tr>
                             <td>profile.name</td>
                             <td style="text-align: center;">yes</td>
@@ -18917,7 +19062,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                             <td>n/a</td>
                                             <td>Calling Line ID Phone Number.</td>
                                         </tr>
-                                   
                         <tr>
                             <td>profile.phoneNumber</td>
                             <td style="text-align: center;">no</td>
@@ -18930,16 +19074,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>"" (empty string)</td>
                             <td>Phone Number (TN) assignment routine.<br />
                             Supported values and impact on other required properties:
-                           
                                             <ul>
                                     <li><b>port-no-temp</b> - TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</li>
                                     <li><b>auto</b> - TN may or may not already exist in the system; will be assigned automatically to either/both as needed. <b>Not Implemented</b></li>
                                     <li><b>no-number </b>- TN will not be assigned automatically</li>
                                     <li><b>"" (empty string) </b>- TN will not be assigned automatically</li>
                                      </ul>
-                                
-                                
-                                
                              </td>
                         </tr>
                         <tr>
@@ -18988,8 +19128,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Public User Identity SIP URI for the Virtual User.<br />
                             <b>Not Implemented</b></td>
                         </tr>
-  
-
         <tr>
             <td>type</td>
             <td style="text-align: center; font-weight:bold">yes</td>
@@ -19061,7 +19199,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>false</td>
                             <td>Reset caller statistics upon entry to queue.</td>
                         </tr>
-
         <tr>
             <td>agentSettings</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -19130,7 +19267,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Number of seconds to automatically answer call if enabled.
                             Note: Applies only for "Premium."</td>
                         </tr>
-                 
             <td>agentUnavailableCode</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
@@ -19156,7 +19292,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>None(literally)</td>
                             <td>Preferred announcement / music codec for internal calls.</td>
                         </tr>
-                    
         <tr>
             <td>networkClassOfService</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -19214,7 +19349,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <b>If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
                             </td>
                         </tr>
-                   
     </tbody>
 </table>
 
@@ -19255,7 +19389,6 @@ For the Create Call Center process besides the properties listed in the table be
                                             <td>Calling Line ID Last Name.<br />
                                             In initial implementation will be copied from the profile.name.</td>
                                         </tr>
-                                   
                         <tr>
                             <td>profile.extension</td>
                             <td style="text-align: center; font-weight:bold">no</td>
@@ -19271,7 +19404,6 @@ For the Create Call Center process besides the properties listed in the table be
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>Password.</td>
                         </tr>
-                  
         <tr>
             <td>policy</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -19312,7 +19444,6 @@ For the Create Call Center process besides the properties listed in the table be
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>Reset caller statistics upon entry to queue.</td>
                         </tr>
-                    
         <tr>
             <td>agentSettings</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -19346,7 +19477,6 @@ For the Create Call Center process besides the properties listed in the table be
                             <td>Enable automatic call answer after a number of seconds
                             Note: Applies only for "Premium."</td>
                         </tr>
-                    
         <tr>
             <td>bandwidthAndQoS</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -19362,7 +19492,6 @@ For the Create Call Center process besides the properties listed in the table be
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>Preferred announcement / music codec for internal calls.</td>
                         </tr>
-                    
         <tr>
             <td>uniqueId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
@@ -19383,7 +19512,6 @@ For the Create Call Center process besides the properties listed in the table be
                             <td style="text-align: center; font-weight:bold">yes</td>
                             <td>The ID set on the new virtual user.</td>
                         </tr>
-                    
     </tbody>
 </table>
 
@@ -19965,7 +20093,11 @@ For the Create Call Center process besides the properties listed in the table be
                 "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Call Center.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Call Center."
             }
 
-## VoIP Call Center [/loki/call-centers/{+callCenterId}]
+## VoIP Call Center [/loki/call-centers/{callCenterId}]
+
++ Parameters
+    + callCenterId: `callCenterExample` (string, required)
+
 ### Delete a VoIP Call Center [DELETE]
 Delete a VoIP Call Center.<br />
 Process name: Delete Call Center (VoIP Entity)<br />
@@ -20026,7 +20158,13 @@ Rollback-enabled: No
                 "externalErrorDetail": "[Error 4008] User not found: callCenterTest"
             }
 
-## VoIP Call Center's Assigned Services [/loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/services/assigned-services]
+## VoIP Call Center's Assigned Services [/loki/customers/{customerId}/sites/{siteId}/call-centers/{callCenterId}/services/assigned-services]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + callCenterId: `callCenterExample` (string, required)
+
 ### Update Assigned Services [PUT]
 Request modifies list of assigned services on specified Call Center.<br />
 Process Name: Set Call Center Services (VoIP Entity)<br />
@@ -20167,7 +20305,13 @@ Providing invalid service name will result in LWS-SOAP request validation error.
                 "externalErrorDetail": "Authentication: Service is not assignable."
             }
 
-## Site's Call Center [/loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}]
+## Site's Call Center [/loki/customers/{customerId}/sites/{siteId}/call-centers/{callCenterId}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + callCenterId: `callCenterExample` (string, required)
+
 ### Modify a Call Center [PUT]
 Update Call Center instance.<br/>
 Process Name: Modify Call Center via LWS-SOAP (VoIP Entity)<br/>
@@ -20238,7 +20382,6 @@ Rollback-enabled: No
                 </td>
             </tr>
             <tr><td>profile.callingLineId.phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
-       
     <tr><td>profile.phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
     <tr><td>profile.tnRoutine</td><td>no</td><td>n/a</td><td>Phone Number add routine to apply. Allowed values: ["", "no-number", "port-no-temp", "auto"]<br>Note: "auto" and "no-number" values will not be implemented in initial release</td></tr>
     <tr><td>profile.extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
@@ -20252,7 +20395,7 @@ Rollback-enabled: No
     <tr><td>routingType</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
     <tr><td>policy</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
     <tr><td>enableReporting</td><td>no</td><td>n/a</td><td><b>Not Implemented</b></td></tr>
-        <tr><td>callCenterSettings</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for Call Center settings</td></tr>
+    <tr><td>callCenterSettings</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br>Container for Call Center settings</td></tr>
     <tr><td>callCenterSettings.enableVideo</td><td>no</td><td>n/a</td><td></td></tr>
     <tr><td>callCenterSettings.queueLength</td><td>no</td><td>n/a</td><td></td></tr>
     <tr><td>callCenterSettings.playRingingWhenOfferingCall</td><td>no</td><td>n/a</td><td></td></tr>
@@ -20288,7 +20431,6 @@ Rollback-enabled: No
         <tr><td>extensions</td><td>yes</td><td>n/a</td><td>Container for network-element specific properties</td></tr>
         <tr><td>extensions.broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.<br>Details of the BroadWorks-specific properties:</td></tr>
     <tr><td>extensions.broadworks.resourceId</td><td>yes</td><td>n/a</td><td>Call Center instance ID in the BroadWorks</td></tr>
-    
     </tbody>
 </table>
 
@@ -20649,7 +20791,13 @@ Rollback-enabled: No
                ]
             }
 
-## Call Center's Alternate Numbers Service Settings [/api/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/services/Alternate%20Numbers]
+## Call Center's Alternate Numbers Service Settings [/api/customers/{customerId}/sites/{siteId}/call-centers/{callCenterId}/services/Alternate%20Numbers]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + callCenterId: `callCenterExample` (string, required)
+
 ### Modify Alternate Numbers Service Settings [PUT]
 Update a BroadWorks Call Center's Alternate Numbers service settings.<br />
 
@@ -20753,7 +20901,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
             <td>Container for alternate numbers information. Alternate numbers is an array of entries. </td></tr>
-              
                         <tr>
                             <td>alternateNumbers.id</td>
                             <td>yes</td>
@@ -20836,7 +20983,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                 <b>Not Implemented</b>
                             </td>
                         </tr>
-                   
     </tbody>
 </table>
 
@@ -21036,6 +21182,14 @@ Extension Keys:
 * (none)
 
 ## VoIP Instant Group Calls Collection [/loki/instant-group-calls{?mode}]
+
++ Parameters
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
 ### Create a VoIP Instant Group Call [POST]
 Create a new VoIP Instant Group Call.<br />
 Process name: Create Instant Group Call (VoIP Entity)<br />
@@ -21151,7 +21305,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                             <td>n/a</td>
                                             <td>Calling Line ID Phone Number.</td>
                                         </tr>
-                                   
                         <tr>
                             <td>profile.phoneNumber</td>
                             <td style="text-align: center;">no</td>
@@ -21164,15 +21317,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>"" (empty string)</td>
                             <td>Phone Number (TN) assignment routine.<br />
                             Supported values and impact on other required properties:
-                           
-                                                 <ul>
+                            <ul>
                                     <li><b>port-no-temp</b> - TN does not exist in the system; will attempt to assign at both the Customer and Site levels.</li>
                                     <li><b>auto</b> - TN may or may not already exist in the system; will be assigned automatically to either/both as needed. <b>Not Implemented</b></li>
                                     <li><b>no-number </b>- TN will not be assigned automatically</li>
                                     <li><b>"" (empty string) </b>- TN will not be assigned automatically</li>
                                      </ul>
-                                
-                                
                           </td>
                         </tr>
                         <tr>
@@ -21221,7 +21371,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>Public User Identity SIP URI for the Virtual User.<br />
                             <b>Not Implemented</b></td>
                         </tr>
-                    
         <tr>
             <td>destinationPhoneNumber</td>
             <td style="text-align: center; font-weight:bold">no</td>
@@ -21300,7 +21449,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <b>If both "name" and "extensions.broadworks.resourceId" are omitted then the userId of the virtual user will be auto-generated.</b>
                             </td>
                         </tr>
-                   
     </tbody>
 </table>
 
@@ -21352,7 +21500,6 @@ For the Create Instant Group Call process besides the properties listed in the t
                             <td style="text-align: center; font-weight:bold">no</td>
                             <td>Public User Identity SIP URI for the Virtual User.</td>
                         </tr>
-         
         <tr>
             <td>uniqueId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
@@ -21373,7 +21520,6 @@ For the Create Instant Group Call process besides the properties listed in the t
                             <td style="text-align: center; font-weight:bold">yes</td>
                             <td>The ID set on the new virtual user.</td>
                         </tr>
-                    
     </tbody>
 </table>
 
@@ -21775,7 +21921,11 @@ For the Create Instant Group Call process besides the properties listed in the t
                 "detail": "LWS-SOAP: Received unexpected response: 'SuccessResponse'"
             }
 
-## VoIP Instant Group Call [/loki/instant-group-calls/{+instantGroupCallId}]
+## VoIP Instant Group Call [/loki/instant-group-calls/{instantGroupCallId}]
+
++ Parameters
+    + instantGroupCallId: `instantGroupCallExample` (string, required)
+
 ### Delete a VoIP Instant Group Call [DELETE]
 Delete a VoIP Instant Group Call.<br />
 Process name: Delete Instant Group Call (VoIP Entity)<br />
@@ -21836,7 +21986,13 @@ Rollback-enabled: No
                 "externalErrorDetail": "[Error 4008] User not found: instantGroupCallTest"
             }
 
-## Instant Group Call's Assigned Services [/loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}/services/assigned-services]
+## Instant Group Call's Assigned Services [/loki/customers/{customerId}/sites/{siteId}/instant-group-calls/{instantGroupCallId}/services/assigned-services]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + instantGroupCallId: `instantGroupCallExample` (string, required)
+
 ### Update Assigned Services [PUT]
 Request modifies list of assigned services on specified Instant Group Call.<br />
 Process Name: Set Instant Group Call Services (VoIP Entity)<br />
@@ -21977,7 +22133,13 @@ Providing invalid service name will result in LWS-SOAP request validation error.
                 "externalErrorDetail": "Authentication: Service is not assignable."
             }
 
-## Site's Instant Group Call [/loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}]
+## Site's Instant Group Call [/loki/customers/{customerId}/sites/{siteId}/instant-group-calls/{instantGroupCallId}]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + instantGroupCallId: `instantGroupCallExample` (string, required)
+
 ### Modify a VoIP Instant Group Call [PUT]
 Update Instant Group Call instance.<br/>
 Process Name: Modify Instant Group Call via LWS-SOAP (VoIP Entity)<br/>
@@ -22046,7 +22208,6 @@ Rollback-enabled: No
                     if the name is present in the request and the callingLineId first name is not.
                 </td>
             <tr><td>profile.callingLineId.phoneNumber</td><td>no</td><td>n/a</td><td><b>Not Implemented.</b><br> Calling Line Id phone number</td></tr>
-       
     <tr><td>profile.phoneNumber</td><td>no</td><td>n/a</td><td>An E.164-formatted TN</td></tr>
     <tr><td>tnRoutine</td><td>no</td><td>n/a</td><td>Phone Number add routine to apply. Allowed values: ["", "no-number", "port-no-temp", "auto"]<br>Note: "auto" and "no-number" values will not be implemented in initial release</td></tr>
     <tr><td>profile.extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
@@ -22074,8 +22235,6 @@ Rollback-enabled: No
         <tr><td>extensions</td><td>yes</td><td>n/a</td><td>Container for network-element specific properties</td></tr>
         <tr><td>extensions.broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.</td></tr>
     <tr><td>extensions.broadworks.resourceId</td><td>yes</td><td>n/a</td><td>Instant Group Call instance ID in the BroadWorks</td></tr>
-
-
     </tbody>
 </table>
 
@@ -22350,7 +22509,13 @@ Rollback-enabled: No
                ]
             }
 
-## Instant Group Call's Alternate Numbers Service Settings [/api/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}/services/Alternate%20Numbers]
+## Instant Group Call's Alternate Numbers Service Settings [/api/customers/{customerId}/sites/{siteId}/instant-group-calls/{instantGroupCallId}/services/Alternate%20Numbers]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + instantGroupCallId: `instantGroupCallExample` (string, required)
+
 ### Modify Alternate Numbers Service Settings [PUT]
 Update a BroadWorks Instant Group Call's Alternate Numbers service settings.<br />
 
@@ -22472,15 +22637,12 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                 TN management routine for provided phone number.<br />
                                 <b>Note: at this time only ""(empty string) is allowed.</b><br/>
                                 Supported values and impact on other required properties:
-                                
                                <ul>
                                     <li><b>port-no-temp</b> - TN does not exist in the system; will attempt to assign at both the Customer and Site levels. <b>Not Implemented</b></li>
                                     <li><b>auto</b> - TN may or may not already exist in the system; will be assigned automatically to either/both as needed. <b>Not Implemented</b></li>
                                     <li><b>no-number </b>- TN must already be available for use; no assignment will be performed.</li>
                                     <li> Omitted tnRoutine parameter is same as ""(empty string) tnRoutine value</li>
                                      </ul>
-                                
-                             
                             </td>
                         </tr>
                         <tr>
@@ -22520,7 +22682,6 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                                 <b>Not Implemented</b>
                             </td>
                         </tr>
-     
     </tbody>
 </table>
 
