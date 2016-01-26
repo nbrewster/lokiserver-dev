@@ -1853,47 +1853,6 @@ Process Name: Create Customer (VoIP Entity)
     </tbody>
 </table>
 
-### Examples
-#### Adding Enterprise
-No additional parameters is required, enterprise type is used by default.
-
-
-    {
-        "name": "Example Com",
-        "contact": {
-            "email": "example@example.com"
-        }
-    }
-#### Adding Service Provider
-To add service provider, isEnterprise needs to be set to false. In this case useCustomRoutingProfile parameter is required.
-
-    {
-        "name": "Example Com",
-        "contact": {
-            "email": "example@example.com"
-        },
-        "extension": {
-            "broadworks": {
-                "isEnterprise": false,
-                "useCustomRoutingProfile": false
-            }
-        }
-    }
-#### Specifying desired cluster
-In multi-cluster BroadWorks configuration, entity will be added on the default cluster. To specify other cluster, hostingNe parameter needs to be included.
-
-    {
-        "name": "Example Com",
-        "contact": {
-            "email": "example@example.com"
-        },
-        "extension": {
-            "broadworks": {
-                "hostingNe": "REL20AS2"
-            }
-        }
-    }
-
 + Request (application/json)
     + Body
 
@@ -2038,6 +1997,53 @@ In multi-cluster BroadWorks configuration, entity will be added on the default c
                "required": [
                   "name"
                ]
+            }
+
++ Request Example: Adding Enterprise (application/json)
+No additional parameters is required, enterprise type is used by default.
+
+    + Body
+
+            {
+                "name": "Example Com",
+                "contact": {
+                    "email": "example@example.com"
+                }
+            }
+
++ Request Example: Adding Service Provider (application/json)
+To add service provider, `extensions.broadworks.isEnterprise` needs to be set to false. In this case `extensions.broadworks.useCustomRoutingProfile` parameter is required.
+
+    + Body
+
+            {
+                "name": "Example Com",
+                "contact": {
+                    "email": "example@example.com"
+                },
+                "extensions": {
+                    "broadworks": {
+                        "isEnterprise": false,
+                        "useCustomRoutingProfile": false
+                    }
+                }
+            }
+
++ Request Example: Specifying desired cluster (application/json)
+In multi-cluster BroadWorks configuration, entity will be added on the default cluster. To specify other cluster, `extensions.broadworks.hostingNe` parameter needs to be included.
+
+    + Body
+
+            {
+                "name": "Example Com",
+                "contact": {
+                    "email": "example@example.com"
+                },
+                "extensions": {
+                    "broadworks": {
+                        "hostingNe": "REL20AS2"
+                    }
+                }
             }
 
 + Response 201 (application/hal+json)
