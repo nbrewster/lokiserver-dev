@@ -10212,7 +10212,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                   "userType"
                ]
             }
-			
+            
 + Request Example: ATA User Add with device creation, auto-generated device name (application/json)
     + Body
 
@@ -10233,10 +10233,10 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                 "timeZone": "America\/New_York",
                 "language": "English",
                 "accessDevice": {
-					"deviceManagementRoutine": "create",
-				    "type": "Polycom Soundpoint IP 500",
-				    "macAddress": "AABBCC112234"
-				},
+                    "deviceManagementRoutine": "create",
+                    "type": "Polycom Soundpoint IP 500",
+                    "macAddress": "AABBCC112234"
+                },
                 "servicePacks": {
                     "base": "Standard",
                     "add-on": [
@@ -10251,7 +10251,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                     }
                 }
             }
-			
+            
 + Request Example: ATA User Add with device creation (application/json)
     + Body
 
@@ -10272,10 +10272,10 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                 "timeZone": "America\/New_York",
                 "language": "English",
                 "accessDevice": {
-					"deviceManagementRoutine": "create",
-					"type": "Polycom Soundpoint IP 500",
-					"macAddress": "AABBCC112234"
-				},
+                    "deviceManagementRoutine": "create",
+                    "type": "Polycom Soundpoint IP 500",
+                    "macAddress": "AABBCC112234"
+                },
                 "servicePacks": {
                     "base": "Standard",
                     "add-on": [
@@ -10290,7 +10290,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                     }
                 }
             }
-			
+            
 + Request Example: ATA User Add using existing device (application/json)
     + Body
 
@@ -10311,9 +10311,9 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                 "timeZone": "America\/New_York",
                 "language": "English",
                 "accessDevice": {
-					"deviceManagementRoutine": "existing",
-					"name": "ATA device"
-				},
+                    "deviceManagementRoutine": "existing",
+                    "name": "ATA device"
+                },
                 "servicePacks": {
                     "base": "Standard",
                     "add-on": [
@@ -10328,7 +10328,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                     }
                 }
             }
-			
+            
 + Request Example: Business Line User Add (application/json)
     + Body
 
@@ -10349,8 +10349,8 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                 "timeZone": "America\/New_York",
                 "language": "English",
                 "accessDevice": {
-					"name": "exampleComIad001"
-				},
+                    "name": "exampleComIad001"
+                },
                 "servicePacks": {
                     "base": "Standard",
                     "add-on": [
@@ -10365,7 +10365,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                     }
                 }
             }
-			
+            
 + Request Example: HostedPbx User Add (application/json)
     + Body
 
@@ -10386,12 +10386,12 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                 "timeZone": "America\/New_York",
                 "language": "English",
                 "accessDevice": {
-					"name": "exampleComIad001",
-					"type": "Example",
-					"model": "Example",
-					"macAddress": "0A1B2C3D4E5F",
-					"linePort": "exampleComIad001@example.com"
-				},
+                    "name": "exampleComIad001",
+                    "type": "Example",
+                    "model": "Example",
+                    "macAddress": "0A1B2C3D4E5F",
+                    "linePort": "exampleComIad001@example.com"
+                },
                 "servicePacks": {
                     "base": "Standard",
                     "add-on": [
@@ -10404,9 +10404,9 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                         "username": "2005553001@sip.example.com",
                         "password": "230A4u$#%f"
                     }
-				}
+                }
             }
-			
+            
 + Request Example: Trunking User Add (application/json)
     + Body
 
@@ -10426,9 +10426,9 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                 "email": "jsmith@example.com",
                 "timeZone": "America\/New_York",
                 "language": "English",
-				"trunkGroup": {
-					"name": "exampleTrunk"
-				},
+                "trunkGroup": {
+                    "name": "exampleTrunk"
+                },
                 "servicePacks": {
                     "base": "Standard",
                     "add-on": [
@@ -10443,7 +10443,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                     }
                 }
             }
-			
+            
 + Request Example: Trunking User Add with no assigned Trunk Group (application/json)
     + Body
 
@@ -10478,7 +10478,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                     }
                 }
             }
-			
+            
 + Request Example: Alternative process - Trunking User Add with no assigned Trunk Group (application/json)
     + Body
 
