@@ -9697,67 +9697,7 @@ HAL representation of the created device with the following properties described
 </table>
 
 ### User Type
-The the accessDevice and trunkGroup values vary depending on the type of user being added (userType). See examples (excerpts from a request body) below.
-#### ATA User Add with device creation (auto-generated device name)
-    ...
-    "userType" : "ATA",
-    "accessDevice": {
-      "deviceManagementRoutine": "create",
-      "type": "Polycom Soundpoint IP 500",
-      "macAddress": "AABBCC112234"
-    },
-    ...
-#### ATA User Add with device creation
-    ...
-    "userType" : "ATA",
-    "accessDevice": {
-      "deviceManagementRoutine": "create",
-      "type": "Polycom Soundpoint IP 500",
-      "macAddress": "AABBCC112234"
-    },
-    ...
-#### ATA User Add using existing device
-    ...
-    "userType" : "ATA",
-    "accessDevice": {
-      "deviceManagementRoutine": "existing",
-      "name": "ATA device"
-    },
-    ...
-#### Business Line User Add
-    ...
-    "userType" : "businessLine",
-    "accessDevice": {
-        "name": "exampleComIad001"
-    },
-    ...
-#### HostedPbx User Add
-    ...
-    "userType" : "hostedPbx",
-    "accessDevice": {
-        "name": "exampleComIad001",
-        "type": "Example",
-        "model": "Example",
-        "macAddress": "0A1B2C3D4E5F",
-        "linePort": "exampleComIad001@example.com"
-    },
-    ...
-#### Trunking User Add
-    ...
-    "userType" : "trunking",
-    "trunkGroup": {
-        "name": "exampleTrunk"
-    },
-    ...
-#### Trunking User Add with no assigned Trunk Group
-    ...
-    "userType" : "trunking",
-    "trunkGroup": { },
-    ...
-#### Trunking User Add with no assigned Trunk Group (Alternative)
-    ...
-    "userType" : "trunking",
-    ...
+The accessDevice and trunkGroup values vary depending on the type of user being added (userType). See examples below.
 
 + Request (application/json)
     + Body
@@ -10271,6 +10211,306 @@ The the accessDevice and trunkGroup values vary depending on the type of user be
                "required": [
                   "userType"
                ]
+            }
+			
++ Request Example: ATA User Add with device creation, auto-generated device name (application/json)
+    + Body
+
+            {
+                "customerId": "a-server-generated-ID",
+                "siteId": "another-server-generated-ID",
+                "name": "2005553001@example.com",
+                "userType": "ATA",
+                "phoneNumber": "+1-2005553001",
+                "tnRoutine": "port-no-temp",
+                "CLID": "+1-2005553001",
+                "extension": "3001",
+                "lastName": "Smith",
+                "firstName": "John",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "email": "jsmith@example.com",
+                "timeZone": "America\/New_York",
+                "language": "English",
+                "accessDevice": {
+					"deviceManagementRoutine": "create",
+				    "type": "Polycom Soundpoint IP 500",
+				    "macAddress": "AABBCC112234"
+				},
+                "servicePacks": {
+                    "base": "Standard",
+                    "add-on": [
+                        "Executive"
+                    ]
+                },
+                "role": "Executive",
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    }
+                }
+            }
+			
++ Request Example: ATA User Add with device creation (application/json)
+    + Body
+
+            {
+                "customerId": "a-server-generated-ID",
+                "siteId": "another-server-generated-ID",
+                "name": "2005553001@example.com",
+                "userType": "ATA",
+                "phoneNumber": "+1-2005553001",
+                "tnRoutine": "port-no-temp",
+                "CLID": "+1-2005553001",
+                "extension": "3001",
+                "lastName": "Smith",
+                "firstName": "John",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "email": "jsmith@example.com",
+                "timeZone": "America\/New_York",
+                "language": "English",
+                "accessDevice": {
+					"deviceManagementRoutine": "create",
+					"type": "Polycom Soundpoint IP 500",
+					"macAddress": "AABBCC112234"
+				},
+                "servicePacks": {
+                    "base": "Standard",
+                    "add-on": [
+                        "Executive"
+                    ]
+                },
+                "role": "Executive",
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    }
+                }
+            }
+			
++ Request Example: ATA User Add using existing device (application/json)
+    + Body
+
+            {
+                "customerId": "a-server-generated-ID",
+                "siteId": "another-server-generated-ID",
+                "name": "2005553001@example.com",
+                "userType": "ATA",
+                "phoneNumber": "+1-2005553001",
+                "tnRoutine": "port-no-temp",
+                "CLID": "+1-2005553001",
+                "extension": "3001",
+                "lastName": "Smith",
+                "firstName": "John",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "email": "jsmith@example.com",
+                "timeZone": "America\/New_York",
+                "language": "English",
+                "accessDevice": {
+					"deviceManagementRoutine": "existing",
+					"name": "ATA device"
+				},
+                "servicePacks": {
+                    "base": "Standard",
+                    "add-on": [
+                        "Executive"
+                    ]
+                },
+                "role": "Executive",
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    }
+                }
+            }
+			
++ Request Example: Business Line User Add (application/json)
+    + Body
+
+            {
+                "customerId": "a-server-generated-ID",
+                "siteId": "another-server-generated-ID",
+                "name": "2005553001@example.com",
+                "userType": "businessLine",
+                "phoneNumber": "+1-2005553001",
+                "tnRoutine": "port-no-temp",
+                "CLID": "+1-2005553001",
+                "extension": "3001",
+                "lastName": "Smith",
+                "firstName": "John",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "email": "jsmith@example.com",
+                "timeZone": "America\/New_York",
+                "language": "English",
+                "accessDevice": {
+					"name": "exampleComIad001"
+				},
+                "servicePacks": {
+                    "base": "Standard",
+                    "add-on": [
+                        "Executive"
+                    ]
+                },
+                "role": "Executive",
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    }
+                }
+            }
+			
++ Request Example: HostedPbx User Add (application/json)
+    + Body
+
+            {
+                "customerId": "a-server-generated-ID",
+                "siteId": "another-server-generated-ID",
+                "name": "2005553001@example.com",
+                "userType": "hostedPbx",
+                "phoneNumber": "+1-2005553001",
+                "tnRoutine": "port-no-temp",
+                "CLID": "+1-2005553001",
+                "extension": "3001",
+                "lastName": "Smith",
+                "firstName": "John",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "email": "jsmith@example.com",
+                "timeZone": "America\/New_York",
+                "language": "English",
+                "accessDevice": {
+					"name": "exampleComIad001",
+					"type": "Example",
+					"model": "Example",
+					"macAddress": "0A1B2C3D4E5F",
+					"linePort": "exampleComIad001@example.com"
+				},
+                "servicePacks": {
+                    "base": "Standard",
+                    "add-on": [
+                        "Executive"
+                    ]
+                },
+                "role": "Executive",
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    }
+				}
+            }
+			
++ Request Example: Trunking User Add (application/json)
+    + Body
+
+            {
+                "customerId": "a-server-generated-ID",
+                "siteId": "another-server-generated-ID",
+                "name": "2005553001@example.com",
+                "userType": "trunking",
+                "phoneNumber": "+1-2005553001",
+                "tnRoutine": "port-no-temp",
+                "CLID": "+1-2005553001",
+                "extension": "3001",
+                "lastName": "Smith",
+                "firstName": "John",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "email": "jsmith@example.com",
+                "timeZone": "America\/New_York",
+                "language": "English",
+				"trunkGroup": {
+					"name": "exampleTrunk"
+				},
+                "servicePacks": {
+                    "base": "Standard",
+                    "add-on": [
+                        "Executive"
+                    ]
+                },
+                "role": "Executive",
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    }
+                }
+            }
+			
++ Request Example: Trunking User Add with no assigned Trunk Group (application/json)
+    + Body
+
+            {
+                "customerId": "a-server-generated-ID",
+                "siteId": "another-server-generated-ID",
+                "name": "2005553001@example.com",
+                "userType": "trunking",
+                "phoneNumber": "+1-2005553001",
+                "tnRoutine": "auto",
+                "CLID": "+1-2005553001",
+                "extension": "3001",
+                "lastName": "Smith",
+                "firstName": "John",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "email": "jsmith@example.com",
+                "timeZone": "America\/New_York",
+                "language": "English",
+                "trunkGroup": {},
+                "servicePacks": {
+                    "base": "Standard",
+                    "add-on": [
+                        "Executive"
+                    ]
+                },
+                "role": "Executive",
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    }
+                }
+            }
+			
++ Request Example: Alternative process - Trunking User Add with no assigned Trunk Group (application/json)
+    + Body
+
+            {
+                "customerId": "a-server-generated-ID",
+                "siteId": "another-server-generated-ID",
+                "name": "2005553001@example.com",
+                "userType": "trunking",
+                "phoneNumber": "+1-2005553001",
+                "tnRoutine": "auto",
+                "CLID": "+1-2005553001",
+                "extension": "3001",
+                "lastName": "Smith",
+                "firstName": "John",
+                "callingLineIdLastName": "Smith",
+                "callingLineIdFirstName": "John",
+                "email": "jsmith@example.com",
+                "timeZone": "America\/New_York",
+                "language": "English",
+                "servicePacks": {
+                    "base": "Standard",
+                    "add-on": [
+                        "Executive"
+                    ]
+                },
+                "role": "Executive",
+                "services": {
+                    "Authentication": {
+                        "username": "2005553001@sip.example.com",
+                        "password": "230A4u$#%f"
+                    }
+                }
             }
 
 + Response 201 (application/hal+json)
