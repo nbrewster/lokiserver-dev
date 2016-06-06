@@ -5162,6 +5162,1364 @@ Rollback-enabled: No
                 "externalErrorDetail": "[Error 4007] Invalid login ID: adminTest@example.com"
             }
 
+<!-- ------------------------- Site Meet Me Conferencing ----------------------- -->
+
+# Group Site Meet Me Conferencing
++ Supported network elements:
+    + LWS-SOAP
+    + BroadWorks Application Server
+
++ Keys:
+    + meetMeConferencingId
+
++ Extension Keys:
+    + (none)
+
+## Meet-Me Conferencing Instances Collection [/api/customers/{customerId}/sites/{siteId}/meet-me-conferencing/instances{?mode}]
+
++ Parameters
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+    + customerId: `DemoCumstomer` (string, required)
+    + siteId: `DemoSite` (string, required)
+            
+### Create Meet Me Conferencing Instance [POST]
+Create a new Meet Me Conferencing Instance.<br />
+
+Resource: Site Meet Me Conferencing Bridge
+
+Resource Archetype: Document
+
+### JSON Schema for URI Template Parameters
+
+    {
+      "title": "URI template parameters schema",
+      "description": "Create Meet Me Conferencing Bridge URI template parameters schema",
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "title": "Customer ID",
+          "description": "Generated Customer ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "siteId": {
+          "title": "Site ID",
+          "description": "Generated Site ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        }
+      },
+      "required": [
+        "customerId",
+        "siteId"
+      ]
+    }
+
+### JSON Schema for URI Query Parameters
+
+    {
+      "id": "siteMeetMeConferencing.createMeetMeConferencing.request.uri.query.schema",
+      "$ref": "/base#/definitions/ModeUriQuery"
+    }
+    
+
+### Request Properties
+
++ Request (application/json)
+    + Body
+
+            {
+              "name": "5551239876@example.com",
+              "extensions": {
+                "broadworks": {
+                  "resourceId": "5551239876@example.com"
+                }
+              },
+              "profile": {
+                "name": "My Meet Me Conferencing",
+                "phoneNumber": "+1-5551239876",
+                "extension": "9876",
+                "language": "English",
+                "timeZone": " America\/New_York"
+              },
+              "maxConferenceDuration": {
+                "enable": true,
+                "hours": 8,
+                "minutes": 15
+              },
+              "maxScheduledConferenceDuration": {
+                "hours": 9,
+                "minutes": 15
+              },
+              "playConferenceEndWarningPrompt": {
+                "enable": true,
+                "minutes": 7
+              },
+              "allowIndividualOutDial": true,
+              "securityPinLength": 5,
+              "allocatedPorts": {
+                "unlimited": true
+              },
+              "services": {
+                "Alternate Numbers": {},
+                "Basic Call Logs": {}
+              }
+            }
+
+    + Schema
+
+            {
+              "id": "siteMeetMeConferencing.createMeetMeConferencingBridge.request.body.schema",
+              "title": "Create Meet Me Conferencing Bridge",
+              "description": "Create Meet Me Conferencing Bridge Request Body Schema",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "title": "name",
+                  "description": "The clients suggested name for the resource. It is used for constructing the BroadWorks Meet-Me Conferencing Bridge ID.",
+                  "$ref": "/base#/definitions/UserId"
+                },
+                "extensions": {
+                  "title": "Extensions",
+                  "description": "Extensions container",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "broadworks": {
+                      "title": "BroadWorks",
+                      "description": "BroadWorks Container",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "resourceId": {
+                          "title": "Resource Id",
+                          "description": "The ID to be set on the new virtual user. Note: If provided it overrides the value generated from the 'name' property.If both 'name' and 'extensions.broadworks.resourceId' are omitted then the userId of the virtual user will be auto-generated.",
+                          "$ref": "/base#/definitions/UserId"
+                        }
+                      }
+                    }
+                  }
+                },
+                "profile": {
+                  "title": "Profile",
+                  "description": "Container for profile settings",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "title": "Name",
+                      "description": "Service Instance Name",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    },
+                    "callingLineId": {
+                      "title": "Calling Line Id",
+                      "description": "Container for Calling Line Id settings",
+                      "additionalProperties": false,
+                      "properties": {
+                        "firstName": {
+                          "title": "First Name",
+                          "description": "First Name for Calling Line Id Display",
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 30
+                        },
+                        "lastName": {
+                          "title": "Last Name",
+                          "description": "Last Name for Calling Line Id Display",
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 30
+                        }
+                      }
+                    },
+                    "timeZone": {
+                      "title": "Time Zone",
+                      "description": "Time Zone",
+                      "$ref": "/base#/definitions/TimeZone"
+                    },
+                    "language": {
+                      "title": "Language",
+                      "description": "Language",
+                      "$ref": "/base#/definitions/Language"
+                    },
+                    "department": {
+                      "title": "Department",
+                      "description": "NOT IMPLEMENTED. Department",
+                      "$ref": "/base#/definitions/DepartmentName"
+                    },
+                    "alias": {
+                      "title": "Alias",
+                      "description": "NOT IMPLEMENTED. List of possible SIP URIs aliases of the Virtual User. Not Implemented",
+                      "type": "array",
+                      "maxItems": 3,
+                      "items": {
+                        "title": "SIP URI",
+                        "description": "SIP URI alias of the Virtual User",
+                        "$ref": "/base#/definitions/SIPURI"
+                      }
+                    },
+                    "publicServiceIdentity": {
+                      "title": "Public Service Identity",
+                      "description": "NOT IMPLEMENTED. Public User Identity SIP URI for the Virtual User. Not Implemented",
+                      "$ref": "/base#/definitions/SIPURI"
+                    },
+                    "phoneNumber": {
+                      "$ref": "/base#/definitions/PhoneNumber"
+                    },
+                    "tnRoutine": {
+                      "$ref": "/base#/definitions/TnRoutineNotNillable"
+                    },
+                    "extension": {
+                      "title": "Extension",
+                      "description": "Extension",
+                      "$ref": "/base#/definitions/NillableExtension"
+                    }
+                  },
+                  "required": ["name"]
+                },
+                "securityPinLength": {
+                  "title": "Security Pin Length",
+                  "description": "Length of security pin for Meet-Me Conference",
+                  "type": "integer",
+                  "minimum": 4,
+                  "maximum": 12
+                },
+                "allocatedPorts": {
+                  "title": "Allocated Ports",
+                  "description": "Number of Allocated Ports. Can be either unlimited or an integer quantity",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "unlimited": {
+                      "title": "Unlimited",
+                      "description": "Unlimited number of allocated ports",
+                      "type": "boolean"
+                    },
+                    "quantity": {
+                      "title": "Quantity",
+                      "description": "Number of allocated ports. It can either be unlimited or a quantity provided, but not both",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 999999
+                    }
+                  }
+                },
+                "allowIndividualOutDial": {
+                  "title": "Allow Individual Out Dial",
+                  "description": "Allow out-dialing to individual participants.",
+                  "type": "boolean"
+                },
+                "playConferenceEndWarningPrompt": {
+                  "title": "Warning Prompt",
+                  "description": "Container for Warning Prompt settings",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enable": {
+                      "title": "Play",
+                      "description": "Play Warning Prompt before the conference end.",
+                      "type": "boolean"
+                    },
+                    "minutes": {
+                      "title": "Conference End",
+                      "description": "Minutes before the warning prompt is played",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 15
+                    }
+                  },
+                  "required": ["enable", "minutes"]
+                },
+                "maxConferenceDuration": {
+                  "title": "Conference duration",
+                  "description": "Container for Conference duration settings",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enable": {
+                      "title": "Enable maximum duration",
+                      "description": "Limits the conference duration.",
+                      "type": "boolean"
+                    },
+                    "hours": {
+                      "title": "Maximum number of hours",
+                      "description": "Maximum Conference Duration in hours.",
+                      "$ref": "/base#/definitions/MaxHours"
+                    },
+                    "minutes": {
+                      "title": "Maximum number of minutes",
+                      "description": "Maximum Conference Duration in minutes.",
+                      "$ref": "/base#/definitions/MaxMinutes"
+                    }
+                  },
+                  "required": ["enable", "hours", "minutes"]
+                },
+                "maxScheduledConferenceDuration": {
+                  "title": "Scheduled Conference duration",
+                  "description": "Container for Scheduled Conference duration settings",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "hours": {
+                      "title": "Maximum number of hours",
+                      "description": "Maximum Scheduled Conference Duration in hours.",
+                      "$ref": "/base#/definitions/MaxHours"
+                    },
+                    "minutes": {
+                      "title": "Maximum number of minutes",
+                      "description": "Maximum Scheduled Conference Duration in minutes.",
+                      "$ref": "/base#/definitions/MaxMinutes"
+                    }
+                  },
+                  "required": ["hours", "minutes"]
+                },
+                "services": {
+                  "title": "Services",
+                  "description": "Container for list of services and their configuration settings to be assigned to the virtual user. Note: Initial release does not support service configuration. To assign a service without doing any configuration, set the value to an empty object, e.g. \"services\" : { \"Remote Office\" : { } }.",
+                  "type": "object",
+                  "patternProperties": {
+                    "^.+$": {
+                      "type": "object"
+                    }
+                  }
+                }
+              },
+              "required": ["profile", "allocatedPorts", "securityPinLength", "allowIndividualOutDial", "playConferenceEndWarningPrompt", "maxConferenceDuration", "maxScheduledConferenceDuration"]
+            }
+
++ Response 201 (application/hal+json)
+    + Headers
+
+            Location: http://uc.example.com/api/customer/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances/5551239876%40example.com
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+              "_links": {
+                "self": {
+                  "href": "/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances/5551239876%40example.com"
+                },
+                "ls:customer": {
+                  "href": "/api/customers/DemoCustomer"
+                },
+                "ls:site": {
+                  "href": "/api/customers/DemoCustomer/sites/DemoSite"
+                },
+                "collection": {
+                  "href": "/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances"
+                }
+              },
+              "meetMeConferencingId": "5551239876@example.com",
+              "profile": {
+                "name": "My Meet Me Conferencing",
+                "callingLineId": {
+                  "lastName": "My Meet Me Conferencing",
+                  "firstName": "My Meet Me Conferencing"
+                },
+                "publicServiceIdentity": "5551239876@example.com",
+                "extension": "9876"
+              },
+              "mailbox": {
+                "userId": "user@example.com",
+                "email": "user@example.net"
+              },
+              "customerId": "DemoCustomer",
+              "siteId": "DemoSite",
+              "extensions": {
+                "broadworks": {
+                  "resourceId": "5551239876@example.com"
+                }
+              }
+            }
+
+    + Schema
+
+            {
+              "id": "siteMeetMeConferencing.createMeetMeConferencingBridge.response.body.schema",
+              "title": "Create Meet Me Conferencing Bridge Response",
+              "description": "Create Meet Me Conferencing Bridge Response Body Schema",
+              "additionalProperties": false,
+              "properties":{
+                "_links": {
+                  "title": "Links",
+                  "description": "Meet Me Conferencing HAL Links",
+                  "type": "object",
+                  "properties": {
+                    "self": {
+                      "title": "Self",
+                      "description": "Meet Me Conferencing self link",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "collection": {
+                      "title": "Collection",
+                      "description": "Link to Meet Me Conferencing instances",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:customer": {
+                      "title": "Customer",
+                      "description": "Link to associated Customer",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:site": {
+                      "title": "Site",
+                      "description": "Link to associated Site",
+                      "$ref": "/hal#/definitions/link"
+                    }
+                  },
+                  "required": [
+                    "self",
+                    "collection",
+                    "ls:customer",
+                    "ls:site"
+                  ]
+                },
+                "profile": {
+                  "title": "Profile",
+                  "description": "Container for profile settings",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "title": "Name",
+                      "description": "Service Instance Name",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    },
+                    "callingLineId": {
+                      "title": "Calling Line Id",
+                      "description": "Container for Calling Line Id settings",
+                      "additionalProperties": false,
+                      "properties": {
+                        "firstName": {
+                          "title": "First Name",
+                          "description": "First Name for Calling Line Id Display",
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 30
+                        },
+                        "lastName": {
+                          "title": "Last Name",
+                          "description": "Last Name for Calling Line Id Display",
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 30
+                        }
+                      }
+                    },
+                    "publicServiceIdentity": {
+                      "type": "string",
+                      "title": "Public Service Identity",
+                      "description": "Public User Identity SIP URI for the Virtual User",
+                      "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                      "minLength": 1,
+                      "maxLength": 161
+                    },
+                    "extension": {
+                      "title": "Extension",
+                      "description": "Extension",
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "minLength": 2,
+                      "maxLength": 20,
+                      "pattern": "^[0-9]+$"
+                    }
+                  },
+                  "required": ["name", "callingLineId"]
+                },
+                "mailbox": {
+                  "title": "Mailbox",
+                  "description": "Contains userId and email elements for the Message Store. Omitted if Message Store disabled in config.",
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "title": "User Id",
+                      "description": "The Id of the User",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "email": {
+                      "title": "Email",
+                      "description": "The email address of the user",
+                      "type": "string",
+                      "format": "email"
+                    }
+                  }
+                },
+                "meetMeConferencingId": {
+                  "title": "Meet Me Conferencing Bridge Id",
+                  "description": "Generated Meet Me Conferencing ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                },
+                "customerId": {
+                  "title": "Customer Id",
+                  "description": "Generated Customer ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                },
+                "siteId": {
+                  "title": "Site Id",
+                  "description": "Generated Site ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                },
+                "extensions": {
+                  "title": "Extensions",
+                  "description": "Extensions container",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "broadworks": {
+                      "title": "BroadWorks",
+                      "description": "BroadWorks Container",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "resourceId": {
+                          "title": "Resource Id",
+                          "description": "The BroadWorks ID of the virtual user.",
+                          "$ref": "/base#/definitions/UserId"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["_links", "profile", "customerId", "siteId", "extensions"]
+            }
+    
+## Site's Meet Me Conferencing Instance [/api/customers/{customerId}/sites/{siteId}/meet-me-conferencing/instances/{meetMeConferenceId}]
+
++ Parameters
+    + customerId: `DemoCustomer` (string, required)
+    + siteId: `DemoSite` (string, required)
+    + meetMeConferenceId: `5551239876%40example.com` (string, required)
+    
+    
+### Modify Meet Me Conferencing Instance [PUT]
+Modify a Meet Me Conferencing Instance.<br />
+
+Resource: Site Meet Me Conferencing Bridge
+
+Resource Archetype: Document
+
+### JSON Schema for URI Template Parameters
+
+    {
+      "id": "siteMeetMeConferencing.modifyMeetMeConferencing.request.uri.template.schema",
+      "$ref": "/siteMeetMeConferencing#/definitions/SiteMeetMeeConferencingBridgePutUriTemplate"
+    }
+    
+
+### Request Properties
+
++ Request (application/json)
+    + Body
+
+            {
+              "profile": {
+                "name": "My Meet Me Conferencing",
+                "callingLineId": {
+                  "firstName": "Calling Line Id First Name",
+                  "lastName": "Calling Line Id Last Name"
+                },
+                "phoneNumber": "+1-5551239876",
+                "extension": "9876"
+              },
+              "securityPinLength": 5,
+              "allocatedPorts": {
+                "unlimited": false,
+                "quantity": 20
+              },
+              "allowIndividualOutDial": false,
+              "maxConferenceDuration": {
+                "enable": true,
+                "hours": 8,
+                "minutes": 15
+              },
+              "maxScheduledConferenceDuration": {
+                "hours": 9,
+                "minutes": 15
+              },
+              "playConferenceEndWarningPrompt": {
+                "enable": true,
+                "minutes": 9
+              }
+            }
+
+    + Schema
+
+            {
+              "id": "siteMeetMeConferencing.modifyMeetMeConferencingBridge.request.body.schema",
+              "title": "Modify Meet Me Conferencing Bridge",
+              "description": "Modify Meet Me Conferencing Bridge Request Body Schema",
+              "additionalProperties": false,
+              "properties": {
+                "profile": {
+                  "title": "Profile",
+                  "description": "Container for profile settings",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "title": "Name",
+                      "description": "Service Instance Name",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    },
+                    "callingLineId": {
+                      "title": "Calling Line Id",
+                      "description": "Container for Calling Line Id settings",
+                      "additionalProperties": false,
+                      "properties": {
+                        "firstName": {
+                          "title": "First Name",
+                          "description": "First Name for Calling Line Id Display",
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 30
+                        },
+                        "lastName": {
+                          "title": "Last Name",
+                          "description": "Last Name for Calling Line Id Display",
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 30
+                        }
+                      }
+                    },
+                    "timeZone": {
+                      "title": "Time Zone",
+                      "description": "NOT IMPLEMENTED. Time Zone",
+                      "$ref": "/base#/definitions/TimeZone"
+                    },
+                    "language": {
+                      "title": "Language",
+                      "description": "NOT IMPLEMENTED. Language",
+                      "$ref": "/base#/definitions/Language"
+                    },
+                    "department": {
+                      "title": "Department",
+                      "description": "NOT IMPLEMENTED. Department",
+                      "$ref": "/base#/definitions/DepartmentName"
+                    },
+                    "alias": {
+                      "title": "Alias",
+                      "description": "NOT IMPLEMENTED. List of possible SIP URIs aliases of the Virtual User. Not Implemented",
+                      "type": "array",
+                      "maxItems": 3,
+                      "items": {
+                        "title": "SIP URI",
+                        "description": "SIP URI alias of the Virtual User",
+                        "$ref": "/base#/definitions/SIPURI"
+                      }
+                    },
+                    "publicServiceIdentity": {
+                      "title": "Public Service Identity",
+                      "description": "NOT IMPLEMENTED. Public User Identity SIP URI for the Virtual User. Not Implemented",
+                      "$ref": "/base#/definitions/SIPURI"
+                    },
+                    "phoneNumber": {
+                      "$ref": "/base#/definitions/PhoneNumber"
+                    },
+                    "tnRoutine": {
+                      "$ref": "/base#/definitions/TnRoutineNotNillable"
+                    },
+                    "extension": {
+                      "title": "Extension",
+                      "description": "Extension",
+                      "$ref": "/base#/definitions/NillableExtension"
+                    }
+                  }
+                },
+                "securityPinLength": {
+                  "title": "Security Pin Length",
+                  "description": "Length of security pin for Meet-Me Conference",
+                  "type": "integer",
+                  "minimum": 4,
+                  "maximum": 12
+                },
+                "allocatedPorts": {
+                  "title": "Allocated Ports",
+                  "description": "Number of Allocated Ports. Can be either unlimited or an integer quantity",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "unlimited": {
+                      "title": "Unlimited",
+                      "description": "Unlimited number of allocated ports",
+                      "type": "boolean"
+                    },
+                    "quantity": {
+                      "title": "Quantity",
+                      "description": "Number of allocated ports. It can either be unlimited or a quantity provided, but not both",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 999999
+                    }
+                  }
+                },
+                "allowIndividualOutDial": {
+                  "title": "Allow Individual Out Dial",
+                  "description": "Allow out-dialing to individual participants.",
+                  "type": "boolean"
+                },
+                "playConferenceEndWarningPrompt": {
+                  "title": "Warning Prompt",
+                  "description": "Container for Warning Prompt settings",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enable": {
+                      "title": "Play",
+                      "description": "Play Warning Prompt before the conference end.",
+                      "type": "boolean"
+                    },
+                    "minutes": {
+                      "title": "Conference End",
+                      "description": "Minutes before the warning prompt is played",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 15
+                    }
+                  }
+                },
+                "maxConferenceDuration": {
+                  "title": "Conference duration",
+                  "description": "Container for Conference duration settings",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enable": {
+                      "title": "Enable maximum duration",
+                      "description": "Limits the conference duration.",
+                      "type": "boolean"
+                    },
+                    "hours": {
+                      "title": "Maximum number of hours",
+                      "description": "Maximum Conference Duration in hours.",
+                      "$ref": "/base#/definitions/MaxHours"
+                    },
+                    "minutes": {
+                      "title": "Maximum number of minutes",
+                      "description": "Maximum Conference Duration in minutes.",
+                      "$ref": "/base#/definitions/MaxMinutes"
+                    }
+                  }
+                },
+                "maxScheduledConferenceDuration": {
+                  "title": "Scheduled Conference duration",
+                  "description": "Container for Scheduled Conference duration settings",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "hours": {
+                      "title": "Maximum number of hours",
+                      "description": "Maximum Scheduled Conference Duration in hours.",
+                      "$ref": "/base#/definitions/MaxHours"
+                    },
+                    "minutes": {
+                      "title": "Maximum number of minutes",
+                      "description": "Maximum Scheduled Conference Duration in minutes.",
+                      "$ref": "/base#/definitions/MaxMinutes"
+                    }
+                  }
+                }
+              }
+            }
+
++ Response 200 (application/hal+json)
+    + Headers
+
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+              "_links": {
+                "self": {
+                  "href": "/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances/5551239876%40example.com"
+                },
+                "ls:customer": {
+                  "href": "/api/customers/DemoCustomer"
+                },
+                "ls:site": {
+                  "href": "/api/customers/DemoCustomer/sites/DemoSite"
+                },
+                "collection": {
+                  "href": "/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances"
+                }
+              },
+              "meetMeConferencingId": "5551239876@example.com",
+              "profile": {
+                "publicServiceIdentity": "5551239876@example.com",
+                "extension": "9876"
+              },
+              "customerId": "DemoCustomer",
+              "siteId": "DemoSite",
+              "extensions": {
+                "broadworks": {
+                  "resourceId": "5551239876@example.com"
+                }
+              }
+            }
+
+    + Schema
+
+            {
+              "id": "siteMeetMeConferencing.modifyMeetMeConferencingBridge.response.body.schema",
+              "title": "Modify Meet Me Conferencing Bridge Response",
+              "description": "Modify Meet Me Conferencing Bridge Response Body Schema",
+              "additionalProperties": false,
+              "properties":{
+                "_links": {
+                  "title": "Links",
+                  "description": "Meet Me Conferencing HAL Links",
+                  "type": "object",
+                  "properties": {
+                    "self": {
+                      "title": "Self",
+                      "description": "Meet Me Conferencing self link",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "collection": {
+                      "title": "Collection",
+                      "description": "Link to Meet Me Conferencing instances",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:customer": {
+                      "title": "Customer",
+                      "description": "Link to associated Customer",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:site": {
+                      "title": "Site",
+                      "description": "Link to associated Site",
+                      "$ref": "/hal#/definitions/link"
+                    }
+                  },
+                  "required": [
+                    "self",
+                    "collection",
+                    "ls:customer",
+                    "ls:site"
+                  ]
+                },
+                "profile": {
+                  "title": "Profile",
+                  "description": "Profile container",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "publicServiceIdentity": {
+                      "type": "string",
+                      "title": "Public Service Identity",
+                      "description": "Public User Identity SIP URI for the Virtual User",
+                      "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                      "minLength": 1,
+                      "maxLength": 161
+                    },
+                    "extension": {
+                      "title": "Extension",
+                      "description": "Extension",
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "minLength": 2,
+                      "maxLength": 20,
+                      "pattern": "^[0-9]+$"
+                    }
+                  }
+                },
+                "meetMeConferencingId": {
+                  "title": "Meet Me Conferencing Bridge Id",
+                  "description": "Generated Meet Me Conferencing ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                },
+                "customerId": {
+                  "title": "Customer Id",
+                  "description": "Generated Customer ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                },
+                "siteId": {
+                  "title": "Site Id",
+                  "description": "Generated Site ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                },
+                "extensions": {
+                  "title": "Extensions",
+                  "description": "Extensions container",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "broadworks": {
+                      "title": "BroadWorks",
+                      "description": "BroadWorks Container",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "resourceId": {
+                          "title": "Resource Id",
+                          "description": "The BroadWorks ID of the virtual user.",
+                          "$ref": "/base#/definitions/UserId"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["_links", "customerId", "siteId", "extensions"]
+            }
+
+### Delete a Meet Me Conference Instance [DELETE]
+Delete a Meet Me Conference Instance.<br />
+
+Resource: Site Meet Me Conferencing Bridge
+
+Resource Archetype: Document
+
+### JSON Schema for URI Template Parameters
+
+    {
+      "id": "siteMeetMeConferencing.deleteMeetMeConferencing.request.uri.template.schema",
+      "$ref": "/siteMeetMeConferencing#/definitions/SiteMeetMeeConferencingBridgePutUriTemplate"
+    }
+
++ Response 200 (application/hal+json)
+    + Headers
+
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+              "_links": {
+                "ls:customer": {
+                  "href": "/api/customers/DemoCustomer"
+                },
+                "ls:site": {
+                  "href": "/api/customers/DemoCustomer/sites/DemoSite"
+                },
+                "collection": {
+                  "href": "/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances"
+                }
+              },
+              "customerId": "DemoCustomer",
+              "siteId": "DemoSite"
+            }
+
+    + Schema
+
+            {
+              "id": "siteMeetMeConferencing.deleteMeetMeConferencingBridge.response.body.schema",
+              "title": "Delete Meet Me Conferencing Bridge Response",
+              "description": "Delete Meet Me Conferencing Bridge Response Body Schema",
+              "additionalProperties": false,
+              "properties":{
+                "_links": {
+                  "title": "HAL Links",
+                  "description": "Meet Me Conferencing HAL Links",
+                  "type": "object",
+                  "properties": {
+                    "collection": {
+                      "title": "Collection",
+                      "description": "Link to Meet Me Conferencing instances",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:customer": {
+                      "title": "Customer",
+                      "description": "Link to associated Customer",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:site": {
+                      "title": "Site",
+                      "description": "Link to associated Site",
+                      "$ref": "/hal#/definitions/link"
+                    }
+                  },
+                  "required": [
+                    "collection",
+                    "ls:customer",
+                    "ls:site"
+                  ]
+                },
+                "customerId": {
+                  "title": "Customer ID",
+                  "description": "Generated Customer ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                },
+                "siteId": {
+                  "title": "Site ID",
+                  "description": "Generated Site ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                }
+              },
+              "required": ["_links", "customerId", "siteId"]
+            }
+
+## Meet-Me Conferencing Instance Alternate Numbers Service Settings [/api/customers/{customerId}/sites/{siteId}/meet-me-conferencing/instances/{meetMeConferencingId}/services/Alternate%20Numbers]
+
++ Parameters
+    + customerId: `DemoCustomer` (string, required)
+    + siteId: `DemoSite` (string, required)
+    + meetMeConferencingId: `meetMeConferencingExample` (string, required)
+    
+    
+## Modify Alternate Numbers Service Settings [PUT]
+Update a BroadWorks Meet Me Conferencing instance's Alternate Numbers service settings.<br />
+
+Resource: Site Meet Me Conferencing Bridge Alternate Numbers service settings
+
+Resource Archetype: Document
+
+### JSON Schema for URI Template Parameters
+
+    {
+      "id": "siteMeetMeConferencing.modifyMeetMeConferencingAlternateNumbers.request.uri.template.schema",
+      "$ref": "/siteMeetMeConferencing#/definitions/SiteMeetMeeConferencingBridgePutUriTemplate"
+    }
+
+
++ Request (application/json)
+    + Body
+
+            {
+              "distinctiveRing": false,
+              "alternateNumbers": [
+                {
+                  "id": 1,
+                  "tnRoutine": "",
+                  "phoneNumber": "+1-4125553000",
+                  "extension": "3000",
+                  "ringPattern": "Long-Long"
+                },
+                {
+                  "id": 5,
+                  "extension": "3005",
+                  "ringPattern": "Long-Long"
+                }
+              ]
+            }
+
+    + Schema
+
+            {
+              "id": "siteMeetMeConferencing.modifyMeetMeConferencingAlternateNumbers.request.body.schema",
+              "$ref": "/virtualUser#/definitions/AlternateNumbersModifyBody"
+            }
+
++ Response 200 (application/hal+json)
+    + Headers
+
+            Transaction-Id: 1380080943120
+    
+    + Body
+
+            {
+              "_links": {
+                "self": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances/4151002300/services/Alternate%20Numbers"
+                },
+                "up": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances/4151002300/services"
+                },
+                "ls:customer": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer"
+                },
+                "ls:site": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer/sites/DemoSite"
+                },
+                "ls:meet-me-conferencing-instance": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances/4151002300"
+                }
+              },
+              "customerId": "DemoCustomer",
+              "siteId": "DemoSite",
+              "meetMeConferencingId": "4151002300",
+              "extensions": {
+                "broadworks": {
+                  "resourceId": "4151002300@example.com"
+                }
+              }
+            }
+
+    + Schema
+
+            {
+              "title": "Meet Me Conferencing Instance’s Alternate Number settings modify response body parameters",
+              "description": "Modify Meet Me Conference Instance Alternate Numbers response",
+              "required": ["_links", "customerId", "siteId", "meetMeConferencingId"],
+              "properties": {
+                "_links": {
+                  "title": "HAL links",
+                  "description": "Collaborate Bridge HAL Links",
+                  "type": "object",
+                  "properties": {
+                    "self": {
+                      "title": "Self link",
+                      "description": "Meet Me Conferencing Bridge Alternate Numbers self link",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "up": {
+                      "title": "Collection link",
+                      "description": "Link to Meet Me Conferencing Bridge instance services",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:customer": {
+                      "title": "Customer link",
+                      "description": "Link to associated Customer",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:site": {
+                      "title": "Site link",
+                      "description": "Link to associated Site",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:meet-me-conferencing-instance": {
+                      "title": "Site link",
+                      "description": "Link to Meet Me Conferencing Bridge instance",
+                      "$ref": "/hal#/definitions/link"
+                    }
+                  },
+                  "required": [
+                    "self",
+                    "up",
+                    "ls:customer",
+                    "ls:site",
+                    "ls:meet-me-conferencing-instance"
+                  ]
+                },
+                "customerId": {
+                  "title": "Customer ID",
+                  "description": "Uniquely identifies a service provider. NOTE: The service provider id has a maximum length of 30 bytes, not 30 characters.",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 30
+                },
+                "siteId": {
+                  "title": "Site ID",
+                  "description": "Site Id identifies a group within a customer.",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 30
+                },
+                "meetMeConferencingId": {
+                  "title": "Meet Me Conferencing Bridge Id",
+                  "description": "Generated Meet Me Conferencing ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                },
+                "extensions": {
+                  "title": "Extensions",
+                  "description": "Extensions container",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "broadworks": {
+                      "title": "BroadWorks",
+                      "description": "BroadWorks Container",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "resourceId": {
+                          "title": "Resource Id",
+                          "description": "The BroadWorks ID of the virtual user.",
+                          "$ref": "/base#/definitions/UserId"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+## Meet-Me Conferencing Instance's Assigned Services [/api/customers/{customerId}/sites/{siteId}/meet-me-conferencing/instances/{meetMeConferenceId}/services/assigned-services]
+
++ Parameters
+    + customerId: `DemoCustomer` (string, required)
+    + siteId: `DemoSite` (string, required)
+    + meetMeConferenceId: `meetMeConferenceExample` (string, required)
+    
+    
+### Update Assigned Services [PUT]
+Request modifies list of assigned services on specified Meet Me Conferencing Instance.<br />
+
+Resource: Site Meet Me Conferencing assigned services
+
+Resource Archetype: Document
+
+**Note**: Initial implementation will not check if the Meet Me Conferencing Bridge actually exists in the provided Customer and Site and also it does not actually check that the user type you are altering is actually a Call Center.
+
+### JSON Schema for URI Template Parameters
+
+    {
+      "id": "siteMeetMeConferencing.modifyMeetMeConferencingAssignedServices.request.uri.template.schema",
+      "$ref": "/siteMeetMeConferencing#/definitions/SiteMeetMeeConferencingBridgePutUriTemplate"
+    }
+
+
++ Request (application/json)
+    + Body
+
+            {
+              "services": [
+                "Authentication",
+                "Alternate Numbers"
+              ]
+            }
+
+    + Schema
+
+            {
+              "id": "siteMeetMeConferencing.modifyMeetMeConferencingAssignedServices.request.body.schema",
+              "$ref": "/virtualUser#/definitions/AssignedServicesModifyBody"
+            }
+
++ Response 200 (application/hal+json)
+    + Headers
+
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+              "_links": {
+                "self": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances/4151002300/services/assigned-services"
+                },
+                "up": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances/4151002300/services"
+                },
+                "ls:customer": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer"
+                },
+                "ls:site": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer/sites/DemoSite"
+                },
+                "ls:meet-me-conferencing-instance": {
+                  "href": "http://ucserver.example.net/api/customers/DemoCustomer/sites/DemoSite/meet-me-conferencing/instances/4151002300"
+                }
+              },
+              "customerId": "DemoCustomer",
+              "siteId": "DemoSite",
+              "meetMeConferencingId": "4151002300",
+              "extensions": {
+                "broadworks": {
+                  "resourceId": "4151002300@example.com"
+                }
+              }
+            }
+
+    + Schema
+
+            {
+              "title": "Meet Me Conferencing Instance’s Assigned Services modify response body parameters",
+              "description": "Modify Meet Me Conferencing Instance Assigned Services response",
+              "required": ["_links", "customerId", "siteId", "meetMeConferencingId"],
+              "properties": {
+                "_links": {
+                  "title": "HAL links",
+                  "description": "Meet Me Conferencing Bridge HAL Links",
+                  "type": "object",
+                  "properties": {
+                    "self": {
+                      "title": "Self link",
+                      "description": "Meet Me Conferencing Bridge assigned services self link",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "up": {
+                      "title": "Collection link",
+                      "description": "Link to Meet Me Conferencing Bridge instance services",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:customer": {
+                      "title": "Customer link",
+                      "description": "Link to associated Customer",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:site": {
+                      "title": "Site link",
+                      "description": "Link to associated Site",
+                      "$ref": "/hal#/definitions/link"
+                    },
+                    "ls:meet-me-conferencing-instance": {
+                      "title": "Site link",
+                      "description": "Link to Meet Me Conferencing Bridge instance",
+                      "$ref": "/hal#/definitions/link"
+                    }
+                  },
+                  "required": [
+                    "self",
+                    "up",
+                    "ls:customer",
+                    "ls:site",
+                    "ls:meet-me-conferencing-instance"
+                  ]
+                },
+                "customerId": {
+                  "title": "Customer ID",
+                  "description": "Uniquely identifies a service provider. NOTE: The service provider id has a maximum length of 30 bytes, not 30 characters.",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 30
+                },
+                "siteId": {
+                  "title": "Site ID",
+                  "description": "Site Id identifies a group within a customer.",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 30
+                },
+                "meetMeConferencingId": {
+                  "title": "Meet Me Conferencing Bridge Id",
+                  "description": "Generated Meet Me Conferencing ID",
+                  "$ref": "/base#/definitions/GeneratedId"
+                },
+                "extensions": {
+                  "title": "Extensions",
+                  "description": "Extensions container",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "broadworks": {
+                      "title": "BroadWorks",
+                      "description": "BroadWorks Container",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "resourceId": {
+                          "title": "Resource Id",
+                          "description": "The BroadWorks ID of the virtual user.",
+                          "$ref": "/base#/definitions/UserId"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
++ Response 424 (application/json)
+    + Headers
+
+            Transaction-Id: 1380080943120
+
+    + Body
+
+            {
+              "errorCode": "EXTERNAL_API_ERROR",
+              "summary": "Some services could not be assigned. No services were un-assigned",
+              "externalErrorCode": null,
+              "externalErrorSummary": "User service assignment failed. Some services were not assigned:",
+              "externalErrorDetail": "Authentication: Service is not assignable."
+            }
+
 <!-- ----------------------- Site Phone Numbers ------------------- -->
 
 # Group Site Phone Numbers
