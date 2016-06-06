@@ -6332,7 +6332,1372 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
     + Headers
 
             Transaction-Id: 1380080943120
+            
+<!-- ------------------------- Site Collaborate Bridge ----------------------- -->
 
+# Group Site Collaborate Bridge
++ Supported network elements:
+    + LWS-SOAP
+    + BroadWorks Application Server
+
++ Keys:
+    + collaborateBridgeId
+
++ Extension Keys:
+    + (none)
+
+## Site Collaborate Bridge instances collection [/api/customers/{customerId}/sites/{siteId}/collaborate-bridge/instances]
+Represents the collection of Collaborate Bridge instances in a site.
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+
+### Create a Collaborate Bridge [POST /api/customers/{customerId}/sites/{siteId}/collaborate-bridge/instances?mode=create-only]
+Description: Create a new Collaborate Bridge instance.
+
+Resource: Site Collaborate Bridge
+
+Resource Archetype: Document
+
+### URI Template Parameters JSON Schema
+    {
+      "title": "URI template parameters schema",
+      "description": "Create Site Collaborate Bridge URI template parameters schema",
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "title": "Customer ID",
+          "description": "Generated Customer ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "siteId": {
+          "title": "Site ID",
+          "description": "Generated Site ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        }
+      },
+      "required": [
+        "customerId",
+        "siteId"
+      ]
+    }
+
+### URI Query Parameters JSON Schema
+    {
+      "title": "URI query parameters schema",
+      "description": "Create Site Collaborate Bridge URI query parameters schema",
+      "$ref": "/base#/definitions/ModeUriQuery"
+    }
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
+    + mode: `create-only` (enum[string], required)
+        + Members
+            + `prevalidate-only`
+            + `prevalidate-and-create`
+            + `create-only`
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "name": "5551239876@example.com",
+          "extensions": {
+            "broadworks": {
+              "resourceId": "5551239876@example.com"
+            }
+          },
+          "profile": {
+            "name": "My Collaborate Bridge",
+            "phoneNumber": "+1-5551239876",
+            "extension": "9876",
+            "language": "English",
+            "timeZone": " America\/New_York"
+          },
+          "maxBridgeParticipants": {
+            "unlimited": false,
+            "quantity": 5
+          },
+          "maxCollaborateRoomParticipants": 10,
+          "supportOutdial": false,
+          "services": {
+            "Alternate Numbers": {},
+            "Basic Call Logs": {}
+          }
+        }
+
+    + Schema
+
+        {
+          "title": "Request body schema",
+          "description": "Create Site Collaborate Bridge request body parameters schema",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "title": "Name",
+              "description": "The clients suggested name for the resource. It is used for constructing the BroadWorks Meet-Me Conferencing Bridge ID.",
+              "$ref": "/base#/definitions/UserId"
+            },
+            "extensions": {
+              "title": "Container for various extension data",
+              "description": "Container for various extension data.",
+              "type": "object",
+              "required": [
+                "broadworks"
+              ],
+              "properties": {
+                "broadworks": {
+                  "title": "Container for BroadWorks properties",
+                  "description": "Container for BroadWorks properties",
+                  "type": "object",
+                  "properties": {
+                    "resourceId": {
+                      "title": "Resource ID in BroadWorks",
+                      "description": "The ID to be set on the new virtual user. Note: If provided it overrides the value generated from the 'name' property.If both 'name' and 'extensions.broadworks.resourceId' are omitted then the userId of the virtual user will be auto-generated.",
+                      "$ref": "/base#/definitions/GroupId"
+                    }
+                  },
+                  "required": [
+                    "resourceId"
+                  ]
+                }
+              }
+            },
+            "profile": {
+              "title": "Profile",
+              "description": "Container for profile properties",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "description": "Service Instance Name",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 30
+                },
+                "callingLineId": {
+                  "title": "Calling Line Id",
+                  "description": "Container for Calling Line Id properties",
+                  "additionalProperties": false,
+                  "properties": {
+                    "firstName": {
+                      "title": "First name",
+                      "description": "Calling Line ID First Name. If not present will be generated from the profile.name.",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    },
+                    "lastName": {
+                      "title": "Last name",
+                      "description": "Calling Line ID Last Name. If not present will be generated from the profile.name.",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    },
+                    "phoneNumber": {
+                      "title": "NOT IMPLEMENTED. Calling Line ID Phone Number",
+                      "description": "Phone Number for Calling Line Id",
+                      "$ref": "/base#/definitions/PhoneNumber"
+                    }
+                  }
+                },
+                "phoneNumber": {
+                  "title": "Phone Number",
+                  "description": "Phone Number",
+                  "$ref": "/base#/definitions/PhoneNumber"
+                },
+                "tnRoutine": {
+                  "title": "TN routine",
+                  "description": "Phone Number assignment routine",
+                  "$ref": "/base#/definitions/TnRoutineNotNillable"
+                },
+                "extension": {
+                  "title": "Extension",
+                  "description": "Extension",
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 2,
+                  "maxLength": 20,
+                  "pattern": "^[0-9]+$"
+                },
+                "password": {
+                  "title": "Password",
+                  "description": "NOT IMPLEMENTED. Password",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 60
+                },
+                "department": {
+                  "title": "Department",
+                  "description": "NOT IMPLEMENTED. Department",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 50
+                },
+                "timeZone": {
+                  "title": "Time Zone",
+                  "description": "Time Zone",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 127
+                },
+                "language": {
+                  "title": "Language",
+                  "description": "Language",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 40
+                },
+                "alias": {
+                  "title": "Aliases container",
+                  "description": "NOT IMPLEMENTED. List of possible SIP URIs aliases of the Virtual User.",
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "title": "Alias",
+                    "description": "SIP URI",
+                    "type": "string",
+                    "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                    "minLength": 1,
+                    "maxLength": 161
+                  }
+                },
+                "publicServiceIdentity": {
+                  "title": "Public User Identity",
+                  "description": "NOT IMPLEMENTED. Public User Identity SIP URI for the Virtual User.",
+                  "type": "string",
+                  "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                  "minLength": 1,
+                  "maxLength": 161
+                }
+              },
+              "required": ["name"]
+            },
+            "maxBridgeParticipants": {
+              "title": "Maximum bridge participants",
+              "description": "Maximum number of Collaborate bridge participants",
+              "type": "object",
+              "properties": {
+                "unlimited": {
+                  "title": "Unlimited",
+                  "description": "Indicates if the Collaborate Bridge can have an unlimited number of participants.",
+                  "type": "boolean"
+                },
+                "quantity": {
+                  "title": "Quantity",
+                  "description": "Indicates the maximum number of Collaborate Bridge participants.",
+                  "type": "integer",
+                  "minimum": 3,
+                  "maximum": 999999
+                }
+              },
+              "required": [
+                "unlimited"
+              ]
+            },
+            "maxCollaborateRoomParticipants": {
+              "title": "Maximum Collaborate room participants",
+              "description": "Maximum number of Collaborate room participants",
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 30
+            },
+            "networkClassOfService": {
+              "title": "Network Class of Service",
+              "description": "NOT IMPLEMENTED. Network Class of Service",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            },
+            "supportOutdial": {
+              "title": "Support Outdial",
+              "description": "Support Outdial",
+              "type": "boolean"
+            },
+            "collaborateOwnerUserId": {
+              "title": "Collaborate Owner User Id",
+              "description": "NOT IMPLEMENTED. Collaborate Owner User Id",
+              "$ref": "/base#/definitions/UserId"
+            },
+            "services": {
+              "title": "Services container",
+              "description": "Container for list of services and their configuration settings to be assigned to the virtual user. Note: Initial release does not support service configuration. To assign a service without doing any configuration, set the value to an empty object, e.g. \"services\" : { \"Remote Office\" : { } }.",
+              "type": "object",
+              "patternProperties": {
+                "^.+$": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "required": ["profile", "maxBridgeParticipants", "maxCollaborateRoomParticipants", "supportOutdial"]
+        }
+
+
++ Response 201 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+        Location: http://uc.example.com/api/customer/DemoCustomer/sites/DemoSite/collaborate-bridge/instances/5551239876%40example.com
+
+
+    + Body
+
+        {
+          "_links": {
+            "self": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances/5551239876%40example.com"
+            },
+            "ls:customer": {
+              "href": "/api/customers/DemoCustomer"
+            },
+            "ls:site": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite"
+            },
+            "collection": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances"
+            }
+          },
+          "customerId": "DemoCustomer",
+          "siteId": "DemoSite",
+          "collaborateBridgeId": "5551239876@example.com",
+          "profile": {
+            "callingLineId": {
+              "lastName": "My Collaborate Bridge",
+              "firstName": "My Collaborate Bridge"
+            },
+            "publicServiceIdentity": "5551239876@example.com",
+            "extension": "9876"
+          },
+          "uniqueId": "138008094312043748",
+          "extensions": {
+            "broadworks": {
+              "resourceId": "5551239876@example.com"
+            }
+          }
+        }
+
+    + Schema
+
+        {
+          "title": "Response body schema",
+          "description": "Create Site Collaborate Bridge response body parameters schema",
+          "additionalProperties": false,
+          "properties":{
+            "_links": {
+              "title": "HAL links",
+              "description": "Collaborate Bridge HAL Links",
+              "type": "object",
+              "properties": {
+                "self": {
+                  "title": "Self link",
+                  "description": "Collaborate Bridge self link",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "collection": {
+                  "title": "Collection link",
+                  "description": "Link to Collaborate Bridge instances",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:customer": {
+                  "title": "Customer link",
+                  "description": "Link to associated Customer",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:site": {
+                  "title": "Site link",
+                  "description": "Link to associated Site",
+                  "$ref": "/hal#/definitions/link"
+                }
+              },
+              "required": [
+                "self",
+                "collection",
+                "ls:customer",
+                "ls:site"
+              ]
+            },
+            "profile": {
+              "title": "Profile",
+              "description": "Container for profile properties. Present in the response only if some of its properties were generated",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "callingLineId": {
+                  "title": "Calling Line Id",
+                  "description": "Container for Calling Line Id properties",
+                  "additionalProperties": false,
+                  "properties": {
+                    "firstName": {
+                      "title": "First name",
+                      "description": "Calling Line ID First Name. If not present will be generated from the profile.name. Present in the response only if it was generated.",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    },
+                    "lastName": {
+                      "title": "Last name",
+                      "description": "Calling Line ID Last Name. If not present will be generated from the profile.name. Present in the response only if it was generated.",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    }
+                  }
+                },
+                "publicServiceIdentity": {
+                  "title": "Public User Identity",
+                  "description": "Public User Identity SIP URI for the Virtual User.",
+                  "type": "string",
+                  "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                  "minLength": 1,
+                  "maxLength": 161
+                },
+                "extension": {
+                  "title": "Extension",
+                  "description": "Extension",
+                  "type": "string",
+                  "minLength": 2,
+                  "maxLength": 20,
+                  "pattern": "^[0-9]+$"
+                }
+              }
+            },
+            "uniqueId": {
+              "title": "Generated Unique ID",
+              "description": "Generated Unique ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "collaborateBridgeId": {
+              "title": "Collaborate Bridge ID",
+              "description": "Generated Collaborate Bridge ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "customerId": {
+              "title": "Customer ID",
+              "description": "Generated Customer ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "siteId": {
+              "title": "Site ID",
+              "description": "Generated Site ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "extensions": {
+              "title": "Container for various extension data",
+              "description": "Container for various extension data.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "broadworks": {
+                  "title": "Container for BroadWorks properties",
+                  "description": "Container for BroadWorks properties",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "resourceId": {
+                      "title": "Resource ID in BroadWorks",
+                      "description": "Virtual User ID in BroadWorks",
+                      "$ref": "/base#/definitions/UserId"
+                    }
+                  },
+                  "required": ["resourceId"]
+                }
+              },
+              "required": ["broadworks"]
+            }
+          },
+          "required": ["_links", "collaborateBridgeId", "customerId", "siteId", "extensions", "uniqueId"]
+        }
+    
+## Site Collaborate Bridge Instance [/api/customers/{customerId}/sites/{siteId}/collaborate-bridge/instances/{collaborateBridgeId}]
+
++ Parameters
+    + customerId: `DemoCustomer` (string, required)
+    + siteId: `DemoSite` (string, required)
+    + collaborateBridgeId: `5551239876@example.com` (string, required)
+    
+    
+### Modify Collaborate Bridge [PUT]
+Description: Modify a Collaborate Bridge instance.
+
+Resource: Site Collaborate Bridge
+
+Resource Archetype: Document
+
+### JSON Schema for URI Template Parameters
+
+    {
+      "title": "URI template parameters schema",
+      "description": "Modify Site Collaborate Bridge URI template parameters schema",
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "title": "Customer ID",
+          "description": "Generated Customer ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "siteId": {
+          "title": "Site ID",
+          "description": "Generated Site ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "collaborateBridgeId": {
+          "title": "Collaborate Bridge ID",
+          "description": "Generated Collaborate Bridge ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        }
+      },
+      "required": [
+        "customerId",
+        "siteId",
+        "collaborateBridgeId"
+      ]
+    }
+    
+
+### Request Properties
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+        {
+          "profile": {
+            "name": "My Collaborate Bridge",
+            "callingLineId": {
+              "firstName": "First name example",
+              "lastName": "Last name example"
+            },
+            "phoneNumber": "+1-4150192301",
+            "tnRoutine": "port-no-temp",
+            "extension": "2301"
+          }
+        }
+
+    + Schema
+        {
+          "title": "Request body schema",
+          "description": "Modify Site Collaborate Bridge request body parameters schema",
+          "properties": {
+            "profile": {
+              "title": "Profile",
+              "description": "Container for profile properties",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "description": "Service Instance Name",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 30
+                },
+                "callingLineId": {
+                  "title": "Calling Line Id",
+                  "description": "Container for Calling Line Id properties",
+                  "additionalProperties": false,
+                  "properties": {
+                    "firstName": {
+                      "title": "First name",
+                      "description": "Calling Line ID First Name. In initial implementation will be copied from the profile.name.",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    },
+                    "lastName": {
+                      "title": "Last name",
+                      "description": "Calling Line ID Last Name. In initial implementation will be copied from the profile.name.",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    },
+                    "phoneNumber": {
+                      "title": "Phone Number",
+                      "description": "NOT IMPLEMENTED. Phone Number for Calling Line Id",
+                      "$ref": "/base#/definitions/PhoneNumber"
+                    }
+                  }
+                },
+                "phoneNumber": {
+                  "title": "Phone Number",
+                  "description": "Phone Number",
+                  "$ref": "/base#/definitions/PhoneNumber"
+                },
+                "tnRoutine": {
+                  "title": "TN routine",
+                  "description": "Phone Number assignment routine",
+                  "$ref": "/base#/definitions/TnRoutineNotNillable"
+                },
+                "extension": {
+                  "title": "Extension",
+                  "description": "Extension",
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 2,
+                  "maxLength": 20,
+                  "pattern": "^[0-9]+$"
+                },
+                "password": {
+                  "title": "Password",
+                  "description": "NOT IMPLEMENTED. Password",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 60
+                },
+                "department": {
+                  "title": "Department",
+                  "description": "NOT IMPLEMENTED. Department",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 50
+                },
+                "timeZone": {
+                  "title": "Time Zone",
+                  "description": "NOT IMPLEMENTED. Time Zone",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 127
+                },
+                "language": {
+                  "title": "Language",
+                  "description": "NOT IMPLEMENTED. Language",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 40
+                },
+                "alias": {
+                  "title": "Aliases container",
+                  "description": "NOT IMPLEMENTED. List of possible SIP URIs aliases of the Virtual User.",
+                  "type": "array",
+                  "maxItems": 3,
+                  "items": {
+                    "title": "Alias",
+                    "description": "SIP URI",
+                    "type": "string",
+                    "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                    "minLength": 1,
+                    "maxLength": 161
+                  }
+                },
+                "publicServiceIdentity": {
+                  "title": "Public User Identity",
+                  "description": "NOT IMPLEMENTED. Public User Identity SIP URI for the Virtual User.",
+                  "type": "string",
+                  "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                  "minLength": 1,
+                  "maxLength": 161
+                }
+              }
+            },
+            "maxBridgeParticipants": {
+              "title": "Maximum bridge participants",
+              "description": "Maximum number of Collaborate bridge participants",
+              "type": "object",
+              "properties": {
+                "unlimited": {
+                  "title": "Unlimited",
+                  "description": "Indicates if the Collaborate Bridge can have an unlimited number of participants.",
+                  "type": "boolean"
+                },
+                "quantity": {
+                  "title": "Quantity",
+                  "description": "Indicates the maximum number of Collaborate Bridge participants.",
+                  "type": "integer",
+                  "minimum": 3,
+                  "maximum": 999999
+                }
+              },
+              "required": [
+                "unlimited"
+              ]
+            },
+            "maxCollaborateRoomParticipants": {
+              "title": "Maximum Collaborate room participants",
+              "description": "Maximum number of Collaborate room participants",
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 30
+            },
+            "networkClassOfService": {
+              "title": "Network Class of Service",
+              "description": "NOT IMPLEMENTED. Network Class of Service",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            },
+            "supportOutdial": {
+              "title": "Support Outdial",
+              "description": "Support Outdial",
+              "type": "boolean"
+            },
+            "collaborateOwnerUserIdList": {
+              "title": "Collaborate Owners list",
+              "description": "NOT IMPLEMENTED. Collaborate Owners list",
+              "type": ["array", "null"],
+              "minItems": 1,
+              "$ref": "/base#/definitions/UserId"
+            }
+          }
+        }
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+        {
+          "_links": {
+            "self": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances/5551239876%40example.com"
+            },
+            "ls:customer": {
+              "href": "/api/customers/DemoCustomer"
+            },
+            "ls:site": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite"
+            },
+            "collection": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances"
+            }
+          },
+          "collaborateBridgeId": "5551239876@example.com",
+          "customerId": "DemoCustomer",
+          "siteId": "DemoSite",
+          "extensions": {
+            "broadworks": {
+              "resourceId": "5551239876@example.com"
+            }
+          },
+          "profile": {
+            "publicServiceIdentity": "5551239876@example.com",
+            "extension": "9876"
+          }
+        }
+
+    + Schema
+        {
+          "title": "Response body schema",
+          "description": "Modify Site Collaborate Bridge response body parameters schema",
+          "additionalProperties": false,
+          "properties":{
+            "_links": {
+              "title": "HAL links",
+              "description": "Collaborate Bridge HAL Links",
+              "type": "object",
+              "properties": {
+                "self": {
+                  "title": "Self link",
+                  "description": "Collaborate Bridge self link",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "collection": {
+                  "title": "Collection link",
+                  "description": "Link to Collaborate Bridge instances",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:customer": {
+                  "title": "Customer link",
+                  "description": "Link to associated Customer",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:site": {
+                  "title": "Site link",
+                  "description": "Link to associated Site",
+                  "$ref": "/hal#/definitions/link"
+                }
+              },
+              "required": [
+                "self",
+                "collection",
+                "ls:customer",
+                "ls:site"
+              ]
+            },
+            "profile": {
+              "title": "Profile",
+              "description": "Container for profile properties",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "publicServiceIdentity": {
+                  "title": "Public User Identity",
+                  "description": "Public User Identity SIP URI for the Virtual User.",
+                  "type": "string",
+                  "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                  "minLength": 1,
+                  "maxLength": 161
+                },
+                "extension": {
+                  "title": "Extension",
+                  "description": "Extension",
+                  "type": "string",
+                  "minLength": 2,
+                  "maxLength": 20,
+                  "pattern": "^[0-9]+$"
+                }
+              }
+            },
+            "collaborateBridgeId": {
+              "title": "Collaborate Bridge ID",
+              "description": "Generated Collaborate Bridge ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "customerId": {
+              "title": "Customer ID",
+              "description": "Generated Customer ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "siteId": {
+              "title": "Site ID",
+              "description": "Generated Site ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "extensions": {
+              "title": "Container for various extension data",
+              "description": "Container for various extension data.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "broadworks": {
+                  "title": "Container for BroadWorks properties",
+                  "description": "Container for BroadWorks properties",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "resourceId": {
+                      "title": "Resource ID in BroadWorks",
+                      "description": "Virtual User ID in BroadWorks",
+                      "$ref": "/base#/definitions/UserId"
+                    }
+                  },
+                  "required": ["resourceId"]
+                }
+              },
+              "required": ["broadworks"]
+            }
+          },
+          "required": ["_links", "customerId", "siteId", "collaborateBridgeId", "extensions"]
+        }
+
+### Delete Collaborate Bridge [DELETE]
+Description: Delete a Collaborate Bridge instance.
+
+Resource: Site Collaborate Bridge
+
+Resource Archetype: Document
+
+### JSON Schema for URI Template Parameters
+
+    {
+      "title": "URI template parameters schema",
+      "description": "Delete Site Collaborate Bridge URI template parameters schema",
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "title": "Customer ID",
+          "description": "Generated Customer ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "siteId": {
+          "title": "Site ID",
+          "description": "Generated Site ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "collaborateBridgeId": {
+          "title": "Collaborate Bridge ID",
+          "description": "Generated Collaborate Bridge ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        }
+      },
+      "required": [
+        "customerId",
+        "siteId",
+        "collaborateBridgeId"
+      ]
+    }
+
+
+### Request Properties
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+        {
+          "_links": {
+            "ls:customer": {
+              "href": "/api/customers/DemoCustomer"
+            },
+            "ls:site": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite"
+            },
+            "collection": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances"
+            }
+          },
+          "customerId": "DemoCustomer",
+          "siteId": "DemoSite"
+        }
+
+    + Schema
+        {
+          "title": "Response body schema",
+          "description": "Delete Site Collaborate Bridge response body parameters schema",
+          "additionalProperties": false,
+          "properties":{
+            "_links": {
+              "title": "HAL links",
+              "description": "Collaborate Bridge HAL Links",
+              "type": "object",
+              "properties": {
+                "collection": {
+                  "title": "Collection link",
+                  "description": "Link to Collaborate Bridge instances",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:customer": {
+                  "title": "Customer link",
+                  "description": "Link to associated Customer",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:site": {
+                  "title": "Site link",
+                  "description": "Link to associated Site",
+                  "$ref": "/hal#/definitions/link"
+                }
+              },
+              "required": [
+                "collection",
+                "ls:customer",
+                "ls:site"
+              ]
+            },
+            "customerId": {
+              "title": "Customer ID",
+              "description": "Generated Customer ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "siteId": {
+              "title": "Site ID",
+              "description": "Generated Site ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            }
+          },
+          "required": ["_links", "customerId", "siteId"]
+        }
+
+## Site Collaborate Bridge Alternate Numbers Service Settings [/api/customers/{customerId}/sites/{siteId}/collaborate-bridge/instances/{collaborateBridgeId}/services/Alternate%20Numbers]
+
++ Parameters
+    + customerId: `DemoCustomer` (string, required)
+    + siteId: `DemoSite` (string, required)
+    + collaborateBridgeId: `5551239876@example.com` (string, required)
+    
+    
+### Modify Alternate Numbers Service Settings [PUT]
+Description: Update a Collaborate Bridge instance's Alternate Numbers service settings
+
+Resource: Site Collaborate Bridge Alternate Numbers service settings
+
+Resource Archetype: Document
+
+### JSON Schema for URI Template Parameters
+
+    {
+      "title": "URI template parameters schema",
+      "description": "Modify Site Collaborate Bridge Alternate Numbers URI template parameters schema",
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "title": "Customer ID",
+          "description": "Generated Customer ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "siteId": {
+          "title": "Site ID",
+          "description": "Generated Site ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "collaborateBridgeId": {
+          "title": "Collaborate Bridge ID",
+          "description": "Generated Collaborate Bridge ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        }
+      },
+      "required": [
+        "customerId",
+        "siteId",
+        "collaborateBridgeId"
+      ]
+    }
+
+
+### Request Properties
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+        {
+          "distinctiveRing": false,
+          "alternateNumbers": [
+            {
+              "id": 1,
+              "tnRoutine": "",
+              "phoneNumber": "+1-4125553000",
+              "extension": "3000",
+              "ringPattern": "Long-Long"
+            },
+            {
+              "id": 5,
+              "extension": "3005",
+              "ringPattern": "Long-Long"
+            }
+          ]
+        }
+
+    + Schema
+        {
+          "title": "Request body schema",
+          "description": "Modify Site Collaborate Bridge Alternate Numbers request body parameters schema",
+          "$ref": "/virtualUser#/definitions/AlternateNumbersModifyBody"
+        }
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+        {
+          "_links": {
+            "self": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances/5551239876%40example.com/services/Alternate%20Numbers"
+            },
+            "up": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances/5551239876%40example.com/services"
+            },
+            "ls:collaborate-bridge": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances/5551239876%40example.com"
+            },
+            "ls:customer": {
+              "href": "/api/customers/DemoCustomer"
+            },
+            "ls:site": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite"
+            }
+          },
+          "collaborateBridgeId": "5551239876@example.com",
+          "customerId": "DemoCustomer",
+          "siteId": "DemoSite",
+          "extensions": {
+            "broadworks": {
+              "resourceId": "5551239876@example.com"
+            }
+          }
+        }
+
+    + Schema
+        {
+          "title": "Response body schema",
+          "description": "Modify Site Collaborate Bridge Alternate Numbers response body parameters schema",
+          "additionalProperties": false,
+          "properties":{
+            "_links": {
+              "title": "HAL links",
+              "description": "Collaborate Bridge HAL Links",
+              "type": "object",
+              "properties": {
+                "self": {
+                  "title": "Self link",
+                  "description": "Collaborate Bridge Alternate Numbers self link",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "up": {
+                  "title": "Collection link",
+                  "description": "Link to Collaborate Bridge instance services",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:customer": {
+                  "title": "Customer link",
+                  "description": "Link to associated Customer",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:site": {
+                  "title": "Site link",
+                  "description": "Link to associated Site",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:collaborate-bridge": {
+                  "title": "Site link",
+                  "description": "Link to Collaborate Bridge instance",
+                  "$ref": "/hal#/definitions/link"
+                }
+              },
+              "required": [
+                "self",
+                "up",
+                "ls:customer",
+                "ls:site",
+                "ls:collaborate-bridge"
+              ]
+            },
+            "collaborateBridgeId": {
+              "title": "Collaborate Bridge ID",
+              "description": "Generated Collaborate Bridge ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "customerId": {
+              "title": "Customer ID",
+              "description": "Generated Customer ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "siteId": {
+              "title": "Site ID",
+              "description": "Generated Site ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "extensions": {
+              "title": "Container for various extension data",
+              "description": "Container for various extension data.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "broadworks": {
+                  "title": "Container for BroadWorks properties",
+                  "description": "Container for BroadWorks properties",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "resourceId": {
+                      "title": "Resource ID in BroadWorks",
+                      "description": "Virtual User ID in BroadWorks",
+                      "$ref": "/base#/definitions/UserId"
+                    }
+                  },
+                  "required": ["resourceId"]
+                }
+              },
+              "required": ["broadworks"]
+            }
+          },
+          "required": ["_links", "customerId", "siteId", "collaborateBridgeId", "extensions"]
+        }
+
+## Site Collaborate Bridge Assigned Services [/api/customers/{customerId}/sites/{siteId}/collaborate-bridge/instances/{collaborateBridgeId}/services/assigned-services]
+
++ Parameters
+    + customerId: `DemoCustomer` (string, required)
+    + siteId: `DemoSite` (string, required)
+    + collaborateBridgeId: `5551239876@example.com` (string, required)
+
+
+### Modify Assigned Services [POST]
+Description: Update a Collaborate Bridge instance's assigned services
+
+Resource: Site Collaborate Bridge assigned services
+
+Resource Archetype: Document
+
+**Note**: Initial implementation will not check if the Collaborate Bridge actually exists in the provided Customer and Site and also it does not actually check that the user type you are altering is actually a Collaborate Bridge.
+
+### JSON Schema for URI Template Parameters
+
+    {
+      "title": "URI template parameters schema",
+      "description": "Modify Site Collaborate Bridge assigned services URI template parameters schema",
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "title": "Customer ID",
+          "description": "Generated Customer ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "siteId": {
+          "title": "Site ID",
+          "description": "Generated Site ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        },
+        "collaborateBridgeId": {
+          "title": "Collaborate Bridge ID",
+          "description": "Generated Collaborate Bridge ID",
+          "$ref": "/base#/definitions/GeneratedId"
+        }
+      },
+      "required": [
+        "customerId",
+        "siteId",
+        "collaborateBridgeId"
+      ]
+    }
+
+
+### Request Properties
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+        {
+          "services": [
+            "Authentication",
+            "Alternate Numbers"
+          ]
+        }
+
+    + Schema
+        {
+          "title": "Request body schema",
+          "description": "Modify Site Collaborate Bridge assigned services request body parameters schema",
+          "$ref": "/virtualUser#/definitions/AssignedServicesModifyBody"
+        }
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+        {
+          "_links": {
+            "self": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances/5551239876%40example.com/services/assigned-services"
+            },
+            "up": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances/5551239876%40example.com/services"
+            },
+            "ls:collaborate-bridge": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/collaborate-bridge/instances/5551239876%40example.com"
+            },
+            "ls:customer": {
+              "href": "/api/customers/DemoCustomer"
+            },
+            "ls:site": {
+              "href": "/api/customers/DemoCustomer/sites/DemoSite"
+            }
+          },
+          "collaborateBridgeId": "5551239876@example.com",
+          "customerId": "DemoCustomer",
+          "siteId": "DemoSite",
+          "extensions": {
+            "broadworks": {
+              "resourceId": "5551239876@example.com"
+            }
+          }
+        }
+
+    + Schema
+        {
+          "title": "Response body schema",
+          "description": "Modify Site Collaborate Bridge assigned services response body parameters schema",
+          "additionalProperties": false,
+          "properties":{
+            "_links": {
+              "title": "HAL links",
+              "description": "Collaborate Bridge HAL Links",
+              "type": "object",
+              "properties": {
+                "self": {
+                  "title": "Self link",
+                  "description": "Collaborate Bridge assigned services self link",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "up": {
+                  "title": "Collection link",
+                  "description": "Link to Collaborate Bridge instance services",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:customer": {
+                  "title": "Customer link",
+                  "description": "Link to associated Customer",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:site": {
+                  "title": "Site link",
+                  "description": "Link to associated Site",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:collaborate-bridge": {
+                  "title": "Site link",
+                  "description": "Link to Collaborate Bridge instance",
+                  "$ref": "/hal#/definitions/link"
+                }
+              },
+              "required": [
+                "self",
+                "up",
+                "ls:customer",
+                "ls:site",
+                "ls:collaborate-bridge"
+              ]
+            },
+            "collaborateBridgeId": {
+              "title": "Collaborate Bridge ID",
+              "description": "Generated Collaborate Bridge ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "customerId": {
+              "title": "Customer ID",
+              "description": "Generated Customer ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "siteId": {
+              "title": "Site ID",
+              "description": "Generated Site ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "extensions": {
+              "title": "Container for various extension data",
+              "description": "Container for various extension data.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "broadworks": {
+                  "title": "Container for BroadWorks properties",
+                  "description": "Container for BroadWorks properties",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "resourceId": {
+                      "title": "Resource ID in BroadWorks",
+                      "description": "Virtual User ID in BroadWorks",
+                      "$ref": "/base#/definitions/UserId"
+                    }
+                  },
+                  "required": ["resourceId"]
+                }
+              },
+              "required": ["broadworks"]
+            }
+          },
+          "required": ["_links", "customerId", "siteId", "collaborateBridgeId", "extensions"]
+        }
+        
 <!-- ---------------------------- VoIP Site Devices ---------------------------- -->
 
 # Group VoIP Site Devices
