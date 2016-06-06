@@ -13089,7 +13089,7 @@ This section contains request and response JSON schemas for alternative process 
 + Parameters
     + userId: `userExample` (string, required)
 
-### Modify a VoIP User [PUT]
+### Modify a VoIP User [PUT /loki/users/{userId}{?eFaxOnly}]
 Modify a VoIP User.<br />
 Rollback-enabled: No.
 
@@ -13167,6 +13167,40 @@ Processes backing the Modify VoIP User request:
             "userId"
         ]
     }
+
+### URI Query Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>eFaxOnly</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Flag to indicate that action is executed on eFax only.</td>
+        </tr>
+    </tbody>
+</table>
+
+### JSON Schema for URI Query Parameters
+
+    {
+       "title": "Modify User URI Query parameters schema",
+       "properties": {
+         "eFaxOnly": {
+           "title": "Only eFax",
+           "description": "Flag to indicate that action is executed on eFax only",
+           "enum": [
+             "true",
+             "false"
+           ]
+         }
+       }
+     }
 
 ### Request Properties
 Note: See the JSON Schema for data types, format, length restrictions, etc.
@@ -13415,6 +13449,13 @@ Besides the properties listed in the table below, the response also contains the
        </tr>
     </tbody>
 </table>
+
++ Parameters
+    + userId: `userExample` (string, required)
+    + eFaxOnly: `true` (enum[string], optional)
+        + Members
+            + `true`
+            + `false`
 
 + Request (application/json)
     + Body
