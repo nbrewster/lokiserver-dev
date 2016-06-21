@@ -17281,6 +17281,203 @@ Processes backing the Modify User Fax Messaging request:
                 "detail": "The 'Fax Messaging' service is not assigned to the User"
             }
 
+## User's BroadTouch Business Communicator Desktop - S4B [/api/users/{userId}/services/BroadTouch%20Business%20Communicator%20Desktop%20-%20S4B]
+
++ Parameters
+    + userId: `userExample` (string, required)
+
+### Retrieve User's BroadTouch Business Communicator Desktop - S4B service settings [GET]
+Retrieve User's BroadTouch Business Communicator Desktop - S4B service settings.<br />
+
+Process name: Retrieve User's BroadTouch Business Communicator Desktop - S4B<br />
+
+Rollback-enabled: No
+
+
++ Response 200 (application/json)
+
+    + Body
+
+        {
+          "_links": {
+            "self": {
+              "href": "/api/users/testuser@example.com/services/BroadTouch%20Business%20Communicator%20Desktop%20-%20S4B"
+            },
+            "up": {
+              "href": "/api/users/testuser@example.com/services"
+            },
+            "ls:user": {
+              "href": "/api/users/testuser@example.com"
+            }
+          },
+          "userId": "testuser@example.com",
+          "enabled": true
+        }
+
+    + Schema
+
+        {
+          "title": "Retrieve User's BroadTouch Business Communicator Desktop - S4B service response",
+          "description": "Schema for retrieve User's BroadTouch Business Communicator Desktop - S4B service settings response",
+          "type": "object",
+          "properties": {
+            "_links": {
+              "title": "HAL Links",
+              "description": "HAL Links",
+              "type": "object",
+              "properties": {
+                "self": {
+                  "title": "Self link",
+                  "description": "Self link",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "up": {
+                  "title": "Up link",
+                  "description": "Up link",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:user": {
+                  "title": "Link to User",
+                  "description": "Link to User",
+                  "$ref": "/hal#/definitions/link"
+                }
+              },
+              "required": [
+                "self",
+                "up",
+                "ls:user"
+              ]
+            },
+            "userId": {
+              "description": "Generated User ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            },
+            "enabled": {
+              "title": "UC One Add-In For S4B setting",
+              "description": "UC One Add-In For S4B setting",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "_links",
+            "userId",
+            "enabled"
+          ]
+        }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+              "errorCode": "NOT_FOUND",
+              "summary": "The server was unable to process your request",
+              "detail": "The 'BroadTouch Business Communicator Desktop - S4B' service is not assigned to the User"
+            }
+
+### Modify User's BroadTouch Business Communicator Desktop - S4B service settings [PUT]
+Update a User's BroadTouch Business Communicator Desktop - S4B service settings. <br />
+
+Process name: Modify User's BroadTouch Business Communicator Desktop - S4B<br />
+
+Rollback-enabled: No
+
++ Request (application/json)
+    + Body
+
+            {
+              "enabled": true
+            }
+
+    + Schema
+
+            {
+              "title": "Modify User's BroadTouch Business Communicator Desktop - S4B service request",
+              "description": "Schema for modify User's BroadTouch Business Communicator Desktop - S4B service settings request",
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "title": "UC-One Add-in For S4B option flag",
+                  "description": "UC-One For Add-in option flag",
+                  "type": "boolean"
+                }
+              }
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+        {
+          "_links": {
+            "self": {
+              "href": "/api/users/testuser@example.com/services/BroadTouch%20Business%20Communicator%20Desktop%20-%20S4B"
+            },
+            "up": {
+              "href": "/api/users/testuser@example.com/services"
+            },
+            "ls:user": {
+              "href": "/api/users/testuser@example.com"
+            }
+          },
+          "userId": "testuser@example.com"
+        }
+
+    + Schema
+
+        {
+          "title": "Modify User's BroadTouch Business Communicator Desktop - S4B service response",
+          "description": "Schema for modify User's BroadTouch Business Communicator Desktop - S4B service settings response",
+          "type": "object",
+          "properties": {
+            "_links": {
+              "title": "HAL Links",
+              "description": "HAL Links",
+              "type": "object",
+              "properties": {
+                "self": {
+                  "title": "Self link",
+                  "description": "Self link",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "up": {
+                  "title": "Up link",
+                  "description": "Up link",
+                  "$ref": "/hal#/definitions/link"
+                },
+                "ls:user": {
+                  "title": "Link to User",
+                  "description": "Link to User",
+                  "$ref": "/hal#/definitions/link"
+                }
+              },
+              "required": [
+                "self",
+                "up",
+                "ls:user"
+              ]
+            },
+            "userId": {
+              "description": "Generated User ID",
+              "$ref": "/base#/definitions/GeneratedId"
+            }
+          },
+          "required": [
+            "_links",
+            "userId"
+          ]
+        }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+              "errorCode": "NOT_FOUND",
+              "summary": "The server was unable to process your request",
+              "detail": "The 'BroadTouch Business Communicator Desktop - S4B' service is not assigned to the User"
+            }
+
 <!-- ------------------- VoIP User BroadWorks Mobility Mobile Identity ------------------ -->
 
 # Group VoIP User BroadWorks Mobility Mobile Identity
