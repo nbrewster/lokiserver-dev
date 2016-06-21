@@ -3,13 +3,13 @@ FORMAT: 1A
 # LWS-REST API (dev)
 # This documentation is for the pre-release (dev) version
 
-**UNRELEASED** (development edition) Documentation for the Loki Provisioning LWS-REST API.
+**UNRELEASED** (development edition) Documentation for the Classic Provisioning LWS-REST API.
 
 # General
 
 At this time, the application/hal+json content type is supported in request and response bodies.
 
-**Note: all references to <code>lokiserver.apiary.io</code> are for example purposes only. In a deployed Loki Server
+**Note: all references to <code>classicserver.example.com/api/</code> are for example purposes only. In a deployed Classic Server
 these will be references to the LWS-REST API host.**
 
 **Note: Curies will be added in the responses in a future release.**
@@ -317,12 +317,12 @@ Supported network elements:
 
 * Sonus PSX
 
-Loki must have at least one Network Element configured with support for Number Translations (e.g. Sonus PSX).
+Classic Server must have at least one Network Element configured with support for Number Translations (e.g. Sonus PSX).
 
-Loki must be configured to select the appropriate Network Element for new Number Translations
+Classic Server must be configured to select the appropriate Network Element for new Number Translations
 (by default, the first configured Network Element with Number Translations support will be used).
 
-See the Loki documentation appropriate to the configured Network Element for mappings to 3rd-party API fields and
+See the Classic Server documentation appropriate to the configured Network Element for mappings to 3rd-party API fields and
 references to 3rd-party documentation.
 
 Keys:
@@ -338,10 +338,6 @@ Extension Keys:
 * callProcessingElement4Id
 * callProcessingElementType
 
-[pending: per-parameter descriptions - pending an apiary.io upgrade]
-
-[pending: per-parameter schema/validation information - pending an apiary.io upgrade]
-
 Refer to the **Sonus Insight API Programmer Guide** for descriptions, data types, defaults, and allowed values for
 request and response properties under <code>extensions.sonusPsx</code>. Note:
 
@@ -352,7 +348,7 @@ request and response properties under <code>extensions.sonusPsx</code>. Note:
 
 <!-- --------------------- Number Translations --------------------- -->
 
-##  Number Translations Collection [/loki/number-translations]
+##  Number Translations Collection [/api/number-translations]
 ### Create a Number Translation [POST]
 Create a new Number Translation.
 
@@ -408,7 +404,7 @@ Create a new Number Translation.
 + Response 201
     + Headers
 
-            Location: http://lokiserver.apiary.io/loki/number-translations/3-1-8665554321-0-978----5
+            Location: http://classicserver.example.com/api/number-translations/3-1-8665554321-0-978----5
             Transaction-Id: 1380080943120
 
 + Response 409 (application/hal+json)
@@ -421,13 +417,13 @@ Create a new Number Translation.
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/number-translations"
+                        "href": "http://classicserver.example.com/api/number-translations"
                     }
                 },
                 "curies": [
                     {
                         "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
+                        "href": "http://classicserver.example.com/api//rels/{rel}",
                         "templated": true
                     }
                 ],
@@ -435,7 +431,7 @@ Create a new Number Translation.
                     "ls:number-translations": {
                         "_links": {
                             "self": {
-                                "href": "http:\/\/lokiserver.apiary.io\/loki\/number-translations\/3-1-8665554321-0-978----5"
+                                "href": "http://classicserver.example.com/api//number-translations/3-1-8665554321-0-978----5"
                             }
                         },
                         "id": "3-1-8665554321-0-978----5",
@@ -479,13 +475,13 @@ Create a new Number Translation.
                 "detail": "[detail here]"
             }
 
-### Query Number Translations [GET /loki/number-translations{?sourceDn,attributes,callProcessingElement1Id,callProcessingElement2Id,callProcessingElement3Id,callProcessingElement4Id,callProcessingElementType}]
+### Query Number Translations [GET /api/number-translations{?sourceDn,attributes,callProcessingElement1Id,callProcessingElement2Id,callProcessingElement3Id,callProcessingElement4Id,callProcessingElementType}]
 Query number translations. Responses will include (at a minimum) they fields comprising the unique key for the resource.
 
 [future: pagination of results via offset and max; field parameter to specify included/excluded fields]
 
 [future: enhance to include all parameters, not just the key and the full uri? means larger response body,
-but also means the client doesn't have to follow with a get /loki/number-translations/{+id} if they want the full resource
+but also means the client doesn't have to follow with a get /api/number-translations/{+id} if they want the full resource
 representation.]
 
 ### URI Query Parameters
@@ -561,13 +557,13 @@ representation.]
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/number-translations?sourceDn=%2B1-8665554321&attributes=0&callProcessingElement1Id=978&callProcessingElement2Id=&callProcessingElement3Id=&callProcessingElement4Id=&callProcessingElementType=5"
+                        "href": "http://classicserver.example.com/api//number-translations?sourceDn=%2B1-8665554321&attributes=0&callProcessingElement1Id=978&callProcessingElement2Id=&callProcessingElement3Id=&callProcessingElement4Id=&callProcessingElementType=5"
                     }
                 },
                 "curies": [
                     {
                         "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
+                        "href": "http://classicserver.example.com/api//rels\/{rel}",
                         "templated": true
                     }
                 ],
@@ -576,7 +572,7 @@ representation.]
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/number-translations\/3-1-8665554321-0-978----5"
+                                    "href": "http://classicserver.example.com/api/number-translations/3-1-8665554321-0-978----5"
                                 }
                             },
                             "id": "3-1-8665554321-0-978----5",
@@ -634,13 +630,27 @@ representation.]
                 "detail": "Request validation failed: params.sourceDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-## Number Translation [/loki/number-translations/{id}]
+## Number Translation [/api/number-translations/{id}]
 
 + Parameters
+    Description test
     + id: `idExample` (string, required)
+
+    + Schema
+
+            {
+                "aaa": "test"
+            }
 
 ### Update a Number Translation [PUT]
 Update a number translation. All fields are optional.
+
+
++ Request URI Parameters
+
+    Description test
+
+
 
 + Request (application/json)
     + Body
@@ -685,6 +695,8 @@ Update a number translation. All fields are optional.
 
             Transaction-Id: 1380080943120
 
+
+
 ### Delete a Number Translation [DELETE]
 Delete a number translation.
 
@@ -719,7 +731,7 @@ request and response properties under <code>extensions.sonusPsx</code>. Note:
 * If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the LWS-REST JSON responses.
 * If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the LWS-REST JSON responses.
 
-## Subscribers Collection [/loki/subscribers]
+## Subscribers Collection [/api/subscribers]
 ### Create a Subscriber [POST]
 Create a new Subscriber.
 
@@ -783,7 +795,7 @@ Create a new Subscriber.
 + Response 201
     + Headers
 
-            Location: http://lokiserver.apiary.io/loki/subscribers/1-2005553001-1-16
+            Location: http://classicserver.example.com/api/subscribers/1-2005553001-1-16
             Transaction-Id: 1380080943120
 
 + Response 409 (application/hal+json)
@@ -796,13 +808,13 @@ Create a new Subscriber.
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/subscribers"
+                        "href": "http://classicserver.example.com/api/subscribers"
                     }
                 },
                 "curies": [
                     {
                         "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
+                        "href": "http://classicserver.example.com/api/rels\/{rel}",
                         "templated": true
                     }
                 ],
@@ -810,7 +822,7 @@ Create a new Subscriber.
                     "ls:subscribers": {
                         "_links": {
                             "self": {
-                                "href": "http:\/\/lokiserver.apiary.io\/loki\/subscribers\/1-2005553001-1-16"
+                                "href": "http://classicserver.example.com/api/subscribers/1-2005553001-1-16"
                             }
                         },
                         "id": "1-2005553001-1-16",
@@ -880,7 +892,7 @@ Create a new Subscriber.
                 "detail": "Request validation failed: params.subscriberDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-### Query Subscribers [GET /loki/subscribers{?subscriberDn,owningCarrierId}]
+### Query Subscribers [GET /api/subscribers{?subscriberDn,owningCarrierId}]
 Query Subscribers. Responses will include (at a minimum) they fields comprising the unique key for the resource.
 
 ### URI Query Parameters
@@ -918,13 +930,13 @@ Query Subscribers. Responses will include (at a minimum) they fields comprising 
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/subscribers?subscriberDn=%2B1-2005553001&owningCarrierId=16"
+                        "href": "http://classicserver.example.com/api/subscribers?subscriberDn=%2B1-2005553001&owningCarrierId=16"
                     }
                 },
                 "curies": [
                     {
                         "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
+                        "href": "http://classicserver.example.com/api\/rels/{rel}",
                         "templated": true
                     }
                 ],
@@ -933,7 +945,7 @@ Query Subscribers. Responses will include (at a minimum) they fields comprising 
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/subscribers\/1-2005553001-1-16"
+                                    "href": "http://classicserver.example.com/api/subscribers/1-2005553001-1-16"
                                 }
                             },
                             "id": "1-2005553001-1-16",
@@ -1004,7 +1016,7 @@ Query Subscribers. Responses will include (at a minimum) they fields comprising 
                 "detail": "Request validation failed: params.subscriberDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-## Subscriber [/loki/subscribers/{id}]
+## Subscriber [/api/subscribers/{id}]
 
 + Parameters
     + id: `idExample` (string, required)
@@ -1106,7 +1118,7 @@ request and response properties under <code>extensions.sonusPsx</code>. Note:
 * If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the LWS-REST JSON responses.
 * If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the LWS-REST JSON responses.
 
-## Destinations Collection [/loki/destinations]
+## Destinations Collection [/api/destinations]
 ### Create a Destination [POST]
 Create a new Destination.
 
@@ -1151,7 +1163,7 @@ Create a new Destination.
 + Response 201
     + Headers
 
-            Location: http://lokiserver.apiary.io/loki/destinations/1-2005553001-1
+            Location: http://classicserver.example.com/api/destinations/1-2005553001-1
             Transaction-Id: 1380080943120
 
 + Response 409 (application/hal+json)
@@ -1164,13 +1176,13 @@ Create a new Destination.
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/destinations"
+                        "href": "http://classicserver.example.com/api/destinations"
                     }
                 },
                 "curies": [
                     {
                         "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
+                        "href": "http://classicserver.example.com/api/rels\/{rel}",
                         "templated": true
                     }
                 ],
@@ -1178,7 +1190,7 @@ Create a new Destination.
                     "ls:destinations": {
                         "_links": {
                             "self": {
-                                "href": "http:\/\/lokiserver.apiary.io\/loki\/destinations\/1-2005553001-1"
+                                "href": "http://classicserver.example.com/api/destinations\/1-2005553001-1"
                             }
                         },
                         "id": "1-2005553001-1",
@@ -1229,7 +1241,7 @@ Create a new Destination.
                 "detail": "Request validation failed: params.destinationDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-### Query Destinations [GET /loki/destinations{?destinationDn}]
+### Query Destinations [GET /api/destinations{?destinationDn}]
 Query Destinations. Responses will include (at a minimum) they fields comprising the unique key for the resource.
 
 ### URI Query Parameters
@@ -1261,13 +1273,13 @@ Query Destinations. Responses will include (at a minimum) they fields comprising
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/destinations?destinationDn=%2B1-2005553001"
+                        "href": "http://classicserver.example.com/api/destinations?destinationDn=%2B1-2005553001"
                     }
                 },
                 "curies": [
                     {
                         "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
+                        "href": "http://classicserver.example.com/api/rels\/{rel}",
                         "templated": true
                     }
                 ],
@@ -1276,7 +1288,7 @@ Query Destinations. Responses will include (at a minimum) they fields comprising
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/destinations\/1-2005553001-1"
+                                    "href": "http://classicserver.example.com/api/destinations\/1-2005553001-1"
                                 }
                             },
                             "id": "1-2005553001-1",
@@ -1328,7 +1340,7 @@ Query Destinations. Responses will include (at a minimum) they fields comprising
                 "detail": "Request validation failed: params.destinationDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-## Destination [/loki/destinations/{id}]
+## Destination [/api/destinations/{id}]
 
 + Parameters
     + id: `idExample` (string, required)
@@ -1414,7 +1426,7 @@ request and response properties under <code>extensions.sonusPsx</code>. Note:
 * If the Sonus documentation indicates a data type of integer, short, or long, the value will be numeric in the LWS-REST JSON responses.
 * If the Sonus documentation indicates a data type of string, the value will be a string (or null) in the LWS-REST JSON responses.
 
-## Routes Collection [/loki/routes]
+## Routes Collection [/api/routes]
 ### Create a Route [POST]
 Create a new Route.
 
@@ -1462,7 +1474,7 @@ Create a new Route.
 + Response 201
     + Headers
 
-            Location: http://lokiserver.apiary.io/loki/routes/1-----0-3-2005553001-1-EXAMPLE_PARTITION-0-0-0-2147483647-ALL--
+            Location: http://classicserver.example.com/api/routes/1-----0-3-2005553001-1-EXAMPLE_PARTITION-0-0-0-2147483647-ALL--
             Transaction-Id: 1380080943120
 
 + Response 409 (application/hal+json)
@@ -1475,13 +1487,13 @@ Create a new Route.
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/routes"
+                        "href": "http://classicserver.example.com/api/routes"
                     }
                 },
                 "curies": [
                     {
                         "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
+                        "href": "http://classicserver.example.com/api/rels/{rel}",
                         "templated": true
                     }
                 ],
@@ -1489,7 +1501,7 @@ Create a new Route.
                     "ls:routes": {
                         "_links": {
                             "self": {
-                                "href": "http:\/\/lokiserver.apiary.io\/loki\/routes\/1-----0-3-2005553001-1-EXAMPLE_PARTITION-0-0-0-2147483647-ALL--"
+                                "href": "http://classicserver.example.com/api/routes/1-----0-3-2005553001-1-EXAMPLE_PARTITION-0-0-0-2147483647-ALL--"
                             }
                         },
                         "id": "1-----0-3-2005553001-1-EXAMPLE_PARTITION-0-0-0-2147483647-ALL--",
@@ -1543,7 +1555,7 @@ Create a new Route.
                 "detail": "Request validation failed: params.destinationDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-### Query Routes [GET /loki/routes{?...}]
+### Query Routes [GET /api/routes{?...}]
 Query Routes. Responses will include (at a minimum) they fields comprising the unique key for the resource.
 
 ### URI Query Parameters
@@ -1599,13 +1611,13 @@ parameters in the request:
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/routes?destinationDn=%2B1-2005553001&callProcessingElement1Id=&callProcessingElement2Id=&callProcessingElement3Id=&callProcessingElement4Id=&callProcessingElementType=0&routingType=3&partitionId=EXAMPLE_PARTITION&calltype=0&transmissionMedium=0&userCallType=0&digitType=2147483647&timeRangeProfileId=ALL&callParamFilterProfileId=&domainName="
+                        "href": "http://classicserver.example.com/api/routes?destinationDn=%2B1-2005553001&callProcessingElement1Id=&callProcessingElement2Id=&callProcessingElement3Id=&callProcessingElement4Id=&callProcessingElementType=0&routingType=3&partitionId=EXAMPLE_PARTITION&calltype=0&transmissionMedium=0&userCallType=0&digitType=2147483647&timeRangeProfileId=ALL&callParamFilterProfileId=&domainName="
                     }
                 },
                 "curies": [
                     {
                         "name": "ls",
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/rels\/{rel}",
+                        "href": "http://classicserver.example.com/api/rels\/{rel}",
                         "templated": true
                     }
                 ],
@@ -1614,7 +1626,7 @@ parameters in the request:
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/routes\/1-----0-3-2005553001-1-EXAMPLE_PARTITION-0-0-0-2147483647-ALL--"
+                                    "href": "http://classicserver.example.com/api/routes/1-----0-3-2005553001-1-EXAMPLE_PARTITION-0-0-0-2147483647-ALL--"
                                 }
                             },
                             "id": "1-----0-3-2005553001-1-EXAMPLE_PARTITION-0-0-0-2147483647-ALL--",
@@ -1642,7 +1654,7 @@ parameters in the request:
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/routes\/1-4----0-3-2005553001-1-ANOTHER_PARTITION-0-0-0-2147483647-ALL--"
+                                    "href": "http://classicserver.example.com/api/routes/1-4----0-3-2005553001-1-ANOTHER_PARTITION-0-0-0-2147483647-ALL--"
                                 }
                             },
                             "id": "1-4----0-3-2005553001-1-ANOTHER_PARTITION-0-0-0-2147483647-ALL--",
@@ -1710,7 +1722,7 @@ parameters in the request:
                 "detail": "Request validation failed: params.destinationDn does not match pattern^\\+[0-9]+-[0-9]+$: was processing value \"+1-\""
             }
 
-## Route [/loki/routes/{id}]
+## Route [/api/routes/{id}]
 
 + Parameters
     + id: (string, required)
@@ -1756,20 +1768,18 @@ Delete a route.
 <!-- ------------------------ Customers ------------------------------ -->
 
 # Group Customers
-Supported network elements:
 
-* BroadWorks Application Server
++ Supported network elements:
+    + BroadWorks Application Server
 
-Keys:
++ Keys:
+    + customerId
 
-* customerId
-
-Extension Keys:
-
-* (none)
++ Extension Keys:
+    + (none)
 
 
-## Customers Collection [/loki/customers{?mode}]
+## Customers Collection [/api/customers{?mode}]
 
 + Parameters
     + mode: `create-only` (string, required)
@@ -1833,7 +1843,7 @@ Process Name: Create Customer (VoIP Entity)
     <tr><td>extensions.broadworks</td><td>no</td><td>n/a</td><td>Container for BroadWorks-specific properties.</td></tr>
     <tr><td>extensions.broadworks.resourceId</td><td>no</td><td>n/a</td><td>The ID of the BroadWorks Service Provider/Enterprise.<br>If present in the request body, it overwrites the serviceProviderId value that was generated from the name parameter</td></tr>
     <tr><td>extensions.broadworks.isEnterprise</td><td>no</td><td>true</td><td>Determines if service provider or enterprise will be created</td></tr>
-    <tr><td>extensions.broadworks.hostingNe</td><td>no</td><td>n/a</td><td>hostingNE of Broadworks Application Server.<br>BroadWorks cluster ID. Must match to one of hostingNe's specified in the Loki Server configuration. When omitted, default cluster is used</td></tr>
+    <tr><td>extensions.broadworks.hostingNe</td><td>no</td><td>n/a</td><td>hostingNE of Broadworks Application Server.<br>BroadWorks cluster ID. Must match to one of hostingNe's specified in the Classic Server configuration. When omitted, default cluster is used</td></tr>
     <tr><td>extensions.broadworks.useCustomRoutingProfile</td><td>no</td><td>n/a</td><td>Required when extensions.broadworks.isEnterprise is false. Otherwise should be omitted</td></tr>
     </td></tr>   
     </tbody>
@@ -1843,7 +1853,7 @@ Process Name: Create Customer (VoIP Entity)
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Classic Server customerId (server-generated) of the Customer</td></tr>
     <tr><td>defaultDomain</td><td>no</td><td>n/a</td><td>Customer's default domain. Presents in the response if not provided in the request</td></tr>
     <tr><td>extensions</td><td>no</td><td>n/a</td><td>Container for network-element specific properties</td></tr>
     <tr><td>extensions.broadworks</td><td>yes</td><td>n/a</td><td>Container for BroadWorks-specific properties.</td></tr>
@@ -2050,14 +2060,14 @@ In multi-cluster BroadWorks configuration, entity will be added on the default c
     + Headers
 
             Transaction-Id: 1380080943120
-            Location: http://lokiserver.apiary.io/loki/customers/Example%20Com
+            Location: http://classicserver.example.com/api/customers/Example%20Com
 
     + Body
 
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com"
                     }
                 },
                 "customerId": "Example Com",
@@ -2141,7 +2151,7 @@ In multi-cluster BroadWorks configuration, entity will be added on the default c
                ]
             }
 
-## Customer [/loki/customers/{customerId}]
+## Customer [/api/customers/{customerId}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -2155,7 +2165,7 @@ Process Name: Retrieve Customer (VoIP Entity)
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Classic Server customerId (server-generated) of the Customer</td></tr>
     </tbody>
 </table>
 
@@ -2168,7 +2178,7 @@ Process Name: Retrieve Customer (VoIP Entity)
         ],
         "properties": {
             "customerId": {
-                "title": "Loki Server customerId (server-generated) of the Customer",
+                "title": "Classic Server customerId (server-generated) of the Customer",
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 30
@@ -2180,7 +2190,7 @@ Process Name: Retrieve Customer (VoIP Entity)
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Classic Server customerId (server-generated) of the Customer</td></tr>
     <tr><td>defaultDomain</td><td>yes</td><td>n/a</td><td></td></tr>
     <tr><td>customerName</td><td>no</td><td>n/a</td><td></td></tr>
     <tr><td>supportEmail</td><td>no</td><td>n/a</td><td></td></tr>
@@ -2213,7 +2223,7 @@ Process Name: Retrieve Customer (VoIP Entity)
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com"
                     }
                 },
                 "customerId": "Example Com",
@@ -2388,7 +2398,7 @@ Process Name: Modify Customer (VoIP Entity)
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Classic Server customerId (server-generated) of the Customer</td></tr>
     </tbody>
 </table>
 
@@ -2401,7 +2411,7 @@ Process Name: Modify Customer (VoIP Entity)
         ],
         "properties": {
             "customerId": {
-                "title": "Loki Server customerId (server-generated) of the Customer",
+                "title": "Classic Server customerId (server-generated) of the Customer",
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 30
@@ -2567,7 +2577,7 @@ Process Name: Delete Customer (VoIP Entity)
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Classic Server customerId (server-generated) of the Customer</td></tr>
     </tbody>
 </table>
 
@@ -2580,7 +2590,7 @@ Process Name: Delete Customer (VoIP Entity)
         ],
         "properties": {
             "customerId": {
-                "title": "Loki Server customerId (server-generated) of the Customer",
+                "title": "Classic Server customerId (server-generated) of the Customer",
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 30
@@ -2609,7 +2619,7 @@ Extension Keys:
 
 * (none)
 
-## Customer Administrators Collection [/loki/customers/{customerId}/administrators{?mode}]
+## Customer Administrators Collection [/api/customers/{customerId}/administrators{?mode}]
 
 + Parameters
     + customerId: `customerExample` (required, string)
@@ -2675,7 +2685,7 @@ Rollback-enabled: No
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the Administrator should be created.
+            <td>Classic Server customerId (server-generated) of the Customer in which the Administrator should be created.
             </td>
         </tr>
     </tbody>
@@ -2797,12 +2807,12 @@ For the Create Customer Administrator process besides the properties listed in t
         <tr>
             <td>customerAdministratorId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>The Loki Server ID (server-generated) of the new Customer Administrator.</td>
+            <td>The Classic Server ID (server-generated) of the new Customer Administrator.</td>
         </tr>
         <tr>
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the Administrator was created.
+            <td>Classic Server customerId (server-generated) of the Customer in which the Administrator was created.
             </td>
         </tr>
         <tr>
@@ -2938,7 +2948,7 @@ For the Create Customer Administrator process besides the properties listed in t
 + Response 201 (application/hal+json)
     + Headers
 
-            Location: http://lokiserver.apiary.io/loki/customers/Example%20Com/administrators/wsmith
+            Location: http://classicserver.example.com/api/customers/Example%20Com/administrators/wsmith
             Transaction-Id: 1380080943120
 
     + Body
@@ -2946,7 +2956,7 @@ For the Create Customer Administrator process besides the properties listed in t
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/administrators\/wsmith"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com/administrators/wsmith"
                     }
                 },
                 "customerId": "Example Com",
@@ -3062,7 +3072,7 @@ For the Create Customer Administrator process besides the properties listed in t
                ]
             }
 
-## Customer Administrator [/loki/customers/{customerId}/administrators/{customerAdministratorId}]
+## Customer Administrator [/api/customers/{customerId}/administrators/{customerAdministratorId}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -3087,14 +3097,14 @@ Rollback-enabled: No
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer from which the Administrator should be deleted.
+            <td>Classic Server customerId (server-generated) of the Customer from which the Administrator should be deleted.
             </td>
         </tr>
         <tr>
             <td>customerAdministratorId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerAdministratorId (server-generated) of the Customer Administrator to be deleted.</td>
+            <td>Classic Server customerAdministratorId (server-generated) of the Customer Administrator to be deleted.</td>
         </tr>
     </tbody>
 </table>
@@ -3158,7 +3168,7 @@ Extension Keys:
 
 * (none)
 
-## Site [/loki/customers/{customerId}/sites/{siteId}]
+## Site [/api/customers/{customerId}/sites/{siteId}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -3182,13 +3192,13 @@ Rollback-enabled: No.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new Site is located.</td>
+            <td>Classic Server customerId (server-generated) of the Customer in which the new Site is located.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site.</td>
+            <td>Classic Server siteId (server-generated) of the Site.</td>
         </tr>
     </tbody>
 </table>
@@ -3223,7 +3233,7 @@ Rollback-enabled: No.
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/ExampleCom\/sites\/ExampleCom"
+                        "href": "http://classicserver.example.com/api/customers/ExampleCom/sites/ExampleCom"
                     }
                 },
                 "customerId": "ExampleCom",
@@ -3427,7 +3437,7 @@ Rollback-enabled: No.
             }
 
 
-## Sites Collection [/loki/customers/{customerId}/sites{?mode}]
+## Sites Collection [/api/customers/{customerId}/sites{?mode}]
 
 + Parameters
      + customerId: `customerExample` (string, required)
@@ -3455,7 +3465,7 @@ Rollback-enabled: Yes.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new Site is to be created.</td>
+            <td>Classic Server customerId (server-generated) of the Customer in which the new Site is to be created.</td>
         </tr>
     </tbody>
 </table>
@@ -3629,8 +3639,8 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                             <td>extensions.broadworks.templateGroupId</td>
                             <td style="text-align: center;">no</td>
                             <td>n/a</td>
-                            <td>The groupId of a BroadWorks group that will be used as template. Must be the groupId of a group in the LokiHelper service provider defined in the configuration.<br />
-                            <b>Note:</b> Documentation of how group templating works in LWS-REST is found in the Loki Provisioning Administrator's Guide.
+                            <td>The groupId of a BroadWorks group that will be used as template. Must be the groupId of a group in the Helper service provider defined in the configuration.<br />
+                            <b>Note:</b> Documentation of how group templating works in LWS-REST is found in the Classic Provisioning Administrator's Guide.
                             </td>
                         </tr>
             </td>
@@ -3759,11 +3769,11 @@ Besides the properties listed in the table below, the response also contains the
     <tbody>
         <tr>
             <td>customerId</td>
-            <td>A Loki Server ID (server-generated) of the existing Customer.</td>
+            <td>A Classic Server ID (server-generated) of the existing Customer.</td>
        </tr>
        <tr>
             <td>siteId</td>
-            <td>A Loki Server ID (server-generated) of the created Site. The format of this is subject to change. <br />
+            <td>A Classic Server ID (server-generated) of the created Site. The format of this is subject to change. <br />
                 It is not guaranteed to match what is given as input ("name") and also it is not guaranteed to match the created BroadWorks Group ID.
             </td>
        </tr>
@@ -4100,14 +4110,14 @@ Besides the properties listed in the table below, the response also contains the
     + Headers
 
             Transaction-Id: 1380080943120
-            Location: http://lokiserver.apiary.io/loki/customers/ExampleCom/sites/Example%20Com%20-%20North
+            Location: http://classicserver.example.com/api/customers/ExampleCom/sites/Example%20Com%20-%20North
 
     + Body
 
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20-%20North"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Com%20-%20North"
                     }
                 },
                 "customerId": "Example Com",
@@ -4214,7 +4224,7 @@ Extension Keys:
 
 * (none)
 
-## Site Users Collection [/loki/customers/{customerId}/sites/{siteId}/users]
+## Site Users Collection [/api/customers/{customerId}/sites/{siteId}/users]
 
 + Parameters
      + customerId: `customerExample` (string, required)
@@ -4240,14 +4250,14 @@ Rollback-enabled: No
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the Site is located.
+            <td>Classic Server customerId (server-generated) of the Customer in which the Site is located.
             </td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the Users are located.
+            <td>Classic Server siteId (server-generated) of the Site in which the Users are located.
             </td>
         </tr>
     </tbody>
@@ -4289,13 +4299,13 @@ For the Retrieve list of Users in Site request besides the properties listed in 
         <tr>
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the Site is located.
+            <td>Classic Server customerId (server-generated) of the Customer in which the Site is located.
             </td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the Users are located.
+            <td>Classic Server siteId (server-generated) of the Site in which the Users are located.
             </td>
         </tr>
         <tr>
@@ -4314,7 +4324,7 @@ For the Retrieve list of Users in Site request besides the properties listed in 
                         <tr>
                             <td>_embedded.ls:users.userId</td>
                             <td style="text-align: center; font-weight:bold">yes</td>
-                            <td>Loki Server User ID</td>
+                            <td>Classic Server User ID</td>
                         </tr>
                         <tr>
                             <td>_embedded.ls:users.type</td>
@@ -4384,7 +4394,7 @@ For the Retrieve list of Users in Site request besides the properties listed in 
             {
                 "_links": {
                     "self": {
-                        "href": "http://loki3services.apiary.io/loki/customers/Example%20Com/sites/Example%20Com%20North/users"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Com%20North/users"
                     }
                 },
                 "_embedded": {
@@ -4392,7 +4402,7 @@ For the Retrieve list of Users in Site request besides the properties listed in 
                         {
                             "_links" : {
                                 "self" : {
-                                    "href" : "http://loki3services.apiary.io/loki/users/5003000001@example.com"
+                                    "href" : "http://classicserver.example.com/api/users/5003000001@example.com"
                                 }
                             }, 
                             "userId": "5003000001@example.com",
@@ -4412,7 +4422,7 @@ For the Retrieve list of Users in Site request besides the properties listed in 
                         {
                             "_links" : {
                                 "self" : {
-                                    "href" : "http://loki3services.apiary.io/loki/users/5003000002@example.com"
+                                    "href" : "http://classicserver.example.com/api/users/5003000002@example.com"
                                 }
                             }, 
                             "userId": "5003000002@example.com",
@@ -4432,7 +4442,7 @@ For the Retrieve list of Users in Site request besides the properties listed in 
                         {
                             "_links" : {
                                 "self" : {
-                                    "href" : "http://loki3services.apiary.io/loki/users/_efax_5003000003@example.com"
+                                    "href" : "http://classicserver.example.com/api/users/_efax_5003000003@example.com"
                                 }
                             }, 
                             "userId": "_efax_5003000003@example.com",
@@ -4656,7 +4666,7 @@ Extension Keys:
 
 * (none)
 
-## Site Administrators Collection [/loki/customers/{customerId}/sites/{siteId}/administrators{?mode}]
+## Site Administrators Collection [/api/customers/{customerId}/sites/{siteId}/administrators{?mode}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -4722,14 +4732,14 @@ Rollback-enabled: No
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the Site is located.
+            <td>Classic Server customerId (server-generated) of the Customer in which the Site is located.
             </td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the Administrator should be created.
+            <td>Classic Server siteId (server-generated) of the Site in which the Administrator should be created.
             </td>
         </tr>
     </tbody>
@@ -4847,18 +4857,18 @@ For the Create Site Administrator process besides the properties listed in the t
         <tr>
             <td>siteAdministratorId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>The Loki Server ID (server-generated) of the new Site Administrator.</td>
+            <td>The Classic Server ID (server-generated) of the new Site Administrator.</td>
         </tr>
         <tr>
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the Site is located.
+            <td>Classic Server customerId (server-generated) of the Customer in which the Site is located.
             </td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the Administrator was created.
+            <td>Classic Server siteId (server-generated) of the Site in which the Administrator was created.
             </td>
         </tr>
         <tr>
@@ -4966,7 +4976,7 @@ For the Create Site Administrator process besides the properties listed in the t
 + Response 201 (application/hal+json)
     + Headers
 
-            Location: http://lokiserver.apiary.io/loki/customers/Example%20Com/sites/Example%20Com%20North/administrators/wsmith@example.com
+            Location: http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Com%20North/administrators/wsmith@example.com
             Transaction-Id: 1380080943120
 
     + Body
@@ -4974,7 +4984,7 @@ For the Create Site Administrator process besides the properties listed in the t
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20North\/administrators\/wsmith@example.com"
+                        "href": "hhttp://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Com%20North/administrators/wsmith@example.com"
                     }
                 },
                 "customerId": "Example Com",
@@ -5069,7 +5079,7 @@ For the Create Site Administrator process besides the properties listed in the t
                ]
             }
 
-## Site Administrator [/loki/customers/{customerId}/sites/{siteId}/administrators/{siteAdministratorId}]
+## Site Administrator [/api/customers/{customerId}/sites/{siteId}/administrators/{siteAdministratorId}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -5094,21 +5104,21 @@ Rollback-enabled: No
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the Site is located.
+            <td>Classic Server customerId (server-generated) of the Customer in which the Site is located.
             </td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site from which the Administrator should be deleted.
+            <td>Classic Server siteId (server-generated) of the Site from which the Administrator should be deleted.
             </td>
         </tr>
         <tr>
             <td>siteAdministratorId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteAdministratorId (server-generated) of the Site Administrator to be deleted.</td>
+            <td>Classic Server siteAdministratorId (server-generated) of the Site Administrator to be deleted.</td>
         </tr>
     </tbody>
 </table>
@@ -6537,7 +6547,7 @@ Extension Keys:
 
 * (none)
 
-## Assign Phone Number Action [/loki/customers/{customerId}/sites/{siteId}/assignPhoneNumber{?mode}]
+## Assign Phone Number Action [/api/customers/{customerId}/sites/{siteId}/assignPhoneNumber{?mode}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -6601,13 +6611,13 @@ Assigns a TN to a Site based on the specified TN management routine.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new TN is to be assigned.</td>
+            <td>Classic Server customerId (server-generated) of the Customer in which the new TN is to be assigned.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new TN is to be assigned.</td>
+            <td>Classic Server siteId (server-generated) of the Site in which the new TN is to be assigned.</td>
         </tr>
     </tbody>
 </table>
@@ -6712,7 +6722,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20-%20North\/assignPhoneNumber"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Com%20-%20North/assignPhoneNumber"
                     }
                 },
                 "_embedded": {
@@ -6720,7 +6730,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/phone-numbers\/%2B1-2005553001"
+                                    "href": "http://classicserver.example.com/api/customers/Example%20Com/phone-numbers/%2B1-2005553001"
                                 }
                             },
                             "customerId": "Example Com",
@@ -6731,7 +6741,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20-%20North\/phone-numbers\/%2B1-2005553001"
+                                    "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Com%20-%20North/phone-numbers/%2B1-2005553001"
                                 }
                             },
                             "customerId": "Example Com",
@@ -6878,7 +6888,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                ]
             }
 
-## Activate Phone Number Action [/loki/customers/{customerId}/sites/{siteId}/phone-numbers/activate]
+## Activate Phone Number Action [/api/customers/{customerId}/sites/{siteId}/phone-numbers/activate]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -6900,13 +6910,13 @@ Activate phone number(s) in a Site. The corresponding phone numbers in the under
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer containing the phone numbers(s) to be activated.</td>
+            <td>Classic Server ID (server-generated) of the Customer containing the phone numbers(s) to be activated.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site containing the phone numbers(s) to be activated.
+            <td>Classic Server ID (server-generated) of the Site containing the phone numbers(s) to be activated.
             </td>
         </tr>
     </tbody>
@@ -7046,7 +7056,7 @@ A request may contain any combination of individual phone numbers and phone numb
 
             Transaction-Id: 1380080943120
 
-## Deactivate Phone Number Action [/loki/customers/{customerId}/sites/{siteId}/phone-numbers/deactivate]
+## Deactivate Phone Number Action [/api/customers/{customerId}/sites/{siteId}/phone-numbers/deactivate]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -7068,13 +7078,13 @@ Deactivate phone number(s) in a Site. The corresponding phone numbers in the und
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer containing the phone numbers(s) to be deactivated.</td>
+            <td>Classic Server ID (server-generated) of the Customer containing the phone numbers(s) to be deactivated.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site containing the phone numbers(s) to be deactivated.
+            <td>Classic Server ID (server-generated) of the Site containing the phone numbers(s) to be deactivated.
             </td>
         </tr>
     </tbody>
@@ -7232,7 +7242,7 @@ Extension Keys:
 
 * (none)
 
-## Site's Voice Portal Service [/loki/customers/{customerId}/sites/{siteId}/services/Voice%20Portal]
+## Site's Voice Portal Service [/api/customers/{customerId}/sites/{siteId}/services/Voice%20Portal]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -7277,7 +7287,7 @@ Retrieve the Voice Portal service settings of a Site.
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.example.com\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20North\/services\/Voice%20Portal"
+                        "href": "http://classicserver.example.com/api/customers\/Example%20Com\/sites\/Example%20Com%20North\/services\/Voice%20Portal"
                     }
                 },
                 "customerId": "Example Com",
@@ -7506,14 +7516,14 @@ Rollback-enabled: No.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the Site is located.
+            <td>Classic Server customerId (server-generated) of the Customer in which the Site is located.
             </td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site where the Voice Portal service is configured.
+            <td>Classic Server siteId (server-generated) of the Site where the Voice Portal service is configured.
             </td>
         </tr>
     </tbody>
@@ -9073,7 +9083,7 @@ Extension Keys:
 
 * (none)
 
-## VoIP Site Devices Collection [/loki/customers/{customerId}/sites/{siteId}/devices{?mode}]
+## VoIP Site Devices Collection [/api/customers/{customerId}/sites/{siteId}/devices{?mode}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -9103,13 +9113,13 @@ Rollback-enabled: No; If the VoIP Site Device add fails then there is nothing to
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Site Device is to be created.</td>
+            <td>Classic Server customerId (server-generated) of the Customer in which the new VoIP Site Device is to be created.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Site Device is to be created.</td>
+            <td>Classic Server siteId (server-generated) of the Site in which the new VoIP Site Device is to be created.</td>
         </tr>
     </tbody>
 </table>
@@ -9289,7 +9299,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td></td>
             <td>
                 <b>Not Implemented</b><br />
-                Loki Server ID of an existing Site-level Session Admission Control group to which the new device should be added.
+                Classic Server ID of an existing Site-level Session Admission Control group to which the new device should be added.
             </td>
         </tr>
         <tr>
@@ -9372,16 +9382,16 @@ Besides the properties listed in the table below, the response also contains the
     <tbody>
         <tr>
             <td>customerId</td>
-            <td>A Loki Server ID (server-generated) of the existing Customer.</td>
+            <td>A Classic Server ID (server-generated) of the existing Customer.</td>
        </tr>
        <tr>
             <td>siteId</td>
-            <td>A Loki Server ID (server-generated) of the existing Site.</td>
+            <td>A Classic Server ID (server-generated) of the existing Site.</td>
        </tr>
        <tr>
             <td>deviceId</td>
             <td>
-                A Loki Server ID (server-generated) of the created Site Device. The format of this is subject to change. <br />
+                A Classic Server ID (server-generated) of the created Site Device. The format of this is subject to change. <br />
                 It is not guaranteed to match what is given as input ("deviceName") and also it is not guaranteed to match the created BroadWorks Device Name.
             </td>
        </tr>
@@ -9528,14 +9538,14 @@ Besides the properties listed in the table below, the response also contains the
     + Headers
 
             Transaction-Id: 1380080943120
-            Location: http://lokiserver.apiary.io/loki/customers/ExampleCom/sites/ExampleCom/devices/Example%20Com%20AD3001
+            Location: http://classicserver.example.com/api/customers/ExampleCom/sites/ExampleCom/devices/Example%20Com%20AD3001
 
     + Body
 
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/ExampleCom\/sites\/ExampleCom\/devices\/Example%20Com%20AD3001"
+                        "href": "http://classicserver.example.com/api/customers/ExampleCom/sites/ExampleCom/devices/Example%20Com%20AD3001"
                     }
                 },
                 "customerId": "ExampleCom",
@@ -9642,7 +9652,7 @@ Extension Keys:
 
 * (none)
 
-## VoIP Trunk Groups Collection [/loki/customers/{customerId}/sites/{siteId}/trunk-groups{?mode}]
+## VoIP Trunk Groups Collection [/api/customers/{customerId}/sites/{siteId}/trunk-groups{?mode}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -9694,13 +9704,13 @@ will be rolled back.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Trunk Group is to be created.</td>
+            <td>Classic Server customerId (server-generated) of the Customer in which the new VoIP Trunk Group is to be created.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Trunk Group is to be created.</td>
+            <td>Classic Server siteId (server-generated) of the Site in which the new VoIP Trunk Group is to be created.</td>
         </tr>
     </tbody>
 </table>
@@ -9795,7 +9805,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 <td>n/a</td>
                 <td>Device IP address or hostname</td>
             </tr>
-    <tr><td>pilotUser</td><td>yes</td><td>n/a</td><td>Required to contain the properties of a POST /loki/users request with the exception of the following properties: accessDevice, trunkGroup and userType which are disallowed in this request.
+    <tr><td>pilotUser</td><td>yes</td><td>n/a</td><td>Required to contain the properties of a POST /api/users request with the exception of the following properties: accessDevice, trunkGroup and userType which are disallowed in this request.
     </td></tr>
     <tr><td>department</td><td>no</td><td>n/a</td><td>Department name (only Site-level departments are supported, initially).</td></tr>
     <tr><td>capacityManagement</td><td>yes</td><td>n/a</td><td>Capacity Management settings</td></tr>
@@ -9920,17 +9930,17 @@ For the Trunk Group Add process besides the properties listed in the table below
     <tbody>
         <tr>
             <td>trunkGroupId</td>
-            <td>Loki Server VoIP Id of the new BroadWorks Trunk Group.</td>
+            <td>Classic Server VoIP Id of the new BroadWorks Trunk Group.</td>
             <td>Yes</td>
         </tr>
         <tr>
             <td>customerId</td>
-            <td>Loki Server VoIP Id of the Customer in which the new VoIP Trunk Group was created.</td>
+            <td>Classic Server VoIP Id of the Customer in which the new VoIP Trunk Group was created.</td>
             <td>Yes</td>
         </tr>
         <tr>
             <td>siteId</td>
-            <td>Loki Server VoIP Id of the Site in which the new VoIP Trunk Group was created.</td>
+            <td>Classic Server VoIP Id of the Site in which the new VoIP Trunk Group was created.</td>
             <td>Yes</td>
         </tr>
        <tr>
@@ -11055,14 +11065,14 @@ For the Trunk Group Add process besides the properties listed in the table below
     + Headers
 
             Transaction-Id: 1380080943120
-            Location: http://lokiserver.apiary.io/loki/customers/ExampleCom/sites/ExampleCom/trunk-groups/ExampleCom%20Trunk%203001
+            Location: http://classicserver.example.com/api/customers/ExampleCom/sites/ExampleCom/trunk-groups/ExampleCom%20Trunk%203001
 
     + Body
 
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/ExampleCom\/sites\/ExampleCom\/trunk-groups\/ExampleCom%20Trunk%203001"
+                        "href": "http://classicserver.example.com/api/customers/ExampleCom/sites/ExampleCom/trunk-groups/ExampleCom%20Trunk%203001"
                     }
                 },
                 "_embedded": {
@@ -11070,7 +11080,7 @@ For the Trunk Group Add process besides the properties listed in the table below
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/2405553001%40example.com"
+                                    "href": "http://classicserver.example.com/api/users/2405553001%40example.com"
                                 }
                             },
                             "phoneNumber": "+1-2405553001",
@@ -11629,7 +11639,7 @@ Extension Keys:
 
 * (none)
 
-## VoIP Users Collection [/loki/users{?mode}]
+## VoIP Users Collection [/api/users{?mode}]
 
 + Parameters
     + mode: `create-only` (enum[string], required)
@@ -11701,7 +11711,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP User is to be created.
+            <td>Classic Server customerId (server-generated) of the Customer in which the new VoIP User is to be created.
             In a default configuration (where a VoIP User is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
         </tr>
@@ -11709,7 +11719,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td></td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP User is to be created.
+            <td>Classic Server siteId (server-generated) of the Site in which the new VoIP User is to be created.
             In a default configuration (where a VoIP User is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
         </tr>
@@ -11828,7 +11838,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>Ignored when userType is not "trunking".<br />
                 Note that if this entire object is omitted, the user will be created as a trunking user with no assigned trunk group. For the underlying BroadWorks user,
                 omitting this property corresponds to selecting device choice "Trunking" but leaving the Trunking settings blank or "None", on the User > Profile > Addresses page in the CommPortal.<br />
-                Note that at this time, the Loki Server does not manage the "Alternate Trunk Identity" or "Enterprise Trunk" settings in the "Trunking" section of that page.</td</tr>
+                Note that at this time, the Classic Server does not manage the "Alternate Trunk Identity" or "Enterprise Trunk" settings in the "Trunking" section of that page.</td</tr>
                 <tr>
                     <td>trunkGroup.name</td>
                     <td style="text-align: center; font-weight:bold">no</td>
@@ -11881,7 +11891,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>(varies)</td>
             <td>Extension. Will be autopopulated if omitted, taking digits off the end of the phone number. The number of
             digits used is equal to the group's default extension length as configured in BroadWorks.<br />
-            Set to <code>null</code> to create a VoIP User with no extension (note that some Loki Server systems may be configured
+            Set to <code>null</code> to create a VoIP User with no extension (note that some Classic Server systems may be configured
             to disallow empty extensions).<br />
             A value is required for certain TN routines; see documentation for tnRoutine for details.<br /></td>
         </tr>
@@ -12266,7 +12276,7 @@ Note: The default (legacy) request response contains all the properties sent in 
     <tbody>
         <tr>
             <td>userId</td>
-            <td>The Loki Server VoIP Id of the BroadWorks User.</td>
+            <td>The Classic Server VoIP Id of the BroadWorks User.</td>
             <td>Yes</td>
        </tr>
        <tr>
@@ -12368,7 +12378,7 @@ Note: The default (legacy) request response contains all the properties sent in 
 
 For the "hostedPbx", "businessLine" and "ATA" user type the response has an `_embedded.ls:site-devices` property that contains a
 HAL representation of the created device with the following properties described in the table below.<br />
-<b>Note</b>: `_embedded.ls:site-devices` property is present in the response only when using "Alternate" process of POST /loki/users{?mode}.
+<b>Note</b>: `_embedded.ls:site-devices` property is present in the response only when using "Alternate" process of POST /api/users{?mode}.
 <table border=1>
     <thead>
     <th>Parameter</th>
@@ -13239,7 +13249,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
 + Response 201 (application/hal+json)
     + Headers
 
-            Location: http://lokiserver.apiary.io/loki/users/2005553001%40example.com
+            Location: http://classicserver.example.com/api/users/2005553001%40example.com
             Transaction-Id: 1380080943120
 
     + Body
@@ -13247,7 +13257,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/2005553001%40example.com"
+                        "href": "http://classicserver.example.com/api/users/2005553001%40example.com"
                     }
                 },
                 "customerId": "Example Com",
@@ -13269,7 +13279,7 @@ The accessDevice and trunkGroup values vary depending on the type of user being 
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20-%20North\/devices\/exampleComIad001"
+                                    "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Com%20-%20North/devices/exampleComIad001"
                                 }
                             },
                             "customerId": "Example Com",
@@ -14111,7 +14121,7 @@ This section contains request and response JSON schemas for alternative process 
 + Response 201 (application/hal+json)
     + Headers
 
-            Location: http://lokiserver.apiary.io/loki/users/2005553001%40example.com
+            Location: http://classicserver.example.com/api/users/2005553001%40example.com
             Transaction-Id: 1380080943120
 
     + Body
@@ -14119,7 +14129,7 @@ This section contains request and response JSON schemas for alternative process 
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/2005553001%40example.com"
+                        "href": "http://classicserver.example.com/api/users/2005553001%40example.com"
                     }
                 },
                 "customerId": "Example Com",
@@ -14141,7 +14151,7 @@ This section contains request and response JSON schemas for alternative process 
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Com%20-%20North\/devices\/exampleComIad001"
+                                    "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Com%20-%20North/devices/exampleComIad001"
                                 }
                             },
                             "customerId": "Example Com",
@@ -14442,12 +14452,12 @@ This section contains request and response JSON schemas for alternative process 
                ]
             }
 
-## VoIP User [/loki/users/{userId}]
+## VoIP User [/api/users/{userId}]
 
 + Parameters
     + userId: `userExample` (string, required)
 
-### Modify a VoIP User [PUT /loki/users/{userId}{?eFaxOnly}]
+### Modify a VoIP User [PUT /api/users/{userId}{?eFaxOnly}]
 Modify a VoIP User.<br />
 Rollback-enabled: No.
 
@@ -14503,7 +14513,7 @@ Processes backing the Modify VoIP User request:
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user to be deleted.</td>
+            <td>Classic Server userId (server-generated) of the user to be deleted.</td>
         </tr>
     </tbody>
 </table>
@@ -14797,7 +14807,7 @@ Besides the properties listed in the table below, the response also contains the
     <tbody>
         <tr>
             <td>userId</td>
-            <td>The Loki Server VoIP Id of the BroadWorks User.</td>
+            <td>The Classic Server VoIP Id of the BroadWorks User.</td>
             <td>Yes</td>
        </tr>
        <tr>
@@ -14965,7 +14975,7 @@ Besides the properties listed in the table below, the response also contains the
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/6502342177%40example.com"
+                        "href": "http://classicserver.example.com/api/users\/6502342177%40example.com"
                     }
                 },
                 "userId": "6502342177@example.com",
@@ -15075,7 +15085,7 @@ Besides the properties listed in the table below, the response also contains the
                 "detail": "body.phoneNumber does not match pattern^\\+\\d+-\\d+$: was processing value \"+1-\""
             }
 
-### Delete a VoIP User [DELETE /loki/users/{userId}{?keepMailbox}]
+### Delete a VoIP User [DELETE /api/users/{userId}{?keepMailbox}]
 Delete a VoIP User.<br />
 Rollback-enabled: No.<br />
 Processes backing the Delete VoIP User request:
@@ -15161,7 +15171,7 @@ Processes backing the Delete VoIP User request:
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user to be deleted.</td>
+            <td>Classic Server userId (server-generated) of the user to be deleted.</td>
         </tr>
     </tbody>
 </table>
@@ -15220,7 +15230,7 @@ Processes backing the Delete VoIP User request:
                 "detail": "The 'Delete User' default functionality is not implemented."
             }
 
-## User's Call Processing Policies [/loki/users/{userId}/call-processing-policy]
+## User's Call Processing Policies [/api/users/{userId}/call-processing-policy]
 
 + Parameters
     + userId: `userExample` (string, required)
@@ -15243,7 +15253,7 @@ In addition to the standard error codes, this will return 404 Not Found if the u
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/4155551212%20example.com\/call-processing-policy"
+                        "href": "http://classicserver.example.com/api/users\/4155551212%20example.com\/call-processing-policy"
                     }
                 },
                 "_embedded": {
@@ -15251,7 +15261,7 @@ In addition to the standard error codes, this will return 404 Not Found if the u
                         {
                             "_links": {
                                 "self": {
-                                    "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/4155551212%20example.com"
+                                    "href": "http://classicserver.example.com/api/users\/4155551212%20example.com"
                                 }
                             },
                             "userId": "4155551212@example.com"
@@ -15359,7 +15369,7 @@ In addition to the standard error codes, this will return 404 Not Found if the u
 
             Transaction-Id: 1380080943120
 
-## Reset User's Device Credentials Action [/loki/users/{userId}/resetDeviceCredentials]
+## Reset User's Device Credentials Action [/api/users/{userId}/resetDeviceCredentials]
 
 + Parameters
     + userId: `userExample` (string, required)
@@ -15380,7 +15390,7 @@ Reset the device credentials on a VoIP User's primary device.
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user.</td>
+            <td>Classic Server userId (server-generated) of the user.</td>
         </tr>
     </tbody>
 </table>
@@ -15413,7 +15423,7 @@ Reset the device credentials on a VoIP User's primary device.
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/JohnDoe\/resetDeviceCredentials"
+                        "href": "http://classicserver.example.com/api/users\/JohnDoe\/resetDeviceCredentials"
                     }
                 },
                 "username": "12147483642",
@@ -15503,7 +15513,7 @@ Reset the device credentials on a VoIP User's primary device.
                 "detail": "Resetting device credentials for user without phone number is not supported."
             }
 
-## Re-Invite User Action [/loki/users/{userId}/reInvite]
+## Re-Invite User Action [/api/users/{userId}/reInvite]
 
 + Parameters
     + userId: `userExample` (string, required)
@@ -15528,7 +15538,7 @@ Even if user does not exists, success response is returned.
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user.</td>
+            <td>Classic Server userId (server-generated) of the user.</td>
         </tr>
     </tbody>
 </table>
@@ -15599,7 +15609,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
 
             Transaction-Id: 1380080943120
 
-## Swap User's Device Action [/loki/users/{userId}/swapDevice]
+## Swap User's Device Action [/api/users/{userId}/swapDevice]
 
 + Parameters
     + userId: `userExample` (string, required)
@@ -15626,7 +15636,7 @@ Additionally the user's old device may be deleted depending on inputs.
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user.</td>
+            <td>Classic Server userId (server-generated) of the user.</td>
         </tr>
     </tbody>
 </table>
@@ -15723,7 +15733,7 @@ For the "Swap User Device via LWS SOAP (VoIP Entity)" besides the properties lis
             <td>userId</td>
             <td>yes</td>
             <td>n/a</td>
-            <td>Loki Server VoIP User Id</td>
+            <td>Classic Server VoIP User Id</td>
         </tr>
         <tr>
             <td>accessDevice.name</td>
@@ -15834,7 +15844,7 @@ For the "Swap User Device via LWS SOAP (VoIP Entity)" besides the properties lis
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/users\/JohnDoe\/swapDevice"
+                        "href": "http://classicserver.example.com/api/users\/JohnDoe\/swapDevice"
                     }
                 },
                 "userId": "5551239876@example.com",
@@ -15971,12 +15981,12 @@ Extension Keys:
 
 * (none)
 
-## User's Assigned Services [/loki/users/{userId}/services/assigned-services]
+## User's Assigned Services [/api/users/{userId}/services/assigned-services]
 
 + Parameters
     + userId: `userExample` (string, required)
 
-### Update Assigned Services [PUT]
+### Update Assigned Services [PUT /api/users/{userId}/services/assigned-services{?eFaxOnly}]
 Modify VoIP User's assigned services.<br />
 Rollback-enabled: No.<br />
 Processes backing the Modify VoIP User's assigned services request:
@@ -16028,7 +16038,7 @@ Processes backing the Modify VoIP User's assigned services request:
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user.</td>
+            <td>Classic Server userId (server-generated) of the user.</td>
         </tr>
     </tbody>
 </table>
@@ -16047,6 +16057,40 @@ Processes backing the Modify VoIP User's assigned services request:
             }
         }
     }
+
+### URI Query Parameters
+<table border=1>
+    <thead>
+    <th>Parameter</th>
+    <th>Required?</th>
+    <th>Default</th>
+    <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>eFaxOnly</td>
+            <td style="text-align: center; font-weight:bold">no</td>
+            <td>n/a</td>
+            <td>Flag to indicate that action is executed on eFax only.</td>
+        </tr>
+    </tbody>
+</table>
+
+### JSON Schema for URI Query Parameters
+
+    {
+       "title": "Modify User assigned services URI Query parameters schema",
+       "properties": {
+         "eFaxOnly": {
+           "title": "Only eFax",
+           "description": "Flag to indicate that action is executed on eFax only",
+           "enum": [
+             "true",
+             "false"
+           ]
+         }
+       }
+     }
 
 ### Request Properties
 <table border=1>
@@ -16068,8 +16112,8 @@ Processes backing the Modify VoIP User's assigned services request:
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: The service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
-            Loki Server will not pre-validate service name correctness. Providing invalid service name will result in LWS-SOAP request validation error.</td>
+            Classic Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
+            Classic Server will not pre-validate service name correctness. Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
         <tr>
             <td>servicePacks</td>
@@ -16086,6 +16130,13 @@ Processes backing the Modify VoIP User's assigned services request:
         </tr>
     </tbody>
 </table>
+
++ Parameters
+    + userId: `userExample` (string, required)
+    + eFaxOnly: `true` (enum[string], optional)
+            + Members
+                + `true`
+                + `false`
 
 + Request (application/json)
     + Body
@@ -16160,7 +16211,7 @@ Processes backing the Modify VoIP User's assigned services request:
                 "detail": "The 'Set User Services' default functionality is not implemented."
             }            
 
-## User's Alternate Numbers Service Settings [/loki/users/{userId}/services/Alternate%20Numbers]
+## User's Alternate Numbers Service Settings [/api/users/{userId}/services/Alternate%20Numbers]
 
 + Parameters
     + userId: `userExample` (string, required)
@@ -16182,7 +16233,7 @@ In current implementation, services are updated on BroadWorks user using LWS-SOA
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user whose Alternate Numbers service will be updated.</td>
+            <td>Classic Server userId (server-generated) of the user whose Alternate Numbers service will be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -16395,7 +16446,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
                 "externalErrorDetail": "User Modify Failed. Alternate Numbers pre-validation error:Error updating service: Alternate Numbers. User [JohnDoe] does not have Alternate Numbers service assigned."
             }
 
-## User's Intercept User Service Settings [/loki/users/{userId}/services/Intercept%20User]
+## User's Intercept User Service Settings [/api/users/{userId}/services/Intercept%20User]
 
 + Parameters
     + userId: `userExample` (string, required)
@@ -16419,7 +16470,7 @@ Rollback-enabled: No
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user whose Intercept User service will be updated.</td>
+            <td>Classic Server userId (server-generated) of the user whose Intercept User service will be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -16817,7 +16868,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             }
             
             
-## User's Fax Messaging Service Settings [/loki/users/{userId}/services/Fax%20Messaging]
+## User's Fax Messaging Service Settings [/api/users/{userId}/services/Fax%20Messaging]
 
 + Parameters
     + userId: `userExample` (string, required)
@@ -16864,7 +16915,7 @@ Processes backing the Retrieve User Fax Messaging request:
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user whose Fax Messaging service will be updated.</td>
+            <td>Classic Server userId (server-generated) of the user whose Fax Messaging service will be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -16901,7 +16952,7 @@ Processes backing the Retrieve User Fax Messaging request:
             <td>userId</td>
             <td>yes</td>
             <td>n/a</td>
-            <td>The Loki Server ID of the User.</td>
+            <td>The Classic Server ID of the User.</td>
         </tr>
         <tr>
             <td>isActive</td>
@@ -16941,7 +16992,7 @@ Processes backing the Retrieve User Fax Messaging request:
             {
                 "_links": {
                     "self": {
-                        "href": "http://lokiserver.apiary.io/loki/users/142662607678932343%40example.com/services/Fax%20Messaging"
+                        "href": "http://classicserver.example.com/api/users/142662607678932343%40example.com/services/Fax%20Messaging"
                     }
                 },
                 "userId": "142662607678932343@example.com",
@@ -17097,7 +17148,7 @@ Processes backing the Modify User Fax Messaging request:
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server userId (server-generated) of the user whose Fax Messaging service will be updated.</td>
+            <td>Classic Server userId (server-generated) of the user whose Fax Messaging service will be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -17247,7 +17298,7 @@ Extension Keys:
 
 * (none)
 
-## User's BroadWorks Mobility Mobile Identities Collection [/loki/users/{userId}/services/BroadWorks%20Mobility/mobile-identities]
+## User's BroadWorks Mobility Mobile Identities Collection [/api/users/{userId}/services/BroadWorks%20Mobility/mobile-identities]
 
 + Parameters
     + userId: `userExample` (string, required)
@@ -17276,7 +17327,7 @@ Rollback-enabled: No
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the User.</td>
+            <td>Classic Server ID (server-generated) of the User.</td>
         </tr>
     </tbody>
 </table>
@@ -17582,12 +17633,12 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
         <tr>
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>Loki Server ID of the User.</td>
+            <td>Classic Server ID of the User.</td>
         </tr>
         <tr>
             <td>mobileIdentityId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>Loki Server ID of the Mobile Identity.</td>
+            <td>Classic Server ID of the Mobile Identity.</td>
         </tr>
         <tr>
             <td>mobileNetworkName</td>
@@ -17822,7 +17873,7 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
 + Response 201 (application/hal+json)
     + Headers
 
-            Location: http://lokiserver.example.com/loki/users/2005553001%40example.com/BroadWorks%20Mobility/mobile-identities/%2B1-9876543210
+            Location: http://classicserver.example.com/api/users/2005553001%40example.com/BroadWorks%20Mobility/mobile-identities/%2B1-9876543210
             Transaction-Id: 1380080943120
 
     + Body
@@ -17830,7 +17881,7 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.example.com\/loki\/users\/2005553001%40example.com\/BroadWorks%20Mobility\/mobile-identities\/%2B1-9876543210"
+                        "href": "http:\/\/classicserver.example.com\/api\/users\/2005553001%40example.com\/BroadWorks%20Mobility\/mobile-identities\/%2B1-9876543210"
                     }
                 },
                 "userId": "2005553001@example.com",
@@ -17923,7 +17974,7 @@ For the Create BroadWorks Mobility Mobile Identity via LWS-SOAP process besides 
                ]
             }
 
-## User's BroadWorks Mobility Mobile Identity [/loki/users/{userId}/services/BroadWorks%20Mobility/mobile-identities/{mobileIdentityId}]
+## User's BroadWorks Mobility Mobile Identity [/api/users/{userId}/services/BroadWorks%20Mobility/mobile-identities/{mobileIdentityId}]
 
 + Parameters
     + userId: `userExample` (string, required)
@@ -17952,13 +18003,13 @@ Rollback-enabled: No
             <td>userId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the User.</td>
+            <td>Classic Server ID (server-generated) of the User.</td>
         </tr>
         <tr>
             <td>mobileIdentityId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID of the Mobile Identity.</td>
+            <td>Classic Server ID of the Mobile Identity.</td>
         </tr>
     </tbody>
 </table>
@@ -18024,7 +18075,7 @@ Extension Keys:
 
 * (none)
 
-## VoIP Auto Attendants Collection [/loki/auto-attendants{?mode}]
+## VoIP Auto Attendants Collection [/api/auto-attendants{?mode}]
 
 + Parameters
     + mode: `create-only` (enum[string], required)
@@ -18088,7 +18139,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Auto Attendant is to be created.
+            <td>Classic Server customerId (server-generated) of the Customer in which the new VoIP Auto Attendant is to be created.
             In a default configuration (where a VoIP Auto Attendant is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
         </tr>
@@ -18096,7 +18147,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Auto Attendant is to be created.
+            <td>Classic Server siteId (server-generated) of the Site in which the new VoIP Auto Attendant is to be created.
             In a default configuration (where a VoIP Auto Attendant is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
         </tr>
@@ -18384,7 +18435,7 @@ For the Create Auto Attendant process besides the properties listed in the table
         <tr>
             <td>autoAttendantId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>The Loki Server ID of the new Auto Attendant user.</td>
+            <td>The Classic Server ID of the new Auto Attendant user.</td>
         </tr>
         <tr>
             <td>profile</td>
@@ -18729,7 +18780,7 @@ For the Create Auto Attendant process besides the properties listed in the table
 + Response 201 (application/hal+json)
     + Headers
 
-            Location: http://lokiserver.example.com/loki/auto-attendants/5551239876%40example.com
+            Location: http://classicserver.example.com/api/auto-attendants/5551239876%40example.com
             Transaction-Id: 1380080943120
 
     + Body
@@ -18737,7 +18788,7 @@ For the Create Auto Attendant process besides the properties listed in the table
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.example.com\/loki\/auto-attendants\/5551239876%40example.com"
+                        "href": "http:\/\/classicserver.example.com\/api\/auto-attendants\/5551239876%40example.com"
                     }
                 },
                 "autoAttendantId": "5551239876@example.com",
@@ -18895,7 +18946,7 @@ For the Create Auto Attendant process besides the properties listed in the table
                 "detail": "LWS-SOAP: Received unexpected response: 'SuccessResponse'"
             }
 
-## VoIP Auto Attendant [/loki/auto-attendants/{autoAttendantId}]
+## VoIP Auto Attendant [/api/auto-attendants/{autoAttendantId}]
 
 + Parameters
     + autoAttendantId: `autoAttendantExample` (string, required)
@@ -18918,7 +18969,7 @@ Rollback-enabled: No
             <td>autoAttendantId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server autoAttendantId (server-generated) of the Auto Attendant to be deleted.</td>
+            <td>Classic Server autoAttendantId (server-generated) of the Auto Attendant to be deleted.</td>
         </tr>
     </tbody>
 </table>
@@ -18960,7 +19011,7 @@ Rollback-enabled: No
                 "externalErrorDetail": "[Error 4008] User not found: autoAttendantTest"
             }
 
-## VoIP Auto Attendant's Assigned Services [/loki/customers/{customerId}/sites/{siteId}/auto-attendants/{autoAttendantId}/services/assigned-services]
+## VoIP Auto Attendant's Assigned Services [/api/customers/{customerId}/sites/{siteId}/auto-attendants/{autoAttendantId}/services/assigned-services]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -18986,19 +19037,19 @@ Rollback-enabled:  No<br />
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer.</td>
+            <td>Classic Server ID (server-generated) of the Customer.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site.</td>
+            <td>Classic Server ID (server-generated) of the Site.</td>
         </tr>
         <tr>
             <td>autoAttendantId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Auto Attendant to be updated.</td>
+            <td>Classic Server ID (server-generated) of the Auto Attendant to be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -19051,8 +19102,8 @@ Rollback-enabled:  No<br />
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
-            Loki Server will not pre-validate service name correctness.
+            Classic Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
+            Classic Server will not pre-validate service name correctness.
 Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
     </tbody>
@@ -19107,7 +19158,7 @@ Providing invalid service name will result in LWS-SOAP request validation error.
                 "externalErrorDetail": "Authentication: Service is not assignable."
             }
 
-## Site's VoIP Auto Attendant [/loki/customers/{customerId}/sites/{siteId}/auto-attendants/{autoAttendantId}]
+## Site's VoIP Auto Attendant [/api/customers/{customerId}/sites/{siteId}/auto-attendants/{autoAttendantId}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -19123,9 +19174,9 @@ Rollback-enabled: No
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
-    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Loki Server siteId (server-generated) of the Site</td></tr>
-    <tr><td>autoAttendantId</td><td>yes</td><td>n/a</td><td>Loki Server autoAttendantId of the Auto Attendant instance</td></tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Classic Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Classic Server siteId (server-generated) of the Site</td></tr>
+    <tr><td>autoAttendantId</td><td>yes</td><td>n/a</td><td>Classic Server autoAttendantId of the Auto Attendant instance</td></tr>
     </tbody>
 </table>
 
@@ -19139,13 +19190,13 @@ Rollback-enabled: No
         ],
         "properties": {
             "customerId": {
-                "title": "Loki Server customerId (server-generated) of the Customer",
+                "title": "Classic Server customerId (server-generated) of the Customer",
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 30
             },
             "siteId": {
-                "title": "Loki Server siteId (server-generated) of the Site",
+                "title": "Classic Server siteId (server-generated) of the Site",
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 30
@@ -19154,7 +19205,7 @@ Rollback-enabled: No
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 161,
-                "title": "Loki Server autoAttendantId of the Auto Attendant instance"
+                "title": "Classic Server autoAttendantId of the Auto Attendant instance"
             }
         }
     }
@@ -19322,7 +19373,7 @@ Rollback-enabled: No
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>autoAttendantId</td><td>yes</td><td>n/a</td><td>Loki Server autoAttendantId of the Auto Attendant instance</td></tr>
+    <tr><td>autoAttendantId</td><td>yes</td><td>n/a</td><td>Classic Server autoAttendantId of the Auto Attendant instance</td></tr>
         <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings</td></tr>
     <tr><td>profile.extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
     <tr><td>profile.publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
@@ -19536,7 +19587,7 @@ Rollback-enabled: No
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Site\/auto-attendants\/4151002300"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Site/auto-attendants/4151002300"
                     }
                 },
                 "autoAttendantId": "4151002300",
@@ -19672,19 +19723,19 @@ Update a BroadWorks Auto Attendant's Alternate Numbers service settings.<br />
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer.</td>
+            <td>Classic Server ID (server-generated) of the Customer.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site.</td>
+            <td>Classic Server ID (server-generated) of the Site.</td>
         </tr>
         <tr>
             <td>autoAttendantId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Auto Attendant to be updated.</td>
+            <td>Classic Server ID (server-generated) of the Auto Attendant to be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -20002,7 +20053,7 @@ Extension Keys:
 
 * (none)
 
-## VoIP Hunt Groups Collection [/loki/hunt-groups{?mode}]
+## VoIP Hunt Groups Collection [/api/hunt-groups{?mode}]
 
 + Parameters
     + mode: `create-only` (enum[string], required)
@@ -20065,7 +20116,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Hunt Group is to be created.
+            <td>Classic Server customerId (server-generated) of the Customer in which the new VoIP Hunt Group is to be created.
             In a default configuration (where a VoIP Hunt Group is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
         </tr>
@@ -20073,7 +20124,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Hunt Group is to be created.
+            <td>Classic Server siteId (server-generated) of the Site in which the new VoIP Hunt Group is to be created.
             In a default configuration (where a VoIP Hunt Group is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
         </tr>
@@ -20392,7 +20443,7 @@ For the Create Hunt Group process besides the properties listed in the table bel
         <tr>
             <td>huntGroupId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>The Loki Server ID of the new Hunt Group user.</td>
+            <td>The Classic Server ID of the new Hunt Group user.</td>
         </tr>
         <tr>
             <td>profile</td>
@@ -20749,7 +20800,7 @@ For the Create Hunt Group process besides the properties listed in the table bel
 + Response 201 (application/hal+json)
     + Headers
 
-            Location: http://lokiserver.example.com/loki/hunt-groups/5551239876%40example.com
+            Location: http://classicserver.example.com/api/hunt-groups/5551239876%40example.com
             Transaction-Id: 1380080943120
 
     + Body
@@ -20757,7 +20808,7 @@ For the Create Hunt Group process besides the properties listed in the table bel
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.example.com\/loki\/hunt-groups\/5551239876%40example.com"
+                        "href": "http:\/\/classicserver.example.com\/api\/hunt-groups\/5551239876%40example.com"
                     }
                 },
                 "huntGroupId": "5551239876@example.com",
@@ -20913,7 +20964,7 @@ For the Create Hunt Group process besides the properties listed in the table bel
                 "detail": "LWS-SOAP: Received unexpected response: 'SuccessResponse'"
             }
 
-## VoIP Hunt Group [/loki/hunt-groups/{huntGroupId}]
+## VoIP Hunt Group [/api/hunt-groups/{huntGroupId}]
 
 + Parameters
     + huntGroupId: `huntGroupExample` (string, required)
@@ -20936,7 +20987,7 @@ Rollback-enabled: No
             <td>huntGroupId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server huntGroupId (server-generated) of the Hunt Group to be deleted.</td>
+            <td>Classic Server huntGroupId (server-generated) of the Hunt Group to be deleted.</td>
         </tr>
     </tbody>
 </table>
@@ -20978,7 +21029,7 @@ Rollback-enabled: No
                 "externalErrorDetail": "[Error 4008] User not found: huntGroupTest"
             }
 
-## Hunt Group's Assigned Services [/loki/customers/{customerId}/sites/{siteId}/hunt-groups/{huntGroupId}/services/assigned-services]
+## Hunt Group's Assigned Services [/api/customers/{customerId}/sites/{siteId}/hunt-groups/{huntGroupId}/services/assigned-services]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -21004,19 +21055,19 @@ Rollback-enabled:  No<br />
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer.</td>
+            <td>Classic Server ID (server-generated) of the Customer.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site.</td>
+            <td>Classic Server ID (server-generated) of the Site.</td>
         </tr>
         <tr>
             <td>huntGroupId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Hunt Group to be updated.</td>
+            <td>Classic Server ID (server-generated) of the Hunt Group to be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -21069,8 +21120,8 @@ Rollback-enabled:  No<br />
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
-            Loki Server will not pre-validate service name correctness.
+            Classic Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
+            Classic Server will not pre-validate service name correctness.
 Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
     </tbody>
@@ -21125,7 +21176,7 @@ Providing invalid service name will result in LWS-SOAP request validation error.
                 "externalErrorDetail": "Authentication: Service is not assignable."
             }
 
-## Site's Voip Hunt Group [/loki/customers/{customerId}/sites/{siteId}/hunt-groups/{huntGroupId}]
+## Site's Voip Hunt Group [/api/customers/{customerId}/sites/{siteId}/hunt-groups/{huntGroupId}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -21141,9 +21192,9 @@ Rollback-enabled: No
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
-    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Loki Server siteId (server-generated) of the Site</td></tr>
-    <tr><td>huntGroupId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Hunt Group instance</td></tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Classic Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Classic Server siteId (server-generated) of the Site</td></tr>
+    <tr><td>huntGroupId</td><td>yes</td><td>n/a</td><td>Classic Server ID of the Hunt Group instance</td></tr>
     </tbody>
 </table>
 
@@ -21238,7 +21289,7 @@ Rollback-enabled: No
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>huntGroupId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Hunt Group instance</td></tr>
+    <tr><td>huntGroupId</td><td>yes</td><td>n/a</td><td>Classic Server ID of the Hunt Group instance</td></tr>
         <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings</td></tr>
     <tr><td>profile.extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
     <tr><td>profile.publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
@@ -21488,7 +21539,7 @@ Rollback-enabled: No
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Site\/hunt-groups\/4151002300"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Site/hunt-groups/4151002300"
                     }
                 },
                 "huntGroupId": "4151002300",
@@ -21623,19 +21674,19 @@ Update a BroadWorks Hunt Group's Alternate Numbers service settings.<br />
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer.</td>
+            <td>Classic Server ID (server-generated) of the Customer.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site.</td>
+            <td>Classic Server ID (server-generated) of the Site.</td>
         </tr>
         <tr>
             <td>huntGroupId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Hunt Group to be updated.</td>
+            <td>Classic Server ID (server-generated) of the Hunt Group to be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -21952,7 +22003,7 @@ Extension Keys:
 
 * (none)
 
-## VoIP Call Centers Collection [/loki/call-centers{?mode}]
+## VoIP Call Centers Collection [/api/call-centers{?mode}]
 
 + Parameters
     + mode: `create-only` (enum[string], required)
@@ -22016,7 +22067,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Call Center is to be created.
+            <td>Classic Server customerId (server-generated) of the Customer in which the new VoIP Call Center is to be created.
             In a default configuration (where a VoIP Call Center is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
         </tr>
@@ -22024,7 +22075,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Call Center is to be created.
+            <td>Classic Server siteId (server-generated) of the Site in which the new VoIP Call Center is to be created.
             In a default configuration (where a VoIP Call Center is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
         </tr>
@@ -22379,7 +22430,7 @@ For the Create Call Center process besides the properties listed in the table be
         <tr>
             <td>callCenterId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>The Loki Server ID of the new Call Center user.</td>
+            <td>The Classic Server ID of the new Call Center user.</td>
         </tr>
         <tr>
             <td>profile</td>
@@ -22852,7 +22903,7 @@ For the Create Call Center process besides the properties listed in the table be
 + Response 201 (application/hal+json)
     + Headers
 
-            Location: http://lokiserver.example.com/loki/call-centers/5551239876%40example.com
+            Location: http://classicserver.example.com/api/call-centers/5551239876%40example.com
             Transaction-Id: 1380080943120
 
     + Body
@@ -22860,7 +22911,7 @@ For the Create Call Center process besides the properties listed in the table be
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.example.com\/loki\/call-centers\/5551239876%40example.com"
+                        "href": "http:\/\/classicserver.example.com\/api\/call-centers\/5551239876%40example.com"
                     }
                 },
                 "callCenterId": "5551239876@example.com",
@@ -23107,7 +23158,7 @@ For the Create Call Center process besides the properties listed in the table be
                 "detail": "Either customerId or extensions.broadworks.serviceProviderId is required when creating a VoIP Call Center.Either siteId or extensions.broadworks.groupId is required when creating a VoIP Call Center."
             }
 
-## VoIP Call Center [/loki/call-centers/{callCenterId}]
+## VoIP Call Center [/api/call-centers/{callCenterId}]
 
 + Parameters
     + callCenterId: `callCenterExample` (string, required)
@@ -23130,7 +23181,7 @@ Rollback-enabled: No
             <td>callCenterId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server callCenterId (server-generated) of the Call Center to be deleted.</td>
+            <td>Classic Server callCenterId (server-generated) of the Call Center to be deleted.</td>
         </tr>
     </tbody>
 </table>
@@ -23172,7 +23223,7 @@ Rollback-enabled: No
                 "externalErrorDetail": "[Error 4008] User not found: callCenterTest"
             }
 
-## VoIP Call Center's Assigned Services [/loki/customers/{customerId}/sites/{siteId}/call-centers/{callCenterId}/services/assigned-services]
+## VoIP Call Center's Assigned Services [/api/customers/{customerId}/sites/{siteId}/call-centers/{callCenterId}/services/assigned-services]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -23198,19 +23249,19 @@ Rollback-enabled:  No<br />
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer.</td>
+            <td>Classic Server ID (server-generated) of the Customer.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site.</td>
+            <td>Classic Server ID (server-generated) of the Site.</td>
         </tr>
         <tr>
             <td>callCenterId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Call Center to be updated.</td>
+            <td>Classic Server ID (server-generated) of the Call Center to be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -23263,8 +23314,8 @@ Rollback-enabled:  No<br />
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
-            Loki Server will not pre-validate service name correctness.
+            Classic Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
+            Classic Server will not pre-validate service name correctness.
 Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
     </tbody>
@@ -23319,7 +23370,7 @@ Providing invalid service name will result in LWS-SOAP request validation error.
                 "externalErrorDetail": "Authentication: Service is not assignable."
             }
 
-## Site's Call Center [/loki/customers/{customerId}/sites/{siteId}/call-centers/{callCenterId}]
+## Site's Call Center [/api/customers/{customerId}/sites/{siteId}/call-centers/{callCenterId}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -23335,9 +23386,9 @@ Rollback-enabled: No
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
-    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Loki Server siteId (server-generated) of the Site</td></tr>
-    <tr><td>callCenterId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Call Center instance</td></tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Classic Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Classic Server siteId (server-generated) of the Site</td></tr>
+    <tr><td>callCenterId</td><td>yes</td><td>n/a</td><td>Classic Server ID of the Call Center instance</td></tr>
     </tbody>
 </table>
 
@@ -23438,7 +23489,7 @@ Rollback-enabled: No
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>callCenterId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Call Center instance</td></tr>
+    <tr><td>callCenterId</td><td>yes</td><td>n/a</td><td>Classic Server ID of the Call Center instance</td></tr>
         <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings</td></tr>
     <tr><td>profile.extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
     <tr><td>profile.publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
@@ -23713,7 +23764,7 @@ Rollback-enabled: No
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Site\/call-centers\/4151002300"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Site/call-centers/4151002300"
                     }
                 },
                 "callCenterId": "4151002300",
@@ -23848,19 +23899,19 @@ Update a BroadWorks Call Center's Alternate Numbers service settings.<br />
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer.</td>
+            <td>Classic Server ID (server-generated) of the Customer.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site.</td>
+            <td>Classic Server ID (server-generated) of the Site.</td>
         </tr>
         <tr>
             <td>callCenterId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Call Center to be updated.</td>
+            <td>Classic Server ID (server-generated) of the Call Center to be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -24195,7 +24246,7 @@ Extension Keys:
 
 * (none)
 
-## VoIP Instant Group Calls Collection [/loki/instant-group-calls{?mode}]
+## VoIP Instant Group Calls Collection [/api/instant-group-calls{?mode}]
 
 + Parameters
     + mode: `create-only` (enum[string], required)
@@ -24259,7 +24310,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server customerId (server-generated) of the Customer in which the new VoIP Instant Group Call is to be created.
+            <td>Classic Server customerId (server-generated) of the Customer in which the new VoIP Instant Group Call is to be created.
             In a default configuration (where a VoIP Instant Group Call is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.serviceProviderId is populated.</td>
         </tr>
@@ -24267,7 +24318,7 @@ Note: See the JSON Schema for data types, format, length restrictions, etc.
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">no</td>
             <td>n/a</td>
-            <td>Loki Server siteId (server-generated) of the Site in which the new VoIP Instant Group Call is to be created.
+            <td>Classic Server siteId (server-generated) of the Site in which the new VoIP Instant Group Call is to be created.
             In a default configuration (where a VoIP Instant Group Call is composed of BroadWorks entities only),
             this property can be omitted if extensions.broadworks.groupId is populated.</td>
         </tr>
@@ -24480,7 +24531,7 @@ For the Create Instant Group Call process besides the properties listed in the t
         <tr>
             <td>instantGroupCallId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
-            <td>The Loki Server ID of the new Instant Group Call user.</td>
+            <td>The Classic Server ID of the new Instant Group Call user.</td>
         </tr>
         <tr>
             <td>profile</td>
@@ -24770,7 +24821,7 @@ For the Create Instant Group Call process besides the properties listed in the t
 + Response 201 (application/hal+json)
     + Headers
 
-            Location: http://lokiserver.example.com/loki/instant-group-calls/5551239876%40example.com
+            Location: http://classicserver.example.com/api/instant-group-calls/5551239876%40example.com
             Transaction-Id: 1380080943120
 
     + Body
@@ -24778,7 +24829,7 @@ For the Create Instant Group Call process besides the properties listed in the t
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.example.com\/loki\/instant-group-calls\/5551239876%40example.com"
+                        "href": "http:\/\/classicserver.example.com\/api\/instant-group-calls\/5551239876%40example.com"
                     }
                 },
                 "instantGroupCallId": "5551239876@example.com",
@@ -24935,7 +24986,7 @@ For the Create Instant Group Call process besides the properties listed in the t
                 "detail": "LWS-SOAP: Received unexpected response: 'SuccessResponse'"
             }
 
-## VoIP Instant Group Call [/loki/instant-group-calls/{instantGroupCallId}]
+## VoIP Instant Group Call [/api/instant-group-calls/{instantGroupCallId}]
 
 + Parameters
     + instantGroupCallId: `instantGroupCallExample` (string, required)
@@ -24958,7 +25009,7 @@ Rollback-enabled: No
             <td>instantGroupCallId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server instantGroupCallId (server-generated) of the Instant Group Call to be deleted.</td>
+            <td>Classic Server instantGroupCallId (server-generated) of the Instant Group Call to be deleted.</td>
         </tr>
     </tbody>
 </table>
@@ -25000,7 +25051,7 @@ Rollback-enabled: No
                 "externalErrorDetail": "[Error 4008] User not found: instantGroupCallTest"
             }
 
-## Instant Group Call's Assigned Services [/loki/customers/{customerId}/sites/{siteId}/instant-group-calls/{instantGroupCallId}/services/assigned-services]
+## Instant Group Call's Assigned Services [/api/customers/{customerId}/sites/{siteId}/instant-group-calls/{instantGroupCallId}/services/assigned-services]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -25026,19 +25077,19 @@ Rollback-enabled:  No<br />
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer.</td>
+            <td>Classic Server ID (server-generated) of the Customer.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site.</td>
+            <td>Classic Server ID (server-generated) of the Site.</td>
         </tr>
         <tr>
             <td>instantGroupCallId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Instant Group Call to be updated.</td>
+            <td>Classic Server ID (server-generated) of the Instant Group Call to be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -25091,8 +25142,8 @@ Rollback-enabled:  No<br />
             <td style="text-align: center;">no</td>
             <td>n/a</td>
             <td><b>Note</b>: service name should be valid BroadWorks service name, available for assignment in the BroadWorks system that is configured for operations. <br />
-            Loki Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
-            Loki Server will not pre-validate service name correctness.
+            Classic Server does not do reverse mapping of BroadWorks service names (for example, "BroadTouch Business Communicator Desktop - Audio" is label and corresponding service name is "Client License 18"). See "BroadWorks Reverse License Mapping" document for details. <br />
+            Classic Server will not pre-validate service name correctness.
 Providing invalid service name will result in LWS-SOAP request validation error.</td>
         </tr>
     </tbody>
@@ -25147,7 +25198,7 @@ Providing invalid service name will result in LWS-SOAP request validation error.
                 "externalErrorDetail": "Authentication: Service is not assignable."
             }
 
-## Site's Instant Group Call [/loki/customers/{customerId}/sites/{siteId}/instant-group-calls/{instantGroupCallId}]
+## Site's Instant Group Call [/api/customers/{customerId}/sites/{siteId}/instant-group-calls/{instantGroupCallId}]
 
 + Parameters
     + customerId: `customerExample` (string, required)
@@ -25163,9 +25214,9 @@ Rollback-enabled: No
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Loki Server customerId (server-generated) of the Customer</td></tr>
-    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Loki Server siteId (server-generated) of the Site</td></tr>
-    <tr><td>instantGroupCallId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Instant Group Call instance</td></tr>
+    <tr><td>customerId</td><td>yes</td><td>n/a</td><td>Classic Server customerId (server-generated) of the Customer</td></tr>
+    <tr><td>siteId</td><td>yes</td><td>n/a</td><td>Classic Server siteId (server-generated) of the Site</td></tr>
+    <tr><td>instantGroupCallId</td><td>yes</td><td>n/a</td><td>Classic Server ID of the Instant Group Call instance</td></tr>
     </tbody>
 </table>
 
@@ -25242,7 +25293,7 @@ Rollback-enabled: No
 <table border=1>
     <thead><th>Parameter</th><th>Required?</th><th>Default</th><th>Description</th></thead>
     <tbody>
-    <tr><td>instantGroupCallId</td><td>yes</td><td>n/a</td><td>Loki Server ID of the Instant Group Call instance</td></tr>
+    <tr><td>instantGroupCallId</td><td>yes</td><td>n/a</td><td>Classic Server ID of the Instant Group Call instance</td></tr>
         <tr><td>profile</td><td>no</td><td>n/a</td><td>Container for profile settings</td></tr>
     <tr><td>profile.extension</td><td>no</td><td>n/a</td><td>Extension</td></tr>
     <tr><td>profile.publicServiceIdentity</td><td>no</td><td>n/a</td><td>Public Service Identity</td></tr>
@@ -25431,7 +25482,7 @@ Rollback-enabled: No
             {
                 "_links": {
                     "self": {
-                        "href": "http:\/\/lokiserver.apiary.io\/loki\/customers\/Example%20Com\/sites\/Example%20Site\/instant-group-calls\/4151002300"
+                        "href": "http://classicserver.example.com/api/customers/Example%20Com/sites/Example%20Site/instant-group-calls/4151002300"
                     }
                 },
                 "instantGroupCallId": "4151002300",
@@ -25566,19 +25617,19 @@ Update a BroadWorks Instant Group Call's Alternate Numbers service settings.<br 
             <td>customerId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Customer.</td>
+            <td>Classic Server ID (server-generated) of the Customer.</td>
         </tr>
         <tr>
             <td>siteId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Site.</td>
+            <td>Classic Server ID (server-generated) of the Site.</td>
         </tr>
         <tr>
             <td>instantGroupCallId</td>
             <td style="text-align: center; font-weight:bold">yes</td>
             <td>n/a</td>
-            <td>Loki Server ID (server-generated) of the Instant Group Call to be updated.</td>
+            <td>Classic Server ID (server-generated) of the Instant Group Call to be updated.</td>
         </tr>
     </tbody>
 </table>
@@ -25887,12 +25938,12 @@ Besides the properties listed in the table below, the response also contains the
 
 General
 
- * Added GET/PUT /loki/users/{+userId}/services/Fax%20Messaging
- * Added GET /loki/customers/{+customerId}/sites/{+siteId}/users
+ * Added GET/PUT /api/users/{+userId}/services/Fax%20Messaging
+ * Added GET /api/customers/{+customerId}/sites/{+siteId}/users
  * Updated POST /users/{+userId}/resetDeviceCredentials; LWS-SOAP and eFAX alternate processes added
- * Updated PUT /loki/users/{+userId}/services/assigned-services; LWS-SOAP and eFAX alternate processes added
- * Updated POST /loki/users/{+userId}/reInvite; `email` body parameter added
- * Updated PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}; fixed request parameters description
+ * Updated PUT /api/users/{+userId}/services/assigned-services; LWS-SOAP and eFAX alternate processes added
+ * Updated POST /api/users/{+userId}/reInvite; `email` body parameter added
+ * Updated PUT /api/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}; fixed request parameters description
  * JSON schemas are formatted to [draft-v4 version](http://tools.ietf.org/html/draft-zyp-json-schema-04)
 
 
@@ -25901,126 +25952,126 @@ General
 General
 
  * Added the "Error responses" section
- * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}
- * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
- * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
- * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}
- * Added GET /loki/customers/{+customerId}/sites/{+siteId}
- * Removed GET /loki/customers{?extensions.broadworks.serviceProviderId}
- * Removed GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
+ * Added PUT /api/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}
+ * Added PUT /api/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}
+ * Added PUT /api/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}
+ * Added PUT /api/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}
+ * Added GET /api/customers/{+customerId}/sites/{+siteId}
+ * Removed GET /api/customers{?extensions.broadworks.serviceProviderId}
+ * Removed GET /api/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
  * Updated the Virtual User Add requests to expose a "name" property
- * Updated the POST /loki/users{?mode} request
+ * Updated the POST /api/users{?mode} request
 
 Changes for S2294: LWS-REST: VoIP User BroadWorks Mobility Support (LWS-SOAP-backed)
 
- * Added POST /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
- * Added DELETE /loki/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobileIdentityId}
+ * Added POST /api/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities
+ * Added DELETE /api/users/{+userId}/services/BroadWorks%20Mobility/mobile-identities/{+mobileIdentityId}
 
 Changes for S2370, 2296, 2371: LWS-REST Site Admin Add, Delete
 
- * Added POST /loki/customers/{+customerId}/sites/{+siteId}/administrators{?mode}
- * Added DELETE /loki/customers/{+customerId}/sites/{+siteId}/administrators/{+siteAdministratorId}
+ * Added POST /api/customers/{+customerId}/sites/{+siteId}/administrators{?mode}
+ * Added DELETE /api/customers/{+customerId}/sites/{+siteId}/administrators/{+siteAdministratorId}
 
 Changes for S2368, 2369, 2295: LWS-REST: Create LWS-SOAP-backed request for Customer Administrator Add, Delete
 
- * Added POST /loki/customers/{+customerId}/administrators{?mode}
- * Added DELETE /loki/customers/{+customerId}/administrators/{+customerAdministratorId}
+ * Added POST /api/customers/{+customerId}/administrators{?mode}
+ * Added DELETE /api/customers/{+customerId}/administrators/{+customerAdministratorId}
 
 Changes for S2297: LWS-REST: VoIP User Intercept Modify
 
- * Added PUT /loki/users/{+userId}/services/Intercept%20User
+ * Added PUT /api/users/{+userId}/services/Intercept%20User
 
 Changes for S2275 LWS-REST VoIP Virtual User Delete
 
- * Added DELETE /loki/auto-attendants/{+autoAttendantId}
- * Added DELETE /loki/hunt-groups/{+huntGroupId}
- * Added DELETE /loki/call-centers/{+callCenterId}
- * Added DELETE /loki/instant-group-calls/{+instantGroupCallId}
+ * Added DELETE /api/auto-attendants/{+autoAttendantId}
+ * Added DELETE /api/hunt-groups/{+huntGroupId}
+ * Added DELETE /api/call-centers/{+callCenterId}
+ * Added DELETE /api/instant-group-calls/{+instantGroupCallId}
 
 Changes for S2292  LWS-REST: User Device Swap
 
-  * Added POST /loki/users/{+userId}/swapDevice
+  * Added POST /api/users/{+userId}/swapDevice
 
 Changes for S2374 LWS-REST VoIP Virtual User Service (Un-)Assignment
- * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}/services/assigned-services
- * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/services/assigned-services
- * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/services/assigned-services
- * Added PUT /loki/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}/services/assigned-services
+ * Added PUT /api/customers/{+customerId}/sites/{+siteId}/auto-attendants/{+autoAttendantId}/services/assigned-services
+ * Added PUT /api/customers/{+customerId}/sites/{+siteId}/hunt-groups/{+huntGroupId}/services/assigned-services
+ * Added PUT /api/customers/{+customerId}/sites/{+siteId}/call-centers/{+callCenterId}/services/assigned-services
+ * Added PUT /api/customers/{+customerId}/sites/{+siteId}/instant-group-calls/{+instantGroupCallId}/services/assigned-services
 
 #2.41
 
 Changes for S1932 LWS-REST:  Customer Add (BroadWorks Enterprise/SP Add)
 
- * Added POST /loki/customers{?mode}
- * Added GET /loki/customers/{+customerId}
- * Added PUT /loki/customers/{+customerId}
- * Added DELETE /loki/customers/{+customerId}
+ * Added POST /api/customers{?mode}
+ * Added GET /api/customers/{+customerId}
+ * Added PUT /api/customers/{+customerId}
+ * Added DELETE /api/customers/{+customerId}
 
 Changes for S2264 LWS-REST Site Device Access Credentials Reset
 
-* Added POST /loki/users/{+userId}/resetDeviceCredentials
+* Added POST /api/users/{+userId}/resetDeviceCredentials
 
 Changes for S2265 VoIP User Add Alternative Process (via LWS-SOAP)
-* Added details for the differences between the default (legacy) and the alternative process POST /loki/users request.
+* Added details for the differences between the default (legacy) and the alternative process POST /api/users request.
 
 
 Changes for S2266 LWS-REST VoIP User Alternate Numbers Modify
 
-* Added PUT /loki/users/{+userId}/services/Alternate&20Numbers
+* Added PUT /api/users/{+userId}/services/Alternate&20Numbers
 
 Changes for S2267 LWS-REST VoIP User Service (Un-)Assignment
 
-* Added PUT /loki/users/{+userId}/services/assigned-services
+* Added PUT /api/users/{+userId}/services/assigned-services
 
 Changes for S2268 LWS-REST VoIP User Delete
 
-* Added DELETE /loki/users/{+userId}{?keepMailbox}
+* Added DELETE /api/users/{+userId}{?keepMailbox}
 
 Changes for S2270 LWS-REST: VoIP Virtual User Add:
 
-* Added POST /loki/auto-attendants{?mode}
-* Added POST /loki/hunt-groups{?mode}
-* Added POST /loki/call-centers{?mode}
-* Added POST /loki/instant-group-calls{?mode}
+* Added POST /api/auto-attendants{?mode}
+* Added POST /api/hunt-groups{?mode}
+* Added POST /api/call-centers{?mode}
+* Added POST /api/instant-group-calls{?mode}
 
 Changes for S2289 LWS-REST: Enhance VoIP User Add (via LWS-SOAP) to support BroadWorks Mobility
 
-* Added support to configure "Broadworks Mobility" service, only supported by POST /loki/users alternative process request.
+* Added support to configure "Broadworks Mobility" service, only supported by POST /api/users alternative process request.
 
 Changes for S2291 LWS-REST: Create LWS-SOAP-backed request to modify group voice portal settings:
 
-* Added PUT /loki/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
+* Added PUT /api/customers/{+customerId}/sites/{+siteId}/services/Voice Portal
 
 Changes for S2313 LWS-REST: Enhance LWS-SOAP-backed VoIP User Add to Support ATA User Type
 
-* New "ATA" userType supported only by POST /loki/users alternative process request.
+* New "ATA" userType supported only by POST /api/users alternative process request.
 
 #2.40
 
 General:
 * Added section "Single vs Multi cluster BroadWorks behaviour", to clarify 404 Not Found response body format.
 
-Changes for S2183: Loki REST: Initial Site Add Support:
+Changes for S2183: api REST: Initial Site Add Support:
 
-* Added GET /loki/customers{?extensions.broadworks.serviceProviderId}
-* Added POST /loki/customers/{+customerId}/sites{?mode}
+* Added GET /api/customers{?extensions.broadworks.serviceProviderId}
+* Added POST /api/customers/{+customerId}/sites{?mode}
 
 #2.39
 
 Changes for S1783: LWS-REST: Site Device creation and TN Assign to a Site:
 
-* Added POST /loki/customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
-* Added POST /loki/customers/{+customerId}/sites/{+siteId}/devices{?mode}
+* Added POST /api/customers/{+customerId}/sites/{+siteId}/assignPhoneNumber{?mode}
+* Added POST /api/customers/{+customerId}/sites/{+siteId}/devices{?mode}
 
 #2.38
 
-Note the change to version numbers compatible with other Loki products.
+Note the change to version numbers compatible with other Classic products.
 
 Changes for S2018 LWS-REST: Add support for Activate/Deactivate TN in BroadWorks:
-* Added POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate
-* Added POST /loki/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
+* Added POST /api/customers/{+customerId}/sites/{+siteId}/phone-numbers/activate
+* Added POST /api/customers/{+customerId}/sites/{+siteId}/phone-numbers/deactivate
 
-Updates for S1945 LWS-REST: Add User with Trunk Group "None" (POST /loki/users{?mode}):
+Updates for S1945 LWS-REST: Add User with Trunk Group "None" (POST /api/users{?mode}):
 
 * Add userType and accessDevice for
 * Remove sharedDeviceName and trunkGroupName
@@ -26035,21 +26086,21 @@ Updates for S1945 LWS-REST: Add User with Trunk Group "None" (POST /customers/{+
 
 General
 
-* Clarify that GET on /loki/sites returns only a single resource
+* Clarify that GET on /api/sites returns only a single resource
 * Update json-schemas for various requests
 
 #1.8
 
 Changes for S1896 LWS-REST: BroadWorks Trunk Group Add (excludes Genband support):
 
-* Added GET /loki/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
-* Added POST /loki/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
+* Added GET /api/sites{?extensions.broadworks.serviceProviderId,extensions.broadworks.groupId}
+* Added POST /api/customers/{+customerId}/sites/{+siteId}/trunk-groups{?mode}
 
 #1.7 / 1.7.1
 Changes for S2052 LWS-REST: VoIP User Add validation enhancements:
 
-* Update POST /loki/users to return 422 for invalid attempt to set empty extension
-* Update POST /loki/users to add missing input validation for properties under services.*
+* Update POST /api/users to return 422 for invalid attempt to set empty extension
+* Update POST /api/users to add missing input validation for properties under services.*
 
 Changes for S2051 LWS-REST: Further improvements to error handling consistency:
 
@@ -26064,14 +26115,14 @@ General:
 
 * Correct documented default value (3) for services.'Call Forwarding No Answer'.numberOfRings and services.'Third-Party Voice Mail Support'.noAnswerNumberOfRings
 * Improved error response for the case where an object contains an invalid property
-* POST /loki/users: clarify that userId must include @domain; enhance the input validation for userId
-* POST /loki/users: clarify that the BroadWorks group's default extension length is used when auto-filling the extension
-* POST /loki/users: note that the "no-number" tnRoutine is not allowed for Charge Number.
+* POST /api/users: clarify that userId must include @domain; enhance the input validation for userId
+* POST /api/users: clarify that the BroadWorks group's default extension length is used when auto-filling the extension
+* POST /api/users: note that the "no-number" tnRoutine is not allowed for Charge Number.
 
 #1.6
 Changes for *Functional Description: VoIP Entity Service - Enhancements for BroadWorks Multi-Cluster Support*:
 
-* removed support for POST /loki/voip-users; replaced with POST /loki/users
+* removed support for POST /api/voip-users; replaced with POST /api/users
 * customerId and siteId moved from URI template into request body
 * extensions.broadworks added to request body, with serviceProviderId and groupId
 
@@ -26079,19 +26130,19 @@ General:
 
 * Change checkmark/x to yes/no for clarity
 * Document 404 response for GET queries on Sonus resources
-* Corrected data type for /loki/routes transmissionMedium property
-* Completed documentation for user service settings in POST /loki/users
+* Corrected data type for /api/routes transmissionMedium property
+* Completed documentation for user service settings in POST /api/users
 
 #1.5
 Changes for *Functional Description: Alternate API Navigation*:
 
 * Update URIs (self links, Location headers) to reflect changed URI construction
 * Update response bodies to add new properties required to expand URI Template variables
-* Convert POST /loki/customers/{+customerId}/sites/{+siteId}/voip-users 201 response to hal+json
+* Convert POST /api/customers/{+customerId}/sites/{+siteId}/voip-users 201 response to hal+json
 
 Changes for *Functional Description: Sonus Entity and Utility Services - Subscriber, Destination, and Route Modify Support*:
 
-* Add PUT /loki/{subscribers,destinations,routes}.
+* Add PUT /api/{subscribers,destinations,routes}.
 
 Changes for *Functional Description: Sonus Entity and Utility Services - Route Query Enhancements*:
 
@@ -26099,14 +26150,14 @@ Changes for *Functional Description: Sonus Entity and Utility Services - Route Q
 
 Changes for *Functional Description: VoIP User Create - Configure Call Forwarding Not Reachable (BroadWorks)*:
 
-* Update POST /loki/customers/{+customerId}/sites/{+siteId}/voip-users request body to add Call Forwarding Not Reachable service.
+* Update POST /api/customers/{+customerId}/sites/{+siteId}/voip-users request body to add Call Forwarding Not Reachable service.
 
 General:
 
 * Improve comments.
 * Correct errors in json-schema.
-* Add 404 example for POST /loki/number-translations.
-* Document URL parameters for POST /loki/subscribers.
-* Correct the URI in the Location header in POST /loki/routes 201 Created response, and in embedded ls:routes in 409 Conflict response, and in the 200 OK response to GET /loki/routes{?...}.
-* Further updates to POST /loki/customers/{+customerId}/sites/{+siteId}/voip-users: improve documentation, add timeZone and language; add "+" in URI template parameters to indicate reserved expansion.
-* Correct documentation to mark ?mode as required on POST /loki/voip-users.
+* Add 404 example for POST /api/number-translations.
+* Document URL parameters for POST /api/subscribers.
+* Correct the URI in the Location header in POST /api/routes 201 Created response, and in embedded ls:routes in 409 Conflict response, and in the 200 OK response to GET /api/routes{?...}.
+* Further updates to POST /api/customers/{+customerId}/sites/{+siteId}/voip-users: improve documentation, add timeZone and language; add "+" in URI template parameters to indicate reserved expansion.
+* Correct documentation to mark ?mode as required on POST /api/voip-users.
