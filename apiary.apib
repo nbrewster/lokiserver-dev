@@ -17205,6 +17205,12 @@ Processes backing the Modify User Fax Messaging request:
             <td>n/a</td>
             <td>List of aliases.<br/><b>None: Not Implemented</b></td>
         </tr>
+        <tr>
+            <td>email</td>
+            <td>no</td>
+            <td>n/a</td>
+            <td>eFax user email address</td>
+        </tr>
     </tbody>
 </table>
 
@@ -17212,54 +17218,61 @@ Processes backing the Modify User Fax Messaging request:
     
     + Body
     
-            {
-                "phoneNumber": "+1-2005553001"
-            }
+        {
+            "phoneNumber": "+1-2005553001",
+            "email": "efaxemail@example.com"
+        }
 
     + Schema
 
-            {
-               "title": "Request Body Parameters Schema",
-               "type": "object",
-               "additionalProperties": false,
-               "properties": {
-                  "isActive": {
-                     "type": "boolean"
-                  },
-                  "phoneNumber": {
-                     "type": [
-                        "string",
-                        "null"
-                     ],
-                     "minLength": 1,
-                     "maxLength": 23,
-                     "pattern": "^\\+\\d+-\\d+$"
-                  },
-                  "extension": {
-                     "type": [
-                        "string",
-                        "null"
-                     ],
-                     "minLength": 2,
-                     "maxLength": 20,
-                     "pattern": "^[0-9]+$"
-                  },
-                  "alias": {
-                     "type": [
-                        "array",
-                        "null"
-                     ],
-                     "maxItems": 3,
-                     "items": {
-                        "type": "string",
-                        "description": "SIP URI",
-                        "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
-                        "minLength": 1,
-                        "maxLength": 161
-                     }
-                  }
-               }
-            }
+        {
+           "title": "Request Body Parameters Schema",
+           "type": "object",
+           "additionalProperties": false,
+           "properties": {
+              "isActive": {
+                 "type": "boolean"
+              },
+              "phoneNumber": {
+                 "type": [
+                    "string",
+                    "null"
+                 ],
+                 "minLength": 1,
+                 "maxLength": 23,
+                 "pattern": "^\\+\\d+-\\d+$"
+              },
+              "extension": {
+                 "type": [
+                    "string",
+                    "null"
+                 ],
+                 "minLength": 2,
+                 "maxLength": 20,
+                 "pattern": "^[0-9]+$"
+              },
+              "alias": {
+                 "type": [
+                    "array",
+                    "null"
+                 ],
+                 "maxItems": 3,
+                 "items": {
+                    "type": "string",
+                    "description": "SIP URI",
+                    "pattern": "^[\\+]?[\\w\\-\\.\\!~\\*'\\(\\)]+@[a-zA-Z\\d\\.\\-]+$",
+                    "minLength": 1,
+                    "maxLength": 161
+                 }
+              },
+              "email": {
+                type: "string",
+                minLength: 1,
+                maxLength: 80,
+                format: "email"
+              }
+           }
+        }
         
 + Response 204
     
